@@ -34,5 +34,22 @@
           AND date_format(l.tanggal,'%Y%m%d') <= '$t2'
           ORDER BY tanggal");
        }
+
+       public function input($table,$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal)
+       {
+           $data = array(
+            'nomor' => '',
+            'id_admin' => $_SESSION['id_admin'],
+            'tanggal' => $tanggal,
+            'nama' => $nama,
+            'alamat' => $alamat,
+            'zakat_fitrah' => $zakatFitrah,
+            'beli' => $pembelian,
+            'zakat_mall' => $zakatMal,
+            'infaq' => $infaq,
+            'log_time' => ''
+           );
+           $this->db->insert($table,$data);
+       }
     }
 ?>

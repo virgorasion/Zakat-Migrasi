@@ -11,6 +11,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Miftahul Jannah</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!--Bootstrap Table [ OPTIONAL ]-->
+  <link href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/css/dataTables.bootstrap.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css'); ?>" rel="stylesheet">
+
   <!-- Jquery Confirm -->
   <link rel="stylesheet" href="<?php echo base_url('assets/jquery-confirm/jquery-confirm.min.css')?>">
   <!-- Bootstrap 3.3.6 -->

@@ -56,6 +56,20 @@
         $data['data'] = $this->Lap_zakat_model->sel_date($t1,$t2)->result();
         $this->load->view('prints/zakat_print',$data);
     }
-    
+
+    public function tambahData()
+    {
+        $nama = $this->input->post('nama');
+        $alamat = $this->input->post('alamat');
+        $zakatFitrah = $this->input->post('zakatFitrah');
+        $pembelian = $this->input->post('pembelian');
+        $zakatMal = $this->input->post('zakatMal');
+        $infaq = $this->input->post('infaq');
+        $tanggal = date('Y-m-d');
+
+        $this->Lap_zakat_model->input('list_zakat',$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal);
+        redirect(site_url('zakat_ctrl'));
+    }
+
  }
 ?>

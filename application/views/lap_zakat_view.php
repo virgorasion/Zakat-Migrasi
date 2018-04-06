@@ -36,7 +36,7 @@ $this->load->view('template/side');
 
       <div class="box-body" id="bodyInput">
         <div class="row">
-          <form action="" method="POST">
+          <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
             <div class="form-group">
               <div class="col-sm-2">
                 <input placeholder="Nama" type="text" name="nama" id="nama" class="form-control">
@@ -62,6 +62,7 @@ $this->load->view('template/side');
             </div>
           </form>
         </div>
+        <small class="text-muted">Np: Tekan 'ENTER' pada bagian infaq untuk submit</small>
       </div>
     </div>
 
@@ -101,30 +102,37 @@ $this->load->view('template/side');
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <div class="table-responsive table-scrollable">
-          <table id="datatable" class="table table-bordered table-hover">
+          <table id="datatable" class="table table-bordered table-striped">
             <thead>
               <tr>
                 <th>No.</th>
                 <th>Nama</th>
                 <th>Alamat</th>
-                <th>Zakat Fitrah</th>
-                <th>Pembelian</th>
-                <th>Zakat Mall</th>
-                <th>Infaq</th>
-                <th>Tanggal</th>
-                <th>Action</th>
+                <th class="min-tablet">Zakat Fitrah</th>
+                <th class="min-tablet">Pembelian</th>
+                <th class="min-desktop">Zakat Mall</th>
+                <th class="min-desktop">Infaq</th>
+                <th class="min-desktop">Tanggal</th>
+                <th class="min-desktop">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
-                $no = 1;
+                $no = 0;
                 foreach ($data as $row): 
+                  if ($row->beli == 0) {
+                    $beli = 'Beli';
+                  }else {
+                    $beli = 'Tidak Beli';
+                  }
+                  $tgl = explode('-', $row->tanggal);
+                  $tanggal = $tgl[2].'-'.$tgl[1].'-'.$tgl[0];
+                  $no++;
                 ?>
 
                 <tr>
                   <td class="no">
-                    <?php $no; ?>
+                    <?php echo $no; ?>
                   </td>
                   <td class="nama_cabang">
                     <?php echo $row->nama; ?>
@@ -136,7 +144,7 @@ $this->load->view('template/side');
                     <?php echo $row->zakat_fitrah;?>
                   </td>
                   <td class="nama_kasir">
-                    <?php echo $row->beli;?>
+                    <?php echo $beli;?>
                   </td>
                   <td class="jenis_penjualan">
                     <?php echo number_format((double)$row->zakat_mall,0,"," , ".");?>
@@ -145,7 +153,7 @@ $this->load->view('template/side');
                     <?php echo number_format((double)$row->infaq,0,",",".");?>
                   </td>
                   <td>
-                    <?php echo $row->tanggal;?>
+                    <?php echo $tanggal;?>
                   </td>
                   <td align="center">
 
@@ -184,7 +192,6 @@ $this->load->view('template/side');
               </tr>
             </tfoot>
           </table>
-        </div>
       </div>
     </div>
     <!-- /.box -->
@@ -194,13 +201,19 @@ $this->load->view('template/side');
 </div>
 <!-- /.content-wrapper -->
 <?php
-        $this->load->view('template/foot');
-        $this->load->view('template/controlside');
-        $this->load->view('template/js');
-        ?>
+$this->load->view('template/controlside');
+$this->load->view('template/foot');
+$this->load->view('template/js');
+?>
+ <!--DataTables [ OPTIONAL ]-->
+  <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
+
   <script>
     $(function () {
       $('#datatable').DataTable({
+        "responsive" : true,
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -209,13 +222,32 @@ $this->load->view('template/side');
         "autoWidth": false
       });
 
-      $('#t1').datepicker({
+      $('#infaq').keypress(function(e){
+        if (e.which == 13) {
+          if ($('#nama').val() == '') {
+            alert('Nama Harus Diisi');
+          }else if($('#alamat').val() == ''){
+            alert('Alamat Tidak Boleh Kosong');
+          }else if($('#zakatFitrah').val() == ''){
+            alert('Zakat Fitrah Tidak Boleh Kosong');
+          }else{
+            $('#form').submit();
+          }
+        }
+      })
+
+      $('#t1, #t2').datepicker({
         format: 'dd-mm-yyyy',
         autoclose: true
       });
-      $('#t2').datepicker({
-        format: 'dd-mm-yyyy',
-        autoclose: true
+      
+      $('#zakatMal, #infaq').inputmask('decimal',{
+        digits: 2,
+        placeholder: "0",
+        digitsOptional: false,
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true
       });
 
       $('#btnPrint').click(function () {
@@ -234,5 +266,5 @@ $this->load->view('template/side');
     });
   </script>
   <?php
-        $this->load->view('template/endbody');
-        ?>
+  $this->load->view('template/endbody');
+  ?>
