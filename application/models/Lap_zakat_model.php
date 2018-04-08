@@ -3,7 +3,7 @@
 
     class Lap_zakat_model extends CI_model{
 
-       public function select_zakat($nomor){
+       public function selectEdit($nomor){
        		$sql="SELECT *
 				From list_zakat
 				Where nomor = $nomor
@@ -19,7 +19,7 @@
           AND m.nama = '".$_SESSION['nama']."'
           AND date_format(l.tanggal,'%Y%m%d') >= '$t1'
           AND date_format(l.tanggal,'%Y%m%d') <= '$t2'
-          ORDER BY tanggal");
+          ORDER BY tanggal,nomor DESC");
        }
 
        public function sel_beli($t1, $t2)
@@ -63,6 +63,13 @@
             $this->db->where('nomor', $nomor);
             $this->db->update('list_zakat',$data);
             return true;
+       }
+
+       public function hapus($nomor)
+       {
+           $this->db->where('nomor',$nomor);
+           $this->db->delete('list_zakat');
+           return true;
        }
     }
 ?>

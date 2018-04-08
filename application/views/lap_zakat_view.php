@@ -20,6 +20,29 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
+  <!-- Start Modal Delete -->
+  <div class="modal modal-danger fade" id="modalDelete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Danger Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
   <!-- Start Modal Edit -->
   <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
@@ -183,25 +206,26 @@ $this->load->view('template/side');
                 ?>
 
               <tr>
+              <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                 <td class="no">
                   <?php echo $no; ?>
                 </td>
-                <td class="nama_cabang">
+                <td class="data_nama">
                   <?php echo $row->nama; ?>
                 </td>
-                <td class="no_faktur_jual">
+                <td class="data_alamat">
                   <?php echo $row->alamat;?>
                 </td>
-                <td class="tanggal_transaksi">
+                <td class="zakat_fitrah">
                   <?php echo $row->zakat_fitrah;?> Kg
                 </td>
-                <td class="nama_kasir">
+                <td class="beli">
                   <?php echo $beli;?>
                 </td>
-                <td class="jenis_penjualan">
+                <td class="zakat_mall">
                   <?php echo number_format((double)$row->zakat_mall,0,"," , ".");?>
                 </td>
-                <td class="jenis_pembayaran">
+                <td class="data_infaq">
                   <?php echo number_format((double)$row->infaq,0,",",".");?>
                 </td>
                 <td>
@@ -225,14 +249,12 @@ $this->load->view('template/side');
                     </button>
                   </a>
                   <?php } ?>
-                  <!-- <?php if ($this->session->userdata("17delete")=="1"){?>
-                    <a class ="buttonDelete" href='#'>
+                  <?php if ($this->session->userdata("17delete")=="1"){?>
                       <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                        <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
+                        <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
                         <span class='glyphicon glyphicon-remove'></span>
                         </button>
-                      </a>
-                      <?php } ?> -->
+                      <?php } ?>
 
                 </td>
               </tr>
@@ -265,12 +287,16 @@ $this->load->view('template/js');
 <script>
 $(document).ready(function(){
 });
+
   function edit(nomor){
     var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>"+nomor;
     // console.log(url);
     $.ajax({
       url: url,
       type: 'POST',
+      beforeSend:function(){
+        // loading section
+      },
       success:function(result){
         var data = JSON.parse(result);
         // console.log(data[0]);
@@ -337,6 +363,31 @@ $(document).ready(function(){
       }
       return false;
     });
+
+    $('#datatable').on('click', '[id^=btnDelete]', function() {
+      var $item = $(this).closest("tr");
+      var $nama = $item.find(".data_nama").text();
+      console.log($nama);
+      // $item.find("input[id$='no']").val();
+        // alert("hai");
+      $.confirm({
+        theme: 'supervan',
+        title: 'Hapus Data Ini ?',
+        content: 'Hapus data zakat '+$nama,
+        autoClose: 'Cancel|5000',
+        buttons: {
+            deleteUser: {
+                text: 'Delete',
+                action: function () {
+                  window.location = "zakat_ctrl/hapus/"+$item.find("#id").val();
+                }
+            },
+            Cancel: function () {
+            }
+        }
+      });
+    });
+
   });
 </script>
 <?php

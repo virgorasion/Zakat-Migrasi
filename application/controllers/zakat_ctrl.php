@@ -74,8 +74,14 @@
 
     public function edit($nomor)
     {
-        $data = $this->Lap_zakat_model->select_zakat($nomor)->result();
+        $data = $this->Lap_zakat_model->selectEdit($nomor)->result();
         echo json_encode($data);
+    }
+
+    public function hapus($nomor)
+    {
+        $data = $this->Lap_zakat_model->hapus($nomor);
+        redirect(site_url('zakat_ctrl'));
     }
 
     public function simpanEdit()
