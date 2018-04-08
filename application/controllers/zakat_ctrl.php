@@ -44,11 +44,8 @@
      
     public function laporan_print($t1,$t2)
     {
-        $pieces1 = explode(".",$t1);
-        $pieces2 = explode(".",$t2);
-        $t1 = $pieces1[2].$pieces1[1].$pieces1[0];
-        $t2 = $pieces2[2].$pieces2[1].$pieces2[0];
-        
+        $pieces1 = explode('-',$t1);
+        $pieces2 = explode('-',$t2);        
         $data['t1'] = $pieces1[0].'-'.$pieces1[1].'-'.$pieces1[2];
         $data['t2'] = $pieces2[0].'-'.$pieces2[1].'-'.$pieces2[2];
     
@@ -63,11 +60,38 @@
         $alamat = $this->input->post('alamat');
         $zakatFitrah = $this->input->post('zakatFitrah');
         $pembelian = $this->input->post('pembelian');
-        $zakatMal = $this->input->post('zakatMal');
-        $infaq = $this->input->post('infaq');
+        $Mal = $this->input->post('zakatMal');
+        $pecah1 = explode('.',$Mal);
+        $zakatMal = $pecah1[0].$pecah1[1].$pecah1[2];
+        $faq = $this->input->post('infaq');
+        $pecah2 = explode('.',$faq);
+        $infaq = $pecah2[0].$pecah2[1].$pecah2[2];
         $tanggal = date('Y-m-d');
 
         $this->Lap_zakat_model->input('list_zakat',$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal);
+        redirect(site_url('zakat_ctrl'));
+    }
+
+    public function edit($nomor)
+    {
+        $data = $this->Lap_zakat_model->select_zakat($nomor)->result();
+        echo json_encode($data);
+    }
+
+    public function simpanEdit()
+    {
+        $nomor = $this->input->post('nomor');
+        $namaEdt = $this->input->post('namaEdt');
+        $alamatEdt = $this->input->post('alamatEdt');
+        $zakatFitrahEdt = $this->input->post('zakatFitrahEdt');
+        $pembelianEdt = $this->input->post('pembelianEdt');
+        $Mal = $this->input->post('zakatMalEdt');
+        $pecah1 = explode('.',$Mal);
+        $zakatMalEdt = $pecah1[0].$pecah1[1].$pecah1[2];
+        $faq = $this->input->post('infaqEdt');
+        $pecah2 = explode('.',$faq);
+        $infaqEdt = $pecah2[0].$pecah2[1].$pecah2[2];
+        $this->Lap_zakat_model->ganti($nomor,$namaEdt,$alamatEdt,$zakatFitrahEdt,$pembelianEdt,$zakatMalEdt,$infaqEdt);
         redirect(site_url('zakat_ctrl'));
     }
 

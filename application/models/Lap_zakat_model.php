@@ -3,11 +3,10 @@
 
     class Lap_zakat_model extends CI_model{
 
-       public function select_zakat($tanggal){
+       public function select_zakat($nomor){
        		$sql="SELECT *
-				        From list_zakat
-				        Where nomor
-                AND tanggal = '$tanggal'
+				From list_zakat
+				Where nomor = $nomor
                 ORDER BY nomor desc";
             $query = $this->db->query($sql);
 			     return $query;
@@ -50,6 +49,20 @@
             'log_time' => ''
            );
            $this->db->insert($table,$data);
+       }
+       public function ganti($nomor,$namaEdt,$alamatEdt,$zakatFitrahEdt,$pembelianEdt,$zakatMalEdt,$infaqEdt)
+       {
+            $data = array(
+                'nama' => $namaEdt,
+                'alamat' => $alamatEdt,
+                'zakat_fitrah' => $zakatFitrahEdt,
+                'beli' => $pembelianEdt,
+                'zakat_mall' => $zakatMalEdt,
+                'infaq' => $infaqEdt
+            );
+            $this->db->where('nomor', $nomor);
+            $this->db->update('list_zakat',$data);
+            return true;
        }
     }
 ?>

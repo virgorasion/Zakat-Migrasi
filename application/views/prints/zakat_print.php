@@ -7,17 +7,17 @@
     
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!--jQuery-->
-    <script src="<?php echo base_url('user_guide/_static/jquery-1.11.1.js')?>"></script>
+    <script src="<?php echo base_url('user_guide/_static/jquery-1.11.1.js');?>"></script>
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css')?>">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/ionicons-2.0.1/css/ionicons.min.css')?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/ionicons-2.0.1/css/ionicons.min.css');?>">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/AdminLTE.min.css')?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/AdminLTE.min.css');?>">
     
-    <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/skins/_all-skins.min.css')?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/skins/_all-skins.min.css');?>">
     
   </head>
   <body onload="window.print();">
@@ -44,11 +44,11 @@
               <th>Zakat Mall</th>
               <th>Infaq</th>
               <th>Tanggal</th>
-              <th>Pembuat</th>
             </tr>
           </thead>
           <tbody>
             <?php
+            error_reporting(0); // Hilangkan untuk jika dalam mode develop
             $no = 1;
             $hasil = '';
             $beli = 0;
@@ -59,12 +59,16 @@
               $totBeli = $value->zakat;
             }
             foreach ($data as $row):
+              $tgl = explode('-',$row->tanggal);
+              $tanggal = $tgl[1].'-'.$tgl[2];
               $hasil = $row->beli;
               $zakat += $row->zakat_mall;
               $infaq += $row->infaq;
-              if($hasil == "Beli"){
+              if($hasil == "0"){
+                $pembelian = "Beli";
               $beli += count($beli);
             }else{
+              $pembelian = "Tidak";
               $tidak += count($beli);
             }
             ?>
@@ -73,11 +77,10 @@
               <td class="nama_cabang"><?php echo $row->nama; ?></td>
               <td class="no_faktur_jual"><?php echo $row->alamat;?></td>
               <td class="tanggal_transaksi"><?php echo $row->zakat_fitrah;?></td>
-              <td class="nama_kasir"><?php echo $hasil ?></td>
+              <td class="nama_kasir"><?php echo $pembelian ?></td>
               <td class="jenis_penjualan"><?php echo number_format((double)$row->zakat_mall,0,"," , ".");?></td>
               <td class="jenis_pembayaran"><?php echo number_format((double)$row->infaq,0,",",".");?></td>
-              <td><?php echo $row->tanggal;?></td>
-              <td><?php echo $row->admin;?></td>
+              <td><?php echo $tanggal;?></td>
             </tr>
             <?php
             $no++;

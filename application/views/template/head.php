@@ -15,6 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/css/dataTables.bootstrap.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css'); ?>" rel="stylesheet">
 
+  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>">
   <!-- Jquery Confirm -->
   <link rel="stylesheet" href="<?php echo base_url('assets/jquery-confirm/jquery-confirm.min.css')?>">
   <!-- Bootstrap 3.3.6 -->

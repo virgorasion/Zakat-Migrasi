@@ -20,6 +20,58 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
+  <!-- Start Modal Edit -->
+  <div class="modal fade" id="modalEdit">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Edit Zakat</h4>
+        </div>
+        <div class="modal-body">
+        
+          <div class="row">
+          <form action="<?php echo site_url('zakat_ctrl/simpanEdit');?>" method="POST">
+            <div class="form-group">
+              <div class="col-sm-12">
+                <input placeholder="Nama" type="text" name="namaEdt" id="namaEdt" class="form-control">
+              </div>
+              <div class="col-sm-12"><br>
+                <input placeholder="Alamat" type="text" name="alamatEdt" id="alamatEdt" class="form-control">
+              </div>
+              <div class="col-sm-12"><br>
+                <input placeholder="Zakat Fitrah" type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control">
+              </div>
+              <div class="col-sm-12"><br>
+                <select class="form-control" name="pembelianEdt" id="pembelianEdt">
+                  <option value="0">Beli</option>
+                  <option value="1">Tidak</option>
+                </select>
+              </div>
+              <div class="col-sm-12"><br>
+                <input placeholder="Zakat Mall" type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control">
+              </div>
+              <div class="col-sm-12"><br>
+                <input placeholder="Infaq" type="text" name="infaqEdt" id="infaqEdt" class="form-control">
+              </div>
+            </div>
+            <input type="hidden" name="nomor" id="nomor" value="">
+        </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
     <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Form Input</h3>
@@ -39,7 +91,7 @@ $this->load->view('template/side');
           <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
             <div class="form-group">
               <div class="col-sm-2">
-                <input placeholder="Nama" type="text" name="nama" id="nama" class="form-control">
+                <input placeholder="Nama" type="text" name="nama" id="nama" class="form-control" autofocus>
               </div>
               <div class="col-sm-2">
                 <input placeholder="Alamat" type="text" name="alamat" id="alamat" class="form-control">
@@ -77,7 +129,7 @@ $this->load->view('template/side');
           <?php echo $_SESSION['msg'];?>
         </div>
         <?php } ?>
-        <form method="post" action="<?php echo site_url(" /zakat_ctrl/index ")?>" id="formsearch">
+        <form method="post" action="<?php echo site_url("/zakat_ctrl/index ")?>" id="formsearch">
 
           <div class="col-sm-12">
             <div class="form-inline col-sm-4">
@@ -102,22 +154,22 @@ $this->load->view('template/side');
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-          <table id="datatable" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th class="min-tablet">Zakat Fitrah</th>
-                <th class="min-tablet">Pembelian</th>
-                <th class="min-desktop">Zakat Mall</th>
-                <th class="min-desktop">Infaq</th>
-                <th class="min-desktop">Tanggal</th>
-                <th class="min-desktop">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
+        <table id="datatable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Nama</th>
+              <th class="min-tablet">Alamat</th>
+              <th class="min-tablet">Zakat Fitrah</th>
+              <th class="min-tablet">Pembelian</th>
+              <th class="min-desktop">Zakat Mall</th>
+              <th class="min-desktop">Infaq</th>
+              <th class="min-desktop">Tanggal</th>
+              <th class="min-desktop">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
                 $no = 0;
                 foreach ($data as $row): 
                   if ($row->beli == 0) {
@@ -130,50 +182,50 @@ $this->load->view('template/side');
                   $no++;
                 ?>
 
-                <tr>
-                  <td class="no">
-                    <?php echo $no; ?>
-                  </td>
-                  <td class="nama_cabang">
-                    <?php echo $row->nama; ?>
-                  </td>
-                  <td class="no_faktur_jual">
-                    <?php echo $row->alamat;?>
-                  </td>
-                  <td class="tanggal_transaksi">
-                    <?php echo $row->zakat_fitrah;?>
-                  </td>
-                  <td class="nama_kasir">
-                    <?php echo $beli;?>
-                  </td>
-                  <td class="jenis_penjualan">
-                    <?php echo number_format((double)$row->zakat_mall,0,"," , ".");?>
-                  </td>
-                  <td class="jenis_pembayaran">
-                    <?php echo number_format((double)$row->infaq,0,",",".");?>
-                  </td>
-                  <td>
-                    <?php echo $tanggal;?>
-                  </td>
-                  <td align="center">
+              <tr>
+                <td class="no">
+                  <?php echo $no; ?>
+                </td>
+                <td class="nama_cabang">
+                  <?php echo $row->nama; ?>
+                </td>
+                <td class="no_faktur_jual">
+                  <?php echo $row->alamat;?>
+                </td>
+                <td class="tanggal_transaksi">
+                  <?php echo $row->zakat_fitrah;?> Kg
+                </td>
+                <td class="nama_kasir">
+                  <?php echo $beli;?>
+                </td>
+                <td class="jenis_penjualan">
+                  <?php echo number_format((double)$row->zakat_mall,0,"," , ".");?>
+                </td>
+                <td class="jenis_pembayaran">
+                  <?php echo number_format((double)$row->infaq,0,",",".");?>
+                </td>
+                <td>
+                  <?php echo $tanggal;?>
+                </td>
+                <td align="center">
 
-                    <?php if ($this->session->userdata("17view")=="1"){?>
-                    <a href="#">
-                      <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
-                      <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
-                        <span class='glyphicon glyphicon-print'></span>
-                      </button>
-                    </a>
-                    <?php } ?>
-                    <?php if ($this->session->userdata("17edit")=="1"){?>
-                    <a href='#'>
-                      <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                      <button class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#myModal' id="btnEdit">
-                        <span class='glyphicon glyphicon-pencil'></span>
-                      </button>
-                    </a>
-                    <?php } ?>
-                    <!-- <?php if ($this->session->userdata("17delete")=="1"){?>
+                  <?php if ($this->session->userdata("17view")=="1"){?>
+                  <a href="#">
+                    <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
+                    <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
+                      <span class='glyphicon glyphicon-print'></span>
+                    </button>
+                  </a>
+                  <?php } ?>
+                  <?php if ($this->session->userdata("17edit")=="1"){?>
+                  <a href='#'>
+                    <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
+                    <button onclick="edit(<?php echo $row->nomor; ?>)" id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit'>
+                      <span class='glyphicon glyphicon-pencil'></span>
+                    </button>
+                  </a>
+                  <?php } ?>
+                  <!-- <?php if ($this->session->userdata("17delete")=="1"){?>
                     <a class ="buttonDelete" href='#'>
                       <span data-placement='top' data-toggle='tooltip' title='Delete'>
                         <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
@@ -182,16 +234,16 @@ $this->load->view('template/side');
                       </a>
                       <?php } ?> -->
 
-                  </td>
-                </tr>
-                <?php endforeach ?>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td>Total :</td>
+                </td>
               </tr>
-            </tfoot>
-          </table>
+              <?php endforeach ?>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Total :</td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
     <!-- /.box -->
@@ -205,66 +257,88 @@ $this->load->view('template/controlside');
 $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
- <!--DataTables [ OPTIONAL ]-->
-  <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
-	<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
+<!--DataTables [ OPTIONAL ]-->
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
 
-  <script>
-    $(function () {
-      $('#datatable').DataTable({
-        "responsive" : true,
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-      });
+<script>
+$(document).ready(function(){
+});
+  function edit(nomor){
+    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>"+nomor;
+    // console.log(url);
+    $.ajax({
+      url: url,
+      type: 'POST',
+      success:function(result){
+        var data = JSON.parse(result);
+        // console.log(data[0]);
+        $('#nomor').val(data[0].nomor);
+        $('#namaEdt').val(data[0].nama);
+        $('#alamatEdt').val(data[0].alamat);
+        $('#zakatFitrahEdt').val(data[0].zakat_fitrah);
+        $('#pembelianEdt').val(data[0].beli);
+        $('#zakatMalEdt').val(data[0].zakat_mall);
+        $('#infaqEdt').val(data[0].infaq);
+      }
+    })
+  }
 
-      $('#infaq').keypress(function(e){
-        if (e.which == 13) {
-          if ($('#nama').val() == '') {
-            alert('Nama Harus Diisi');
-          }else if($('#alamat').val() == ''){
-            alert('Alamat Tidak Boleh Kosong');
-          }else if($('#zakatFitrah').val() == ''){
-            alert('Zakat Fitrah Tidak Boleh Kosong');
-          }else{
-            $('#form').submit();
-          }
-        }
-      })
-
-      $('#t1, #t2').datepicker({
-        format: 'dd-mm-yyyy',
-        autoclose: true
-      });
-      
-      $('#zakatMal, #infaq').inputmask('decimal',{
-        digits: 2,
-        placeholder: "0",
-        digitsOptional: false,
-        radixPoint: ",",
-        groupSeparator: ".",
-        autoGroup: true
-      });
-
-      $('#btnPrint').click(function () {
-        var tanggal1 = '<?php echo str_replace(' - ','.
-        ',$t1); ?>';
-        var tanggal2 = '<?php echo str_replace(' - ','.
-        ',$t2); ?>';
-        var url = '<?php echo site_url("/zakat_ctrl/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
-        console.log(url);
-        newwindow = window.open(url, 'Print', 'height=500,width=1100');
-        if (window.focus) {
-          newwindow.focus()
-        }
-        return false;
-      });
+  $(function () {
+    $('#datatable').DataTable({
+      "responsive": true,
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
     });
-  </script>
-  <?php
+
+    $('#infaq').keypress(function (e) {
+      if (e.which == 13) {
+        if ($('#nama').val() == '') {
+          alert('Nama Harus Diisi');
+        } else if ($('#alamat').val() == '') {
+          alert('Alamat Tidak Boleh Kosong');
+        } else if ($('#zakatFitrah').val() == '') {
+          alert('Zakat Fitrah Tidak Boleh Kosong');
+        } else {
+          $('#form').submit();
+        }
+      }
+    })
+
+    $('#t1, #t2').datepicker({
+      format: 'dd-mm-yyyy',
+      autoclose: true
+    });
+
+    $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt').inputmask('decimal', {
+      digits: 2,
+      placeholder: "0",
+      digitsOptional: true,
+      radixPoint: ",",
+      groupSeparator: ".",
+      autoGroup: true
+    });
+
+    $('#btnPrint').click(function () {
+      var tanggal1 = '<?php echo str_replace(' - ','.
+      ',$t1); ?>';
+      var tanggal2 = '<?php echo str_replace(' - ','.
+      ',$t2); ?>';
+      var url = '<?php echo site_url("/zakat_ctrl/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
+      console.log(url);
+      newwindow = window.open(url, 'Print', 'height=500,width=1100');
+      if (window.focus) {
+        newwindow.focus()
+      }
+      return false;
+    });
+  });
+</script>
+<?php
   $this->load->view('template/endbody');
   ?>
