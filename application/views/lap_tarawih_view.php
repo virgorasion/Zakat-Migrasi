@@ -248,6 +248,10 @@ $this->load->view('template/js');
       autoclose: true
     });
 
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-success").slideUp(500);
+    });
+
     $('#addJumlah,#editJumlah').inputmask('decimal', {
       digits: 2,
       placeholder: "0",

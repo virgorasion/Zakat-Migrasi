@@ -59,12 +59,6 @@
         $this->load->view('prints/tarawih_print',$data);
     }
 
-    public function dataTambah()
-    {
-        $data = $this->Lap_tarawih_model->selTambah();
-        echo json_encode($data);
-    }
-
     public function tambah(){
         $pcs = explode('.',$this->input->post('addJumlah'));
         $jumlah = $pcs[0].$pcs[1].$pcs[2];
@@ -76,12 +70,14 @@
             'jumlah' => $jumlah
         );
         $this->Lap_tarawih_model->tambah($data);
+        $this->session->set_flashdata('msg','Berhasil Menambah Data');
         redirect(site_url('tarawih_php'));
     }
 
     public function hapus($id)
     {
         $this->Lap_tarawih_model->hapus($id);
+        $this->session->set_flashdata('msg','Berhasil Hapus Data');
         redirect(site_url('tarawih_php'));
     }
 
@@ -98,6 +94,7 @@
         );
         $key = $this->input->post('idEdit');
         $this->Lap_tarawih_model->editData($data,$key);
+        $this->session->set_flashdata('msg','Berhasil Edit Data');
         redirect(site_url('tarawih_php'));
     }
     
