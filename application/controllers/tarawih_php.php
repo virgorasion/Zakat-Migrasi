@@ -1,7 +1,9 @@
 <?php 
     defined('BASEPATH') or exit('Error');
 
+    
     class Tarawih_php extends CI_controller{
+        private $model = "Lap_tarawih_model";
 
         public function __construct(){
             parent::__construct();
@@ -44,8 +46,9 @@
      
     public function laporan_print($t1,$t2)
     {
-        $pieces1 = explode(".",$t1);
-        $pieces2 = explode(".",$t2);
+        error_reporting(0);
+        $pieces1 = explode("-",$t1);
+        $pieces2 = explode("-",$t2);
         $t1 = $pieces1[2].$pieces1[1].$pieces1[0];
         $t2 = $pieces2[2].$pieces2[1].$pieces2[0];
         
@@ -54,6 +57,48 @@
     
         $data['data'] = $this->Lap_tarawih_model->sel_date($t1,$t2)->result();
         $this->load->view('prints/tarawih_print',$data);
+    }
+
+    public function dataTambah()
+    {
+        $data = $this->Lap_tarawih_model->selTambah();
+        echo json_encode($data);
+    }
+
+    public function tambah(){
+        $pcs = explode('.',$this->input->post('addJumlah'));
+        $jumlah = $pcs[0].$pcs[1].$pcs[2];
+
+        $data = array(
+            'id_admin' => $_SESSION['id_admin'],
+            'petugas' => $this->input->post('addPetugas'),
+            'tanggal' => date('Y-m-d'),
+            'jumlah' => $jumlah
+        );
+        $this->Lap_tarawih_model->tambah($data);
+        redirect(site_url('tarawih_php'));
+    }
+
+    public function hapus($id)
+    {
+        $this->Lap_tarawih_model->hapus($id);
+        redirect(site_url('tarawih_php'));
+    }
+
+    public function editData()
+    {
+        $pcs = explode('.',$this->input->post('editJumlah'));
+        $jumlah = $pcs[0].$pcs[1].$pcs[2];
+
+        $data = array(
+            'id_admin' => $_SESSION['id_admin'],
+            'petugas' => $this->input->post('editPetugas'),
+            'jumlah' => $jumlah,
+            'log_time' => date('Y-m-d H:i:s')
+        );
+        $key = $this->input->post('idEdit');
+        $this->Lap_tarawih_model->editData($data,$key);
+        redirect(site_url('tarawih_php'));
     }
     
  }

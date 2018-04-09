@@ -3,7 +3,7 @@
 
     class Lap_zakat_model extends CI_model{
 
-       public function selectEdit($nomor){
+       public function select_zakat($nomor){
        		$sql="SELECT *
 				From list_zakat
 				Where nomor = $nomor

@@ -37,7 +37,7 @@
             <thead>
             <tr>
               <th>No.</th>
-              <th>Nama</th>
+              <th>Petugas</th>
               <th>Tanggal</th>
               <th>Jumlah</th>
               <th>Log Time</th>
@@ -49,7 +49,7 @@
         foreach ($data as $row): ?>
                     <tr>                              
                         <td class="no"><?php echo $row->nomor; ?></td>
-                        <td class="nama"><?php echo $row->admin; ?></td>
+                        <td class="nama"><?php echo $row->petugas; ?></td>
                         <td class="tanggal"><?php echo $row->tanggal;?></td>
                         <td class="jumlah"><?php echo number_format((double)$row->jumlah,0,"," , ".");?></td>
                         <td class="logtime"><?php echo $row->log_time;?></td>

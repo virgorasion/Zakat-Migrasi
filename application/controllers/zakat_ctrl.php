@@ -69,12 +69,13 @@
         $tanggal = date('Y-m-d');
 
         $this->Lap_zakat_model->input('list_zakat',$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal);
+        $this->session->set_flashdata('msg', 'Berhasil Menambah Data');
         redirect(site_url('zakat_ctrl'));
     }
 
     public function edit($nomor)
     {
-        $data = $this->Lap_zakat_model->selectEdit($nomor)->result();
+        $data = $this->Lap_zakat_model->zakat_select($nomor)->result();
         echo json_encode($data);
     }
 

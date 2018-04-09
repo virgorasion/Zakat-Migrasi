@@ -80,6 +80,7 @@ $this->load->view('template/side');
               </div>
             </div>
             <input type="hidden" name="nomor" id="nomor" value="">
+            <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
         </div>
 
         </div>
@@ -110,6 +111,13 @@ $this->load->view('template/side');
       </div>
 
       <div class="box-body" id="bodyInput">
+        <?php if (isset($_SESSION['msg'])) {?>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+              <h5><span class='glyphicon glyphicon-ok'></span> Info!</h5>
+            <?php echo $_SESSION['msg'];?>
+          </div>
+        <?php } ?>
         <div class="row">
           <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
             <div class="form-group">
@@ -144,14 +152,6 @@ $this->load->view('template/side');
     <!-- Default box -->
     <div class="box box-success">
       <div class="box-header">
-        <?php if (isset($_SESSION['msg'])) {?>
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-          <?php echo $_SESSION['msg'];?>
-        </div>
-        <?php } ?>
         <form method="post" action="<?php echo site_url("/zakat_ctrl/index ")?>" id="formsearch">
 
           <div class="col-sm-12">
@@ -206,11 +206,10 @@ $this->load->view('template/side');
                 ?>
 
               <tr>
-              <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                 <td class="no">
                   <?php echo $no; ?>
                 </td>
-                <td class="data_nama">
+                <td class="nama">
                   <?php echo $row->nama; ?>
                 </td>
                 <td class="data_alamat">
@@ -232,7 +231,8 @@ $this->load->view('template/side');
                   <?php echo $tanggal;?>
                 </td>
                 <td align="center">
-
+                  <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
+                  <input type="hidden" name="data_nama" id="data_nama" value="<?php echo $row->nama ?>">
                   <?php if ($this->session->userdata("17view")=="1"){?>
                   <a href="#">
                     <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
@@ -366,7 +366,7 @@ $(document).ready(function(){
 
     $('#datatable').on('click', '[id^=btnDelete]', function() {
       var $item = $(this).closest("tr");
-      var $nama = $item.find(".data_nama").text();
+      var $nama = $item.find("#data_nama").val();
       console.log($nama);
       // $item.find("input[id$='no']").val();
         // alert("hai");
