@@ -45,16 +45,16 @@
             </tr>
             </thead>
             <tbody>
-                <?php 
+                <?php $no = 1;
         foreach ($data as $row): ?>
                     <tr>                              
-                        <td class="no"><?php echo $row->nomor; ?></td>
+                        <td class="no"><?php echo $no; ?></td>
                         <td class="nama"><?php echo $row->admin; ?></td>
                         <td class="tanggal"><?php echo $row->tanggal;?></td>
                         <td class="jumlah"><?php echo number_format((double)$row->jumlah,0,"," , ".");?></td>
                         <td class="logtime"><?php echo $row->log_time;?></td>
                     </tr>
-                <?php 
+                <?php $no ++;
         endforeach
         ?>
             </tbody>

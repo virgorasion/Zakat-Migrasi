@@ -20,7 +20,6 @@
                 $pieces2 = explode("-",$data['t2']);
                 $t1 = $pieces1[2].$pieces1[1].$pieces1[0];
                 $t2 = $pieces2[2].$pieces2[1].$pieces2[0];
-                $data['no'] = $this->getNomor();
                 $data['data'] = $this->Lap_ahad_dhuha_model->sel_date($t1,$t2)->result();
                 $this->load->view('lap_ahad_dhuha_view',$data);
             }
@@ -70,19 +69,24 @@
         $jumlah = str_replace('.', '', $this->input->post('jumlah'));
         date_default_timezone_set("Asia/Jakarta");
         $logtime = date('Y-m-d H:i:s');
-        $data = array(
-            'nomor'=>$no,
+        if ($this->input->post('action')=="add") {
+            $data = array(
             'id_admin'=>$kode_user,
             'tanggal'=>$tanggal,
             'jumlah'=>$jumlah,
             'log_time'=>$logtime
         );
-        if ($this->input->post('action')=="add") {
             $this->Lap_ahad_dhuha_model->insert($no,'lap_ahad_dhuha',$data);
-            $this->session->set_flashdata('msg','Berhasil Membuat');
+            $this->session->set_flashdata('msg','Berhasil Membuat Data');
         }else{
+            $data = array(
+            'id_admin'=>$kode_user,
+            'tanggal'=>$tanggal,
+            'jumlah'=>$jumlah,
+            'log_time'=>$logtime
+        );
             $this->Lap_ahad_dhuha_model->update($no,'lap_ahad_dhuha',$data);
-            $this->session->set_flashdata('msg','Berhasil Update');
+            $this->session->set_flashdata('msg','Berhasil Update Data');
         }
         redirect(site_url('/ahad_dhuha'));
     }
@@ -90,7 +94,7 @@
     public function delete(){
         $no = $this->uri->segment(3);
         $this->Lap_ahad_dhuha_model->delete($no,'lap_ahad_dhuha');
-        $this->session->set_flashdata('msg','Berhasil Delete');
+        $this->session->set_flashdata('msg','Berhasil Delete Data');
         redirect(site_url('/ahad_dhuha'));
     }
     public function printstruk($no)
@@ -103,22 +107,6 @@
         $data['data'] = $this->Lap_ahad_dhuha_model->data_struk()->result();
         $data['act'] = "add";
         $this->load->view('prints/lap_ahad_dhuha_struk.php',$data);
-    }
-
-    public function getNomor()
-    {
-        $nomor = $this->Lap_ahad_dhuha_model->getNomor()->result();
-        foreach($nomor as $no){
-            $nomor_baru = $no->nomor;
-        }
-        $pecah = substr($nomor_baru,-1);
-        if ($nomor == 0) {
-            $createNomor = "DHUHA".str_pad("1", 5, 0, STR_PAD_LEFT);
-        }else{
-            $createNomor = "DHUHA".str_pad($pecah+1, 5,0,STR_PAD_LEFT);
-        }
-
-        return $createNomor;
     }
 
  }

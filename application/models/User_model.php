@@ -3,7 +3,7 @@
     class User_model extends CI_model{
         
         function process_login($username,$password){
-            $con = "SELECT * FROM master_login WHERE username='$username' AND password='$password'";
+            $con = "SELECT * FROM master_login WHERE username='$username' AND password='$password' AND status_aktif=1";
             $result = $this->db->query($con);
             return $result;
         }

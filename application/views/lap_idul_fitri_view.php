@@ -23,7 +23,7 @@ $this->load->view('template/side');
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- form start -->
-          <form class="form-horizontal" action="<?php echo site_url('ahad_dhuha/update')?>" method="post">
+          <form class="form-horizontal" action="<?php echo site_url('Amal_idul_fitri/aksi')?>" method="post">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title" id="myModalLabel">Laporan Amal Ahad Dhuha</h4>
@@ -36,30 +36,12 @@ $this->load->view('template/side');
           $admin = $_SESSION['id_admin'] ;
           ?>
           
-                       <input type="hidden" class="form-control" id="kode_user" name="kode_user" value="<?php echo $admin ;?>">
+                       <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?php echo $admin ;?>">
                  
           <?php
           }
           ?>
                   
-          <?php
-          {
-          $nama = $_SESSION['nama'] ;
-          ?>
-          
-                       <input type="hidden" class="form-control" id="kode_cabang" name="kode_cabang" value="<?php echo $nama ;?>">
-                 
-          <?php
-          }
-          ?>
-        
-          <div class="form-group">
-                    <label  class="col-sm-3 control-label">Nomor</label>
-                    <div class="col-sm-9">
-                          <input type="text" class="form-control" id="nomor" name="nomor" readonly>
-                    </div>
-                  </div>
-          
         <div class="form-group">
                   <label class="col-sm-3 control-label">Nama</label>
                   <div class="col-sm-9">
@@ -79,12 +61,10 @@ $this->load->view('template/side');
                       <input type="text" class="form-control" id="jumlah" name="jumlah" required autofocus="on">
                     </div>
                   </div>
-                   
-                  <input type="hidden" class="form-control" id="log_time" name="log_time" placeholder="Log Time">
-                    
                 </div>
           </div>
           <div class="modal-footer">
+            <input type="hidden" name="nomor" id="nomor" value="">
             <input type="hidden" name="action" id="action" value="add">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary btnSave">Save changes</button>
@@ -144,12 +124,16 @@ $this->load->view('template/side');
             </tr>
             </thead>
             <tbody>
-                <?php 
-        foreach ($data as $row): ?>
+                <?php $no = 1;
+        foreach ($data as $row): 
+        $pcs = explode('-',$row->tanggal);
+        $tanggal = $pcs[2].'-'.$pcs[1].'-'.$pcs[0]; ?>
                     <tr>                              
-                        <td class="no"><?php echo $row->nomor; ?></td>
+                        <td class="no"><?php echo $no; ?>
+                        <input type="hidden" name="no" id="no" value="<?php echo $row->nomor; ?>">
+                        </td>
                         <td class="nama"><?php echo $row->admin; ?></td>
-                        <td class="tanggal"><?php echo $row->tanggal;?></td>
+                        <td class="tanggal"><?php echo $tanggal;?></td>
                         <td class="jumlah"><?php echo number_format((double)$row->jumlah,0,"," , ".");?></td>
                         <td class="logtime"><?php echo $row->log_time;?></td>
                         <td align="center">
@@ -171,19 +155,19 @@ $this->load->view('template/side');
                                 </button>
                             </a>
               <?php } ?>
-<!-- <?php if ($this->session->userdata("17delete")=="1"){?>
+<?php if ($this->session->userdata("17delete")=="1"){?>
                             <a class ="buttonDelete" href='#'>
                                 <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                                <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
+                                <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
                                 <span class='glyphicon glyphicon-remove'></span>
                                 </button>
                             </a>
-<?php } ?> -->
+<?php } ?>
 
                            
                         </td>
                     </tr>
-                <?php 
+                <?php $no++;
         endforeach
         ?>
             </tbody>
@@ -204,6 +188,7 @@ $this->load->view('template/js');
 <script>
   $(function () { 
     $('#datatable').DataTable({
+      "responsive": true,
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -220,6 +205,27 @@ $this->load->view('template/js');
       format: 'dd-mm-yyyy',
       autoclose: true
     });
+
+    $('#btnNew').click(function(){
+      $('#nama').val('<?php echo $_SESSION['nama']; ?>');
+      $('#tanggal').val('<?php echo date('d-m-Y') ?>');
+    });
+
+    $('#jumlah').inputmask('decimal',{
+      digitsOptional: true,
+      radixPoint: ",",
+      groupSeparator: ".",
+      autoGroup: true
+    });
+
+    $('#datatable').on('click','[id^=btnEdit]',function(){
+      var $item = $(this).closest('tr');
+      $('#nomor').val($.trim($item.find('#no').text()));
+      $('#tanggal').val($.trim($item.find('.tanggal').text()));
+      $('#jumlah').val($.trim($item.find('.jumlah').text()))
+      $('#nama').val($.trim($item.find('.nama').text()));
+      $('#action').val('update');
+    });
    
    $('#btnPrint').click(function() {
       var tanggal1 = '<?php echo str_replace('-','.',$t1); ?>';
@@ -229,6 +235,30 @@ $this->load->view('template/js');
       newwindow=window.open(url,'Print','height=500,width=1100');
       if (window.focus) {newwindow.focus()}
       return false;
+    });
+
+    $('#datatable').on('click', '[id^=btnDelete]', function() {
+      var $item = $(this).closest("tr");
+      var $kode = $item.find("#no").val();
+      var $tanggal = $item.find('.tanggal').text();
+      // $item.find("input[id$='no']").val();
+        // alert("hai");
+      $.confirm({
+        theme: 'supervan',
+        title: 'Hapus Transaksi?',
+        content: 'Anda yakin ingin menghapus laporan nomor '+$tanggal,
+        autoClose: 'Cancel|10000',
+        buttons: {
+            deleteUser: {
+                text: 'Delete',
+                action: function () {
+                  window.location = "Amal_idul_fitri/hapus/"+$kode;
+                }
+            },
+            Cancel: function () {
+            }
+        }
+      });
     });
 
   });

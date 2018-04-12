@@ -10,7 +10,7 @@
           AND m.nama = '".$_SESSION['nama']."'
           AND date_format(l.tanggal,'%Y%m%d') >= '$t1'
           AND date_format(l.tanggal,'%Y%m%d') <= '$t2'
-          ORDER BY tanggal");
+          ORDER BY tanggal, nomor DESC");
        }
        public function getNomor(){
         $sql = "SELECT MAX(nomor) as nomor FROM lap_ahad_dhuha limit 1";
@@ -18,7 +18,6 @@
 
        }
        public function insert($no,$table,$data){
-        $this->db->where('nomor',$no);
         $this->db->insert($table,$data);
         return true;
        }

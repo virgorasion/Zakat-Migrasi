@@ -98,7 +98,7 @@ $this->load->view('template/js');
         $(".alert-sucess").slideUp(500);
     });
     $("#btnBack").click(function (){ 
-       window.location.href = '<?php echo site_url("/Menu_level_ctrl");?>';
+       window.location.href = '<?php echo site_url("/Menu_level_controller");?>';
     });
 	  
   });

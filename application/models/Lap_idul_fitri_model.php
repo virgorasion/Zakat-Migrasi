@@ -10,7 +10,24 @@
           AND m.nama = '".$_SESSION['nama']."'
           AND date_format(l.tanggal,'%Y%m%d') >= '$t1'
           AND date_format(l.tanggal,'%Y%m%d') <= '$t2'
-          ORDER BY tanggal");
+          ORDER BY tanggal, nomor DESC");
+       }
+
+       public function add($data)
+       {
+           $this->db->insert('lap_idul_fitri',$data);
+           return true;
+       }
+       public function ganti($data,$no)
+       {
+           $this->db->where('nomor',$no);
+           $this->db->update('lap_idul_fitri',$data);
+           return true;
+       }
+       public function hapus($key)
+       {
+           $this->db->delete('lap_idul_fitri',$key);
+           return true;
        }
     }
 ?>
