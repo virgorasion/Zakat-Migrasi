@@ -45,16 +45,15 @@ $this->load->view('template/side');
             </tr>
             </thead>
             <tbody>
-              <tr>
-
                 <?php $no=1; foreach($data as $item): ?> 
+              <tr>
                 <td><?php echo $no; ?></td>
-                <td><?php echo $item->kode_akses; ?></td>
+                <td class="kode_akses"><?php echo $item->kode_akses; ?></td>
                 <td><?php echo $item->hak_akses; ?></td>
                 <td><?php echo $item->keterangan; ?></td>
-                <td><a href="<?php echo site_url('Menu_level_controller/Menu_setting/').$item->kode_akses; ?>"><button class="btn btn-warning btn-xs"><i class="fa fa-gear"></i></button></a></td>
-              <?php $no++; endforeach ?>
+                <td><button id="btnEdit" class="btn btn-warning btn-xs"><i class="fa fa-gear"></i></button></td>
               </tr>
+              <?php $no++; endforeach ?>
             </tbody>
           </table>
         </div>
@@ -62,6 +61,9 @@ $this->load->view('template/side');
 
 </section><!-- /.content -->
  
+ <form id="formEdit" action="<?php echo site_url('Menu_level/edit') ?>" method="post">
+  <input type="hidden" name="kode_akses" id="kode_akses" value="">
+ </form>
 
  </div>
   <!-- /.content-wrapper -->
@@ -96,11 +98,8 @@ $this->load->view('template/js');
     });
     $('#datatable').on('click', '[id^=btnEdit]', function() {
         var $item = $(this).closest("tr");     
-        $("#kode_akses").val($item.find("input[id$='kode_akses']:hidden:first").val());
-        $("#kode_cabang").val($item.find("input[id$='kode_cabang']:hidden:first").val());
-        $("#hak_akses").val($.trim($item.find(".hak_akses").text()));
-        $("#keterangan").val($.trim($item.find(".keterangan").text()));
-        $("#action").val("edit");
+        $("#kode_akses").val($item.find(".kode_akses").text());
+        $("#formEdit").submit();
     });
   $('#datatable').on('click', '[id^=btnDelete]', function() {
         var $item = $(this).closest("tr");

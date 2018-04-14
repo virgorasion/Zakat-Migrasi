@@ -5,4 +5,9 @@
   <FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css|css)$">
     Header set Access-Control-Allow-Origin "*"
   </FilesMatch>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteRule ^Menu_level/([0-9a-zA-Z]+) $1 [L]
+    RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
