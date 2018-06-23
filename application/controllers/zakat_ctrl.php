@@ -73,6 +73,12 @@
         redirect(site_url('zakat_ctrl'));
     }
 
+    public function edit($nomor)
+    {
+        $data = $this->Lap_zakat_model->zakat_select($nomor)->result();
+        echo json_encode($data);
+    }
+
     public function hapus($nomor)
     {
         $data = $this->Lap_zakat_model->hapus($nomor);
@@ -85,8 +91,7 @@
         $nomor = $this->input->post('nomor');
         $namaEdt = $this->input->post('namaEdt');
         $alamatEdt = $this->input->post('alamatEdt');
-        $zakat = explode(' ',$this->input->post('zakatFitrahEdt'));
-        $zakatFitrahEdt = $zakat[0];
+        $zakatFitrahEdt = $this->input->post('zakatFitrahEdt');
         $pembelianEdt = $this->input->post('pembelianEdt');
         $Mal = $this->input->post('zakatMalEdt');
         $pecah1 = explode('.',$Mal);

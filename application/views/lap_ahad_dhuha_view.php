@@ -54,6 +54,13 @@ $date = date("d-m-Y H:i:s");
           }
           ?>
         
+          <div class="form-group">
+                    <label  class="col-sm-3 control-label">Nomor</label>
+                    <div class="col-sm-9">
+                          <input type="text" class="form-control" id="nomor" name="nomor" readonly>
+                    </div>
+                  </div>
+          
         <div class="form-group">
                   <label class="col-sm-3 control-label">Nama</label>
                   <div class="col-sm-9">
@@ -79,7 +86,6 @@ $date = date("d-m-Y H:i:s");
                 </div>
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="nomor" id="nomor" value="">
             <input type="hidden" name="action" id="action" value="add">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary btnSave">Save changes</button>
@@ -141,11 +147,11 @@ $date = date("d-m-Y H:i:s");
             </tr>
             </thead>
             <tbody>
-                <?php $no = 1;
+                <?php 
         foreach ($data as $row): ?>
                     <tr>                              
                         <td class="no">
-                        <?php echo $no; ?>
+                        <?php echo $row->nomor; ?>
                           <input type="hidden" name="no" id="no" value="<?php echo $row->nomor ;?>">
                         </td>
                         <td class="nama">
@@ -183,19 +189,19 @@ $date = date("d-m-Y H:i:s");
                                 </button>
                             </a>
               <?php } ?>
-<?php if ($this->session->userdata("17delete")=="1"){?>
+<!-- <?php if ($this->session->userdata("17delete")=="1"){?>
                             <a class ="buttonDelete" href='#'>
                                 <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                                <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
+                                <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
                                 <span class='glyphicon glyphicon-remove'></span>
                                 </button>
                             </a>
-<?php } ?>
+<?php } ?> -->
 
                            
                         </td>
                     </tr>
-                <?php $no++; endforeach; ?>
+                <?php endforeach; ?>
             </tbody>
           </table>
         </div>
@@ -240,8 +246,8 @@ $this->load->view('template/js');
     });
     
     $("#btnNew").click(function (){ 
-      var $item = $(this).closest('tr');
     $("#action").val("add");
+    $("#nomor").val("<?php echo $no; ?>");
     $("#kode_user").val();
     $("#nama").val("<?php echo $_SESSION['nama'];?>");
     $("#tanggal").val("<?php echo date("d-m-Y");?>");
@@ -257,7 +263,7 @@ $this->load->view('template/js');
 
     $('#datatable').on('click', '[id^=btnEdit]', function() {
         var $item = $(this).closest("tr");
-        $("#nomor").val($.trim($item.find("#no").val()));
+        $("#nomor").val($.trim($item.find(".no").text()));
         $("#nama").val($.trim($item.find(".nama").text()));
         $("#jumlah").val($.trim($item.find(".jumlah").text()));
         $("#tanggal").val($.trim($item.find(".tanggal").text()));
@@ -310,20 +316,19 @@ $this->load->view('template/js');
     });
     $('#datatable').on('click', '[id^=btnDelete]', function() {
       var $item = $(this).closest("tr");
-      var $kode = $item.find("#no").val();
-      var $tanggal = $item.find('.tanggal').text();
+      var $kode = $item.find(".no").text();
       // $item.find("input[id$='no']").val();
         // alert("hai");
       $.confirm({
         theme: 'supervan',
         title: 'Hapus Transaksi?',
-        content: 'Anda yakin ingin menghapus laporan nomor '+$tanggal,
+        content: 'Anda yakin ingin menghapus laporan nomor '+$kode,
         autoClose: 'Cancel|10000',
         buttons: {
             deleteUser: {
                 text: 'Delete',
                 action: function () {
-                  window.location = "ahad_dhuha/delete/"+$kode;
+                  window.location = "ahad_dhuha/delete/"+$item.find("input[id$='no']").val();
                 }
             },
             Cancel: function () {

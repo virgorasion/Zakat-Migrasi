@@ -20,7 +20,7 @@ $this->load->view('template/side');
 <section class="content">
     <!-- Default box -->
     <div class="box">        
-        <form action="<?php echo site_url("/Menu_level_ctrl/update");?>" method="post">
+        <form action="<?php echo site_url("/Menu_level_controller/update");?>" method="post">
         <div class="box-header">
           <h3 class="box-title">
             <button type="button" id="btnBack" class="btn">Back</button>
@@ -98,7 +98,7 @@ $this->load->view('template/js');
         $(".alert-sucess").slideUp(500);
     });
     $("#btnBack").click(function (){ 
-       window.location.href = '<?php echo site_url("/Menu_level_controller");?>';
+       window.location.href = '<?php echo site_url("/Menu_level");?>';
     });
 	  
   });

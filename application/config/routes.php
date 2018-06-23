@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['Menu_level'] = 'Menu_level_controller';
+$route['Menu_level/Menu_setting/(:num)'] = 'Menu_level_controller/Menu_setting/$1';

@@ -208,7 +208,6 @@ $this->load->view('template/side');
               <tr>
                 <td class="no">
                   <?php echo $no; ?>
-                  <input type="hidden" name="no" id="no" value="<?php echo $row->nomor ?>">
                 </td>
                 <td class="nama">
                   <?php echo $row->nama; ?>
@@ -221,7 +220,6 @@ $this->load->view('template/side');
                 </td>
                 <td class="beli">
                   <?php echo $beli;?>
-                  
                 </td>
                 <td class="zakat_mall">
                   <?php echo number_format((double)$row->zakat_mall,0,"," , ".");?>
@@ -233,6 +231,7 @@ $this->load->view('template/side');
                   <?php echo $tanggal;?>
                 </td>
                 <td align="center">
+                  <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                   <input type="hidden" name="data_nama" id="data_nama" value="<?php echo $row->nama ?>">
                   <?php if ($this->session->userdata("17view")=="1"){?>
                   <a href="#">
@@ -245,7 +244,7 @@ $this->load->view('template/side');
                   <?php if ($this->session->userdata("17edit")=="1"){?>
                   <a href='#'>
                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                    <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit'>
+                    <button onclick="edit(<?php echo $row->nomor; ?>)" id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit'>
                       <span class='glyphicon glyphicon-pencil'></span>
                     </button>
                   </a>
@@ -289,6 +288,29 @@ $this->load->view('template/js');
 $(document).ready(function(){
 });
 
+  function edit(nomor){
+    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>"+nomor;
+    // console.log(url);
+    $.ajax({
+      url: url,
+      type: 'POST',
+      beforeSend:function(){
+        // loading section
+      },
+      success:function(result){
+        var data = JSON.parse(result);
+        // console.log(data[0]);
+        $('#nomor').val(data[0].nomor);
+        $('#namaEdt').val(data[0].nama);
+        $('#alamatEdt').val(data[0].alamat);
+        $('#zakatFitrahEdt').val(data[0].zakat_fitrah);
+        $('#pembelianEdt').val(data[0].beli);
+        $('#zakatMalEdt').val(data[0].zakat_mall);
+        $('#infaqEdt').val(data[0].infaq);
+      }
+    })
+  }
+
   $(function () {
     $('#datatable').DataTable({
       "responsive": true,
@@ -323,24 +345,6 @@ $(document).ready(function(){
       autoclose: true
     });
 
-    $('#datatable').on('click','[id^=btnEdit]',function(){
-      var $item = $(this).closest('tr');
-      var beli = $.trim($item.find('.beli').text());
-      if (beli == 'Beli') {
-        var pembelian = 0;
-      }else{
-        var pembelian = 1;
-      }
-      console.log(pembelian);
-      $('#namaEdt').val($.trim($item.find('.nama').text()));
-      $('#alamatEdt').val($.trim($item.find('.data_alamat').text()));
-      $('#zakatFitrahEdt').val($.trim($item.find('.zakat_fitrah').text()));
-      $('#pembelianEdt').val(pembelian);
-      $('#zakatMalEdt').val($.trim($item.find('.zakat_mall').text()));
-      $('#infaqEdt').val($.trim($item.find('.data_infaq').text()));
-      $('#nomor').val($.trim($item.find('#no').val()));
-    })
-
     $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt').inputmask('decimal', {
       digits: 2,
       placeholder: "0",
@@ -374,12 +378,12 @@ $(document).ready(function(){
         theme: 'supervan',
         title: 'Hapus Data Ini ?',
         content: 'Hapus data zakat '+$nama,
-        autoClose: 'Cancel|10000',
+        autoClose: 'Cancel|5000',
         buttons: {
             deleteUser: {
                 text: 'Delete',
                 action: function () {
-                  window.location = "zakat_ctrl/hapus/"+$item.find("#no").val();
+                  window.location = "zakat_ctrl/hapus/"+$item.find("#id").val();
                 }
             },
             Cancel: function () {

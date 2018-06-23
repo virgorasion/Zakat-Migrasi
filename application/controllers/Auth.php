@@ -17,13 +17,14 @@ class Auth extends CI_Controller {
     function login()
     {
         $username = $this->input->post('username');
-        $password = $this->input->post('password');
+        $password = md5($this->input->post('password'));
         $cek = $this->User_model->process_login($username,$password);
         if (count($cek->result())>0){ 
             foreach ($cek->result() as $row)
             {                   
                 $this->session->set_userdata("username",$row->username);
                 $this->session->set_userdata("nama",$row->nama);
+                $this->session->set_userdata("kode_cabang",$row->kode_cabang);
                 $this->session->set_userdata("id_admin",$row->id_admin);
                 $this->session->set_userdata("kode_akses",$row->kode_akses);
                 $this->session->set_userdata("menu",$this->generatemenu());
