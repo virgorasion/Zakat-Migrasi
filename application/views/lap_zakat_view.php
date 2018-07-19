@@ -280,14 +280,8 @@ $this->load->view('template/controlside');
 $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
-<!--DataTables [ OPTIONAL ]-->
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
 
 <script>
-$(document).ready(function(){
-});
 
   $(function () {
     $('#datatable').DataTable({
@@ -306,6 +300,7 @@ $(document).ready(function(){
 
     $('#infaq').keypress(function (e) {
       if (e.which == 13) {
+        console.log('tertekan');
         if ($('#nama').val() == '') {
           alert('Nama Harus Diisi');
         } else if ($('#alamat').val() == '') {
@@ -316,7 +311,7 @@ $(document).ready(function(){
           $('#form').submit();
         }
       }
-    })
+    });
 
     $('#t1, #t2').datepicker({
       format: 'dd-mm-yyyy',
@@ -339,7 +334,7 @@ $(document).ready(function(){
       $('#zakatMalEdt').val($.trim($item.find('.zakat_mall').text()));
       $('#infaqEdt').val($.trim($item.find('.data_infaq').text()));
       $('#nomor').val($.trim($item.find('#no').val()));
-    })
+    });
 
     $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt').inputmask('decimal', {
       digits: 2,
