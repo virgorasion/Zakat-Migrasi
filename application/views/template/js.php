@@ -8,6 +8,8 @@
 <!-- DataTables -->
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/jquery.dataTables.min.js')?>"></script>
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
+
 <!-- bootstrap datepicker -->
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datepicker/bootstrap-datepicker.js')?>"></script>
 
@@ -18,12 +20,6 @@
 <script src="<?php echo base_url('assets/jquery-inputmask/jquery.inputmask.bundle.js')?>"></script>
 <!-- Knockout -->
 <script src="<?php echo base_url('assets/knockout/knockout-3.4.1.js')?>"></script>
-
-<script ser="<?php echo base_url('assets/jquery/jquery-3.1.0.min.js')?>"></script>
-
-<script type="text/javascript" src="<?php echo base_url('assets/zebra/rsvp-3.1.0.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/zebra/sha-256.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/zebra/qz-tray.js')?>"></script>
 
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

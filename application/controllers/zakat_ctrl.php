@@ -75,7 +75,7 @@
 
     public function edit($nomor)
     {
-        $data = $this->Lap_zakat_model->zakat_select($nomor)->result();
+        $data = $this->Lap_zakat_model->select_zakat($nomor)->result();
         echo json_encode($data);
     }
 

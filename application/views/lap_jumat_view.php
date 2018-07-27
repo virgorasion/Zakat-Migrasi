@@ -117,26 +117,28 @@ $this->load->view('template/side');
         <?php } ?>
 
         <form method="post" action="<?php echo site_url("jumat_php/index")?>" id="formsearch">
-          <div class="col-xs-1">
+          <div class="col-sm-12">
+          <div class="form-inline col-sm-1">
             <button type="button" class="btn btn-primary" id="btnNew" data-toggle="modal" data-target="#myModal">New</button>
           </div>
-          <h3 class="box-title">
-            <button type="button" class="btn btn-default" id="btnPrint">
-              <i class="fa fa-print"></i> Print</button>
-          </h3>
-
-          <div class="col-xs-1">Dari</div>
-          <div class="col-xs-2">
-            <input type="text" class="form-control" id="t1" name="t1" placeholder="YYYY-MM-DD" value="<?php echo $t1; ?>">
+            <div class="form-inline col-sm-4">
+              Dari :
+              <input type="text" class="form-control" id="t1" name="t1" placeholder="YYYY-MM-DD" value="<?php echo $t1; ?>">
+            </div>
+            <div class="form-inline col-sm-4">
+              Sampai :
+              <input type="text" class="form-control" id="t2" name="t2" placeholder="YYYY-MM-DD" value="<?php echo $t2; ?>">
+            </div>
+            <div class="col-sm-1">
+              <button type="submit" class="btn btn-primary" id="btnSearch">
+                <u>S</u>earch</button>
+            </div>
+            <h3 class="box-title col-sm-1">
+              <button type="button" class="btn btn-default" id="btnPrint">
+                <i class="fa fa-print"></i> Print</button>
+            </h3>
           </div>
-          <div class="col-xs-1">Sampai</div>
-          <div class="col-xs-2">
-            <input type="text" class="form-control" id="t2" name="t2" placeholder="YYYY-MM-DD" value="<?php echo $t2; ?>">
-          </div>
-          <div class="col-xs-1">
-            <button type="submit" class="btn btn-primary" id="btnSearch">
-              <u>S</u>earch</button>
-          </div>
+          
 
       </div>
       <!-- /.box-header -->
@@ -219,12 +221,6 @@ $this->load->view('template/foot');
 $this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
-
-<!--DataTables [ OPTIONAL ]-->
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
-
 
 <script>
   $(function () {

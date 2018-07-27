@@ -90,12 +90,6 @@ $this->load->view('template/js');
             return false;
            });
     });
-  $("#btnNew").click(function (){ 
-    $("#action").val("add");
-        $("#kode_akses").val("");
-        $("#hak_akses").val("");
-        $("#keterangan").val("");
-    });
     $('#datatable').on('click', '[id^=btnEdit]', function() {
         var $item = $(this).closest("tr");     
         $("#kode_akses").val($item.find(".kode_akses").text());

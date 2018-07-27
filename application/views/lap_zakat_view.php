@@ -20,82 +20,6 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
-  <!-- Start Modal Delete -->
-  <div class="modal modal-danger fade" id="modalDelete">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Danger Modal</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-outline">Save changes</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-  <!-- Start Modal Edit -->
-  <div class="modal fade" id="modalEdit">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Edit Zakat</h4>
-        </div>
-        <div class="modal-body">
-        
-          <div class="row">
-          <form action="<?php echo site_url('zakat_ctrl/simpanEdit');?>" method="POST">
-            <div class="form-group">
-              <div class="col-sm-12">
-                <input placeholder="Nama" type="text" name="namaEdt" id="namaEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Alamat" type="text" name="alamatEdt" id="alamatEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Zakat Fitrah" type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <select class="form-control" name="pembelianEdt" id="pembelianEdt">
-                  <option value="0">Beli</option>
-                  <option value="1">Tidak</option>
-                </select>
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Zakat Mall" type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Infaq" type="text" name="infaqEdt" id="infaqEdt" class="form-control">
-              </div>
-            </div>
-            <input type="hidden" name="nomor" id="nomor" value="">
-            <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
-        </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-        </form>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
     <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Form Input</h3>
@@ -112,11 +36,12 @@ $this->load->view('template/side');
 
       <div class="box-body" id="bodyInput">
         <?php if (isset($_SESSION['msg'])) {?>
-          <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-              <h5><span class='glyphicon glyphicon-ok'></span> Info!</h5>
-            <?php echo $_SESSION['msg'];?>
-          </div>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+          <?php echo $_SESSION['msg'];?>
+        </div>
         <?php } ?>
         <div class="row">
           <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
@@ -152,8 +77,7 @@ $this->load->view('template/side');
     <!-- Default box -->
     <div class="box box-success">
       <div class="box-header">
-        <form method="post" action="<?php echo site_url("/zakat_ctrl/index ")?>" id="formsearch">
-
+        <form method="post" action="<?php echo site_url("/zakat_ctrl/index")?>" id="formsearch">
           <div class="col-sm-12">
             <div class="form-inline col-sm-4">
               Dari :
@@ -172,7 +96,6 @@ $this->load->view('template/side');
                 <i class="fa fa-print"></i> Print</button>
             </h3>
           </div>
-
         </form>
       </div>
       <!-- /.box-header -->
@@ -244,17 +167,19 @@ $this->load->view('template/side');
                   <?php if ($this->session->userdata("17edit")=="1"){?>
                   <a href='#'>
                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                    <button onclick="edit(<?php echo $row->nomor; ?>)" id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit'>
+                    <button onclick="edit(<?php echo $row->nomor; ?>)" id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit'
+                      data-toggle='modal' data-target='#modalEdit'>
                       <span class='glyphicon glyphicon-pencil'></span>
                     </button>
                   </a>
                   <?php } ?>
                   <?php if ($this->session->userdata("17delete")=="1"){?>
-                      <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                        <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
-                        <span class='glyphicon glyphicon-remove'></span>
-                        </button>
-                      <?php } ?>
+                  <span data-placement='top' data-toggle='tooltip' title='Delete'>
+                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
+                      <span class='glyphicon glyphicon-remove'></span>
+                    </button>
+                  </span>
+                  <?php } ?>
 
                 </td>
               </tr>
@@ -272,6 +197,90 @@ $this->load->view('template/side');
   </section>
   <!-- /.content -->
 
+  <!-- Start Modal Delete -->
+  <div class="modal modal-danger fade" id="modalDelete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Danger Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Start Modal Edit -->
+  <div class="modal fade" id="modalEdit">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Edit Zakat</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <form action="<?php echo site_url('zakat_ctrl/simpanEdit');?>" method="POST">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <input placeholder="Nama" type="text" name="namaEdt" id="namaEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Alamat" type="text" name="alamatEdt" id="alamatEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Zakat Fitrah" type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <select class="form-control" name="pembelianEdt" id="pembelianEdt">
+                    <option value="0">Beli</option>
+                    <option value="1">Tidak</option>
+                  </select>
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Zakat Mall" type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Infaq" type="text" name="infaqEdt" id="infaqEdt" class="form-control">
+                </div>
+              </div>
+              <input type="hidden" name="nomor" id="nomor" value="">
+              <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+
 </div>
 <!-- /.content-wrapper -->
 <?php
@@ -279,25 +288,20 @@ $this->load->view('template/controlside');
 $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
-<!--DataTables [ OPTIONAL ]-->
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
 
 <script>
-$(document).ready(function(){
-});
+  $(document).ready(function () {});
 
-  function edit(nomor){
-    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>"+nomor;
+  function edit(nomor) {
+    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>" + nomor;
     // console.log(url);
     $.ajax({
       url: url,
       type: 'POST',
-      beforeSend:function(){
+      beforeSend: function () {
         // loading section
       },
-      success:function(result){
+      success: function (result) {
         var data = JSON.parse(result);
         // console.log(data[0]);
         $('#nomor').val(data[0].nomor);
@@ -322,8 +326,8 @@ $(document).ready(function(){
       "autoWidth": false
     });
 
-    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
-        $(".alert-success").slideUp(500);
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
+      $(".alert-success").slideUp(500);
     });
 
     $('#infaq').keypress(function (e) {
@@ -368,26 +372,25 @@ $(document).ready(function(){
       return false;
     });
 
-    $('#datatable').on('click', '[id^=btnDelete]', function() {
+    $('#datatable').on('click', '[id^=btnDelete]', function () {
       var $item = $(this).closest("tr");
       var $nama = $item.find("#data_nama").val();
       console.log($nama);
       // $item.find("input[id$='no']").val();
-        // alert("hai");
+      // alert("hai");
       $.confirm({
         theme: 'supervan',
         title: 'Hapus Data Ini ?',
-        content: 'Hapus data zakat '+$nama,
+        content: 'Hapus data zakat ' + $nama,
         autoClose: 'Cancel|5000',
         buttons: {
-            deleteUser: {
-                text: 'Delete',
-                action: function () {
-                  window.location = "zakat_ctrl/hapus/"+$item.find("#id").val();
-                }
-            },
-            Cancel: function () {
+          Cancel: function () {},
+          delete: {
+            text: 'Delete',
+            action: function () {
+              window.location = "zakat_ctrl/hapus/" + $item.find("#id").val();
             }
+          }
         }
       });
     });

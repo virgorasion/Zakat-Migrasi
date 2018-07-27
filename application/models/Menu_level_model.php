@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') or exit('ERROR');
-	class Menu_level_model extends CI_model
-	{
+	class Menu_level_model extends CI_model{
 
 		public function data_index()
 		{
