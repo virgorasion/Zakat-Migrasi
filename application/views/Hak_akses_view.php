@@ -22,21 +22,23 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
+    <?php if (isset($_SESSION['msg'])) {?>
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i>Info! </h4>
+      <?php echo $_SESSION['msg'];?>
+    </div>
+    <?php } ?>
+
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-          <h3 class="box-title"><button type="button" class="btn btn-medium btn-block btn-primary" data-toggle="modal" data-target="#modalBaru">New</button></h3>
+        <h3 class="box-title">
+          <button type="button" class="btn btn-medium btn-block btn-primary" data-toggle="modal" data-target="#modalBaru">New</button>
+        </h3>
 
         <h3 class="box-title">
         </h3>
-        <?php if (isset($_SESSION['msg'])) {?>
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <h5>
-            <i class="icon fa fa-ban"></i> Info!</h5>
-          <?php echo $_SESSION['msg'];?>
-        </div>
-        <?php } ?>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -73,7 +75,7 @@ $this->load->view('template/side');
                 <button class="btn btn-warning btn-xs" id="btnEdit" data-toggle="modal" data-target="#modalBaru">
                   <i class="fa fa-gear"></i>
                 </button>
-                <button class="btn btn-danger btn-xs" id="btnDelete" data-toggle="modal" data-target="#modalDel">
+                <button class="btn btn-danger btn-xs" id="btnDelete" data-title="delete">
                   <i class="fa fa-remove"></i>
                 </button>
               </td>
@@ -85,24 +87,25 @@ $this->load->view('template/side');
     </div>
     <!-- /.box -->
 
-<!-- Start Modal Edit -->
+    <!-- Start Modal Edit -->
     <div class="modal fade" id="modalBaru">
-        <div class="modal-dialog">
+      <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
+              <span aria-hidden="true">&times;</span>
+            </button>
             <h4 class="modal-title">Buat Hak Akses</h4>
-            </div>
-            <div class="modal-body">
+          </div>
+          <div class="modal-body">
             <form action="<?php echo site_url('Hak_akses_ctrl/aksi') ?>" id="formBru" method="post">
               <div class="form-group">
-              <label for="hakAkses">Hak Akses :</label>
-              <input type="text" name="hakAkses" id="hakAkses" class="form-control" placeholder="Hak Akses">
+                <label for="hakAkses">Hak Akses :</label>
+                <input type="text" name="hakAkses" id="hakAkses" class="form-control" placeholder="Hak Akses">
               </div>
               <div class="form-group">
-              <label for="keterangan">Keterangan :</label>
-              <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan">
+                <label for="keterangan">Keterangan :</label>
+                <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan">
               </div>
               <div class="form-group">
                 <label for="status">Status Aktif : </label>
@@ -113,16 +116,16 @@ $this->load->view('template/side');
               </div>
               <input type="hidden" name="kodeAkses" id="kodeAkses" value="">
               <input type="hidden" name="action" id="action" value="add">
-            </div>
-            <div class="modal-footer">
+          </div>
+          <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-            </form>
+          </div>
+          </form>
         </div>
         <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal-dialog -->
     </div>
     <!-- /.End Modal Edit -->
 
@@ -161,23 +164,23 @@ $this->load->view('template/js');
       $('#modalBaru').find('#status').val($status);
       $('#modalBaru').find('#action').val('edit');
     });
-    $('#datatable').on('click','[id^=btnDelete]', function(){
+    $('#datatable').on('click', '[id^=btnDelete]', function () {
       $item = $(this).closest('tr');
-      $hakAkses = $item.find('$dtaHakAkses').text().trim();
+      $hakAkses = $item.find('#dtaHakAkses').text().trim();
 
       $.confirm({
         theme: 'supervan',
         title: 'Hapus Hak Akses',
         content: 'Hapus data hak akses ' + $hakAkses,
-        autoClose: 'Tutup|5000'
+        autoClose: 'Tutup|5000',
         buttons: {
           delete: {
             text: 'Hapus',
-            action:function(){
-              window.location = 'Hak_akses_ctrl/delete/'+ $item.find('#kode_akses').val();
+            action: function () {
+              window.location = 'Hak_akses_ctrl/delete/' + $item.find('#kode_akses').val();
             }
           },
-          Tutup:function(){}
+          Tutup: function () {}
         }
       });
     });

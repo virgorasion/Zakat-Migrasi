@@ -35,6 +35,7 @@ class Hak_akses_ctrl extends CI_Controller {
                 'keterangan' => $keterangan,
                 'status_aktif' => $status
             );
+            $this->session->set_flashdata('msg', 'Data berhasil di tambah');
             $this->Hak_akses_model->insert_data('menu_hak_akses',$data);
         }else{
             $id = $kodeAkses;
@@ -46,10 +47,23 @@ class Hak_akses_ctrl extends CI_Controller {
             );
             $this->Hak_akses_model->update_data('menu_hak_akses',$data, $id);
         }
+            $this->session->set_flashdata('msg', 'Data berhasil di edit');
             redirect(site_url('Hak_akses_ctrl'));
-
     }
 
+    public function delete($id)
+    {
+        try{
+            $this->Hak_akses_model->delete_data('menu_hak_akses',$id);
+            if(true){
+            $this->session->set_flashdata('msg', 'Berhasil Hapus Data');
+            redirect(site_url('Hak_akses_ctrl'));
+            }
+        }catch(Exception $e){
+            $this->session->set_flashdata('msg', 'Error'.$e->getMessage());
+            redirect(site_url('Hak_akses_ctrl'));
+        }
+    }
     
 }
 ?>
