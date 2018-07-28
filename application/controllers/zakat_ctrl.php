@@ -104,5 +104,20 @@
         redirect(site_url('zakat_ctrl'));
     }
 
+    public function synchronize($t1,$t2)
+    {
+        $data['t1'] = $t1;
+        $data['t2'] = $t2;
+        $t1 = str_replace("-","",$data['t1']);
+        $t2 = str_replace("-","",$data['t2']);
+        $pieces1 = explode("-",$data['t1']);
+        $pieces2 = explode("-",$data['t2']);
+        $t1 = $pieces1[2].$pieces1[1].$pieces1[0];
+        $t2 = $pieces2[2].$pieces2[1].$pieces2[0];
+        $data['data'] = $this->Lap_zakat_model->sel_date($t1,$t2)->result();
+
+        echo json_encode($data['data']);
+    }
+
  }
 ?>

@@ -190,14 +190,14 @@ $date = date("d-m-Y H:i:s");
                                 </button>
                             </a>
               <?php } ?>
-<!-- <?php if ($this->session->userdata("17delete")=="1"){?>
+<?php if ($this->session->userdata("17delete")=="1"){?>
                             <a class ="buttonDelete" href='#'>
                                 <span data-placement='top' data-toggle='tooltip' title='Delete'>
                                 <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
                                 <span class='glyphicon glyphicon-remove'></span>
                                 </button>
                             </a>
-<?php } ?> -->
+<?php } ?>
 
                            
                         </td>

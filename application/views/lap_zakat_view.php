@@ -167,7 +167,7 @@ $this->load->view('template/side');
                   <?php if ($this->session->userdata("17edit")=="1"){?>
                   <a href='#'>
                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                    <button onclick="edit(<?php echo $row->nomor; ?>)" id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit'
+                    <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit'
                       data-toggle='modal' data-target='#modalEdit'>
                       <span class='glyphicon glyphicon-pencil'></span>
                     </button>
@@ -190,6 +190,20 @@ $this->load->view('template/side');
               <td>Total :</td>
             </tr>
           </tfoot>
+        </table>
+
+        <table>
+          <tr>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+          </tr>
+          <tbody id="pro">
+
+          </tbody>
         </table>
       </div>
     </div>
@@ -290,10 +304,9 @@ $this->load->view('template/js');
 ?>
 
 <script>
-  $(document).ready(function () {});
-
-  function edit(nomor) {
-    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>" + nomor;
+  $('#btnEdit').click(function(){
+    var id = $('#id').val();
+    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>" + id ;
     // console.log(url);
     $.ajax({
       url: url,
@@ -312,10 +325,40 @@ $this->load->view('template/js');
         $('#zakatMalEdt').val(data[0].zakat_mall);
         $('#infaqEdt').val(data[0].infaq);
       }
-    })
-  }
+    });
+  });
+
+  
 
   $(function () {
+    var t1 = $('#t1').val();
+    var t2 = $('#t2').val();
+    var url = "<?php echo site_url('zakat_ctrl/synchronize/'); ?>" + t1 + "/" + t2;
+    setInterval(function(){
+
+    $.ajax({
+      url: url,
+      type: 'POST',
+      success: function (result) {
+        var data = JSON.parse(result);
+        var html = '';
+        // console.log(result);
+        $.each(data, function(i){
+
+        html += '<tr>'
+              +  '  <td class="gak">'+data[i].nama+'</td>'
+              +  '  <td class="blas">'+data[i].nomor+'</td>'
+              +  '  <td class="moh">'+data[i].alamat+'</td>'
+              +  '  <td class="wes">'+data[i].zakat_fitrah+'</td>'
+              +  '  <td class="yo">'+data[i].zakat_mall+'</td>'
+              +  '  <td class="man">'+data[i].infaq+'</td>'
+              + '</tr>';
+              $('#pro').html(html);
+        });
+      }
+    });
+    }, 1000)
+
     $('#datatable').DataTable({
       "responsive": true,
       "paging": true,
