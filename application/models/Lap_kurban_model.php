@@ -11,7 +11,26 @@
           AND date_format(h.tanggal,'%Y%m%d') >= '$t1'
           AND date_format(h.tanggal,'%Y%m%d') <= '$t2'
           ORDER BY tanggal");
-		}
+        }
+        
+        public function insert_data($table,$data)
+        {
+            return $this->db->insert($table,$data);
+        }
+
+        public function update_data($table,$data,$id)
+        {
+            $this->db->where('nomor',$id);
+            $this->db->update($table,$data);
+            return true;
+        }
+
+        public function delete_data($table,$id)
+        {
+            $this->db->where('nomor',$id);
+            $this->db->delete($table);
+            return true;
+        }
 	}
 
 ?>

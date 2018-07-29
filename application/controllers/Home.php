@@ -9,10 +9,15 @@ defined("BASEPATH") or exit("Some Error");
 		}
 
 		public function index(){
-			date_default_timezone_set('Asia/Jakarta');
-			$tanggal = date("Y-m-d");
-			$data['data'] = $this->Lap_zakat_model->select_zakat($tanggal)->result();
-			$this->load->view('home',$data);
+			if(isset($_SESSION['username'])){
+
+				date_default_timezone_set('Asia/Jakarta');
+				$tanggal = date("Y-m-d");
+				$data['data'] = $this->Lap_zakat_model->select_zakat($tanggal)->result();
+				$this->load->view('home',$data);
+			}else{
+				redirect('Auth/logout');
+			}
 		}
 
 		public function insert_zakat(){

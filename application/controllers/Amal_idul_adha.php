@@ -41,6 +41,30 @@
             redirect(site_url().'/Auth/logout');
         }
     }
+
+    public function aksi()
+    {
+        $admin = $this->input->post('id_admin');
+        $tanggal = $this->input->post('tanggal');
+        $jumlah = $this->input->post('jumlah');
+        $log_time = date('Y-m-d H:i:s');
+        $id = $this->input->post('nomor');
+        $action = $this->input->post('action');
+
+        if ($action == "add") {
+            $data = array(
+                'nomor' => '',
+                'id_admin' => $admin,
+                'tanggal' => $tanggal,
+                'jumlah' => $jumlah,
+                'log_time' => $log_time
+            );
+            
+            $this->Lap_idul_adha_model->insert_data('lap_idul_adha',$data);
+            redirect('Amal_idul_adha');
+        }
+
+    }
      
     public function laporan_print($t1,$t2)
     {

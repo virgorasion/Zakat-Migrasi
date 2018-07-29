@@ -56,12 +56,7 @@
         $data['data'] = $this->Lap_ahad_dhuha_model->sel_date($t1,$t2)->result();
         $this->load->view('prints/dhuha_print',$data);
     }
-    
-    public function gettime(){
-        $date = date("d-m-Y H:i:s");
-        echo json_encode($date);
-    }
-    public function update(){
+        public function update(){
         $no = $this->input->post('nomor');
         $kode_user = $this->input->post('kode_user');
         $tanggal = $this->input->post('tanggal');
