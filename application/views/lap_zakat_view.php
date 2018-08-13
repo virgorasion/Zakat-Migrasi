@@ -192,7 +192,7 @@ $this->load->view('template/side');
           </tfoot>
         </table>
 
-        <table>
+        <!-- <table>
           <tr>
             <th>cek</th>
             <th>cek</th>
@@ -204,7 +204,7 @@ $this->load->view('template/side');
           <tbody id="pro">
 
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
     <!-- /.box -->
@@ -331,33 +331,33 @@ $this->load->view('template/js');
   
 
   $(function () {
-    var t1 = $('#t1').val();
-    var t2 = $('#t2').val();
-    var url = "<?php echo site_url('zakat_ctrl/synchronize/'); ?>" + t1 + "/" + t2;
-    setInterval(function(){
+  //   var t1 = $('#t1').val();
+  //   var t2 = $('#t2').val();
+  //   var url = "<?php echo site_url('zakat_ctrl/synchronize/'); ?>" + t1 + "/" + t2;
+  //   setInterval(function(){
 
-    $.ajax({
-      url: url,
-      type: 'POST',
-      success: function (result) {
-        var data = JSON.parse(result);
-        var html = '';
-        // console.log(result);
-        $.each(data, function(i){
+  //   $.ajax({
+  //     url: url,
+  //     type: 'POST',
+  //     success: function (result) {
+  //       var data = JSON.parse(result);
+  //       var html = '';
+  //       // console.log(result);
+  //       $.each(data, function(i){
 
-        html += '<tr>'
-              +  '  <td class="gak">'+data[i].nama+'</td>'
-              +  '  <td class="blas">'+data[i].nomor+'</td>'
-              +  '  <td class="moh">'+data[i].alamat+'</td>'
-              +  '  <td class="wes">'+data[i].zakat_fitrah+'</td>'
-              +  '  <td class="yo">'+data[i].zakat_mall+'</td>'
-              +  '  <td class="man">'+data[i].infaq+'</td>'
-              + '</tr>';
-              $('#pro').html(html);
-        });
-      }
-    });
-    }, 1000)
+  //       html += '<tr>'
+  //             +  '  <td class="gak">'+data[i].nama+'</td>'
+  //             +  '  <td class="blas">'+data[i].nomor+'</td>'
+  //             +  '  <td class="moh">'+data[i].alamat+'</td>'
+  //             +  '  <td class="wes">'+data[i].zakat_fitrah+'</td>'
+  //             +  '  <td class="yo">'+data[i].zakat_mall+'</td>'
+  //             +  '  <td class="man">'+data[i].infaq+'</td>'
+  //             + '</tr>';
+  //             $('#pro').html(html);
+  //       });
+  //     }
+  //   });
+  //   }, 1000);
 
     $('#datatable').DataTable({
       "responsive": true,

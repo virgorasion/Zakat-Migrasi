@@ -49,26 +49,31 @@ class Auth extends CI_Controller {
     }
 
     public function generatemenu(){
-		$data = $this->Menu_model->select_header()->result();
-		$html = "";
-		//print_r($html);
-		foreach ($data as $row):
-			///echo $row->menu_header;
-			$html .= "<li class='treeview'>
-                                  <a href='#'><i class='fa fa-link'></i> <span>".$row->menu_header."</span>
-                                          <span class='pull-right-container'>
-                                            <i class='fa fa-angle-left pull-right'></i>
-                                          </span>
-                                  </a>
-                                  <ul class='treeview-menu'>";
-			$submenu = $this->Menu_model->select_child($row->kode_menu_header)->result();
-			foreach ($submenu as $rows):
-			$html .= "<li><a href='".site_url('/'.$rows->file_php.'')."'>".$rows->menu_name."</a></li>";
-			endforeach;
-			$html .= "</ul>
-                                  </li>";
-			//print_r($submenu);
-		endforeach;
+        $select_header = $this->Menu_model->select_header()->result();
+		$html = '';
+
+		foreach ($select_header as $row) {
+        $select_child = $this->Menu_model->select_child($row->kode_menu_header)->result();
+        // die(print_r($select_child));
+        $key = $row->menu_child;
+        $html .=' <li class="treeview">
+                    <a href="'.$row->link.'">
+                        <i class="'.$row->icon.'"></i> <span>'.$row->menu_header.'</span>';
+        if ($key == 1){
+        $html .= '      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>';
+        }
+        $html .='       </a>';
+        if ($key == 1) {
+            $html .= '<ul class="treeview-menu">';
+                foreach($select_child as $child){
+                $html .= '<li><a href="'.$child->file_php.'"><i class="fa fa-circle-o"></i> '.$child->menu_name.'</a></li>';
+            }
+            $html .= '</ul>';
+        }
+    }
+        $html .= '</li>';
 		return $html;
 	}
 
@@ -77,3 +82,5 @@ class Auth extends CI_Controller {
         redirect('auth/login');
     }
 }
+
+ 

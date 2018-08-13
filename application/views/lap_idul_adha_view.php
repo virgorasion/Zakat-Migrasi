@@ -36,7 +36,7 @@ $this->load->view('template/side');
             </div>
             <div class="modal-body">
               <div class="box-body">
-              
+
                 <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?php echo $_SESSION['id_admin'] ;?>">
                 <input type="hidden" name="nomor" value="">
 
@@ -85,7 +85,7 @@ $this->load->view('template/side');
         </div>
         <?php } ?>
 
-        <form method="post" action="<?php echo site_url("/Amal_idul_adha/index ")?>" id="formsearch">
+        <form method="post" action="<?php echo site_url(" /Amal_idul_adha/index ")?>" id="formsearch">
           <div class="col-sm-12">
             <div class="form-inline col-sm-1">
               <button type="button" class="btn btn-primary" id="btnNew" data-toggle="modal" data-target="#myModal">New</button>
@@ -213,11 +213,11 @@ $this->load->view('template/js');
     });
 
     $("#jumlah").inputmask('decimal', {
-        digitsOptional: true,
-        radixPoint: ",",
-        groupSeparator: ".",
-        autoGroup: true
-     });
+      digitsOptional: true,
+      radixPoint: ",",
+      groupSeparator: ".",
+      autoGroup: true
+    });
 
     $('#btnPrint').click(function () {
       var tanggal1 = '<?php echo str_replace(' - ','.
