@@ -7,18 +7,16 @@ $this->load->view('template/side');
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Blank page
-            <small>it all starts here</small>
+            Kas Masjid
+            <small>Miftahul Jannah</small>
         </h1>
         <ol class="breadcrumb">
             <li>
                 <a href="#">
                     <i class="fa fa-dashboard"></i> Home</a>
             </li>
-            <li>
-                <a href="#">Examples</a>
-            </li>
-            <li class="active">Blank page</li>
+
+            <li class="active">Kas Masjid</li>
         </ol>
     </section>
 
@@ -28,7 +26,7 @@ $this->load->view('template/side');
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Title</h3>
+                <h3 class="box-title">Daftar Pembukuan</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -49,16 +47,16 @@ $this->load->view('template/side');
                     <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="forms-validation.html#demo-bsc-tab-1" data-toggle="tab">
-                                <i class="fa fa-history"></i> Information</a>
+                                <i class="fa fa-history"></i> Informasi</a>
                         </li>
                         <li>
                             <a href="forms-validation.html#demo-bsc-tab-2" data-toggle="tab">
-                                <i class="fa fa-edit"></i> Address</a>
+                                <i class="fa fa-edit"></i> Tambah Data</a>
                         </li>
                     </ul>
 
                     <!-- Tabs Content -->
-                    <form id="demo-bv-bsc-tabs" class="form-horizontal" action="#" method="post">
+                    <div id="demo-bv-bsc-tabs" class="form-horizontal">
                         <div class="tab-content">
                             <div class="tab-pane pad-btm fade in active" id="demo-bsc-tab-1">
                                 <table id="datatable" class="table table-bordered table-striped">
@@ -74,28 +72,40 @@ $this->load->view('template/side');
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $no = 1; 
+                                        foreach ($data as $value) {
+                                            $tgl = explode('-',$value->tanggal);
+                                            $tanggal = $tgl[2]."-".$tgl[1]."-".$tgl[0];
+                                            $tipe = $value->tipe;
+                                    ?>
                                         <tr>
-                                            <!-- <td class="no">
+                                            <td class="no">
                                                 <?php echo $no; ?>
                                             </td>
                                             <td class="nama">
-                                                <?php echo $row->nama; ?>
+                                                <?php echo $value->nama; ?>
                                             </td>
-                                            <td class="data_alamat">
-                                                <?php echo $row->alamat;?>
+                                            <td class="nama_admin">
+                                                <?php echo $value->nama_admin;?>
                                             </td>
-                                            <td class="zakat_fitrah">
-                                                <?php echo $row->zakat_fitrah;?> Kg
+                                            <td class="tipe">
+                                                <?php 
+                                                switch ($tipe) {
+                                                case '1': echo "Donatur Tetap"; break;
+                                                case '2': echo "Donatur Tidak Tetap"; break;
+                                                case '3': echo "Infaq"; break;
+                                                default: $tipe;
+                                                }
+                                                ?>
                                             </td>
-                                            <td class="beli">
-                                                <?php echo $beli;?>
+                                            <td class="jumlah">
+                                                <?php echo number_format((double)$value->jumlah,0,",",".");?>
+                                            </td>
+                                            <td class="tanggal">
+                                                <?php echo $value->tanggal;?>
                                             </td>
                                             <td>
-                                                <?php echo $tanggal;?>
-                                            </td>
-                                            <td align="center">
-                                                <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
-                                                <input type="hidden" name="data_nama" id="data_nama" value="<?php echo $row->nama ?>">
+                                                <input type="hidden" name="nomor" id="id" value="<?php echo $value->id ?>">
                                                 <?php if ($this->session->userdata("17view")=="1"){?>
                                                 <a href="#">
                                                     <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
@@ -120,8 +130,9 @@ $this->load->view('template/side');
                                                 </span>
                                                 <?php } ?>
 
-                                            </td> -->
+                                            </td>
                                         </tr>
+                                        <?php $no++; } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -133,23 +144,39 @@ $this->load->view('template/side');
 
                             <!-- Start Second Tab -->
                             <div class="tab-pane fade" id="demo-bsc-tab-2">
-                                <h4 class="mar-btm text-thin">Second Tab</h4>
+                                <h4 class="mar-btm text-thin">Tambah Data</h4>
                                 <hr>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Address</label>
-                                    <div class="col-lg-7">
-                                        <input type="text" class="form-control" name="address" placeholder="Address">
+                                <form action="<?php echo site_url('kas_ctrl/tambah'); ?>" method="POST">
+                                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Nama :</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="addNama" placeholder="Nama">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">City</label>
-                                    <div class="col-lg-7">
-                                        <input type="text" class="form-control" name="city" placeholder="City">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Kategori</label>
+                                        <div class="col-lg-7">
+                                            <select class="form-control" name="addKategori" id="addKategori">
+                                                    <option value="1">Donatur Tetap</option>
+                                                    <option value="2">Donatur Tidak Tetap</option>
+                                                    <option value="3">Infaq</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Jumlah</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="addJumlah" placeholder="Jumlah">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-lg-offset-3">
+                                        <input type="submit" value="Submit" class="btn btn-flat btn-primary">
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <!--===================================================-->
                 <!-- END FORM VALIDATION ON TABS -->
@@ -169,6 +196,5 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
