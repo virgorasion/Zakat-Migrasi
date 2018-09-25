@@ -51,7 +51,7 @@
         $data['t2'] = $pieces2[0].'-'.$pieces2[1].'-'.$pieces2[2];
     
         $data['data'] = $this->Lap_kurban_model->sel_date($t1,$t2)->result();
-        $this->load->view('prints/hewan_print',$data);
+        $this->load->view('print/hewan_print',$data);
     }
 
     public function aksi()
@@ -79,7 +79,7 @@
             );
 
             $this->Lap_kurban_model->insert_data('lap_hewan_kurban',$data);
-            redirect('Hewan_kurban');
+            redirect(site_url('Laporan/Hewan_kurban'));
         }else{
             $nomor =  $nomor;
             $data = array(
@@ -90,14 +90,14 @@
             );
 
             $this->Lap_kurban_model->update_data('lap_hewan_kurban',$data,$nomor);
-            redirect('Hewan_kurban');
+            redirect(site_url('Laporan/Hewan_kurban'));
         }
     }
     
     public function hapus($id)
     {
         $this->Lap_kurban_model->delete_data('lap_hewan_kurban',$id);
-        redirect('Hewan_kurban');
+        redirect(site_url('Laporan/Hewan_kurban'));
     }
  }
 ?>

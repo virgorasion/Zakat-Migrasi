@@ -189,7 +189,6 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
 <script>

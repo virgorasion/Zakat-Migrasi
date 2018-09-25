@@ -77,7 +77,7 @@ $this->load->view('template/side');
                                             $tgl = explode('-',$value->tanggal);
                                             $tanggal = $tgl[2]."-".$tgl[1]."-".$tgl[0];
                                             $tipe = $value->tipe;
-                                    ?>
+                                        ?>
                                         <tr>
                                             <td class="no">
                                                 <?php echo $no; ?>
@@ -196,5 +196,18 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/js');
+$this->load->view('template /js');
 ?>
+<script>
+$(document).ready(function (){
+    $('#datatable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "ordering": true,
+        "info": true,
+        "searching": false,
+        "autoWidth": false,
+        "responsive": true
+    });
+});
+</script>
