@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') or exit('ERROR');
-	class Menu_level_model extends CI_model
-	{
+	class Menu_level_model extends CI_model{
 
 		public function data_index()
 		{
@@ -15,7 +14,10 @@ defined('BASEPATH') or exit('ERROR');
         FROM menu_hak_akses mh, master_cabang mc
         WHERE mh.kode_cabang = mc.kode_cabang
         AND mh.status_aktif = 1
+<<<<<<< HEAD
         AND mh.kode_cabang not in (1,2)
+=======
+>>>>>>> develop
         ORDER BY mh.kode_akses DESC");
         }
         else

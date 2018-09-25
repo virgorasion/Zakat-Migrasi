@@ -12,7 +12,11 @@ class Auth extends CI_Controller {
 
     public function index()
     {
-        $this->load->view('login');
+        if (@$_SESSION['username'] !== null) {
+            redirect(site_url('home'));
+        }else{
+            $this->load->view('login');
+        }
     }
     function login()
     {
@@ -29,7 +33,7 @@ class Auth extends CI_Controller {
                 $this->session->set_userdata("kode_akses",$row->kode_akses);
                 $this->session->set_userdata("menu",$this->generatemenu());
                 $this->set_hak_akses();
-                redirect("/home");
+                redirect(site_url('home'));
             }
         }else{
             $data['msg'] = "Username/Password Salah";
@@ -49,26 +53,37 @@ class Auth extends CI_Controller {
     }
 
     public function generatemenu(){
-		$data = $this->Menu_model->select_header()->result();
-		$html = "";
-		//print_r($html);
-		foreach ($data as $row):
-			///echo $row->menu_header;
-			$html .= "<li class='treeview'>
-                                  <a href='#'><i class='fa fa-link'></i> <span>".$row->menu_header."</span>
-                                          <span class='pull-right-container'>
-                                            <i class='fa fa-angle-left pull-right'></i>
-                                          </span>
-                                  </a>
-                                  <ul class='treeview-menu'>";
-			$submenu = $this->Menu_model->select_child($row->kode_menu_header)->result();
-			foreach ($submenu as $rows):
-			$html .= "<li><a href='".site_url('/'.$rows->file_php.'')."'>".$rows->menu_name."</a></li>";
-			endforeach;
-			$html .= "</ul>
-                                  </li>";
-			//print_r($submenu);
-		endforeach;
+        $select_header = $this->Menu_model->select_header()->result();
+		$html = '';
+
+		foreach ($select_header as $row) {
+        $select_child = $this->Menu_model->select_child($row->kode_menu_header)->result();
+        // die(print_r($select_child));
+        $key = $row->menu_child;
+        if($key == 1) {
+            $treeView = ' class="treeview"';
+        }else {
+            $treeView = '';
+        }
+        $html .=' <li'.$treeView.'>
+                    <a href="'.site_url($row->link).'">
+                        <i class="'.$row->icon.'"></i> <span>'.$row->menu_header.'</span>';
+        if ($key == 1){
+        $html .= '      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>';
+        }
+        $html .='       </a>';
+        if ($key == 1) {
+            $html .= '<ul class="treeview-menu">';
+                foreach($select_child as $child){
+                    $class = ($this->session->userdata($child->kode_menu_child."view") == "1") ? ' class="active"' : '' ;
+                $html .= '<li'.$class.'><a href="'.$child->file_php.'"><i class="fa fa-circle-o"></i>'.$child->menu_name.'</a></li>';
+            }
+            $html .= '</ul>';
+        }
+    }
+        $html .= '</li>';
 		return $html;
 	}
 
@@ -77,3 +92,5 @@ class Auth extends CI_Controller {
         redirect('auth/login');
     }
 }
+
+ 

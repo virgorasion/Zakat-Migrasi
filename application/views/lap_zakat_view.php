@@ -20,82 +20,6 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
-  <!-- Start Modal Delete -->
-  <div class="modal modal-danger fade" id="modalDelete">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Danger Modal</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-outline">Save changes</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-  <!-- Start Modal Edit -->
-  <div class="modal fade" id="modalEdit">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Edit Zakat</h4>
-        </div>
-        <div class="modal-body">
-        
-          <div class="row">
-          <form action="<?php echo site_url('zakat_ctrl/simpanEdit');?>" method="POST">
-            <div class="form-group">
-              <div class="col-sm-12">
-                <input placeholder="Nama" type="text" name="namaEdt" id="namaEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Alamat" type="text" name="alamatEdt" id="alamatEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Zakat Fitrah" type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <select class="form-control" name="pembelianEdt" id="pembelianEdt">
-                  <option value="0">Beli</option>
-                  <option value="1">Tidak</option>
-                </select>
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Zakat Mall" type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control">
-              </div>
-              <div class="col-sm-12"><br>
-                <input placeholder="Infaq" type="text" name="infaqEdt" id="infaqEdt" class="form-control">
-              </div>
-            </div>
-            <input type="hidden" name="nomor" id="nomor" value="">
-            <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
-        </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-        </form>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
     <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Form Input</h3>
@@ -112,11 +36,12 @@ $this->load->view('template/side');
 
       <div class="box-body" id="bodyInput">
         <?php if (isset($_SESSION['msg'])) {?>
-          <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-              <h5><span class='glyphicon glyphicon-ok'></span> Info!</h5>
-            <?php echo $_SESSION['msg'];?>
-          </div>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+          <?php echo $_SESSION['msg'];?>
+        </div>
         <?php } ?>
         <div class="row">
           <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
@@ -152,8 +77,7 @@ $this->load->view('template/side');
     <!-- Default box -->
     <div class="box box-success">
       <div class="box-header">
-        <form method="post" action="<?php echo site_url("/zakat_ctrl/index ")?>" id="formsearch">
-
+        <form method="post" action="<?php echo site_url("/zakat_ctrl/index")?>" id="formsearch">
           <div class="col-sm-12">
             <div class="form-inline col-sm-4">
               Dari :
@@ -172,7 +96,6 @@ $this->load->view('template/side');
                 <i class="fa fa-print"></i> Print</button>
             </h3>
           </div>
-
         </form>
       </div>
       <!-- /.box-header -->
@@ -208,7 +131,6 @@ $this->load->view('template/side');
               <tr>
                 <td class="no">
                   <?php echo $no; ?>
-                  <input type="hidden" name="no" id="no" value="<?php echo $row->nomor ?>">
                 </td>
                 <td class="nama">
                   <?php echo $row->nama; ?>
@@ -221,7 +143,6 @@ $this->load->view('template/side');
                 </td>
                 <td class="beli">
                   <?php echo $beli;?>
-                  
                 </td>
                 <td class="zakat_mall">
                   <?php echo number_format((double)$row->zakat_mall,0,"," , ".");?>
@@ -233,6 +154,7 @@ $this->load->view('template/side');
                   <?php echo $tanggal;?>
                 </td>
                 <td align="center">
+                  <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                   <input type="hidden" name="data_nama" id="data_nama" value="<?php echo $row->nama ?>">
                   <?php if ($this->session->userdata("17view")=="1"){?>
                   <a href="#">
@@ -245,17 +167,19 @@ $this->load->view('template/side');
                   <?php if ($this->session->userdata("17edit")=="1"){?>
                   <a href='#'>
                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                    <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit'>
+                    <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit'
+                      data-toggle='modal' data-target='#modalEdit'>
                       <span class='glyphicon glyphicon-pencil'></span>
                     </button>
                   </a>
                   <?php } ?>
                   <?php if ($this->session->userdata("17delete")=="1"){?>
-                      <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                        <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
-                        <span class='glyphicon glyphicon-remove'></span>
-                        </button>
-                      <?php } ?>
+                  <span data-placement='top' data-toggle='tooltip' title='Delete'>
+                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
+                      <span class='glyphicon glyphicon-remove'></span>
+                    </button>
+                  </span>
+                  <?php } ?>
 
                 </td>
               </tr>
@@ -267,11 +191,109 @@ $this->load->view('template/side');
             </tr>
           </tfoot>
         </table>
+
+        <!-- <table>
+          <tr>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+            <th>cek</th>
+          </tr>
+          <tbody id="pro">
+
+          </tbody>
+        </table> -->
       </div>
     </div>
     <!-- /.box -->
   </section>
   <!-- /.content -->
+
+  <!-- Start Modal Delete -->
+  <div class="modal modal-danger fade" id="modalDelete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Danger Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Start Modal Edit -->
+  <div class="modal fade" id="modalEdit">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Edit Zakat</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <form action="<?php echo site_url('zakat_ctrl/simpanEdit');?>" method="POST">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <input placeholder="Nama" type="text" name="namaEdt" id="namaEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Alamat" type="text" name="alamatEdt" id="alamatEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Zakat Fitrah" type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <select class="form-control" name="pembelianEdt" id="pembelianEdt">
+                    <option value="0">Beli</option>
+                    <option value="1">Tidak</option>
+                  </select>
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Zakat Mall" type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control">
+                </div>
+                <div class="col-sm-12">
+                  <br>
+                  <input placeholder="Infaq" type="text" name="infaqEdt" id="infaqEdt" class="form-control">
+                </div>
+              </div>
+              <input type="hidden" name="nomor" id="nomor" value="">
+              <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
 
 </div>
 <!-- /.content-wrapper -->
@@ -282,8 +304,61 @@ $this->load->view('template/js');
 ?>
 
 <script>
+  $('#btnEdit').click(function(){
+    var id = $('#id').val();
+    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>" + id ;
+    // console.log(url);
+    $.ajax({
+      url: url,
+      type: 'POST',
+      beforeSend: function () {
+        // loading section
+      },
+      success: function (result) {
+        var data = JSON.parse(result);
+        // console.log(data[0]);
+        $('#nomor').val(data[0].nomor);
+        $('#namaEdt').val(data[0].nama);
+        $('#alamatEdt').val(data[0].alamat);
+        $('#zakatFitrahEdt').val(data[0].zakat_fitrah);
+        $('#pembelianEdt').val(data[0].beli);
+        $('#zakatMalEdt').val(data[0].zakat_mall);
+        $('#infaqEdt').val(data[0].infaq);
+      }
+    });
+  });
+
+  
 
   $(function () {
+  //   var t1 = $('#t1').val();
+  //   var t2 = $('#t2').val();
+  //   var url = "<?php echo site_url('zakat_ctrl/synchronize/'); ?>" + t1 + "/" + t2;
+  //   setInterval(function(){
+
+  //   $.ajax({
+  //     url: url,
+  //     type: 'POST',
+  //     success: function (result) {
+  //       var data = JSON.parse(result);
+  //       var html = '';
+  //       // console.log(result);
+  //       $.each(data, function(i){
+
+  //       html += '<tr>'
+  //             +  '  <td class="gak">'+data[i].nama+'</td>'
+  //             +  '  <td class="blas">'+data[i].nomor+'</td>'
+  //             +  '  <td class="moh">'+data[i].alamat+'</td>'
+  //             +  '  <td class="wes">'+data[i].zakat_fitrah+'</td>'
+  //             +  '  <td class="yo">'+data[i].zakat_mall+'</td>'
+  //             +  '  <td class="man">'+data[i].infaq+'</td>'
+  //             + '</tr>';
+  //             $('#pro').html(html);
+  //       });
+  //     }
+  //   });
+  //   }, 1000);
+
     $('#datatable').DataTable({
       "responsive": true,
       "paging": true,
@@ -294,8 +369,8 @@ $this->load->view('template/js');
       "autoWidth": false
     });
 
-    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
-        $(".alert-success").slideUp(500);
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
+      $(".alert-success").slideUp(500);
     });
 
     $('#infaq').keypress(function (e) {
@@ -316,24 +391,6 @@ $this->load->view('template/js');
     $('#t1, #t2').datepicker({
       format: 'dd-mm-yyyy',
       autoclose: true
-    });
-
-    $('#datatable').on('click','[id^=btnEdit]',function(){
-      var $item = $(this).closest('tr');
-      var beli = $.trim($item.find('.beli').text());
-      if (beli == 'Beli') {
-        var pembelian = 0;
-      }else{
-        var pembelian = 1;
-      }
-      console.log(pembelian);
-      $('#namaEdt').val($.trim($item.find('.nama').text()));
-      $('#alamatEdt').val($.trim($item.find('.data_alamat').text()));
-      $('#zakatFitrahEdt').val($.trim($item.find('.zakat_fitrah').text()));
-      $('#pembelianEdt').val(pembelian);
-      $('#zakatMalEdt').val($.trim($item.find('.zakat_mall').text()));
-      $('#infaqEdt').val($.trim($item.find('.data_infaq').text()));
-      $('#nomor').val($.trim($item.find('#no').val()));
     });
 
     $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt').inputmask('decimal', {
@@ -359,26 +416,25 @@ $this->load->view('template/js');
       return false;
     });
 
-    $('#datatable').on('click', '[id^=btnDelete]', function() {
+    $('#datatable').on('click', '[id^=btnDelete]', function () {
       var $item = $(this).closest("tr");
       var $nama = $item.find("#data_nama").val();
       console.log($nama);
       // $item.find("input[id$='no']").val();
-        // alert("hai");
+      // alert("hai");
       $.confirm({
         theme: 'supervan',
         title: 'Hapus Data Ini ?',
-        content: 'Hapus data zakat '+$nama,
-        autoClose: 'Cancel|10000',
+        content: 'Hapus data zakat ' + $nama,
+        autoClose: 'Cancel|5000',
         buttons: {
-            deleteUser: {
-                text: 'Delete',
-                action: function () {
-                  window.location = "zakat_ctrl/hapus/"+$item.find("#no").val();
-                }
-            },
-            Cancel: function () {
+          Cancel: function () {},
+          delete: {
+            text: 'Delete',
+            action: function () {
+              window.location = "zakat_ctrl/hapus/" + $item.find("#id").val();
             }
+          }
         }
       });
     });

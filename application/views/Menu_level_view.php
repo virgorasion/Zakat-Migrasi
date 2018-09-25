@@ -51,7 +51,7 @@ $this->load->view('template/side');
                 <td class="kode_akses"><?php echo $item->kode_akses; ?></td>
                 <td><?php echo $item->hak_akses; ?></td>
                 <td><?php echo $item->keterangan; ?></td>
-                <td><button id="btnEdit" class="btn btn-warning btn-xs"><i class="fa fa-gear"></i></button></td>
+                <td><a href="<?php echo site_url('Menu_level/Menu_setting/').$item->kode_akses ?>"><button class="btn btn-warning btn-xs"><i class="fa fa-gear"></i></button></a></td>
               </tr>
               <?php $no++; endforeach ?>
             </tbody>
@@ -61,7 +61,7 @@ $this->load->view('template/side');
 
 </section><!-- /.content -->
  
- <form id="formEdit" action="<?php echo site_url('Menu_level/edit') ?>" method="post">
+ <form id="formEdit" action="<?php echo site_url('Menu_level/Menu_setting') ?>" method="get">
   <input type="hidden" name="kode_akses" id="kode_akses" value="">
  </form>
 
@@ -89,12 +89,6 @@ $this->load->view('template/js');
         $('#form-horizontal').submit(function () {
             return false;
            });
-    });
-  $("#btnNew").click(function (){ 
-    $("#action").val("add");
-        $("#kode_akses").val("");
-        $("#hak_akses").val("");
-        $("#keterangan").val("");
     });
     $('#datatable').on('click', '[id^=btnEdit]', function() {
         var $item = $(this).closest("tr");     

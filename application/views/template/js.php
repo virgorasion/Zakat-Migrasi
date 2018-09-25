@@ -6,9 +6,10 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/js/bootstrap.min.js')?>"></script>
 <!-- DataTables -->
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/jquery.dataTables.js'); ?>"></script>
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/js/dataTables.bootstrap.js'); ?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/jquery.dataTables.min.js')?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
+
 <!-- bootstrap datepicker -->
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datepicker/bootstrap-datepicker.js')?>"></script>
 

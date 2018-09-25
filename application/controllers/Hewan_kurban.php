@@ -51,8 +51,53 @@
         $data['t2'] = $pieces2[0].'-'.$pieces2[1].'-'.$pieces2[2];
     
         $data['data'] = $this->Lap_kurban_model->sel_date($t1,$t2)->result();
-        $this->load->view('prints/hewan_print',$data);
+        $this->load->view('print/hewan_print',$data);
+    }
+
+    public function aksi()
+    {
+        $action = $this->input->post('action');
+        $nomor = $this->input->post('nomor');
+        $id = $this->input->post('id_admin');
+        $penyumbang = $this->input->post('penyumbang');
+        $alamat = $this->input->post('alamat');
+        $jenisHewan = $this->input->post('jenisHewan');
+        $jumlah = $this->input->post('jumlah');
+        $log_time = date('Y-m-d H:i:s');
+        $tanggal = date('Y-m-d');
+
+        if($action == 'add'){
+            $data = array(
+                'nomor' => '',
+                'id_admin' => $id,
+                'tanggal' => $tanggal,
+                'penyumbang' => $penyumbang,
+                'alamat' => $alamat,
+                'jenis' => $jenisHewan,
+                'jumlah' => $jumlah,
+                'log_time' => $log_time
+            );
+
+            $this->Lap_kurban_model->insert_data('lap_hewan_kurban',$data);
+            redirect(site_url('Laporan/Hewan_kurban'));
+        }else{
+            $nomor =  $nomor;
+            $data = array(
+                'penyumbang' => $penyumbang,
+                'jenis' => $jenisHewan,
+                'alamat' => $alamat,
+                'jumlah' => $jumlah
+            );
+
+            $this->Lap_kurban_model->update_data('lap_hewan_kurban',$data,$nomor);
+            redirect(site_url('Laporan/Hewan_kurban'));
+        }
     }
     
+    public function hapus($id)
+    {
+        $this->Lap_kurban_model->delete_data('lap_hewan_kurban',$id);
+        redirect(site_url('Laporan/Hewan_kurban'));
+    }
  }
 ?>

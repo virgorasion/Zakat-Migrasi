@@ -41,6 +41,30 @@
             redirect(site_url().'/Auth/logout');
         }
     }
+
+    public function aksi()
+    {
+        $admin = $this->input->post('id_admin');
+        $tanggal = $this->input->post('tanggal');
+        $jumlah = $this->input->post('jumlah');
+        $log_time = date('Y-m-d H:i:s');
+        $id = $this->input->post('nomor');
+        $action = $this->input->post('action');
+
+        if ($action == "add") {
+            $data = array(
+                'nomor' => '',
+                'id_admin' => $admin,
+                'tanggal' => $tanggal,
+                'jumlah' => $jumlah,
+                'log_time' => $log_time
+            );
+            
+            $this->Lap_idul_adha_model->insert_data('lap_idul_adha',$data);
+            redirect('Amal_idul_adha');
+        }
+
+    }
      
     public function laporan_print($t1,$t2)
     {
@@ -54,43 +78,6 @@
     
         $data['data'] = $this->Lap_idul_adha_model->sel_date($t1,$t2)->result();
         $this->load->view('prints/adha_print',$data);
-    }
-
-    public function aksi()
-    {
-        $no = $this->input->post('nomor');
-        $nama = $this->input->post('nama');
-        $jumlah = str_replace('.','',$this->input->post('jumlah'));
-        $pcs = explode('-',$this->input->post('tanggal'));
-        $tanggal = $pcs[2].'-'.$pcs[1].'-'.$pcs[0];
-        $aksi = $this->input->post('action');
-
-        if ($aksi == 'add') {
-            $data = array(
-                'id_admin' => $_SESSION['id_admin'],
-                'tanggal' => $tanggal,
-                'jumlah' => $jumlah,
-            );
-            $this->Lap_idul_adha_model->add($data);
-            $this->session->set_flashdata('msg', 'Berhasil Input Data');
-            redirect(site_url('Amal_idul_adha'));
-        }else{
-            $data = array(
-                'id_admin' => $_SESSION['id_admin'],
-                'tanggal' => $tanggal,
-                'jumlah' => $jumlah,
-            );
-            $this->Lap_idul_adha_model->ganti($data,$no);
-            $this->session->set_flashdata('msg', 'Berhasil Edit Data');
-            redirect(site_url('Amal_idul_adha'));
-        }
-    }
-
-    public function delete($key)
-    {
-        $this->Lap_idul_adha_model->hapus($key);
-        $this->session->set_flashdata('msg','Berhasil Hapus Data');
-        redirect(site_url('Amal_idul_adha'));
     }
     
  }

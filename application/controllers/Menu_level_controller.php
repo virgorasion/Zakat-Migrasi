@@ -12,9 +12,9 @@ class Menu_level_controller extends CI_controller{
 	{
 		$data['data'] = $this->Menu_level_model->tampil_data()->result();
 		$this->load->view('Menu_level_view',$data);
-	}
-
-	public function Menu_setting(){
+    }
+    
+    public function Menu_setting($kode_akses){
         $kode_akses = $this->input->post('kode_akses');
         $data['data'] =  $this->Menu_level_model->Data_setting($kode_akses)->result();
 		$data['kode_akses'] = $kode_akses;
@@ -43,7 +43,7 @@ class Menu_level_controller extends CI_controller{
             $this->Menu_level_model->input_data($data, 'menu_level');   
         endforeach;            
             $this->session->set_flashdata('msg', 'Berhasil Simpan');  
-	    redirect(site_url() . '/Menu_level_controller/Menu_setting/'.$kode_akses);
+	    redirect(site_url() . 'Menu_level/edit');
     }
 
 }
