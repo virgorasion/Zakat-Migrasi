@@ -5,8 +5,9 @@ class Lap_kotak_amal_model extends CI_model
     public function SelectAll()
     {
         return $this->db->select('*')
-                ->from('lap_kotak_amal')
-                ->join('master_login', 'master_login.id_admin = lap_kotak_amal.id_admin')
+                ->from('kas_masjid')
+                ->join('master_login', 'master_login.id_admin = kas_masjid.id_admin')
+                ->where('kas_masjid.kategori = 1')
                 ->get();
     }
 
@@ -20,5 +21,10 @@ class Lap_kotak_amal_model extends CI_model
         $this->db->where('id', $id);
         $this->db->delete($table);
         return true;
+    }
+    
+    public function Update($table,$data,$id)
+    {
+        return $this->db->where('id', $id)->update($table,$data);
     }
 }

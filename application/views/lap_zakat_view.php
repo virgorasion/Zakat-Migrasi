@@ -306,7 +306,7 @@ $this->load->view('template/js');
 <script>
   $('#btnEdit').click(function(){
     var id = $('#id').val();
-    var url = "<?php echo site_url('Laporan/Zakat_fitrah/edit/'); ?>" + id ;
+    var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>" + id ;
     // console.log(url);
     $.ajax({
       url: url,
@@ -432,7 +432,7 @@ $this->load->view('template/js');
           delete: {
             text: 'Delete',
             action: function () {
-              window.location = "Laporan/Zakat_fitrah/hapus/" + $item.find("#id").val();
+              window.location = "../zakat_ctrl/hapus/" + $item.find("#id").val();
             }
           }
         }

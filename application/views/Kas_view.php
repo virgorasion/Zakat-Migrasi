@@ -76,30 +76,33 @@ $this->load->view('template/side');
                                         foreach ($data as $value) {
                                             $tgl = explode('-',$value->tanggal);
                                             $tanggal = $tgl[2]."-".$tgl[1]."-".$tgl[0];
-                                            $tipe = $value->tipe;
+                                            switch ($value->tipe) {
+                                                case '1': $tipe = "Amal Jumatan"; break;
+                                                case '2': $tipe = "Amal Ahad Ddhuha"; break;
+                                                case '3': $tipe = "Amal Tarawih"; break;
+                                                case '4': $tipe = "Amal Idul Fitri"; break;
+                                                case '5': $tipe = "Amal Idul Adha"; break;
+                                                case '6': $tipe = "Donatur Tetap"; break;
+                                                case '7': $tipe = "Donatur Tidak Tetap"; break;
+                                                case '8': $tipe = "Infaq"; break;
+                                                default: $tipe = "Undifined"; break;
+                                                }
                                         ?>
                                         <tr>
                                             <td class="no">
                                                 <?php echo $no; ?>
                                             </td>
                                             <td class="nama">
-                                                <?php echo $value->nama; ?>
+                                                <?php echo $value->nama_donatur; ?>
                                             </td>
                                             <td class="nama_admin">
-                                                <?php echo $value->nama_admin;?>
+                                                <?php echo $value->nama;?>
                                             </td>
                                             <td class="tipe">
-                                                <?php 
-                                                switch ($tipe) {
-                                                case '1': echo "Donatur Tetap"; break;
-                                                case '2': echo "Donatur Tidak Tetap"; break;
-                                                case '3': echo "Infaq"; break;
-                                                default: $tipe;
-                                                }
-                                                ?>
+                                                <?php echo $tipe; ?>
                                             </td>
                                             <td class="jumlah">
-                                                <?php echo number_format((double)$value->jumlah,0,",",".");?>
+                                                <?php echo $value->jumlah;?>
                                             </td>
                                             <td class="tanggal">
                                                 <?php echo $value->tanggal;?>
@@ -158,16 +161,22 @@ $this->load->view('template/side');
                                         <label class="col-lg-3 control-label">Kategori</label>
                                         <div class="col-lg-7">
                                             <select class="form-control" name="addKategori" id="addKategori">
-                                                    <option value="1">Donatur Tetap</option>
-                                                    <option value="2">Donatur Tidak Tetap</option>
-                                                    <option value="3">Infaq</option>
+                                                    <option value="6">Donatur Tetap</option>
+                                                    <option value="7">Donatur Tidak Tetap</option>
+                                                    <option value="8">Infaq</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Tanggal :</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control datepicker" name="addTanggal" placeholder="Tanggal" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Jumlah</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="addJumlah" placeholder="Jumlah">
+                                            <input type="text" class="form-control inputMask" name="addJumlah" placeholder="Jumlah">
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-lg-offset-3">
@@ -196,7 +205,7 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template /js');
+$this->load->view('template/js');
 ?>
 <script>
 $(document).ready(function (){
@@ -205,9 +214,63 @@ $(document).ready(function (){
         "lengthChange": true,
         "ordering": true,
         "info": true,
-        "searching": false,
+        "searching": true,
         "autoWidth": false,
         "responsive": true
     });
-});
+
+    $('.inputMask').inputmask('decimal',{
+        digits: 2,
+        placeholder: "0",
+        digitsOptional: true,
+        radixPoint: ",",
+        groupSeparator: ".",
+        autoGroup: true,
+        rightAlign: false,
+        prefix: "Rp "
+    });
+
+    $(".datepicker").datepicker({
+        format: "dd-MM-yyyy",
+        autoclose: true,
+        todayBtn: "linked",
+        todayHighlight: true
+    });
+    $('#datatable').on('click','[id^=btnEdit]',function(){
+        var $test = $(this).closest('tr');
+        var $nama = $test.find('.nama').text().trim();
+        var $jumlah = $test.find('.jumlah').text().trim();
+        var $id = $test.find('#id').val().trim();
+        var $tgl = $test.find('.tanggal').text().trim();
+        var $ket = $test.find('.keterangan').text().trim();
+        $('#formEdit').find('#editPetugas').val($nama);
+        $('#formEdit').find('#editJumlah').val($jumlah);
+        $('#formEdit').find('#editTanggal').val($tgl);
+        $('#formEdit').find('#editKeterangan').val($ket);
+        $('#formEdit').find('#idEdit').val($id);
+        });
+
+        $('#datatable').on('click', '[id^=btnDelete]', function () {
+            var $item = $(this).closest("tr");
+            var $nama = $item.find(".tanggal").text();
+            console.log($nama);
+            // $item.find("input[id$='no']").val();
+            // alert("hai");
+            $.confirm({
+                theme: 'supervan',
+                title: 'Hapus Data Ini ?',
+                content: 'Hapus data zakat ' + $nama,
+                autoClose: 'Cancel|5000',
+                buttons: {
+                    Cancel: function () {},
+                    delete: {
+                        text: 'Delete',
+                        action: function () {
+                            window.location = "Kas_ctrl/hapus/" + $item.find("#id").val();
+                        }
+                    }
+                }
+            });
+        });
+    });
 </script>

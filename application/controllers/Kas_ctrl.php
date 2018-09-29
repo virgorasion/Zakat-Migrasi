@@ -21,39 +21,58 @@ class Kas_ctrl extends CI_controller
         }
     }
 
+    public function ajaxTable()
+    {
+        $list = $this->Kas_model->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach($list as $item){
+            $no++;
+            $row[] = array();
+            $row[] = $no;
+            $row[] = $item->nama_donatur;
+            $row[] = $item->tipe;
+            $row[] = $item->jumlah;
+            $row[] = $item->tanggal;
+
+            $data[] = $row;
+        }
+
+        $result = array(
+            "draw" => $_POST['draw'],
+            'recordsTotal' => $this->Kas_model->count_all(),
+            'recordsFiltered' => $this->Kas_model->count_filtered(),
+            'data' => $data
+        );
+
+        echo json_encode($result);
+    }
+
     public function tambah()
     {
         $nama = $this->input->post('addNama');
         $kategori = $this->input->post('addKategori');
         $jumlah = $this->input->post('addJumlah');
-        $date = date('Y-m-d');
+        $date = $this->input->post('addTanggal');
 
         $data = array(
-            'nama' => $nama,
+            'nama_donatur' => $nama,
             'id_admin' => $_SESSION['id_admin'],
             'tipe' => $kategori,
             'jumlah' => $jumlah,
-            'tanggal' => $date
+            'tanggal' => $date,
+            'kategori' => 0
         );
-        try{
-            $this->Kas_model->insertData('kas_masjid',$data);
-            $this->session->set_flashdata('msg','Berhasil Menambah Data');
-        }catch(Exception $e){
-            $this->session->set_flashdata('error',"Gagal Tambah Data Segera Hubungi Operator");
-        }
 
+        $this->Kas_model->insertData('kas_masjid',$data);
+        $this->session->set_flashdata('msg','Berhasil Menambah Data');
         redirect('kas_ctrl');
     }
 
     public function hapus($id)
     {
-        $id = $id;
-        try{
-            $this->kas_model->deleteData('kas_model',$id);
-            $this->session->set_flashdata('msg','Berhasil Delete Data');
-        }catch (Exception $e){
-            $this->session->set_flashdata('error','Gagal Hapus Data Segera Hubungi Operator');            
-        }
+        $this->Kas_model->deleteData('kas_masjid',$id);
+        $this->session->set_flashdata('msg','Berhasil Delete Data');
         redirect('kas_ctrl');
     }
 

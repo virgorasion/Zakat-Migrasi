@@ -8,9 +8,5 @@
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-<<<<<<< HEAD
-#    RewriteRule ^Menu_level/([0-9a-zA-Z]+) $1 [L]
-=======
->>>>>>> develop
     RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>

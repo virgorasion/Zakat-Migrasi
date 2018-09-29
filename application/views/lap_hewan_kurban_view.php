@@ -284,7 +284,7 @@ $this->load->view('template/js');
           Hapus:{
             title: 'Hapus',
             action:function(){
-              window.location = "Hewan_kurban/hapus/" + $nomor;
+              window.location = "../Hewan_kurban/hapus/" + $nomor;
             }
           }
         }

@@ -78,7 +78,7 @@ class Auth extends CI_Controller {
             $html .= '<ul class="treeview-menu">';
                 foreach($select_child as $child){
                     $class = ($this->session->userdata($child->kode_menu_child."view") == "1") ? ' class="active"' : '' ;
-                $html .= '<li'.$class.'><a href="'.$child->file_php.'"><i class="fa fa-circle-o"></i>'.$child->menu_name.'</a></li>';
+                $html .= '<li'.$class.'><a href="'.site_url($child->file_php).'"><i class="fa fa-circle-o"></i>'.$child->menu_name.'</a></li>';
             }
             $html .= '</ul>';
         }

@@ -8,7 +8,7 @@ $this->load->view('template/side');
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Kotak Amal Masjid
+            Jadwal Sholat Jumat
             <small>Miftahul Jannah</small>
         </h1>
         <ol class="breadcrumb">
@@ -17,7 +17,7 @@ $this->load->view('template/side');
                     <i class="fa fa-dashboard"></i> Home</a>
             </li>
 
-            <li class="active">Kotak Amal Masjid</li>
+            <li class="active">Jadwal Sholat Jumat</li>
         </ol>
     </section>
 
@@ -27,7 +27,7 @@ $this->load->view('template/side');
         <!-- Default box -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Daftar Amal</h3>
+                <h3 class="box-title">Jadwal Sholat</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -57,11 +57,11 @@ $this->load->view('template/side');
                     <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="forms-validation.html#demo-bsc-tab-1" data-toggle="tab">
-                                <i class="fa fa-history"></i> Informasi</a>
+                                <i class="fa fa-history"></i> Jadwal </a>
                         </li>
                         <li>
                             <a href="forms-validation.html#demo-bsc-tab-2" data-toggle="tab">
-                                <i class="fa fa-edit"></i> Tambah Data</a>
+                                <i class="fa fa-edit"></i> Buat Jadwal </a>
                         </li>
                     </ul>
 
@@ -82,52 +82,27 @@ $this->load->view('template/side');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                        $no = 1;
-                                        foreach ($data as $item) {
-                                        $keterangan = ($item->keterangan == NULL) ? '-' : $item->keterangan; 
-                                        switch ($item->tipe) {
-                                            case '1':
-                                                $tipe = "Amal Jumatan";
-                                                break;
-                                            case '2':
-                                                $tipe = "Amal Ahad Dhuha";
-                                                break;
-                                            case '3':
-                                                $tipe = "Amal Tarawih";
-                                                break;
-                                            case '4':
-                                                $tipe = "Amal Idul Fitri";
-                                                break;
-                                            case '5':
-                                                $tipe = "Amal Idul Adha";
-                                                break;
-                                            default:
-                                                $tipe = "Undifined";
-                                                break;
-                                        }
-                                       ?>
                                         <tr>
                                             <td class="no">
-                                                <?php echo $no; ?>
+                                                
                                             </td>
                                             <td class="nama">
-                                                <?php echo $item->nama; ?>
+
                                             </td>
                                             <td class="tipe">
-                                                <?php echo $tipe; ?>
+
                                             </td>
                                             <td class="jumlah">
-                                                <?php echo $item->jumlah; ?>
+
                                             </td>
                                             <td class="tanggal">
-                                                <?php echo $item->tanggal; ?>
+
                                             </td>
                                             <td class="keterangan">
-                                                <?php echo $keterangan; ?>
+
                                             </td>
                                             <td>
-                                                <input type="hidden" name="id" id="id" value="<?php echo $item->id; ?>">
+                                                <!-- <input type="hidden" name="id" id="id" value="<?php echo $item->id; ?>">
                                                 <?php if ($this->session->userdata("17view")=="1"){?>
                                                 <a href="#">
                                                     <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
@@ -153,11 +128,11 @@ $this->load->view('template/side');
                                                         <span class='glyphicon glyphicon-remove'></span>
                                                     </button>
                                                 </span>
-                                                <?php } ?>
+                                                <?php } ?> -->
 
                                             </td>
                                         </tr>
-                                        <?php $no++; } ?>
+
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -181,38 +156,7 @@ $this->load->view('template/side');
                                                 readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Tipe :</label>
-                                        <div class="col-lg-7">
-                                            <select class="form-control" name="addTipe" id="addTipe">
-                                                <option value="0">- Pilih Tipe -</option>
-                                                <option value="1">Amal Jumatan</option>
-                                                <option value="2">Amal Ahad Dhuha</option>
-                                                <option value="3">Amal Tarawih</option>
-                                                <option value="4">Amal Idul Fitri</option>
-                                                <option value="5">Amal Idul Adha</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Tanggal :</label>
-                                        <div class="col-lg-7">
-                                            <input type="text" class="form-control datepicker" name="addTanggal" value="<?php echo $tanggal; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Jumlah :</label>
-                                        <div class="col-lg-7">
-                                            <input type="text" class="form-control inputMask" name="addJumlah"
-                                                placeholder="Jumlah">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Keterangan :</label>
-                                        <div class="col-lg-7">
-                                            <textarea class="form-control" rows="3" placeholder="Keterangan" name="addKeterangan"></textarea>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-lg-7 col-lg-offset-3">
                                         <input type="submit" value="Submit" class="btn btn-flat btn-primary">
                                     </div>

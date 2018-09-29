@@ -35,12 +35,14 @@ class Lap_kotak_amal_controller extends CI_controller
             'keterangan' => $keterangan,
             'tanggal' => $tanggal,
             'tipe' => $tipe,
-            'jumlah' => $jumlah
+            'jumlah' => $jumlah,
+            'kategori' => 1,
+            'nama_donatur' => '-'
         );
 
         try{
-            $query = $this->Lap_kotak_amal_model->inputAll('lap_kotak_amal',$data);
-            $this->session->set_flashdata('msg', 'Berhsil Menambah Data');
+            $query = $this->Lap_kotak_amal_model->inputAll('kas_masjid',$data);
+            $this->session->set_flashdata('msg', 'Berhasil Menambah Data');
             redirect('Laporan/Kotak_amal');
         }catch (Exception $e){
             $this->session->set_flashdata('msg', 'Gagal Hapus Data, Segera Hubungi Operator');
@@ -51,12 +53,32 @@ class Lap_kotak_amal_controller extends CI_controller
     public function hapus_data($id)
     {
         try{
-            $query = $this->Lap_kotak_amal_model->deleteData('lap_kotak_amal',$id);
+            $this->Lap_kotak_amal_model->deleteData('kas_masjid',$id);
             $this->session->set_flashdata('msg', 'Berhasil Hapus Data');
             redirect('Laporan/Kotak_amal');
         }catch (Exception $e){
             $this->session->set_flashdata('msg', 'Gagal Hapus Data, Segera Hubungi Operator');
             redirect('Laporan/Kotak_amal');
         }
+    }
+
+    public function edit_data()
+    {
+        $tipe = $this->input->post('editTipe');
+        $jumlah = $this->input->post('editJumlah');
+        $tanggal = $this->input->post('editTanggal');
+        $keterangan = $this->input->post('editKeterangan');
+        $id = $this->input->post('idEdit');
+
+        $data = array(
+            'id_admin' => $_SESSION['id_admin'],
+            'keterangan' => $keterangan,
+            'tanggal' => $tanggal,
+            'tipe' => $tipe,
+            'jumlah' => $jumlah 
+        );
+
+        $this->Lap_kotak_amal_model->Update("kas_masjid",$data,$id);
+        redirect(site_url('Laporan/Kotak_amal'));
     }
 }
