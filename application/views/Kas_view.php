@@ -72,70 +72,7 @@ $this->load->view('template/side');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $no = 1; 
-                                        foreach ($data as $value) {
-                                            $tgl = explode('-',$value->tanggal);
-                                            $tanggal = $tgl[2]."-".$tgl[1]."-".$tgl[0];
-                                            switch ($value->tipe) {
-                                                case '1': $tipe = "Amal Jumatan"; break;
-                                                case '2': $tipe = "Amal Ahad Ddhuha"; break;
-                                                case '3': $tipe = "Amal Tarawih"; break;
-                                                case '4': $tipe = "Amal Idul Fitri"; break;
-                                                case '5': $tipe = "Amal Idul Adha"; break;
-                                                case '6': $tipe = "Donatur Tetap"; break;
-                                                case '7': $tipe = "Donatur Tidak Tetap"; break;
-                                                case '8': $tipe = "Infaq"; break;
-                                                default: $tipe = "Undifined"; break;
-                                                }
-                                        ?>
-                                        <tr>
-                                            <td class="no">
-                                                <?php echo $no; ?>
-                                            </td>
-                                            <td class="nama">
-                                                <?php echo $value->nama_donatur; ?>
-                                            </td>
-                                            <td class="nama_admin">
-                                                <?php echo $value->nama;?>
-                                            </td>
-                                            <td class="tipe">
-                                                <?php echo $tipe; ?>
-                                            </td>
-                                            <td class="jumlah">
-                                                <?php echo $value->jumlah;?>
-                                            </td>
-                                            <td class="tanggal">
-                                                <?php echo $value->tanggal;?>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="nomor" id="id" value="<?php echo $value->id ?>">
-                                                <?php if ($this->session->userdata("17view")=="1"){?>
-                                                <a href="#">
-                                                    <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
-                                                    <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
-                                                        <span class='glyphicon glyphicon-print'></span>
-                                                    </button>
-                                                </a>
-                                                <?php } ?>
-                                                <?php if ($this->session->userdata("17edit")=="1"){?>
-                                                <a href='#'>
-                                                    <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                                                    <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit'>
-                                                        <span class='glyphicon glyphicon-pencil'></span>
-                                                    </button>
-                                                </a>
-                                                <?php } ?>
-                                                <?php if ($this->session->userdata("17delete")=="1"){?>
-                                                <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                                                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
-                                                        <span class='glyphicon glyphicon-remove'></span>
-                                                    </button>
-                                                </span>
-                                                <?php } ?>
 
-                                            </td>
-                                        </tr>
-                                        <?php $no++; } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -210,6 +147,18 @@ $this->load->view('template/js');
 <script>
 $(document).ready(function (){
     $('#datatable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>",
+            "type": "POST"
+        },
+        "columnDefs": [
+            {
+            "targets": [0],
+            "orderable":false,
+        },
+    ],
         "paging": true,
         "lengthChange": true,
         "ordering": true,

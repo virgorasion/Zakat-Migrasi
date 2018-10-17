@@ -13,12 +13,12 @@ class Kas_model extends CI_model
         $i = 0;
 
         foreach ($this->column_search as $item) {
-            if ($_POST['search']['value']) {
+            if (@$_POST['search']['value']) {
                 if ($i === 0) {
                     $this->db->group_start();
-                    $this->db->like($item, $_POST['search']['value']);
+                    $this->db->like($item, @$_POST['search']['value']);
                 }else{
-                    $this->db->or_like($item, $_POST['search']['value']);
+                    $this->db->or_like($item, @$_POST['search']['value']);
                 }
                 if (count($this->column_search) - 1 == $i) {
                     $this->db->group_end();
@@ -27,7 +27,7 @@ class Kas_model extends CI_model
             $i++;
         }
         if (isset($_POST['order'])) {
-            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['o']['dir']);
+            $this->db->order_by($this->column_order[@$_POST['order']['0']['column']], @$_POST['order']['o']['dir']);
         } else if(isset($this->order)){
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
@@ -37,8 +37,8 @@ class Kas_model extends CI_model
     function get_datatables()
     {
         $this->_get_datatables_query();
-        if ($_POST['lenght'] != -1) {
-            $this->db->limit($_POST['length'], $_POST['start']);
+        if (@$_POST['lenght'] != -1) {
+            $this->db->limit(@$_POST['length'], @$_POST['start']);
             $query = $this->db->get();
             return $query->result();
         }
