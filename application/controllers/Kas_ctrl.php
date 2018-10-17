@@ -13,8 +13,7 @@ class Kas_ctrl extends CI_controller
     public function index()
     {
         if (isset($_SESSION['username'])) {
-            $data['data'] = $this->Kas_model->select_data();
-            $this->load->view('Kas_view',$data);
+            $this->load->view('Kas_view');
         }else {
             $this->session->set_flashdata('msg','Anda Harus Login Terlebih Dahulu !');
             redirect(site_url('home'));
@@ -25,17 +24,16 @@ class Kas_ctrl extends CI_controller
     {
         $list = $this->Kas_model->get_datatables();
         $data = array();
-        $no = $_POST['start'];
+        $no = 1;
         foreach($list as $item){
-            $no++;
             $row[] = array();
             $row[] = $no;
             $row[] = $item->nama_donatur;
             $row[] = $item->tipe;
             $row[] = $item->jumlah;
             $row[] = $item->tanggal;
-
             $data[] = $row;
+            $no++;
         }
 
         $result = array(
