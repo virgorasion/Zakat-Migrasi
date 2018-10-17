@@ -68,11 +68,10 @@ $this->load->view('template/side');
                                             <th class="min-tablet">Kategori</th>
                                             <th class="min-tablet">Jumlah</th>
                                             <th class="min-desktop">Tanggal</th>
-                                            <th class="min-desktop">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                    
                                     </tbody>
                                     <tfoot>
                                         <tr>

@@ -26,12 +26,43 @@ class Kas_ctrl extends CI_controller
         $data = array();
         $no = 1;
         foreach($list as $item){
-            $row[] = array();
-            $row[] = $no;
-            $row[] = $item->nama_donatur;
-            $row[] = $item->tipe;
-            $row[] = $item->jumlah;
-            $row[] = $item->tanggal;
+            switch ($item->tipe) {
+                case '1':
+                    $tipe = "Amal Jumatan";
+                    break;
+                case '2':
+                    $tipe = "Amal Ahad Ddhuha";
+                    break;
+                case '3':
+                    $tipe = "Amal Tarawih";
+                    break;
+                case '4':
+                    $tipe = "Amal Idul Fitri";
+                    break;
+                case '5':
+                    $tipe = "Amal Idul Adha";
+                    break;
+                case '6':
+                    $tipe = "Donatur Tetap";
+                    break;
+                case '7':
+                    $tipe = "Donatur Tidak Tetap";
+                    break;
+                case '8':
+                    $tipe = "Infaq";
+                    break;
+                default:
+                    $tipe = "Undifined";
+                    break;
+            }
+            $row = array(
+                $no,
+                $item->nama_donatur,
+                $item->nama,
+                $tipe,
+                $item->jumlah,
+                $item->tanggal
+            );
             $data[] = $row;
             $no++;
         }

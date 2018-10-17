@@ -5,11 +5,13 @@ class Kas_model extends CI_model
 
     var $column_order = array(null, 'nama_donatur','tipe','jumlah','tanggal'); //set column field database for datatable orderable
 	var $column_search = array('nama_donatur','nama','tipe','jumlah','tanggal'); //set column field database for datatable searchable 
-	var $order = array('id' => 'desc'); // default order 
+	var $order = array('kas_masjid.id' => 'desc'); // default order 
 
     private function _get_datatables_query()
     {
-        $this->db->from('Kas_masjid');
+        $this->db->select('*')
+                ->from('kas_masjid')
+                ->join('master_login','master_login.id_admin = kas_masjid.id_admin');
         $i = 0;
 
         foreach ($this->column_search as $item) {
