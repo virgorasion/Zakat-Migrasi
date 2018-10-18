@@ -68,6 +68,7 @@ $this->load->view('template/side');
                                             <th class="min-tablet">Kategori</th>
                                             <th class="min-tablet">Jumlah</th>
                                             <th class="min-desktop">Tanggal</th>
+                                            <th class="min-desktop">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -144,28 +145,56 @@ $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
 <script>
-$(document).ready(function (){
-    $('#datatable').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>",
-            "type": "POST"
+$(document).ready(function(){
+    // Setup datatables
+    $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+    {
+        return {
+            "iStart": oSettings._iDisplayStart,
+            "iEnd": oSettings.fnDisplayEnd(),
+            "iLength": oSettings._iDisplayLength,
+            "iTotal": oSettings.fnRecordsTotal(),
+            "iFilteredTotal": oSettings.fnRecordsDisplay(),
+            "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+            "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+        };
+    };
+
+    var table = $("#datatable").dataTable({
+        initComplete: function() {
+            var api = this.api();
+            $('#mytable_filter input')
+                .off('.DT')
+                .on('input.DT', function() {
+                    api.search(this.value).draw();
+            });
         },
-        "columnDefs": [
-            {
-            "targets": [0],
-            "orderable":false,
+            oLanguage: {
+            sProcessing: "loading..."
         },
-    ],
-        "paging": true,
-        "lengthChange": true,
-        "ordering": true,
-        "info": true,
-        "searching": true,
-        "autoWidth": false,
-        "responsive": true
+
+            processing: true,
+            serverSide: true,
+            ajax: {"url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>", "type": "POST"},
+                columns: [
+                    {"data": "id"},
+                    {"data": "nama_donatur"},
+                    {"data": "nama"},
+                    {"data": "tipe"},
+                    {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
+                    {"data": "tanggal"},
+                    {"data": "action"}
+                ],
+        order: [[1, 'asc']],
+        rowCallback: function(row, data, iDisplayIndex) {
+            var info = this.fnPagingInfo();
+            var page = info.iPage;
+            var length = info.iLength;
+            $('td:eq(0)', row).html();
+        }
+
     });
+			// end setup datatables
 
     $('.inputMask').inputmask('decimal',{
         digits: 2,

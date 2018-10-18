@@ -3,59 +3,14 @@
 class Kas_model extends CI_model 
 {
 
-    var $column_order = array(null, 'nama_donatur','tipe','jumlah','tanggal'); //set column field database for datatable orderable
-	var $column_search = array('nama_donatur','nama','tipe','jumlah','tanggal'); //set column field database for datatable searchable 
-	var $order = array('kas_masjid.id' => 'desc'); // default order 
-
-    private function _get_datatables_query()
+    public function get_kas_data()
     {
-        $this->db->select('*')
-                ->from('kas_masjid')
-                ->join('master_login','master_login.id_admin = kas_masjid.id_admin');
-        $i = 0;
+        $this->datatables->select('kas_masjid.nama_donatur,kas_masjid.tipe,kas_masjid.jumlah,kas_masjid.tanggal,kas_masjid.kategori,master_login.nama,kas_masjid.id');
+        $this->datatables->from('kas_masjid');
+        $this->datatables->join('master_login', 'master_login.id_admin = kas_masjid.id_admin');
+        $this->datatables->add_column('action','<?php if ($this->session->userdata("17edit")=="1"){?> <a href="#" data-namaDonatur="$1" data-tipe="$2" data-jumlah="$3" data-keterangan="$4" data-tanggal="$5" data-kategori="$6"> <span data-placement="top" data-toggle="tooltip" title="Edit"></span> <button id="btnEdit" class="btn btn-warning btn-xs btnEdit" data-title="Edit"> <span class="glyphicon glyphicon-pencil"></span> </button> </a>  ?php } ?> <?php if ($this->session->userdata("17delete")=="1"){?> <a href="#" data-id="$7"> <span data-placement="top" data-toggle="tooltip" title="Delete"></span> <button id="btnDelete" class="btn btn-warning btn-xs btnDelete" data-title="Delete"> <span class="glyphicon glyphicon-pencil"></span> </button> </a> <?php } ?>', 'kas_masjid.nama_donatur,kas_masjid.tipe,kas_masjid.jumlah,kas_masjid.tanggal,kas_masjid.kategori,master_login.nama'); 
+        return $this->datatables->generate();
 
-        foreach ($this->column_search as $item) {
-            if (@$_POST['search']['value']) {
-                if ($i === 0) {
-                    $this->db->group_start();
-                    $this->db->like($item, @$_POST['search']['value']);
-                }else{
-                    $this->db->or_like($item, @$_POST['search']['value']);
-                }
-                if (count($this->column_search) - 1 == $i) {
-                    $this->db->group_end();
-                }
-            }
-            $i++;
-        }
-        if (isset($_POST['order'])) {
-            $this->db->order_by($this->column_order[@$_POST['order']['0']['column']], @$_POST['order']['o']['dir']);
-        } else if(isset($this->order)){
-            $order = $this->order;
-            $this->db->order_by(key($order), $order[key($order)]);
-        }
-    }
-
-    function get_datatables()
-    {
-        $this->_get_datatables_query();
-        if (@$_POST['lenght'] != -1) {
-            $this->db->limit(@$_POST['length'], @$_POST['start']);
-            $query = $this->db->get();
-            return $query->result();
-        }
-    }
-
-    function count_filtered()
-    {
-        $this->_get_datatables_query();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
-    
-    function count_all()
-    {
-        return $this->db->count_all('Kas_masjid');
     }
 
     public function insertData($table,$data)

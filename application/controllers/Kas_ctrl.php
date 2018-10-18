@@ -8,6 +8,7 @@ class Kas_ctrl extends CI_controller
     {
         parent::__construct();
         $this->load->model('Kas_model');
+        $this->load->library('datatables');
     }
 
     public function index()
@@ -22,59 +23,8 @@ class Kas_ctrl extends CI_controller
 
     public function ajaxTable()
     {
-        $list = $this->Kas_model->get_datatables();
-        $data = array();
-        $no = 1;
-        foreach($list as $item){
-            switch ($item->tipe) {
-                case '1':
-                    $tipe = "Amal Jumatan";
-                    break;
-                case '2':
-                    $tipe = "Amal Ahad Ddhuha";
-                    break;
-                case '3':
-                    $tipe = "Amal Tarawih";
-                    break;
-                case '4':
-                    $tipe = "Amal Idul Fitri";
-                    break;
-                case '5':
-                    $tipe = "Amal Idul Adha";
-                    break;
-                case '6':
-                    $tipe = "Donatur Tetap";
-                    break;
-                case '7':
-                    $tipe = "Donatur Tidak Tetap";
-                    break;
-                case '8':
-                    $tipe = "Infaq";
-                    break;
-                default:
-                    $tipe = "Undifined";
-                    break;
-            }
-            $row = array(
-                $no,
-                $item->nama_donatur,
-                $item->nama,
-                $tipe,
-                $item->jumlah,
-                $item->tanggal
-            );
-            $data[] = $row;
-            $no++;
-        }
-
-        $result = array(
-            "draw" => $_POST['draw'],
-            'recordsTotal' => $this->Kas_model->count_all(),
-            'recordsFiltered' => $this->Kas_model->count_filtered(),
-            'data' => $data
-        );
-
-        echo json_encode($result);
+        header('Content-Type: application/json');
+        echo $this->Kas_model->get_kas_data();
     }
 
     public function tambah()
