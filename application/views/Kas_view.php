@@ -72,6 +72,7 @@ $this->load->view('template/side');
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <br>
                                     
                                     </tbody>
                                     <tfoot>
@@ -98,22 +99,16 @@ $this->load->view('template/side');
                                         <label class="col-lg-3 control-label">Kategori</label>
                                         <div class="col-lg-7">
                                             <select class="form-control" name="addKategori" id="addKategori">
-                                                    <option value="6">Donatur Tetap</option>
-                                                    <option value="7">Donatur Tidak Tetap</option>
-                                                    <option value="8">Infaq</option>
+                                                    <option value="1">Donatur Tetap</option>
+                                                    <option value="2">Donatur Tidak Tetap</option>
+                                                    <option value="3">Infaq</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Tanggal :</label>
-                                        <div class="col-lg-7">
-                                            <input type="text" class="form-control datepicker" name="addTanggal" placeholder="Tanggal" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Jumlah</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control inputMask" name="addJumlah" placeholder="Jumlah">
+                                            <input type="text" class="form-control" name="addJumlah" placeholder="Jumlah">
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-lg-offset-3">
@@ -170,14 +165,17 @@ $(document).ready(function(){
             });
         },
             oLanguage: {
-            sProcessing: "loading..."
+            sProcessing: 'Loading....'
         },
 
             processing: true,
             serverSide: true,
             ajax: {"url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>", "type": "POST"},
                 columns: [
-                    {"data": "id"},
+                    {
+                        "data": null,
+                        "orderable": false
+                    },
                     {"data": "nama_donatur"},
                     {"data": "nama"},
                     {"data": "tipe"},
@@ -190,11 +188,12 @@ $(document).ready(function(){
             var info = this.fnPagingInfo();
             var page = info.iPage;
             var length = info.iLength;
-            $('td:eq(0)', row).html();
+            var index = page * length + (iDisplayIndex + 1);
+            $('td:eq(0)', row).html(index);
         }
 
     });
-			// end setup datatables
+        // end setup datatables
 
     $('.inputMask').inputmask('decimal',{
         digits: 2,

@@ -32,26 +32,34 @@ class Kas_ctrl extends CI_controller
         $nama = $this->input->post('addNama');
         $kategori = $this->input->post('addKategori');
         $jumlah = $this->input->post('addJumlah');
-        $date = $this->input->post('addTanggal');
+        $date = date('Y-m-d');
 
         $data = array(
-            'nama_donatur' => $nama,
+            'nama' => $nama,
             'id_admin' => $_SESSION['id_admin'],
             'tipe' => $kategori,
             'jumlah' => $jumlah,
-            'tanggal' => $date,
-            'kategori' => 0
+            'tanggal' => $date
         );
+        try{
+            $this->Kas_model->insertData('kas_masjid',$data);
+            $this->session->set_flashdata('msg','Berhasil Menambah Data');
+        }catch(Exception $e){
+            $this->session->set_flashdata('error',"Gagal Tambah Data Segera Hubungi Operator");
+        }
 
-        $this->Kas_model->insertData('kas_masjid',$data);
-        $this->session->set_flashdata('msg','Berhasil Menambah Data');
         redirect('kas_ctrl');
     }
 
     public function hapus($id)
     {
-        $this->Kas_model->deleteData('kas_masjid',$id);
-        $this->session->set_flashdata('msg','Berhasil Delete Data');
+        $id = $id;
+        try{
+            $this->kas_model->deleteData('kas_model',$id);
+            $this->session->set_flashdata('msg','Berhasil Delete Data');
+        }catch (Exception $e){
+            $this->session->set_flashdata('error','Gagal Hapus Data Segera Hubungi Operator');            
+        }
         redirect('kas_ctrl');
     }
 
