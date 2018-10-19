@@ -65,9 +65,10 @@ $this->load->view('template/side');
                                             <th>No.</th>
                                             <th>Nama</th>
                                             <th class="min-tablet">Admin</th>
-                                            <th class="min-tablet">Kategori</th>
+                                            <th class="min-tablet">Tipe</th>
                                             <th class="min-tablet">Jumlah</th>
                                             <th class="min-desktop">Tanggal</th>
+                                            <th class="min-desktop">Keterangan</th>
                                             <th class="min-desktop">Action</th>
                                         </tr>
                                     </thead>
@@ -131,6 +132,81 @@ $this->load->view('template/side');
         </div>
         <!-- /.box -->
 
+        <!-- Modal Edit -->
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- form start -->
+                    <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Kas_ctrl/edit_data') ?>"
+                        method="post">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Data Amal</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Nama Admin</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="editPetugas" name="editPetugas"
+                                            value="<?php echo $_SESSION['nama'] ?>" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Nama Donatur</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="editDonatur" name="editDonatur" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Tipe</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" name="editTipe" id="editTipe">
+                                            <option value="1">Amal Jumatan</option>
+                                            <option value="2">Amal Ahad Dhuha</option>
+                                            <option value="3">Amal Tarawih</option>
+                                            <option value="4">Amal Idul Fitri</option>
+                                            <option value="5">Amal Idul Adha</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Jumlah</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control inputMask" id="editJumlah" name="editJumlah"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Tanggal</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control datepicker" id="editTanggal" name="editTanggal"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Keterangan</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="editKeterangan" id="editKeterangan" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="idEdit" id="idEdit" value="">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btnSave">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </section>
     <!-- /.content -->
 </div>
@@ -181,6 +257,7 @@ $(document).ready(function(){
                     {"data": "tipe"},
                     {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
                     {"data": "tanggal"},
+                    {"data": "keterangan"},
                     {"data": "action"}
                 ],
         order: [[1, 'asc']],
@@ -212,18 +289,20 @@ $(document).ready(function(){
         todayBtn: "linked",
         todayHighlight: true
     });
-    $('#datatable').on('click','[id^=btnEdit]',function(){
-        var $test = $(this).closest('tr');
-        var $nama = $test.find('.nama').text().trim();
-        var $jumlah = $test.find('.jumlah').text().trim();
-        var $id = $test.find('#id').val().trim();
-        var $tgl = $test.find('.tanggal').text().trim();
-        var $ket = $test.find('.keterangan').text().trim();
-        $('#formEdit').find('#editPetugas').val($nama);
-        $('#formEdit').find('#editJumlah').val($jumlah);
-        $('#formEdit').find('#editTanggal').val($tgl);
-        $('#formEdit').find('#editKeterangan').val($ket);
-        $('#formEdit').find('#idEdit').val($id);
+    $('#datatable').on('click','.edit_data',function(){
+        var id = $(this).data('id');
+        var donatur =  $(this).data('donatur');
+        var tipe =  $(this).data('tipe');
+        var jumlah =  $(this).data('jumlah');
+        var tanggal =  $(this).data('tanggal');
+        var keterangan =  $(this).data('keterangan');
+        $('#modalEdit').modal('show');
+        $('#formEdit').find('#editTipe').val(tipe);
+        $('#formEdit').find('#editDonatur').val(donatur);
+        $('#formEdit').find('#editJumlah').val(jumlah);
+        $('#formEdit').find('#editTanggal').val(tanggal);
+        $('#formEdit').find('#editKeterangan').val(keterangan);
+        $('#formEdit').find('#idEdit').val(id);
         });
 
         $('#datatable').on('click', '[id^=btnDelete]', function () {
