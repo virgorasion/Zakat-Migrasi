@@ -249,7 +249,7 @@ $(document).ready(function(){
             ajax: {"url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>", "type": "POST"},
                 columns: [
                     {
-                        "data": null,
+                        "data": "newTipe",
                         "orderable": false
                     },
                     {"data": "nama_donatur"},

@@ -17,18 +17,44 @@ class Kas_model extends CI_model
         nama,
         id,
         keterangan');
-        // $this->datatables->add_column('newTipe', $this->tipe('$1'), 'tipe');
+
+        function tipe($tipe)
+        {
+            switch ($tipe) {
+                case '1':
+                    $tipe = "Amal Jumatan";
+                    break;
+                case '2':
+                    $tipe = "Amal Ahad Ddhuha";
+                    break;
+                case '3':
+                    $tipe = "Amal Tarawih";
+                    break;
+                case '4':
+                    $tipe = "Amal Idul Fitri";
+                    break;
+                case '5':
+                    $tipe = "Amal Idul Adha";
+                    break;
+                case '6':
+                    $tipe = "Donatur Tetap";
+                    break;
+                case '7':
+                    $tipe = "Donatur Tidak Tetap";
+                    break;
+                case '8':
+                    $tipe = "Infaq";
+                    break;
+                default:
+                    $tipe = "Undifined";
+                    break;
+            }
+            return $tipe;
+        }
+
+        $this->datatables->add_column('newTipe', '$1', 'tipe(tipe)');
         return $this->datatables->generate();
 
-    }
-
-    public function tipe($tipes)
-    {
-        if ($tipes == 1) {
-            return "asdsad";
-        }else {
-            return "falses";
-        }
     }
 
     public function insertData($table,$data)
