@@ -25,7 +25,8 @@ class Lap_kotak_amal_controller extends CI_controller
     public function input_data()
     {
         $tipe = $this->input->post('addTipe');
-        $jumlah = $this->input->post('addJumlah');
+        $jml = explode('.', $this->input->post('addJumlah'));
+        $jumlah = implode('', $jml);
         $keterangan = $this->input->post('addKeterangan');
         $admin = $_SESSION['id_admin'];
         $tanggal = $this->input->post('addTanggal');
@@ -34,7 +35,7 @@ class Lap_kotak_amal_controller extends CI_controller
             'id_admin' => $admin,
             'keterangan' => $keterangan,
             'tanggal' => $tanggal,
-            'tipe' => $tipe,
+            'id_tipe' => $tipe,
             'jumlah' => $jumlah,
             'kategori' => 1,
             'nama_donatur' => '-'
@@ -65,7 +66,8 @@ class Lap_kotak_amal_controller extends CI_controller
     public function edit_data()
     {
         $tipe = $this->input->post('editTipe');
-        $jumlah = $this->input->post('editJumlah');
+        $jml = explode('.', $this->input->post('editJumlah'));
+        $jumlah = implode('', $jml);
         $tanggal = $this->input->post('editTanggal');
         $keterangan = $this->input->post('editKeterangan');
         $id = $this->input->post('idEdit');
@@ -74,11 +76,17 @@ class Lap_kotak_amal_controller extends CI_controller
             'id_admin' => $_SESSION['id_admin'],
             'keterangan' => $keterangan,
             'tanggal' => $tanggal,
-            'tipe' => $tipe,
+            'id_tipe' => $tipe,
             'jumlah' => $jumlah 
         );
 
-        $this->Lap_kotak_amal_model->Update("kas_masjid",$data,$id);
-        redirect(site_url('Laporan/Kotak_amal'));
+        try {
+            $this->Lap_kotak_amal_model->Update("kas_masjid", $data, $id);
+            $this->session->set_flashdata('msg', 'Berhasil Edit Data');
+            redirect('Laporan/Kotak_amal');
+        } catch (Exception $e) {
+            $this->session->set_flashdata('msg', 'Gagal Edit Data, Segera Hubungi Operator');
+            redirect('Laporan/Kotak_amal');
+        }
     }
 }

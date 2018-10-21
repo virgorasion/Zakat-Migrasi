@@ -7,6 +7,7 @@ class Lap_kotak_amal_model extends CI_model
         return $this->db->select('*')
                 ->from('kas_masjid')
                 ->join('master_login', 'master_login.id_admin = kas_masjid.id_admin')
+                ->join('tipe_donasi', 'tipe_donasi.id_tipe = kas_masjid.id_tipe')
                 ->where('kas_masjid.kategori = 1')
                 ->get();
     }

@@ -69,6 +69,7 @@ $this->load->view('template/side');
                     <div id="demo-bv-bsc-tabs" class="form-horizontal">
                         <div class="tab-content">
                             <div class="tab-pane pad-btm fade in active" id="demo-bsc-tab-1">
+                            <br>
                                 <table id="datatable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -86,27 +87,7 @@ $this->load->view('template/side');
                                         $no = 1;
                                         foreach ($data as $item) {
                                         $keterangan = ($item->keterangan == NULL) ? '-' : $item->keterangan; 
-                                        switch ($item->tipe) {
-                                            case '1':
-                                                $tipe = "Amal Jumatan";
-                                                break;
-                                            case '2':
-                                                $tipe = "Amal Ahad Dhuha";
-                                                break;
-                                            case '3':
-                                                $tipe = "Amal Tarawih";
-                                                break;
-                                            case '4':
-                                                $tipe = "Amal Idul Fitri";
-                                                break;
-                                            case '5':
-                                                $tipe = "Amal Idul Adha";
-                                                break;
-                                            default:
-                                                $tipe = "Undifined";
-                                                break;
-                                        }
-                                       ?>
+                                        ?>
                                         <tr>
                                             <td class="no">
                                                 <?php echo $no; ?>
@@ -115,10 +96,10 @@ $this->load->view('template/side');
                                                 <?php echo $item->nama; ?>
                                             </td>
                                             <td class="tipe">
-                                                <?php echo $tipe; ?>
+                                                <?php echo $item->tipe; ?>
                                             </td>
                                             <td class="jumlah">
-                                                <?php echo $item->jumlah; ?>
+                                                <?php echo number_format((double)$item->jumlah, 0, ",", "."); ?>
                                             </td>
                                             <td class="tanggal">
                                                 <?php echo $item->tanggal; ?>
@@ -184,8 +165,8 @@ $this->load->view('template/side');
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Tipe :</label>
                                         <div class="col-lg-7">
-                                            <select class="form-control" name="addTipe" id="addTipe">
-                                                <option value="0">- Pilih Tipe -</option>
+                                            <select required class="form-control" name="addTipe" id="addTipe">
+                                                <option value="">- Pilih Tipe -</option>
                                                 <option value="1">Amal Jumatan</option>
                                                 <option value="2">Amal Ahad Dhuha</option>
                                                 <option value="3">Amal Tarawih</option>
@@ -197,13 +178,13 @@ $this->load->view('template/side');
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Tanggal :</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control datepicker" name="addTanggal" value="<?php echo $tanggal; ?>">
+                                            <input required type="text" class="form-control datepicker" name="addTanggal" value="<?php echo $tanggal; ?>" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Jumlah :</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control inputMask" name="addJumlah"
+                                            <input required type="text" class="form-control inputMask" name="addJumlah"
                                                 placeholder="Jumlah">
                                         </div>
                                     </div>
@@ -322,6 +303,10 @@ $this->load->view('template/js');
             "responsive": true
         });
 
+        $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+            $(".alert-success").slideUp(500);
+        });
+
         $('.inputMask').inputmask('decimal', {
             digits: 2,
             placeholder: "0",
@@ -329,8 +314,7 @@ $this->load->view('template/js');
             radixPoint: ",",
             groupSeparator: ".",
             autoGroup: true,
-            rightAlign: false,
-            prefix: "Rp "
+            rightAlign: false
         });
 
         $(".datepicker").datepicker({
