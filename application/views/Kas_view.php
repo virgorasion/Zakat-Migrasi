@@ -91,15 +91,23 @@ $this->load->view('template/side');
                                 <form action="<?php echo site_url('kas_ctrl/tambah'); ?>" method="POST">
                                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Nama :</label>
+                                        <label class="col-lg-3 control-label">Nama Admin :</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="addNama" placeholder="Nama">
+                                            <input type="text" class="form-control" name="addAdmin" value="<?php echo $_SESSION['nama']; ?>"
+                                                readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Kategori</label>
+                                        <label class="col-lg-3 control-label">Nama :</label>
                                         <div class="col-lg-7">
-                                            <select class="form-control" name="addKategori" id="addKategori">
+                                            <input required type="text" class="form-control" name="addNama" placeholder="Nama">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Tipe :</label>
+                                        <div class="col-lg-7">
+                                            <select required class="form-control" name="addTipe" id="addTipe">
+                                                    <option value="">- Pilih Tipe -</option>
                                                     <option value="1">Donatur Tetap</option>
                                                     <option value="2">Donatur Tidak Tetap</option>
                                                     <option value="3">Infaq</option>
@@ -107,9 +115,21 @@ $this->load->view('template/side');
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Jumlah</label>
+                                        <label class="col-lg-3 control-label">Tanggal :</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="addJumlah" placeholder="Jumlah">
+                                            <input required type="text" class="form-control datepicker" name="addTanggal" placeholder="31-Agustus-2000" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Jumlah :</label>
+                                        <div class="col-lg-7">
+                                            <input required type="text" class="form-control inputMask" name="addJumlah" placeholder="Jumlah">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Keterangan :</label>
+                                        <div class="col-lg-7">
+                                            <textarea class="form-control" rows="3" placeholder="Keterangan" name="addKeterangan"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-lg-offset-3">
@@ -137,7 +157,7 @@ $this->load->view('template/side');
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- form start -->
-                    <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Kas_ctrl/edit_data') ?>"
+                    <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Kas_ctrl/edit') ?>"
                         method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">
@@ -159,7 +179,7 @@ $this->load->view('template/side');
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Nama Donatur</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="editDonatur" name="editDonatur" readonly>
+                                        <input type="text" class="form-control" id="editDonatur" name="editDonatur">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -171,6 +191,9 @@ $this->load->view('template/side');
                                             <option value="3">Amal Tarawih</option>
                                             <option value="4">Amal Idul Fitri</option>
                                             <option value="5">Amal Idul Adha</option>
+                                            <option value="6">Donatur Tetap</option>
+                                            <option value="7">Donatur Tidak Tetap</option>
+                                            <option value="8">Infaq</option>
                                         </select>
                                     </div>
                                 </div>
@@ -249,16 +272,17 @@ $(document).ready(function(){
             ajax: {"url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>", "type": "POST"},
                 columns: [
                     {
-                        "data": "newTipe",
-                        "orderable": false
+                        "data": null,
+                        "orderable": false,
+                        "searchable": false
                     },
                     {"data": "nama_donatur"},
                     {"data": "nama"},
                     {"data": "tipe"},
                     {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
                     {"data": "tanggal"},
-                    {"data": "keterangan"},
-                    {"data": "action"}
+                    {"data": "keterangan"}
+                    ,{"data": "action", "orderable": false, "searchable": false}
                 ],
         order: [[1, 'asc']],
         rowCallback: function(row, data, iDisplayIndex) {
@@ -279,8 +303,7 @@ $(document).ready(function(){
         radixPoint: ",",
         groupSeparator: ".",
         autoGroup: true,
-        rightAlign: false,
-        prefix: "Rp "
+        rightAlign: false
     });
 
     $(".datepicker").datepicker({
@@ -303,25 +326,28 @@ $(document).ready(function(){
         $('#formEdit').find('#editTanggal').val(tanggal);
         $('#formEdit').find('#editKeterangan').val(keterangan);
         $('#formEdit').find('#idEdit').val(id);
+        $('.btnSave').click(function(){
+            $('#formEdit').submit();
         });
+    });
 
-        $('#datatable').on('click', '[id^=btnDelete]', function () {
-            var $item = $(this).closest("tr");
-            var $nama = $item.find(".tanggal").text();
-            console.log($nama);
+        $('#datatable').on('click', '.delete_data', function () {
+            var tanggal = $(this).data('tanggal');
+            var id = $(this).data('id');
+            console.log(tanggal);
             // $item.find("input[id$='no']").val();
             // alert("hai");
             $.confirm({
                 theme: 'supervan',
                 title: 'Hapus Data Ini ?',
-                content: 'Hapus data zakat ' + $nama,
+                content: 'Hapus data zakat ' + tanggal,
                 autoClose: 'Cancel|5000',
                 buttons: {
                     Cancel: function () {},
                     delete: {
                         text: 'Delete',
                         action: function () {
-                            window.location = "Kas_ctrl/hapus/" + $item.find("#id").val();
+                            window.location = "Kas_ctrl/hapus/" + id
                         }
                     }
                 }

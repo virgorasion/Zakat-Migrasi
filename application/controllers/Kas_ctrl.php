@@ -30,16 +30,19 @@ class Kas_ctrl extends CI_controller
     public function tambah()
     {
         $nama = $this->input->post('addNama');
-        $kategori = $this->input->post('addKategori');
-        $jumlah = $this->input->post('addJumlah');
-        $date = date('Y-m-d');
+        $kategori = $this->input->post('addTipe');
+        $jml = explode('.', $this->input->post('addJumlah'));
+        $jumlah = implode('', $jml);
+        $date = $this->input->post('addTanggal');
+        $keterangan = $this->input->post('addKeterangan');
 
         $data = array(
-            'nama' => $nama,
+            'nama_donatur' => $nama,
             'id_admin' => $_SESSION['id_admin'],
-            'tipe' => $kategori,
+            'id_tipe' => $kategori,
             'jumlah' => $jumlah,
-            'tanggal' => $date
+            'tanggal' => $date,
+            'keterangan' => $keterangan
         );
         try{
             $this->Kas_model->insertData('kas_masjid',$data);
@@ -51,11 +54,29 @@ class Kas_ctrl extends CI_controller
         redirect('kas_ctrl');
     }
 
+    public function edit()
+    {
+        $post = $this->input->post();
+        $jml = explode('.', $post['editJumlah']);
+        $jumlah = implode('',$jml);
+        $data = array(
+            'id_admin' => $_SESSION['id_admin'],
+            'nama_donatur' => $post['editDonatur'],
+            'jumlah' => $jumlah,
+            'keterangan' => $post['editKeterangan'],
+            'tanggal' => $post['editTanggal'],
+            'id_tipe' => $post['editTipe']
+        );
+        $id = $post['idEdit'];
+        $this->Kas_model->updateData('kas_masjid', $data, $id);
+        redirect('Kas_ctrl');
+    }
+
     public function hapus($id)
     {
         $id = $id;
         try{
-            $this->kas_model->deleteData('kas_model',$id);
+            $this->Kas_model->deleteData('kas_model',$id);
             $this->session->set_flashdata('msg','Berhasil Delete Data');
         }catch (Exception $e){
             $this->session->set_flashdata('error','Gagal Hapus Data Segera Hubungi Operator');            

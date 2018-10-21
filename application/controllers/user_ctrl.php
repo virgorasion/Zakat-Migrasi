@@ -10,41 +10,79 @@ class User_ctrl extends CI_Controller{
 
     public function index()
     {
-        $cabang = $_SESSION['kode_cabang'];
-        $data['data'] = $this->User_model->select_user($cabang)->result();
-        $this->load->view('view_user',$data);
+        if ($_SESSION['username'] != null) {
+            $data['data'] = $this->User_model->get_user()->result();
+            $data['getHakAkses'] = $this->User_model->get_hakAkses()->result();
+            // echo json_encode($data['data']);
+            // die();
+            $this->load->view('view_user',$data);
+        }else{
+            redirect('home');
+        }
     }
 
     public function buatAkun()
     {
-        $data = $this->input->post(array('NamaBru','UsernameBru','PasswordBru','AksesBru','CabangBru'));
+        $data = $this->input->post();
 
-        if ($_SESSION['kode_akses'] == 1 || $_SESSION['kode_akses'] == 2) {
-            $arr = array(
-                'nama' => $data['NamaBru'],
-                'username' => $data['UsernameBru'],
-                'password' => md5($data['PasswordBru']),
-                'status_aktif' => 1,
-                'kode_cabang' => $data['CabangBru'],
-                'kode_akses' => $data['AksesBru']
-            );
-        }else{
-            $arr = array(
-                'nama' => $data['NamaBru'],
-                'username' => $data['UsernameBru'],
-                'password' => md5($data['PasswordBru']),
-                'status_aktif' => 1,
-                'kode_cabang' => $_SESSION['kode_cabang'],
-                'kode_akses' => $data['AksesBru']
-            );
-        }
+        $arr = array(
+            'nama' => $data['NamaBru'],
+            'username' => $data['UsernameBru'],
+            'password' => md5($data['passBru']),
+            'status_aktif' => 1,
+            'kode_akses' => $data['aksesBru']
+        );
+        
         try{
             $this->User_model->tambah($arr);
+            redirect('user_ctrl');
         }catch(Exception  $e){
             $this->session->set_flashdata('msg','Error' .$e->getMessage());
             redirect('user_ctrl');
         }
         $this->session->set_flashdata('msg','Berhasil Buat Akun');
         redirect('user_ctrl');
+    }
+
+    public function edit()
+    {
+        $post = $this->input->post();
+        if ($post['passwordEdt'] == "") {
+            $data = array(
+                'nama' => $post['namaEdt'],
+                'username' => $post['usernameEdt'],
+                'status_aktif' => $post['statusEdt'],
+                'kode_akses' => $post['aksesEdt']
+            );
+        }else{
+            $data = array(
+                'nama' => $post['namaEdt'],
+                'username' => $post['usernameEdt'],
+                'status_aktif' => $post['statusEdt'],
+                'kode_akses' => $post['aksesEdt'],
+                'password' => md5($post['passwordEdt'])
+            );
+        }
+        $id = $post['id_admin'];
+        $query = $this->User_model->updateData('master_login', $data, $id);
+        if ($query != 1) {
+            $this->session->set_flashdata('msg', 'Gagal edit user, segera hubungi admin !');
+            redirect('user_ctrl');
+        }else {
+            $this->session->set_flashdata('msg', 'Berhasil edit user :)');
+            redirect('user_ctrl');
+        }
+    }
+
+    public function hapus($id)
+    {
+        $query = $this->User_model->deleteData('master_login',$id);
+        if ($query != 0) {
+            $this->session->set_flashdata('msg', 'Berhasil hapus data');
+            redirect('user_ctrl');
+        }else{
+            $this->session->set_flashdata('msg', 'Gagal hapus data, segera hubungi admin !');
+            redirect('user_ctrl');
+        }
     }
 }
