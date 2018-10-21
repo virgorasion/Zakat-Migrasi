@@ -8,6 +8,14 @@
         return $result;
     }
 
+    function get_hakAkses()
+    {
+        $this->db->select('*')
+                ->from('menu_hak_akses')
+                ->order_by('kode_akses', 'ASC');
+        return $this->db->get();
+    }
+
     function get_hak_akses(){
         return $this->db->query("SELECT l.kode_menu_level, l.kode_akses, l.kode_menu_child, l.akses_insert, l.akses_view, l.akses_edit, l.akses_delete
                                  from menu_level l, master_login u
@@ -15,19 +23,30 @@
                                        u.username = '".$_SESSION['username']."'");
     }
 
-    function select_user($cabang)
+    function get_user()
     {
-       return $this->db->query('select ml.id_admin, ml.password, ml.status_aktif,ml.nama,ml.username,cb.nama_cabang,ha.hak_akses 
-                        from master_login ml, master_cabang cb, menu_hak_akses ha
-                        where ml.kode_cabang = '.$cabang.'
-                        and ml.kode_cabang = cb.kode_cabang
-                        and ml.kode_akses = ha.kode_akses
-                        order by ml.kode_akses');
+       $this->db->select('master_login.id_admin,master_login.kode_akses,master_login.nama,master_login.username,master_login.status_aktif,menu_hak_akses.hak_akses')
+                ->from('master_login')
+                ->join('menu_hak_akses', 'menu_hak_akses.kode_akses = master_login.kode_akses')
+                ->order_by('id_admin', 'ASC');
+        return $this->db->get();
     }
+
     function tambah($arr)
     {
         $this->db->insert('master_login',$arr);
         return true;
+    }
+
+    function updateData($table, $data, $id)
+    {
+        $this->db->where('id_admin', $id);
+        return $this->db->update($table, $data);
+    }
+
+    function deleteData($table,$id)
+    {
+        return $this->db->delete($table, array('id_admin' => $id));
     }
 }
 ?>

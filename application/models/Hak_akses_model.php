@@ -16,8 +16,7 @@ class Hak_akses_model extends CI_model{
     public function update_data($table,$data,$id)
     {
         $this->db->where('kode_akses', $id);
-        $this->db->update($table,$data)->where('id',$id);
-        return true;
+        return $this->db->update($table,$data);
     }
     
     public function delete_data($table,$id)
