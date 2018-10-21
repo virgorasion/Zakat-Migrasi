@@ -10,15 +10,24 @@ class Menu_level_controller extends CI_controller{
 
 	public function index()
 	{
-		$data['data'] = $this->Menu_level_model->tampil_data()->result();
-		$this->load->view('Menu_level_view',$data);
+        if ($_SESSION['username'] != null) {
+            # code...
+            $data['data'] = $this->Menu_level_model->get_all_data()->result();
+            $this->load->view('Menu_level_view',$data);
+        }else{
+            redirect('home');
+        }
     }
     
     public function Menu_setting($kode_akses){
-        $kode_akses = $this->input->post('kode_akses');
-        $data['data'] =  $this->Menu_level_model->Data_setting($kode_akses)->result();
-		$data['kode_akses'] = $kode_akses;
-        $this->load->view('Menu_level_edit_view', $data);
+        if ($_SESSION['username'] != null) {
+            # code...
+            $data['data'] =  $this->Menu_level_model->Data_setting($kode_akses)->result();
+            $data['kode_akses'] = $kode_akses;
+            $this->load->view('Menu_level_edit_view', $data);
+        }else{
+            redirect('home');
+        }
 	}
 
 	public function update()
@@ -40,10 +49,12 @@ class Menu_level_controller extends CI_controller{
                 'akses_edit' => ($edit=="1")?"1":"0",
                 'akses_delete' => ($delete=="1")?"1":"0",
                 );
-            $this->Menu_level_model->input_data($data, 'menu_level');   
-        endforeach;            
+                $this->Menu_level_model->input_data($data, 'menu_level');   
+                // print_r($data);
+            endforeach;            
+            // die();
             $this->session->set_flashdata('msg', 'Berhasil Simpan');  
-	    redirect(site_url() . 'Menu_level/edit');
+	    redirect(site_url() . 'Menu_level/Menu_setting/'.$kode_akses);
     }
 
 }

@@ -15,7 +15,7 @@ class Menu_model extends CI_Model{
 								and ml.kode_akses = ".$_SESSION['kode_akses']."
 								and mh.status_aktif = 'YES'
 								and ml.akses_view = 1
-								order by mh.kode_menu_header desc");
+								order by mh.kode_menu_header asc");
     }
 	
 	function select_child($kode_menu_header){
