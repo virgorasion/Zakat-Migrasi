@@ -47,16 +47,17 @@ $this->load->view('template/side');
           <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
             <div class="form-group">
               <div class="col-sm-2">
-                <input placeholder="Nama" type="text" name="nama" id="nama" class="form-control" autofocus>
+                <input placeholder="Nama" type="text" name="nama" id="nama" class="form-control" autofocus required>
               </div>
               <div class="col-sm-2">
-                <input placeholder="Alamat" type="text" name="alamat" id="alamat" class="form-control">
+                <input placeholder="Alamat" type="text" name="alamat" id="alamat" class="form-control" required>
               </div>
               <div class="col-sm-2">
-                <input placeholder="Zakat Fitrah" type="text" name="zakatFitrah" id="zakatFitrah" class="form-control">
+                <input placeholder="Zakat Fitrah" class="inputMask form-control" type="number" name="zakatFitrah" id="zakatFitrah" class="form-control">
               </div>
               <div class="col-sm-2">
                 <select class="form-control" name="pembelian" id="pembelian">
+                  <option value="">- Pilih Tipe -</option>
                   <option value="0">Beli</option>
                   <option value="1">Tidak</option>
                 </select>
@@ -246,42 +247,37 @@ $this->load->view('template/side');
           <h4 class="modal-title">Edit Zakat</h4>
         </div>
         <div class="modal-body">
-
-          <div class="row">
             <form action="<?php echo site_url('zakat_ctrl/simpanEdit');?>" method="POST">
-              <div class="form-group">
-                <div class="col-sm-12">
-                  <input placeholder="Nama" type="text" name="namaEdt" id="namaEdt" class="form-control">
-                </div>
-                <div class="col-sm-12">
-                  <br>
-                  <input placeholder="Alamat" type="text" name="alamatEdt" id="alamatEdt" class="form-control">
-                </div>
-                <div class="col-sm-12">
-                  <br>
-                  <input placeholder="Zakat Fitrah" type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control">
-                </div>
-                <div class="col-sm-12">
-                  <br>
-                  <select class="form-control" name="pembelianEdt" id="pembelianEdt">
-                    <option value="0">Beli</option>
-                    <option value="1">Tidak</option>
-                  </select>
-                </div>
-                <div class="col-sm-12">
-                  <br>
-                  <input placeholder="Zakat Mall" type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control">
-                </div>
-                <div class="col-sm-12">
-                  <br>
-                  <input placeholder="Infaq" type="text" name="infaqEdt" id="infaqEdt" class="form-control">
-                </div>
-              </div>
+            <div class="form-group">
+              <label for="namaEdt">Nama :</label>
+              <input type="text" name="namaEdt" id="namaEdt" class="form-control" placeholder="ex : Virgorasion">
+            </div>
+            <div class="form-group">
+              <label for="alamatEdt">Alamat :</label>
+              <input type="text" name="alamatEdt" id="alamatEdt" class="form-control" placeholder="ex : Kapas madya">
+            </div>
+            <div class="form-group">
+              <label for="zakatFitrahEdt">Zakat Fitrah :</label>
+              <input type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control" placeholder="ex : 5">
+            </div>
+            <div class="form-group">
+              <label for="pembelianEdt">Pembelian :</label>
+              <select class="form-control" name="pembelianEdt" id="pembelianEdt">
+                <option value="0">Beli</option>
+                <option value="1">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="zakatMalEdt">Zakat Mall :</label>
+              <input type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control" placeholder="ex : 50.000">
+            </div>
+            <div class="form-group">
+              <label for="infaqEdt">Infaq :</label>
+              <input type="text" name="infaqEdt" id="infaqEdt" class="form-control" placeholder="ex : 100.000">
+            </div>
               <input type="hidden" name="nomor" id="nomor" value="">
               <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
           </div>
-
-        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Simpan</button>
@@ -393,13 +389,14 @@ $this->load->view('template/js');
       autoclose: true
     });
 
-    $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt').inputmask('decimal', {
+    $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt, .inputMask').inputmask('decimal', {
       digits: 2,
       placeholder: "0",
       digitsOptional: true,
       radixPoint: ",",
       groupSeparator: ".",
-      autoGroup: true
+      autoGroup: true,
+      rightAlign: false
     });
 
     $('#btnPrint').click(function () {
