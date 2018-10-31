@@ -30,7 +30,6 @@ class Hak_akses_ctrl extends CI_Controller {
         $kodeAkses = $this->input->post('kodeAkses');
         if ($action == "add") {
             $data = array(
-                'kode_cabang' => '',
                 'hak_akses' => $hakAkses,
                 'keterangan' => $keterangan,
                 'status_aktif' => $status
