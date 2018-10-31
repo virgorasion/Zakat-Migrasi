@@ -6,13 +6,15 @@ class Takmir_ctrl extends CI_controller
 {
     public function __construct(){
         parent::__construct();
-        $this->load->model('tamkir_model');
+        $this->load->model('Takmir_model');
     }
 
     public function index()
     {
         if (isset($_SESSION['username'])) {
-            $this->load->view('takmir_view');
+            $data['users'] = $this->Takmir_model->getUsers()->result();
+            $data['petugas'] = $this->Takmir_model->getPetugas()->result();
+            $this->load->view('view_takmir', $data);
         }else {
             redirect('home');
         }

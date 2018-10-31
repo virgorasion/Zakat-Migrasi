@@ -305,10 +305,6 @@ div.DTFC_LeftFootWrapper table {
 	margin-top: 0 !important;
 }
 
-#container .table.dataTable tbody tr.selected {
-	background-color: #f2f5ca;
-}
-
 /*
  * FixedHeader styles
  */

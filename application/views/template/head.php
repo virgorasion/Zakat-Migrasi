@@ -11,20 +11,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Miftahul Jannah</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!--Bootstrap Table [ OPTIONAL ]-->
-  <link href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/css/dataTables.bootstrap.css'); ?>" rel="stylesheet">
-	<link href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css'); ?>" rel="stylesheet">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css');?>">
   <!-- Bootstrap Validator -->
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-validator/bootstrapValidator.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>">
   <!-- Jquery Confirm -->
   <link rel="stylesheet" href="<?php echo base_url('assets/jquery-confirm/jquery-confirm.min.css');?>">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css');?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.3.0/css/font-awesome.min.css'); ?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url('assets/ionicons-2.0.1/css/ionicons.min.css');?>">
+  <!--Bootstrap Table [ OPTIONAL ]-->
+  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/css/dataTables.bootstrap.css') ?>">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/iCheck/all.css');?>">
   <!-- Theme style -->
@@ -63,7 +63,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue-light sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="container">
 
   <!-- Main Header -->
   <header class="main-header">
