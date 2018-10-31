@@ -30,7 +30,6 @@ class Lap_kotak_amal_controller extends CI_controller
         $keterangan = $this->input->post('addKeterangan');
         $admin = $_SESSION['id_admin'];
         $tanggal = $this->input->post('addTanggal');
-
         $data = array(
             'id_admin' => $admin,
             'keterangan' => $keterangan,

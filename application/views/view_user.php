@@ -46,6 +46,11 @@ $this->load->view('template/side');
                   }else {
                     $status = 'Non_Aktif';
                   }
+                  if ($item->kode_akses == null){
+                    $hak_akses = "Null";
+                  }else {
+                    $hak_akses = $item->hak_akses;
+                  }
                   ?>
             <tr>
               <input type="hidden" name="id" id="id_admin" value="<?php echo $item->id_admin ?>">
@@ -60,7 +65,7 @@ $this->load->view('template/side');
                 <?php echo $item->username; ?>
               </td>
               <td class="hak_akses">
-                <?php echo $item->hak_akses; ?>
+                <?php echo $hak_akses; ?>
               </td>
               <td class="status">
                 <?php echo $status; ?>

@@ -25,9 +25,9 @@
 
     function get_user()
     {
-       $this->db->select('master_login.id_admin,master_login.kode_akses,master_login.nama,master_login.username,master_login.status_aktif,menu_hak_akses.hak_akses')
-                ->from('master_login')
-                ->join('menu_hak_akses', 'menu_hak_akses.kode_akses = master_login.kode_akses')
+       $this->db->select('m.id_admin,m.kode_akses,m.nama,m.username,m.status_aktif,hk.hak_akses')
+                ->from('master_login m, menu_hak_akses hk')
+                ->where('m.status_aktif', 1)
                 ->order_by('id_admin', 'ASC');
         return $this->db->get();
     }
