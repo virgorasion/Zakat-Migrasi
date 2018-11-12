@@ -346,7 +346,7 @@ $this->load->view('template/js');
             // alert("hai");
             $.confirm({
                 theme: 'supervan',
-                title: 'Hapus Data Ini ?',
+                title: 'Peringatan !',
                 content: 'Hapus data zakat ' + $nama,
                 autoClose: 'Cancel|5000',
                 buttons: {
