@@ -36,8 +36,7 @@ class Takmir_ctrl extends CI_controller
             'alamat' => $p['AddAlamat'],
             'no_hp' => $p['AddHP'],
             'no_telp' => $p['AddTelp'],
-            'jenis_kelamin' => $p['AddJK'],
-            'status_aktif' => 1
+            'jenis_kelamin' => $p['AddJK']
         );
         $query = $this->Takmir_model->InsertDataAnggota('list_anggota',$data);
         if ($query != null) {
@@ -49,6 +48,39 @@ class Takmir_ctrl extends CI_controller
         }
     }
 
+    public function TambahTakmir()
+    {
+        $p = $this->input->post();
+        if ($p['ActType'] == 'add') {
+            $data = array(
+                'id_anggota' => $p['addAnggotaTakmir'],
+                'id_jabatan' => $p['addJabatan']
+            );
+            $query = $this->Takmir_model->InsertDataTakmir('takmir', $data);
+            if ($query != null) {
+                $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
+                redirect('Takmir_ctrl');
+            } else {
+                $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
+                redirect('Takmir_ctrl');
+            }
+        }else {
+            $data = array(
+                'id_anggota' => $p['addAnggotaTakmir'],
+                'id_jabatan' => $p['addJabatan']
+            );
+            $mainID = $p['MainID'];
+            $query = $this->Takmir_model->UpdateDataTakmir('takmir', $data, $mainID);
+            if ($query != null) {
+                $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
+                redirect('Takmir_ctrl');
+            } else {
+                $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
+                redirect('Takmir_ctrl');
+            }
+        }
+    }
+    
     public function EditAnggota()
     {
         $post = $this->input->post();
@@ -82,11 +114,28 @@ class Takmir_ctrl extends CI_controller
         }
     }
 
+    public function HapusTakmir($idTakmir, $idAnggota)
+    {
+        $query = $this->Takmir_model->DeleteDataTakmir('takmir', $idTakmir, $idAnggota);
+        if ($query != null) {
+            $this->session->set_flashdata('msg', 'Berhasil Hapus Data Takmir');
+            redirect('Takmir_ctrl');
+        } else {
+            $this->session->set_flashdata('err', 'Gagal Hapus Takmir, Segera Hubungi Admin');
+            redirect('Takmir_ctrl');
+        }
+    }
+    
     public function getAjaxAnggota()
     {
         $query = $this->Takmir_model->getAnggotaAjax('list_anggota');
         echo json_encode($query);
     }
     
+    public function getAjaxTakmir()
+    {
+        $query = $this->Takmir_model->getTakmirAjax('jabatan');
+        echo json_encode($query);
+    }
     
 }

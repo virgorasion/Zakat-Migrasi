@@ -103,16 +103,39 @@ $this->load->view('template/side');
                 <tr>
                   <th>Nama</th>
                   <th>Jabatan</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach($petugas as $org) { ?>
                 <tr>
-                  <td>
-                    <?= $org->nama ?>
+                  <td class="rowAnggota">
+                    <?= $org->nama_anggota ?>
+                  </td>
+                  <td class="rowJabatan">
+                    <?= $org->nama_jabatan ?>
                   </td>
                   <td>
-                    <?= $org->jabatan ?>
+                  <input type="hidden" name="anggotaID" id="anggotaID" value="<?=$org->id_anggota?>">
+                  <input type="hidden" name="jabatanID" id="jabatanID" value="<?=$org->jabatan_id?>">
+                  <input type="hidden" name="takmirID" id="takmirID" value="<?=$org->id?>">
+                  <?php if ($this->session->userdata("17edit") == "1") { ?>
+                  <a href='#'>
+                    <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
+                    <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
+                      <span class='glyphicon glyphicon-pencil'></span>
+                    </button>
+                  </a>
+                  <?php 
+                } ?>
+                  <?php if ($this->session->userdata("17delete") == "1") { ?>
+                  <span data-placement='top' data-toggle='tooltip' title='Delete'>
+                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
+                      <span class='glyphicon glyphicon-remove'></span>
+                    </button>
+                  </span>
+                  <?php 
+                } ?>
                   </td>
                 </tr>
                 <?php } ?>
@@ -229,9 +252,9 @@ $this->load->view('template/side');
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Tambah Anggota</h4>
+            <h4 class="modal-title">Tambah Takmir</h4>
           </div>
-          <form action="<?= site_url('Takmir_ctrl/TambahTakmir') ?>" method="post">
+          <form id="FormActionTakmir" action="<?= site_url('Takmir_ctrl/TambahTakmir') ?>" method="post">
             <div class="modal-body">
               <div class="form-group">
                 <label for="addAnggotaTakmir">Nama</label>
@@ -240,13 +263,14 @@ $this->load->view('template/side');
                 </select>
               </div>
               <div class="form-group">
-                <label for="addJabatan">Jenis Kelamin</label>
+                <label for="addJabatan">Jabatan</label>
                 <select class="form-control" name="addJabatan" id="addJabatan">
-                  <option value="L">L</option>
-                  <option value="P">P</option>
+                  <!-- Diisi Ajax -->
                 </select>
               </div>
             </div>
+            <input type="hidden" name="MainID" id="MainID">
+            <input type="hidden" name="ActType" id="ActType">
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Save changes</button>
@@ -282,6 +306,12 @@ $this->load->view('template/js');
         "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
       };
     };
+
+    $("#tablePetugas").dataTable({
+      searching: true,
+      ordering: false,
+      paging: true
+    })
 
     var table = $("#tableAnggota").dataTable({
       initComplete: function () {
@@ -337,17 +367,18 @@ $this->load->view('template/js');
 
     $('#AddTakmir').click(function(){
       $('#modalTambahTakmir').modal('show');
+      $('#ActType').val('add')
       var urlAnggota = "<?=site_url('Takmir_ctrl/getAjaxAnggota')?>";
       var urlTakmir = "<?=site_url('Takmir_ctrl/getAjaxTakmir')?>";
-      $.ajak({
+      $.ajax({
         url: urlAnggota,
         type: 'POST',
         success:function(result){
           var data = JSON.parse(result);
           var html = '';
           $.each(data, function(i){
-            html += '<option value="'+data[i].id_anggota+'">'+data[i].nama_anggota+'</option>';
-            $('#addNamaAnggota').html(html)
+            html += '<option value="'+data[i].id_anggota+'">'+data[i].nama+'</option>';
+            $('#addAnggotaTakmir').html(html);
           })
         }
       })
@@ -358,7 +389,7 @@ $this->load->view('template/js');
           var data = JSON.parse(result);
           var html = '';
           $.each(data, function(i){
-            html += '<option value="'+data[i].id+'">'+data[i].jabatan+'</option>';
+            html += '<option value="'+data[i].id+'">'+data[i].nama+'</option>';
             $('#addJabatan').html(html);
           })
         }
@@ -381,9 +412,42 @@ $this->load->view('template/js');
       $('#EditIDAnggota').val(id);
     })
 
-    $("#tablePetugas").DataTable({
-      searching: true,
-      paging: true
+    $('#tablePetugas').on('click', '.btnEdit', function(){
+      var item = $(this).closest('tr');
+      var idAnggota = item.find('#anggotaID').val();
+      var idJabatan = item.find('#jabatanID').val();
+      var idTakmir = item.find('#takmirID').val();
+      var urlAnggota = "<?= site_url('Takmir_ctrl/getAjaxAnggota') ?>";
+      var urlTakmir = "<?= site_url('Takmir_ctrl/getAjaxTakmir') ?>";
+      $.ajax({
+        url: urlAnggota,
+        type: 'POST',
+        success:function(result){
+          var data = JSON.parse(result);
+          var html = '';
+          $.each(data, function(i){
+            html += '<option value="'+data[i].id_anggota+'">'+data[i].nama+'</option>';
+            $('#addAnggotaTakmir').html(html);
+          })
+        }
+      })
+      $.ajax({
+        url: urlTakmir,
+        type: 'POST',
+        success:function(result){
+          var data = JSON.parse(result);
+          var html = '';
+          $.each(data, function(i){
+            html += '<option value="'+data[i].id+'">'+data[i].nama+'</option>';
+            $('#addJabatan').html(html);
+          })
+        }
+      })
+      $('#modalTambahTakmir').modal('show');
+      $('#FormActionTakmir').find('#addAnggotaTakmir').val(idAnggota);
+      $('#FormActionTakmir').find('#addJabatan').val(idJabatan);
+      $('#FormActionTakmir').find('#ActType').val('edit');
+      $('#FormActionTakmir').find('#MainID').val(idTakmir);
     })
 
     $('#tableAnggota').on('click', '.delete_data', function () {
@@ -391,7 +455,7 @@ $this->load->view('template/js');
       var id = $(this).data('id');
       $.confirm({
         theme: 'supervan',
-        title: 'Hapus Data Ini ?',
+        title: 'Peringatan !',
         content: 'Hapus Anggota \"' + nama +"\"",
         autoClose: 'Cancel|5000',
         buttons: {
@@ -400,6 +464,28 @@ $this->load->view('template/js');
             text: 'Delete',
             action: function () {
               window.location = "Takmir_ctrl/HapusDataAnggota/" + id
+            }
+          }
+        }
+      });
+    });
+    $('#tablePetugas').on('click', '.btnDelete', function () {
+      var item = $(this).closest('tr');
+      var nama = item.find('.rowAnggota').text().trim();
+      var jabatan = item.find('.rowJabatan').text().trim();
+      var idTakmir = item.find('#takmirID').val();
+      var idAnggota = item.find('#anggotaID').val();
+      $.confirm({
+        theme: 'supervan',
+        title: 'Peringatan !',
+        content: 'Hapus Petugas \"'+nama+'\" Sebagai \"'+jabatan+'\" '  ,
+        autoClose: 'Cancel|5000',
+        buttons: {
+          Cancel: function () {},
+          delete: {
+            text: 'Delete',
+            action: function () {
+              window.location = "Takmir_ctrl/HapusTakmir/" + idTakmir +"/"+ idAnggota
             }
           }
         }
