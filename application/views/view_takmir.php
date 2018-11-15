@@ -55,14 +55,14 @@ $this->load->view('template/side');
           </div>
           <div class="box-body">
             <form action="#" method="post">
-              <table id="tableAnggota" class="table table-bordered table-striped">
+              <table id="tableAnggota" class="table table-bordered table-striped" style="width:100%">
                 <thead>
                   <tr>
                     <th>Nama</th>
                     <th class="min-tablet">Alamat</th>
                     <th class="min-tablet">No Hp</th>
                     <th class="min-tablet">No Telp</th>
-                    <th class="min-tablet">Jenis Kelamin</th>
+                    <th class="min-tablet">JK</th>
                     <th class="min-desktop">Action</th>
                   </tr>
                 </thead>
