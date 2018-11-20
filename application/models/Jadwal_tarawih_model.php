@@ -11,4 +11,9 @@ class Jadwal_tarawih_model extends CI_model
           ORDER BY tanggal ASC")->result();
     }
     
+    public function InsertJadwal($table,$data)
+    {
+        return $this->db->insert($table,$data);
+    }
+    
 }

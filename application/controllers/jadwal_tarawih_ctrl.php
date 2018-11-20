@@ -45,4 +45,29 @@ class Jadwal_tarawih_ctrl extends CI_controller
         $data['data'] = $this->Lap_zakat_model->sel_date($t1, $t2)->result();
         $this->load->view('prints/jadwal_tarawih_print', $data);
     }
+    public function ActionJadwal()
+    {
+        $p = $this->input->post("tanggal");
+        // $t = $this->input->post("imam");
+        // $h = list($key, $value) = $p;
+        // var_dump($t);
+        // echo $value;
+        // die();
+        foreach ($p as $key => $value) {
+            $imam = $this->input->post("imam[$key]");
+            $bilal = $this->input->post("bilal[$key]");
+            $ceramah = $this->input->post("ceramah[$key]");
+            $tanggal = $this->input->post("tanggal[$key]");
+            $data = array(
+                'kode_jadwal' => 1,
+                'imam' => $imam,
+                'bilal' => $bilal,
+                'ceramah' => $ceramah,
+                'tanggal' => $tanggal
+            );
+            $this->Jadwal_tarawih_model->InsertJadwal('jadwal',$data);
+        }
+        redirect('jadwal_tarawih_ctrl');
+    }
+    
 }
