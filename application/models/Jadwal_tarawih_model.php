@@ -15,5 +15,15 @@ class Jadwal_tarawih_model extends CI_model
     {
         return $this->db->insert($table,$data);
     }
+
+    public function UpdateJadwal($table,$data,$id,$kode)
+    {
+        return $this->db->update($table, $data, array('id' => $id, 'kode_jadwal' => $kode));
+    }
+    
+    public function DeleteData($table,$id,$kode)
+    {
+        return $this->db->delete($table, array('id'=>$id, 'kode_jadwal'=>$kode));
+    }
     
 }

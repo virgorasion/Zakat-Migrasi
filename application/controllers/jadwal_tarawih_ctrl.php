@@ -67,7 +67,54 @@ class Jadwal_tarawih_ctrl extends CI_controller
             );
             $this->Jadwal_tarawih_model->InsertJadwal('jadwal',$data);
         }
+        $this->session->set_flashdata('msg', "Berhasil tambah jadwal");
         redirect('jadwal_tarawih_ctrl');
     }
+
+    public function EditJadwal()
+    {
+        $p = $this->input->post();
+        $a = date_create($p['edtTgl']);
+        $tgl = date_format($a, "Y-m-d");
+        $data = array(
+            'imam' => $p['edtImam'],
+            'bilal' => $p['edtBilal'],
+            'ceramah' => $p['edtCeramah'],
+            'tanggal' => $tgl
+        );
+        $id = $p['editID'];
+        $kode = $p['kodeJadwal'];
+        $query = $this->Jadwal_tarawih_model->UpdateJadwal('jadwal',$data,$id,$kode);
+        if ($query == 1) {
+            $this->session->set_flashdata('msg','Berhasil ubah data');
+            redirect('jadwal_tarawih_ctrl');
+        }else {
+            $this->session->set_flashdata('err', 'Gagal ubah data, segera hubungi admin !');
+            redirect('jadwal_tarawih_ctrl');
+        }
+    }
     
+    public function HapusData($id,$kode)
+    {
+        $query = $this->Jadwal_tarawih_model->DeleteData('jadwal',$id,$kode);
+        if ($query == 1) {
+            $this->session->set_flashdata('msg', 'Berhasil hapus data');
+            redirect('jadwal_tarawih_ctrl');
+        } else {
+            $this->session->set_flashdata('err', 'Gagal hapus data, segera hubungi admin !');
+            redirect('jadwal_tarawih_ctrl');
+        }
+    }
+    
+    public function laporanPrint($t1,$t2)
+    {
+        $c1 = date_create($t1);
+        $c2 = date_create($t2);
+        $tgl1 = date_format($c1, "Ymd");
+        $tgl2 = date_format($c2, "Ymd");
+        $data['t1'] = $t1;
+        $data['t2'] = $t2;
+        $data['datas'] = $this->Jadwal_tarawih_model->sel_date($tgl1, $tgl2);
+        $this->load->view("prints/jadwal_tarawih_print", $data);
+    }
 }
