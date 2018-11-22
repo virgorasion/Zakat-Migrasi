@@ -70,13 +70,28 @@ class Takmir_ctrl extends CI_controller
                 'id_jabatan' => $p['addJabatan']
             );
             $mainID = $p['MainID'];
-            $query = $this->Takmir_model->UpdateDataTakmir('takmir', $data, $mainID);
-            if ($query != null) {
-                $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
-                redirect('Takmir_ctrl');
-            } else {
-                $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
-                redirect('Takmir_ctrl');
+            if ($p['SecondID'] == $p['addAnggotaTakmir']) { //Cek jika anggotanya tidak diganti
+                $query = $this->Takmir_model->UpdateDataTakmir('takmir', $data, $mainID);
+                if ($query != null) {
+                    $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
+                    redirect('Takmir_ctrl');
+                } else {
+                    $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
+                    redirect('Takmir_ctrl');
+                }
+            }else{
+                $setUpdateAnggotaLama = array('status' => 0); //set untuk anggota sebelum di ganti
+                $setUpdateAnggotaBaru = array('status' => 1); //set untuk anggota sesudah diganti
+                $this->Takmir_model->UpdateDataAnggota('list_anggota', $setUpdateAnggotaBaru, $p['addAnggotaTakmir']);
+                $this->Takmir_model->UpdateDataAnggota('list_anggota', $setUpdateAnggotaLama, $p['SecondID']);
+                $query = $this->Takmir_model->UpdateDataTakmir('takmir', $data, $mainID);
+                if ($query != null) {
+                    $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
+                    redirect('Takmir_ctrl');
+                } else {
+                    $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
+                    redirect('Takmir_ctrl');
+                }
             }
         }
     }
@@ -129,6 +144,12 @@ class Takmir_ctrl extends CI_controller
     public function getAjaxAnggota()
     {
         $query = $this->Takmir_model->getAnggotaAjax('list_anggota');
+        echo json_encode($query);
+    }
+
+    public function getAnggotaAjaxKhusus()
+    {
+        $query = $this->Takmir_model->setAnggotaAjaxKhusus('list_anggota');
         echo json_encode($query);
     }
     

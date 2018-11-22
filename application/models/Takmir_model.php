@@ -55,6 +55,10 @@ class Takmir_model extends CI_model
     
     public function getAnggotaAjax($table)
     {
+        return $this->db->select('id_anggota,nama')->from($table)->get()->result();
+    }
+    public function setAnggotaAjaxKhusus($table)
+    {
         return $this->db->select('id_anggota,nama')->from($table)->where('status', 0)->get()->result();
     }
 

@@ -270,6 +270,7 @@ $this->load->view('template/side');
               </div>
             </div>
             <input type="hidden" name="MainID" id="MainID">
+            <input type="hidden" name="SecondID" id="SecondID"> <!-- ID anggota sebelum berubah -->
             <input type="hidden" name="ActType" id="ActType">
             <div class="modal-footer">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -368,7 +369,7 @@ $this->load->view('template/js');
     $('#AddTakmir').click(function(){
       $('#modalTambahTakmir').modal('show');
       $('#ActType').val('add')
-      var urlAnggota = "<?=site_url('Takmir_ctrl/getAjaxAnggota')?>";
+      var urlAnggota = "<?=site_url('Takmir_ctrl/getAnggotaAjaxKhusus')?>";
       var urlTakmir = "<?=site_url('Takmir_ctrl/getAjaxTakmir')?>";
       $.ajax({
         url: urlAnggota,
@@ -416,6 +417,7 @@ $this->load->view('template/js');
       var item = $(this).closest('tr');
       var idAnggota = item.find('#anggotaID').val();
       var idJabatan = item.find('#jabatanID').val();
+      console.log(idJabatan);
       var idTakmir = item.find('#takmirID').val();
       var urlAnggota = "<?= site_url('Takmir_ctrl/getAjaxAnggota') ?>";
       var urlTakmir = "<?= site_url('Takmir_ctrl/getAjaxTakmir') ?>";
@@ -430,6 +432,8 @@ $this->load->view('template/js');
             $('#addAnggotaTakmir').html(html);
           })
         }
+      }).done(function(data){
+        $("#FormActionTakmir").find("#addAnggotaTakmir").val(idAnggota);
       })
       $.ajax({
         url: urlTakmir,
@@ -442,12 +446,13 @@ $this->load->view('template/js');
             $('#addJabatan').html(html);
           })
         }
+      }).done(function(data){
+        $("#FormActionTakmir").find("#addJabatan").val(idJabatan);
       })
       $('#modalTambahTakmir').modal('show');
-      $('#FormActionTakmir').find('#addAnggotaTakmir').val(idAnggota);
-      $('#FormActionTakmir').find('#addJabatan').val(idJabatan);
-      $('#FormActionTakmir').find('#ActType').val('edit');
-      $('#FormActionTakmir').find('#MainID').val(idTakmir);
+      $("#FormActionTakmir").find("#ActType").val('edit');
+      $("#FormActionTakmir").find("#SecondID").val(idAnggota);
+      $("#FormActionTakmir").find("#MainID").val(idTakmir);
     })
 
     $('#tableAnggota').on('click', '.delete_data', function () {
@@ -485,7 +490,7 @@ $this->load->view('template/js');
           delete: {
             text: 'Delete',
             action: function () {
-              window.location = "Takmir_ctrl/HapusTakmir/" + idTakmir +"/"+ idAnggota
+              window.location = "Takmir_ctrl/HapusTakmir/" + idTakmir +"/"+ idAnggota;
             }
           }
         }
