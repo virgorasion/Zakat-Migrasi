@@ -7,7 +7,7 @@ $this->load->view('template/side');
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Jadwal Sholat Jum'at
+      Jadwal Sholat Dhuha
       <small>
         <?= $_SESSION['nama'] ?></small>
     </h1>
@@ -44,7 +44,7 @@ $this->load->view('template/side');
             <i class="fa fa-times"></i>
           </button>
         </div>
-        <form method="post" action="<?php echo site_url(" Jadwal_jumat_ctrl/index") ?>" id="formsearch">
+        <form method="post" action="<?php echo site_url(" Jadwal_dhuha_ctrl/index") ?>" id="formsearch">
           <div class="col-sm-12">
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2" btn-lg btn-block">Tambah
               Jadwal</button>
@@ -148,7 +148,7 @@ $this->load->view('template/side');
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Tambah Jadwal</h4>
           </div>
-          <form id="formAction" action="<?= site_url('Jadwal_jumat_ctrl/ActionJadwal') ?>" method="post">
+          <form id="formAction" action="<?= site_url('Jadwal_dhuha_ctrl/ActionJadwal') ?>" method="post">
             <div class="modal-body">
               <input id="idf" value="1" type="hidden" />
               <table class="table">
@@ -188,7 +188,7 @@ $this->load->view('template/side');
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Ubah Jadwal</h4>
           </div>
-          <form id="formEdit" action="<?= site_url('Jadwal_jumat_ctrl/EditJadwal') ?>" method="post">
+          <form id="formEdit" action="<?= site_url('Jadwal_dhuha_ctrl/EditJadwal') ?>" method="post">
             <div class="modal-body">
               <div class="form-group">
                 <label for="edtTgl">Tanggal</label>
@@ -237,30 +237,6 @@ $this->load->view('template/js');
   function removeFormField(idf) {
     $(idf).remove();
   }
-
-  function formatDate(date) {
-  var monthNames = [
-    "01", "02", "03",
-    "04", "05", "06", "07",
-    "08", "09", "10",
-    "11", "12"
-  ];
-  var days = [
-    "01", "02", "03",
-    "04", "05", "06", "07",
-    "08", "09"
-  ];
-
-  var day = date.getDate();
-  var monthIndex = date.getMonth();
-  var year = date.getFullYear();
-  if (day < 10) {
-      var res = "0"+day;
-  }else{
-      var res = day;
-  }
-  return year + '-' + monthNames[monthIndex] + '-' + res;
-}
 
   $(document).ready(function () {
     $('#tableJadwal').dataTable({
@@ -314,19 +290,12 @@ $this->load->view('template/js');
     // Function FormDinamis
     $('#tambahInput').click(function () {
       var idf = document.getElementById("idf").value;
-      if (idf > 1) {
-          var id = idf-1;
-          var getDate =  $("#tgl"+id).val();
-          var lastDate = new Date(getDate);
-            lastDate.setDate(lastDate.getDate()+7);
-          var nowDate = formatDate(lastDate);
-      }
       stre = "<tr id='srow" + idf + "'>" +
         "<td>" +
         idf +
         "</td>" +
         "<td scope='row'>" +
-        "<input type='date' class='form-control datePicker' id='tgl"+idf+"' name='tanggal[]' value='"+nowDate+"' required>" +
+        "<input type='date' class='form-control datePicker' name='tanggal[]' required>" +
         "</td>" +
         "<td>" +
         "<input type='text' class='form-control' name='imam[]' placeholder='Abu Bakar As-Siddiq' required>" +
@@ -354,7 +323,7 @@ $this->load->view('template/js');
     $('#btnPrint').click(function () {
       var tanggal1 = $("#t1").val();
       var tanggal2 = $("#t2").val();
-      var url = '<?php echo site_url("/Jadwal_jumat_ctrl/laporanPrint/"); ?>' + tanggal1 + '/' + tanggal2;
+      var url = '<?php echo site_url("/Jadwal_dhuha_ctrl/laporanPrint/"); ?>' + tanggal1 + '/' + tanggal2;
       newwindow = window.open(url, 'Print', 'height=500,width=1100');
       if (window.focus) {
         newwindow.focus()
@@ -376,7 +345,7 @@ $this->load->view('template/js');
           delete: {
             text: 'Hapus',
             action: function () {
-              window.location = "Jadwal_jumat_ctrl/HapusData/" + $item.find("#ID").val() + "/" + $item.find(
+              window.location = "Jadwal_dhuha_ctrl/HapusData/" + $item.find("#ID").val() + "/" + $item.find(
                 "#kode").val();
             }
           }

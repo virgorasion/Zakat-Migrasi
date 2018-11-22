@@ -1,12 +1,12 @@
-<?php 
-defined('BASEPATH') or exit('error');
+<?php
+defined('BASEPATH') or exit('ERROR');
 
-class Jadwal_tarawih_ctrl extends CI_controller 
+class Jadwal_Jumat_ctrl extends CI_controller
 {
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->load->model('Jadwal_tarawih_model');
+        $this->load->model('Jadwal_jumat_model');
     }
 
     public function index()
@@ -19,8 +19,8 @@ class Jadwal_tarawih_ctrl extends CI_controller
                 $date2 = date_create($data['t2']);
                 $t1 = date_format($date1, "Ymd");
                 $t2 = date_format($date2, "Ymd");
-                $data['datas'] = $this->Jadwal_tarawih_model->sel_date($t1, $t2);
-                $this->load->view('jadwal_tarawih_view', $data);
+                $data['datas'] = $this->Jadwal_jumat_model->sel_date($t1, $t2);
+                $this->load->view('Jadwal_jumat_view', $data);
             } else {
                 $data['t1'] = $this->input->post('t1');
                 $data['t2'] = $this->input->post('t2');
@@ -28,10 +28,10 @@ class Jadwal_tarawih_ctrl extends CI_controller
                 $date2 = date_create($data['t2']);
                 $t1 = date_format($date1, "Ymd");
                 $t2 = date_format($date2, "Ymd");
-                $data['datas'] = $this->Jadwal_tarawih_model->sel_date($t1, $t2);
-                $this->load->view('jadwal_tarawih_view', $data);
+                $data['datas'] = $this->Jadwal_jumat_model->sel_date($t1, $t2);
+                $this->load->view('Jadwal_jumat_view', $data);
             }
-        }else{
+        } else {
             redirect('home');
         }
     }
@@ -39,27 +39,22 @@ class Jadwal_tarawih_ctrl extends CI_controller
     public function ActionJadwal()
     {
         $p = $this->input->post("tanggal");
-        // $t = $this->input->post("imam");
-        // $h = list($key, $value) = $p;
-        // var_dump($t);
-        // echo $value;
-        // die();
         foreach ($p as $key => $value) {
             $imam = $this->input->post("imam[$key]");
             $bilal = $this->input->post("bilal[$key]");
             $ceramah = $this->input->post("ceramah[$key]");
             $tanggal = $this->input->post("tanggal[$key]");
             $data = array(
-                'kode_jadwal' => 1,
+                'kode_jadwal' => 2,
                 'imam' => $imam,
                 'bilal' => $bilal,
                 'ceramah' => $ceramah,
                 'tanggal' => $tanggal
             );
-            $this->Jadwal_tarawih_model->InsertJadwal('jadwal',$data);
+            $this->Jadwal_jumat_model->InsertJadwal('jadwal', $data);
         }
         $this->session->set_flashdata('msg', "Berhasil tambah jadwal");
-        redirect('jadwal_tarawih_ctrl');
+        redirect('Jadwal_jumat_ctrl');
     }
 
     public function EditJadwal()
@@ -75,29 +70,29 @@ class Jadwal_tarawih_ctrl extends CI_controller
         );
         $id = $p['editID'];
         $kode = $p['kodeJadwal'];
-        $query = $this->Jadwal_tarawih_model->UpdateJadwal('jadwal',$data,$id,$kode);
+        $query = $this->Jadwal_jumat_model->UpdateJadwal('jadwal', $data, $id, $kode);
         if ($query == 1) {
-            $this->session->set_flashdata('msg','Berhasil ubah data');
-            redirect('jadwal_tarawih_ctrl');
-        }else {
+            $this->session->set_flashdata('msg', 'Berhasil ubah data');
+            redirect('Jadwal_jumat_ctrl');
+        } else {
             $this->session->set_flashdata('err', 'Gagal ubah data, segera hubungi admin !');
-            redirect('jadwal_tarawih_ctrl');
+            redirect('Jadwal_jumat_ctrl');
         }
     }
-    
-    public function HapusData($id,$kode)
+
+    public function HapusData($id, $kode)
     {
-        $query = $this->Jadwal_tarawih_model->DeleteData('jadwal',$id,$kode);
+        $query = $this->Jadwal_jumat_model->DeleteData('jadwal', $id, $kode);
         if ($query == 1) {
             $this->session->set_flashdata('msg', 'Berhasil hapus data');
-            redirect('jadwal_tarawih_ctrl');
+            redirect('Jadwal_jumat_ctrl');
         } else {
             $this->session->set_flashdata('err', 'Gagal hapus data, segera hubungi admin !');
-            redirect('jadwal_tarawih_ctrl');
+            redirect('Jadwal_jumat_ctrl');
         }
     }
-    
-    public function laporanPrint($t1,$t2)
+
+    public function laporanPrint($t1, $t2)
     {
         $c1 = date_create($t1);
         $c2 = date_create($t2);
@@ -105,7 +100,7 @@ class Jadwal_tarawih_ctrl extends CI_controller
         $tgl2 = date_format($c2, "Ymd");
         $data['t1'] = $t1;
         $data['t2'] = $t2;
-        $data['datas'] = $this->Jadwal_tarawih_model->sel_date($tgl1, $tgl2);
+        $data['datas'] = $this->Jadwal_jumat_model->sel_date($tgl1, $tgl2);
         $this->load->view("prints/jadwal_tarawih_print", $data);
     }
 }
