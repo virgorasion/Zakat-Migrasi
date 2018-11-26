@@ -2,7 +2,7 @@
 
 defined('BASEPATH')or exit('ERROR');
 
-class Lap_kotak_amal_controller extends CI_controller
+class Kotak_amal_ctrl extends CI_controller
 {
     public function __construct()
     {
@@ -43,10 +43,10 @@ class Lap_kotak_amal_controller extends CI_controller
         try{
             $query = $this->Lap_kotak_amal_model->inputAll('kas_masjid',$data);
             $this->session->set_flashdata('msg', 'Berhasil Menambah Data');
-            redirect('Laporan/Kotak_amal');
+            redirect('Kotak_amal_ctrl');
         }catch (Exception $e){
             $this->session->set_flashdata('msg', 'Gagal Hapus Data, Segera Hubungi Operator');
-            redirect('Laporan/Kotak_amal');
+            redirect('Kotak_amal_ctrl');
         }
     }
 
@@ -55,10 +55,10 @@ class Lap_kotak_amal_controller extends CI_controller
         try{
             $this->Lap_kotak_amal_model->deleteData('kas_masjid',$id);
             $this->session->set_flashdata('msg', 'Berhasil Hapus Data');
-            redirect('Laporan/Kotak_amal');
+            redirect('Kotak_amal_ctrl');
         }catch (Exception $e){
             $this->session->set_flashdata('msg', 'Gagal Hapus Data, Segera Hubungi Operator');
-            redirect('Laporan/Kotak_amal');
+            redirect('Kotak_amal_ctrl');
         }
     }
 
@@ -82,10 +82,10 @@ class Lap_kotak_amal_controller extends CI_controller
         try {
             $this->Lap_kotak_amal_model->Update("kas_masjid", $data, $id);
             $this->session->set_flashdata('msg', 'Berhasil Edit Data');
-            redirect('Laporan/Kotak_amal');
+            redirect('Kotak_amal_ctrl');
         } catch (Exception $e) {
             $this->session->set_flashdata('msg', 'Gagal Edit Data, Segera Hubungi Operator');
-            redirect('Laporan/Kotak_amal');
+            redirect('Kotak_amal_ctrl');
         }
     }
 }

@@ -44,7 +44,7 @@ $this->load->view('template/side');
             <i class="fa fa-times"></i>
           </button>
         </div>
-        <form method="post" action="<?php echo site_url(" Jadwal_jumat_ctrl/index") ?>" id="formsearch">
+        <form method="post" action="<?php echo site_url("Jadwal_jumat_ctrl/index") ?>" id="formsearch">
           <div class="col-sm-12">
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2" btn-lg btn-block">Tambah
               Jadwal</button>
@@ -239,28 +239,28 @@ $this->load->view('template/js');
   }
 
   function formatDate(date) {
-  var monthNames = [
-    "01", "02", "03",
-    "04", "05", "06", "07",
-    "08", "09", "10",
-    "11", "12"
-  ];
-  var days = [
-    "01", "02", "03",
-    "04", "05", "06", "07",
-    "08", "09"
-  ];
+    var monthNames = [
+      "01", "02", "03",
+      "04", "05", "06", "07",
+      "08", "09", "10",
+      "11", "12"
+    ];
+    var days = [
+      "01", "02", "03",
+      "04", "05", "06", "07",
+      "08", "09"
+    ];
 
-  var day = date.getDate();
-  var monthIndex = date.getMonth();
-  var year = date.getFullYear();
-  if (day < 10) {
-      var res = "0"+day;
-  }else{
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    if (day < 10) {
+      var res = "0" + day;
+    } else {
       var res = day;
+    }
+    return year + '-' + monthNames[monthIndex] + '-' + res;
   }
-  return year + '-' + monthNames[monthIndex] + '-' + res;
-}
 
   $(document).ready(function () {
     $('#tableJadwal').dataTable({
@@ -315,18 +315,19 @@ $this->load->view('template/js');
     $('#tambahInput').click(function () {
       var idf = document.getElementById("idf").value;
       if (idf > 1) {
-          var id = idf-1;
-          var getDate =  $("#tgl"+id).val();
-          var lastDate = new Date(getDate);
-            lastDate.setDate(lastDate.getDate()+7);
-          var nowDate = formatDate(lastDate);
+        var id = idf - 1;
+        var getDate = $("#tgl" + id).val();
+        var lastDate = new Date(getDate);
+        lastDate.setDate(lastDate.getDate() + 7);
+        var nowDate = formatDate(lastDate);
       }
       stre = "<tr id='srow" + idf + "'>" +
         "<td>" +
         idf +
         "</td>" +
         "<td scope='row'>" +
-        "<input type='date' class='form-control datePicker' id='tgl"+idf+"' name='tanggal[]' value='"+nowDate+"' required>" +
+        "<input type='date' class='form-control datePicker' id='tgl" + idf + "' name='tanggal[]' value='" +
+        nowDate + "' required>" +
         "</td>" +
         "<td>" +
         "<input type='text' class='form-control' name='imam[]' placeholder='Abu Bakar As-Siddiq' required>" +
