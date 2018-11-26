@@ -8,14 +8,6 @@
         return $result;
     }
 
-    function get_hakAkses()
-    {
-        $this->db->select('*')
-                ->from('menu_hak_akses')
-                ->order_by('kode_akses', 'ASC');
-        return $this->db->get();
-    }
-
     function get_hak_akses(){
         return $this->db->query("SELECT l.kode_menu_level, l.kode_akses, l.kode_menu_child, l.akses_insert, l.akses_view, l.akses_edit, l.akses_delete
                                  from menu_level l, master_login u
@@ -23,13 +15,22 @@
                                        u.username = '".$_SESSION['username']."'");
     }
 
+    function get_hakAkses()
+    {
+        $this->db->select('*')
+            ->from('menu_hak_akses')
+            ->where('status_aktif', 1)
+            ->order_by('kode_akses', 'ASC');
+        return $this->db->get();
+    }
+
     function get_user()
     {
-       $this->db->select('m.id_admin,m.kode_akses,m.nama,m.username,m.status_aktif,hk.hak_akses')
-                ->from('master_login m, menu_hak_akses hk')
-                ->where('m.status_aktif', 1)
-                ->order_by('id_admin', 'ASC');
-        return $this->db->get();
+        return $this->db->query("SELECT master_login.*, menu_hak_akses.hak_akses 
+                        FROM master_login, menu_hak_akses 
+                        WHERE master_login.status_aktif = 1 
+                        AND menu_hak_akses.status_aktif = 1 
+                        GROUP BY id_admin");
     }
 
     function tambah($arr)
