@@ -27,7 +27,11 @@ $this->load->view('template/side');
         <!-- Default box -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Daftar Amal</h3>
+                <h3 class="box-title">Daftar Amal </h3>
+                <!-- <h3 class="box-title">
+                    <button type="button" class="btn btn-primary" id="btnPrint">
+                        <i class="fa fa-print"></i> Print</button>
+                </h3> -->
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -69,7 +73,7 @@ $this->load->view('template/side');
                     <div id="demo-bv-bsc-tabs" class="form-horizontal">
                         <div class="tab-content">
                             <div class="tab-pane pad-btm fade in active" id="demo-bsc-tab-1">
-                            <br>
+                                <br>
                                 <table id="datatable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -109,7 +113,7 @@ $this->load->view('template/side');
                                             </td>
                                             <td>
                                                 <input type="hidden" name="id" id="id" value="<?php echo $item->id; ?>">
-                                                <?php if ($this->session->userdata("17view")=="1"){?>
+                                                <!-- <?php if ($this->session->userdata("17view")=="1"){?>
                                                 <a href="#">
                                                     <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
                                                     <button class='btn btn-primary btn-xs btnPrint' data-title='Struk'
@@ -117,7 +121,7 @@ $this->load->view('template/side');
                                                         <span class='glyphicon glyphicon-print'></span>
                                                     </button>
                                                 </a>
-                                                <?php } ?>
+                                                <?php } ?> -->
                                                 <?php if ($this->session->userdata("17edit")=="1"){?>
                                                 <a href='#'>
                                                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
@@ -152,7 +156,7 @@ $this->load->view('template/side');
                             <div class="tab-pane fade" id="demo-bsc-tab-2">
                                 <h4 class="mar-btm text-thin">Tambah Data</h4>
                                 <hr>
-                                <form action="<?php echo site_url('Lap_kotak_amal_controller/input_data'); ?>" method="POST">
+                                <form action="<?php echo site_url('Kotak_amal_ctrl/input_data'); ?>" method="POST">
                                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
                                         value="<?php echo $this->security->get_csrf_hash(); ?>">
                                     <div class="form-group">
@@ -176,9 +180,10 @@ $this->load->view('template/side');
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Tanggal :</label>
-                                        <div class="col-lg-7">
-                                            <input required type="text" class="form-control datepicker" name="addTanggal" value="<?php echo $tanggal; ?>" autocomplete="off">
+                                        <label class="col-md-3 control-label" for="addTanggal">Tanggal : </label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control datepicker" name="addTanggal" id="addTanggal"
+                                                aria-describedby="helpId" placeholder="24-Desember-2018">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -219,7 +224,7 @@ $this->load->view('template/side');
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- form start -->
-                    <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Lap_kotak_amal_controller/edit_data')?>"
+                    <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Kotak_amal_ctrl/edit_data')?>"
                         method="post">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">
@@ -303,7 +308,7 @@ $this->load->view('template/js');
             "responsive": true
         });
 
-        $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
             $(".alert-success").slideUp(500);
         });
 
@@ -320,8 +325,7 @@ $this->load->view('template/js');
         $(".datepicker").datepicker({
             format: "dd-MM-yyyy",
             autoclose: true,
-            todayBtn: "linked",
-            todayHighlight: true
+            todayBtn: "linked"
         });
 
         $('#datatable').on('click', '[id^=btnEdit]', function () {
@@ -354,7 +358,7 @@ $this->load->view('template/js');
                     delete: {
                         text: 'Delete',
                         action: function () {
-                            window.location = "../Lap_kotak_amal_controller/hapus_data/" +
+                            window.location = "../Kotak_amal_ctrl/hapus_data/" +
                                 $item.find("#id").val();
                         }
                     }
