@@ -21,67 +21,6 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- form start -->
-          <form class="form-horizontal" action="<?php echo site_url('Hewan_kurban/aksi')?>" method="post">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">Tambah Data Kurban</h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body">
-
-                <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?php echo $_SESSION['id_admin'] ;?>">
-                <input type="hidden" class="form-control" id="nomor" name="nomor">
-
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Penyumbang</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="penyumbang" name="penyumbang" placeholder="" require>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Alamat</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="alamat" name="alamat" required autofocus="on">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Jenis Hewan</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="jenisHewan" name="jenisHewan" require>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Jumlah</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="jumlah" name="jumlah" require>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <div class="modal-footer">
-              <input type="hidden" name="action" id="action" value="add">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btnSave">Save changes</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Default box -->
-
     <!-- Default box -->
     <div class="box">
       <div class="box-header">
@@ -94,44 +33,39 @@ $this->load->view('template/side');
           <?php echo $_SESSION['msg'];?>
         </div>
         <?php } ?>
-
-        <form method="post" action="<?php echo site_url(" /Hewan_kurban/index ")?>" id="formsearch">
+        <form method="post" action="<?php echo site_url("Hewan_kurban/index") ?>" id="formsearch">
           <div class="col-sm-12">
-            <div class="form-inline col-sm-1">
-              <button type="button" class="btn btn-primary" id="btnNew" data-toggle="modal" data-target="#myModal">New</button>
-            </div>
-            <div class="form-inline col-sm-4">
-              Dari :
-              <input type="text" class="form-control" id="t1" name="t1" placeholder="YYYY-MM-DD" value="<?php echo $t1; ?>">
-            </div>
-            <div class="form-inline col-sm-4">
-              Sampai :
-              <input type="text" class="form-control" id="t2" name="t2" placeholder="YYYY-MM-DD" value="<?php echo $t2; ?>">
+            <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2">Tambah</button>
+            <div class="form-inline col-md-4">
+              <div class="input-group input-daterange">
+                <input type="text" class="form-control" name="t1" id="t1" value="<?= $t1 ?>" autocomplete="off">
+                <div class="input-group-addon">to</div>
+                <input type="text" class="form-control" name="t2" id="t2" value="<?= $t2 ?>" autocomplete="off">
+              </div>
             </div>
             <div class="col-sm-1">
               <button type="submit" class="btn btn-primary" id="btnSearch">
-                <u>S</u>earch</button>
+                Search</button>
             </div>
             <h3 class="box-title col-sm-1">
               <button type="button" class="btn btn-default" id="btnPrint">
                 <i class="fa fa-print"></i> Print</button>
             </h3>
           </div>
-
+        </form>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="datatable" class="table table-bordered table-hover">
+        <table id="tableKurban" class="table table-bordered table-hover">
           <thead>
             <tr>
               <th>No.</th>
               <th>Tanggal</th>
-              <th>Pembuat</th>
+              <th>Admin</th>
               <th>Penyumbang</th>
               <th>Alamat</th>
               <th>Jenis Hewan</th>
               <th>jumlah</th>
-              <th>Detail Waktu</th>
               <?php if($this->session->userdata("6view")==1) { ?>
               <th>Action</th>
               <?php } ?>
@@ -140,9 +74,21 @@ $this->load->view('template/side');
           <tbody>
             <?php 
             $no = 1;
-        foreach ($data as $row): ?>
+        foreach ($data as $row){ 
+        switch ($row->jenis) {
+          case '1':
+            $jenis = "Kambing";
+            break;
+          case '2':
+            $jenis = "Sapi";
+            break;
+          default:
+            $jenis = "Undefined";
+            break;
+        }
+        ?>
             <tr>
-              <input type="hidden" name="id" class="id" value="<?php echo $row->nomor; ?>">
+              <input type="hidden" name="id" class="id" value="<?php echo $row->id; ?>">
               <td class="no">
                 <?php echo $no ?>
               </td>
@@ -160,29 +106,24 @@ $this->load->view('template/side');
                 <?php echo $row->alamat;?>
               </td>
               <td class="jenisHewan">
-                <?php echo $row->jenis;?>
+                <?php echo $jenis;?>
               </td>
               <td class="jumlah">
                 <?php echo $row->jumlah ;?>
               </td>
               <td>
-                <?php echo $row->log_time;?>
-              </td>
-              <td>
-
-                <?php if ($this->session->userdata("6view")=="1"){?>
+                <!-- <?php if ($this->session->userdata("6view")=="1"){?>
                 <a href="#">
                   <span data-placement='top' data-toggle='tooltip' title='Struk'>
                     <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
                       <span class='glyphicon glyphicon-print'></span>
                     </button>
                 </a>
-
-                <?php } ?>
+                <?php } ?> -->
                 <?php if ($this->session->userdata("6edit")=="1"){?>
                 <a href='#'>
                   <span data-placement='top' data-toggle='tooltip' title='Edit'>
-                    <button class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#myModal' id="btnEdit">
+                    <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
                       <span class='glyphicon glyphicon-pencil'></span>
                     </button>
                 </a>
@@ -190,22 +131,71 @@ $this->load->view('template/side');
                 <?php if ($this->session->userdata("6delete")=="1"){?>
                 <a class="buttonDelete" href='#'>
                   <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
+                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
                       <span class='glyphicon glyphicon-remove'></span>
                     </button>
                 </a>
                 <?php } ?>
-
               </td>
             </tr>
             <?php $no++;
-        endforeach
+        }
         ?>
           </tbody>
         </table>
       </div>
     </div>
     <!-- /.box -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- form start -->
+          <form class="form-horizontal" action="<?php echo site_url('Hewan_kurban/aksi') ?>" method="post">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Tambah Data Kurban</h4>
+            </div>
+            <div class="modal-body">
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="control-label">Penyumbang</label>
+                  <input type="text" class="form-control" id="penyumbang" name="penyumbang" placeholder="M Nur Fauzan W"
+                    require>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Alamat</label>
+                  <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Kapas Madya" required
+                    autofocus="on">
+                </div>
+                <div class="form-group">
+                  <label for="jenisHewan">Jenis Hewan</label>
+                  <select class="form-control" name="jenisHewan" id="jenisHewan">
+                    <option selected>-=Pilih=-</option>
+                    <option value="1">Kambing</option>
+                    <option value="2">Sapi</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Jumlah</label>
+                  <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="2" require>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" class="form-control" id="idKurban" name="idKurban">
+              <input type="hidden" name="action" id="action" value="add">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btnSave">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
   </section>
   <!-- /.content -->
@@ -215,12 +205,11 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
 <script>
   $(function () {
-    $('#datatable').DataTable({
+    $('#tableKurban').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -237,27 +226,12 @@ $this->load->view('template/js');
       });
     });
 
-    $('#datatable').on('click', '[id^=btnEdit]', function () {
-      var $item = $(this).closest("tr");
-      $("#id_admin").val("<?php echo $_SESSION['id_admin']; ?>");
-      $("#nomor").val($.trim($item.find(".id").val()));
-      $("#penyumbang").val($.trim($item.find(".penyumbang").text()));
-      $("#alamat").val($.trim($item.find(".alamat").text()));
-      $("#jenisHewan").val($.trim($item.find(".jenisHewan").text()));
-      $("#jumlah").val($.trim($item.find(".jumlah").text()));
-      $("#action").val("edit");
+    // DateRange (Date Main)
+    $('.input-daterange').datepicker({
+      format: 'dd-MM-yyyy'
     });
 
-    $('#t1').datepicker({
-      format: 'dd-mm-yyyy',
-      autoclose: true
-    });
-    $('#t2').datepicker({
-      format: 'dd-mm-yyyy',
-      autoclose: true
-    });
-
-    // $('#datatable').on('click', '[id^=btnStruk]', function () {
+    // $('#tableKurban').on('click', '[id^=btnStruk]', function () {
     //   var $item = $(this).closest("tr");
     //   console.log($item.find("input[id$='no']").val());
     //   var url = '<?php echo site_url("/ahad_dhuha/printstruk/")?>' + $item.find("input[id$='no']").val();
@@ -269,7 +243,43 @@ $this->load->view('template/js');
     //   return false;
     // });
 
-    $('#datatable').on('click','[id^=btnDelete]', function(){
+    // Fungsi Tambah
+    $("#btnTambah").click(function () {
+      $("#modalTambah").modal('show');
+      $("#action").val("add");
+      $("#nomor").val();
+      $("#penyumbang").val();
+      $("#alamat").val();
+      $("#jenisHewan").val();
+      $("#jumlah").val();
+    });
+
+    $('#tableKurban').on('click', '.btnEdit', function () {
+      var $item = $(this).closest("tr");
+      var jenisHewan = $item.find(".jenisHewan").text().trim();
+      switch (jenisHewan) {
+        case 'Kambing':
+          var jenis = "1";
+          break;
+        case 'Sapi':
+          var jenis = "2";
+          break;
+        default:
+          var jenis = "";
+          break;
+      }
+      console.log(jenis);
+      $("#id_admin").val("<?php echo $_SESSION['id_admin']; ?>");
+      $("#idKurban").val($.trim($item.find(".id").val()));
+      $("#penyumbang").val($.trim($item.find(".penyumbang").text()));
+      $("#alamat").val($.trim($item.find(".alamat").text()));
+      $("#jenisHewan").val(jenis);
+      $("#jumlah").val($.trim($item.find(".jumlah").text()));
+      $("#modalTambah").modal('show');
+      $("#action").val("edit");
+    });
+
+    $('#tableKurban').on('click', '.btnDelete', function () {
       $item = $(this).closest('tr');
       $nomor = $.trim($item.find('.id').val());
       $penyumbang = $.trim($item.find('.penyumbang').text());
@@ -279,12 +289,12 @@ $this->load->view('template/js');
         title: 'Hapus Data Kurban',
         content: 'Hapus Data ' + $penyumbang,
         autoClose: 'Batal|5000',
-        buttons : {
-          Batal:function(){},
-          Hapus:{
+        buttons: {
+          Batal: function () {},
+          Hapus: {
             title: 'Hapus',
-            action:function(){
-              window.location = "../Hewan_kurban/hapus/" + $nomor;
+            action: function () {
+              window.location = "<?= site_url('Hewan_kurban/hapus/')?>" + $nomor;
             }
           }
         }
@@ -292,12 +302,9 @@ $this->load->view('template/js');
     })
 
     $('#btnPrint').click(function () {
-      var tanggal1 = '<?php echo str_replace(' - ','.
-      ',$t1); ?>';
-      var tanggal2 = '<?php echo str_replace(' - ','.
-      ',$t2); ?>';
-      var url = '<?php echo site_url("/ahad_dhuha/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
-      console.log(url);
+      var tanggal1 = $("#t1").val();
+      var tanggal2 = $("#t2").val();
+      var url = '<?php echo site_url("/Hewan_kurban/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
       newwindow = window.open(url, 'Print', 'height=500,width=1100');
       if (window.focus) {
         newwindow.focus()
