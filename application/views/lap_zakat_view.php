@@ -20,6 +20,17 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
+  <?php if (isset($_SESSION['msg'])) { ?>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+          <?php echo $_SESSION['msg']; ?>
+        </div>
+        <?php 
+      } ?>
+
+    <?php if ($_SESSION['1insert'] == 1) { ?>
     <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Form Input</h3>
@@ -33,16 +44,7 @@ $this->load->view('template/side');
           </button>
         </div>
       </div>
-
       <div class="box-body" id="bodyInput">
-        <?php if (isset($_SESSION['msg'])) {?>
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-          <?php echo $_SESSION['msg'];?>
-        </div>
-        <?php } ?>
         <div class="row">
           <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData');?>" method="POST">
             <div class="form-group">
@@ -74,23 +76,23 @@ $this->load->view('template/side');
         <small class="text-muted">Np: Tekan 'ENTER' pada bagian infaq untuk submit</small>
       </div>
     </div>
+    <?php } ?>
 
     <!-- Default box -->
     <div class="box box-success">
       <div class="box-header">
-        <form method="post" action="<?php echo site_url("/zakat_ctrl/index")?>" id="formsearch">
+        <form method="post" action="<?php echo site_url("zakat_ctrl/index") ?>" id="formsearch">
           <div class="col-sm-12">
-            <div class="form-inline col-sm-4">
-              Dari :
-              <input type="text" class="form-control" id="t1" name="t1" placeholder="YYYY-MM-DD" value="<?php echo $t1; ?>">
-            </div>
-            <div class="form-inline col-sm-4">
-              Sampai :
-              <input type="text" class="form-control" id="t2" name="t2" placeholder="YYYY-MM-DD" value="<?php echo $t2; ?>">
+            <div class="form-inline col-md-4">
+              <div class="input-group input-daterange">
+                <input type="text" class="form-control" name="t1" id="t1" value="<?= $t1 ?>" autocomplete="off">
+                <div class="input-group-addon">to</div>
+                <input type="text" class="form-control" name="t2" id="t2" value="<?= $t2 ?>" autocomplete="off">
+              </div>
             </div>
             <div class="col-sm-1">
               <button type="submit" class="btn btn-primary" id="btnSearch">
-                <u>S</u>earch</button>
+                Search</button>
             </div>
             <h3 class="box-title col-sm-1">
               <button type="button" class="btn btn-default" id="btnPrint">
@@ -112,7 +114,9 @@ $this->load->view('template/side');
               <th class="min-desktop">Zakat Mall</th>
               <th class="min-desktop">Infaq</th>
               <th class="min-desktop">Tanggal</th>
+              <?php if ($_SESSION['1edit'] == "1" && $_SESSION['1delete'] == "1") { ?>
               <th class="min-desktop">Action</th>
+              <?php } ?>
             </tr>
           </thead>
           <tbody>
@@ -154,18 +158,19 @@ $this->load->view('template/side');
                 <td>
                   <?php echo $tanggal;?>
                 </td>
+                <?php if ($_SESSION['1edit'] == "1" && $_SESSION['1delete'] == "1") { ?>
                 <td align="center">
                   <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                   <input type="hidden" name="data_nama" id="data_nama" value="<?php echo $row->nama ?>">
-                  <?php if ($this->session->userdata("17view")=="1"){?>
+                  <!-- <?php if ($this->session->userdata("17view")=="1"){?>
                   <a href="#">
                     <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
                     <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
                       <span class='glyphicon glyphicon-print'></span>
                     </button>
                   </a>
-                  <?php } ?>
-                  <?php if ($this->session->userdata("17edit")=="1"){?>
+                  <?php } ?> -->
+                  <?php if ($_SESSION['1edit'] == "1"){?>
                   <a href='#'>
                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
                     <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit'
@@ -174,15 +179,15 @@ $this->load->view('template/side');
                     </button>
                   </a>
                   <?php } ?>
-                  <?php if ($this->session->userdata("17delete")=="1"){?>
+                  <?php if ($_SESSION['1delete'] == "1"){?>
                   <span data-placement='top' data-toggle='tooltip' title='Delete'>
                     <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' id="btnDelete">
                       <span class='glyphicon glyphicon-remove'></span>
                     </button>
                   </span>
                   <?php } ?>
-
                 </td>
+                <?php } ?>
               </tr>
               <?php endforeach ?>
           </tbody>
@@ -212,6 +217,7 @@ $this->load->view('template/side');
   </section>
   <!-- /.content -->
 
+  <?php if ($_SESSION['1delete'] == "1") { ?>
   <!-- Start Modal Delete -->
   <div class="modal modal-danger fade" id="modalDelete">
     <div class="modal-dialog">
@@ -235,7 +241,9 @@ $this->load->view('template/side');
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+  <?php } ?>
 
+  <?php if ($_SESSION['1edit'] == "1") { ?>
   <!-- Start Modal Edit -->
   <div class="modal fade" id="modalEdit">
     <div class="modal-dialog">
@@ -289,12 +297,12 @@ $this->load->view('template/side');
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+  <?php } ?>
 
 
 </div>
 <!-- /.content-wrapper -->
 <?php
-$this->load->view('template/controlside');
 $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
@@ -365,6 +373,11 @@ $this->load->view('template/js');
       "autoWidth": false
     });
 
+    // DateRange (Date Main)
+    $('.input-daterange').datepicker({
+      format: 'dd-MM-yyyy'
+    });
+
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
       $(".alert-success").slideUp(500);
     });
@@ -382,11 +395,6 @@ $this->load->view('template/js');
           $('#form').submit();
         }
       }
-    });
-
-    $('#t1, #t2').datepicker({
-      format: 'dd-mm-yyyy',
-      autoclose: true
     });
 
     $('#zakatMal, #infaq, #zakatMalEdt, #infaqEdt, .inputMask').inputmask('decimal', {
