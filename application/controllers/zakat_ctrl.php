@@ -12,8 +12,8 @@
         public function index(){
            if(isset($_SESSION['username'])){
             if($this->input->post('t1')=="" && $this->input->post('t2')==""){
-                $data['t1'] = date("01-m-Y");
-                $data['t2'] = date("t-m-Y");
+                $data['t1'] = date("01-F-Y");
+                $data['t2'] = date("t-F-Y");
                 $date1 = date_create($data['t1']);
                 $date2 = date_create($data['t2']);
                 $t1 = date_format($date1, "Ymd");
@@ -29,33 +29,33 @@
                 $t1 = date_format($date1, "Ymd");
                 $t2 = date_format($date2, "Ymd");
                 $data['data'] = $this->Lap_zakat_model->sel_date($t1,$t2)->result();
-                $this->load->view('lap_zakat_view',$data);
+                $this->load->view('lap_zakat_view', $data);
             }
-   
         }
         else{
-            redirect(site_url().'/Auth/logout');
+            redirect('home');
         }
     }
      
     public function laporan_print($t1,$t2)
     {
-        $pieces1 = explode('-',$t1);
-        $pieces2 = explode('-',$t2);        
-        $data['t1'] = $pieces1[0].'-'.$pieces1[1].'-'.$pieces1[2];
-        $data['t2'] = $pieces2[0].'-'.$pieces2[1].'-'.$pieces2[2];
-    
-        $data['selBeli'] = $this->Lap_zakat_model->sel_beli($t1,$t2)->result();
-        $data['data'] = $this->Lap_zakat_model->sel_date($t1,$t2)->result();
+        $c1 = date_create($t1);
+        $c2 = date_create($t2);
+        $tgl1 = date_format($c1, "Ymd");
+        $tgl2 = date_format($c2, "Ymd");
+        $data['t1'] = $t1;
+        $data['t2'] = $t2;
+        $data['selBeli'] = $this->Lap_zakat_model->sel_beli($tgl1,$tgl2)->result();
+        $data['data'] = $this->Lap_zakat_model->sel_date($tgl1,$tgl2)->result();
         $this->load->view('prints/zakat_print',$data);
     }
 
     public function tambahData()
     {
-        $nama = $this->input->post('nama');
-        $alamat = $this->input->post('alamat');
-        $zakatFitrah = $this->input->post('zakatFitrah');
-        $pembelian = $this->input->post('pembelian');
+        $nama = htmlspecialchars($this->input->post('nama'));
+        $alamat = htmlspecialchars($this->input->post('alamat'));
+        $zakatFitrah = htmlspecialchars($this->input->post('zakatFitrah'));
+        $pembelian = htmlspecialchars($this->input->post('pembelian'));
         $Mal = $this->input->post('zakatMal');
         $pecah1 = explode('.',$Mal);
         $zakatMal = $pecah1[0].$pecah1[1].$pecah1[2];
