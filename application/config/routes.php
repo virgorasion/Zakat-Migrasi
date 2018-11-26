@@ -54,7 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['Menu_level'] = 'Menu_level_controller';
-$route['Laporan/Kotak_amal'] = "Lap_kotak_amal_controller";
-$route['Laporan/Hewan_kurban'] = "Hewan_kurban";
-$route['Laporan/Zakat_fitrah'] = "zakat_ctrl";
 $route['Menu_level/Menu_setting/(:num)'] = 'Menu_level_controller/Menu_setting/$1';
