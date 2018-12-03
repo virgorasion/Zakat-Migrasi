@@ -35,7 +35,9 @@ $this->load->view('template/side');
         <?php } ?>
         <form method="post" action="<?php echo site_url("Hewan_kurban/index") ?>" id="formsearch">
           <div class="col-sm-12">
+          <?php if ($_SESSION['6insert'] == 1) { ?>
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2">Tambah</button>
+          <?php } ?>
             <div class="form-inline col-md-4">
               <div class="input-group input-daterange">
                 <input type="text" class="form-control" name="t1" id="t1" value="<?= $t1 ?>" autocomplete="off">
@@ -66,9 +68,9 @@ $this->load->view('template/side');
               <th>Alamat</th>
               <th>Jenis Hewan</th>
               <th>jumlah</th>
-              <?php if($this->session->userdata("6view")==1) { ?>
+              <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1) { ?>
               <th>Action</th>
-              <?php } ?>
+              <?php } ?>  
             </tr>
           </thead>
           <tbody>
@@ -147,6 +149,7 @@ $this->load->view('template/side');
     </div>
     <!-- /.box -->
 
+    <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1){ ?>
     <!-- Modal -->
     <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -196,7 +199,8 @@ $this->load->view('template/side');
         </div>
       </div>
     </div>
-
+    <?php } ?>
+    
   </section>
   <!-- /.content -->
 
