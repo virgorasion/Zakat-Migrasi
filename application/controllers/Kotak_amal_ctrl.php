@@ -27,7 +27,7 @@ class Kotak_amal_ctrl extends CI_controller
         $tipe = $this->input->post('addTipe');
         $jml = explode('.', $this->input->post('addJumlah'));
         $jumlah = implode('', $jml);
-        $keterangan = $this->input->post('addKeterangan');
+        $keterangan = htmlspecialchars($this->input->post('addKeterangan'));
         $admin = $_SESSION['id_admin'];
         $tanggal = $this->input->post('addTanggal');
         $data = array(
@@ -68,7 +68,7 @@ class Kotak_amal_ctrl extends CI_controller
         $jml = explode('.', $this->input->post('editJumlah'));
         $jumlah = implode('', $jml);
         $tanggal = $this->input->post('editTanggal');
-        $keterangan = $this->input->post('editKeterangan');
+        $keterangan = htmlspecialchars($this->input->post('editKeterangan'));
         $id = $this->input->post('idEdit');
 
         $data = array(

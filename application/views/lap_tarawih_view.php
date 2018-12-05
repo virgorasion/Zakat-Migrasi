@@ -21,47 +21,6 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
-    <!-- Modal Add -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- form start -->
-          <form class="form-horizontal" action="<?php echo site_url('tarawih_php/tambah')?>" method="post">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">Laporan Amal Tarawih</h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body">
-
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">petugas</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="addPetugas" name="addPetugas" placeholder="Nama Petugas" autofocus required>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">Jumlah</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="addJumlah" name="addJumlah" placeholder="Jumlah" required>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btnSave">Save changes</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
     <!-- Modal Edit -->
     <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -119,7 +78,9 @@ $this->load->view('template/side');
         <form method="post" action="<?php echo site_url(" /zakat_ctrl/index ")?>" id="formsearch">
           <div class="col-sm-12">
           <div class="form-inline col-sm-1">
+          <?php if($_SESSION['10insert'] == 1){ ?>
             <button type="button" class="btn btn-primary" id="btnNew" data-toggle="modal" data-target="#myModal">New</button>
+          <?php } ?>
           </div>
             <div class="form-inline col-sm-4">
               Dari :
@@ -150,7 +111,9 @@ $this->load->view('template/side');
               <th class="min-tables">Tanggal</th>
               <th class="min-tablet">Jumlah</th>
               <th class="min-desktop">Log Time</th>
+              <?php if($_SESSION['10edit'] == 1 || $_SESSION['10delete'] == 1){ ?>
               <th class="min-desktop">Action</th>
+              <?php } ?>
             </tr>
           </thead>
           <tbody>
@@ -180,23 +143,25 @@ $this->load->view('template/side');
               <td align="center">
                 <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                 <input type="hidden" name="tanggal" id="tanggal" value="<?php echo $tanggal ?>">
-
-                <span data-placement='top' data-toggle='tooltip' title='Struk'>
+                <!-- <span data-placement='top' data-toggle='tooltip' title='Struk'>
                   <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
                     <span class='glyphicon glyphicon-print'></span>
                   </button>
-                </span>
+                </span> -->
+                <?php if($_SESSION['10edit'] == 1) { ?>
                 <span data-placement='top' data-toggle='tooltip' title='Edit'>
                   <button class='btn btn-warning btn-xs btnEdit' data-title='Edit' data-toggle='modal' data-target='#modalEdit' id="btnEdit">
                     <span class='glyphicon glyphicon-pencil'></span>
                   </button>
                 </span>
+                <?php } ?>
+                <?php if($_SESSION['10delete'] == 1){ ?>
                 <span data-placement='top' data-toggle='tooltip' title='Delete'>
                   <button class='btn btn-danger btn-xs btnDelete' data-title='Delete' data-toggle='modal' data-target='#deleteModal' id="btnDelete">
                     <span class='glyphicon glyphicon-remove'></span>
                   </button>
-                </span>
-
+                </span> 
+                <?php } ?>
               </td>
             </tr>
             <?php 
@@ -209,6 +174,47 @@ $this->load->view('template/side');
     </div>
     <!-- /.box -->
 
+    <!-- Modal Add -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- form start -->
+          <form class="form-horizontal" action="<?php echo site_url('tarawih_php/tambah') ?>" method="post">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Laporan Amal Tarawih</h4>
+            </div>
+            <div class="modal-body">
+              <div class="box-body">
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">petugas</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="addPetugas" name="addPetugas" placeholder="Nama Petugas" autofocus required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Jumlah</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="addJumlah" name="addJumlah" placeholder="Jumlah" required>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary btnSave">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
   </section>
   <!-- /.content -->
 
@@ -217,7 +223,6 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
 <script>

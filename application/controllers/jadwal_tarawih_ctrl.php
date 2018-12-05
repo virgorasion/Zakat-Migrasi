@@ -51,9 +51,9 @@ class Jadwal_tarawih_ctrl extends CI_controller
             $tanggal = $this->input->post("tanggal[$key]");
             $data = array(
                 'kode_jadwal' => 1,
-                'imam' => $imam,
-                'bilal' => $bilal,
-                'ceramah' => $ceramah,
+                'imam' => htmlspecialschars($imam),
+                'bilal' => htmlspecialschars($bilal),
+                'ceramah' => htmlspecialschars($ceramah),
                 'tanggal' => $tanggal
             );
             $this->Jadwal_tarawih_model->InsertJadwal('jadwal',$data);
@@ -68,9 +68,9 @@ class Jadwal_tarawih_ctrl extends CI_controller
         $a = date_create($p['edtTgl']);
         $tgl = date_format($a, "Y-m-d");
         $data = array(
-            'imam' => $p['edtImam'],
-            'bilal' => $p['edtBilal'],
-            'ceramah' => $p['edtCeramah'],
+            'imam' => htmlspecialschars($p['edtImam']),
+            'bilal' => htmlspecialschars($p['edtBilal']),
+            'ceramah' => htmlspecialschars($p['edtCeramah']),
             'tanggal' => $tgl
         );
         $id = $p['editID'];

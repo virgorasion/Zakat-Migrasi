@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit('ERROR');
+defined('BASEPATH') or exit('fail   OR');
 
 class Jadwal_dhuha_ctrl extends CI_controller
 {
@@ -20,7 +20,7 @@ class Jadwal_dhuha_ctrl extends CI_controller
                 $t1 = date_format($date1, "Ymd");
                 $t2 = date_format($date2, "Ymd");
                 $data['datas'] = $this->Jadwal_dhuha_model->sel_date($t1, $t2);
-                $this->load->view('Jadwal_jumat_view', $data);
+                $this->load->view('Jadwal_dhuha_view', $data);
             } else {
                 $data['t1'] = $this->input->post('t1');
                 $data['t2'] = $this->input->post('t2');
@@ -29,7 +29,7 @@ class Jadwal_dhuha_ctrl extends CI_controller
                 $t1 = date_format($date1, "Ymd");
                 $t2 = date_format($date2, "Ymd");
                 $data['datas'] = $this->Jadwal_dhuha_model->sel_date($t1, $t2);
-                $this->load->view('Jadwal_jumat_view', $data);
+                $this->load->view('Jadwal_dhuha_view', $data);
             }
         } else {
             redirect('home');
@@ -40,12 +40,12 @@ class Jadwal_dhuha_ctrl extends CI_controller
     {
         $p = $this->input->post("tanggal");
         foreach ($p as $key => $value) {
-            $imam = $this->input->post("imam[$key]");
-            $bilal = $this->input->post("bilal[$key]");
-            $ceramah = $this->input->post("ceramah[$key]");
-            $tanggal = $this->input->post("tanggal[$key]");
+            $imam = htmlspecialchars($this->input->post("imam[$key]"));
+            $bilal = htmlspecialchars($this->input->post("bilal[$key]"));
+            $ceramah = htmlspecialchars($this->input->post("ceramah[$key]"));
+            $tanggal = htmlspecialchars($this->input->post("tanggal[$key]"));
             $data = array(
-                'kode_jadwal' => 2,
+                'kode_jadwal' => 3,
                 'imam' => $imam,
                 'bilal' => $bilal,
                 'ceramah' => $ceramah,
@@ -53,7 +53,7 @@ class Jadwal_dhuha_ctrl extends CI_controller
             );
             $this->Jadwal_dhuha_model->InsertJadwal('jadwal', $data);
         }
-        $this->session->set_flashdata('msg', "Berhasil tambah jadwal");
+        $this->session->set_flashdata('succ', "Berhasil tambah jadwal");
         redirect('Jadwal_dhuha_ctrl');
     }
 
@@ -63,19 +63,19 @@ class Jadwal_dhuha_ctrl extends CI_controller
         $a = date_create($p['edtTgl']);
         $tgl = date_format($a, "Y-m-d");
         $data = array(
-            'imam' => $p['edtImam'],
-            'bilal' => $p['edtBilal'],
-            'ceramah' => $p['edtCeramah'],
+            'imam' => htmlspecialchars($p['edtImam']),
+            'bilal' => htmlspecialchars($p['edtBilal']),
+            'ceramah' => htmlspecialchars($p['edtCeramah']),
             'tanggal' => $tgl
         );
         $id = $p['editID'];
         $kode = $p['kodeJadwal'];
         $query = $this->Jadwal_dhuha_model->UpdateJadwal('jadwal', $data, $id, $kode);
         if ($query == 1) {
-            $this->session->set_flashdata('msg', 'Berhasil ubah data');
+            $this->session->set_flashdata('succ', 'Berhasil ubah data');
             redirect('Jadwal_dhuha_ctrl');
         } else {
-            $this->session->set_flashdata('err', 'Gagal ubah data, segera hubungi admin !');
+            $this->session->set_flashdata('fail ', 'Gagal ubah data, segera hubungi admin !');
             redirect('Jadwal_dhuha_ctrl');
         }
     }
@@ -84,10 +84,10 @@ class Jadwal_dhuha_ctrl extends CI_controller
     {
         $query = $this->Jadwal_dhuha_model->DeleteData('jadwal', $id, $kode);
         if ($query == 1) {
-            $this->session->set_flashdata('msg', 'Berhasil hapus data');
+            $this->session->set_flashdata('succ', 'Berhasil hapus data');
             redirect('Jadwal_dhuha_ctrl');
         } else {
-            $this->session->set_flashdata('err', 'Gagal hapus data, segera hubungi admin !');
+            $this->session->set_flashdata('fail ', 'Gagal hapus data, segera hubungi admin !');
             redirect('Jadwal_dhuha_ctrl');
         }
     }

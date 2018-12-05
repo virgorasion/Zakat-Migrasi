@@ -45,16 +45,16 @@ class Lap_pengeluaran extends CI_Controller {
         if ($p['action']=="add") {
             $data=array('id_admin'=> $_SESSION['id_admin'],
             'tanggal'=> $date,
-            'jumlah'=> $jumlah,
-            'keterangan'=> $p['addKeterangan']);
+            'jumlah'=> htmlspecialchars($jumlah),
+            'keterangan'=> htmlspecialchars($p['addKeterangan']));
             $query=$this->Lap_pengeluaran_model->InsertData('lap_pengeluaran', $data);
         }
 
         else {
             $data=array('id_admin'=> $_SESSION['id_admin'],
             'tanggal'=> $date,
-            'jumlah'=> $jumlah,
-            'keterangan'=> $p['addKeterangan']);
+            'jumlah'=> htmlspecialchars($jumlah),
+            'keterangan'=> htmlspecialchars($p['addKeterangan']));
             $mainID=$p['idPengeluaran'];
             $query=$this->Lap_pengeluaran_model->UpdateData("lap_pengeluaran", $data, $mainID);
         }

@@ -49,10 +49,12 @@ $this->load->view('template/side');
                             <a href="forms-validation.html#demo-bsc-tab-1" data-toggle="tab">
                                 <i class="fa fa-history"></i> Informasi</a>
                         </li>
+                        <?php if($_SESSION['25insert']==1){ ?>
                         <li>
                             <a href="forms-validation.html#demo-bsc-tab-2" data-toggle="tab">
                                 <i class="fa fa-edit"></i> Tambah Data</a>
                         </li>
+                        <?php } ?>
                     </ul>
 
                     <!-- Tabs Content -->
@@ -84,6 +86,7 @@ $this->load->view('template/side');
                                 </table>
                             </div>
 
+                            <?php if($_SESSION['25insert']==1){ ?>
                             <!-- Start Second Tab -->
                             <div class="tab-pane fade" id="demo-bsc-tab-2">
                                 <h4 class="mar-btm text-thin">Tambah Data</h4>
@@ -137,6 +140,7 @@ $this->load->view('template/side');
                                     </div>
                                 </form>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -145,13 +149,10 @@ $this->load->view('template/side');
 
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-                Footer
-            </div>
-            <!-- /.box-footer-->
         </div>
         <!-- /.box -->
 
+        <?php if($_SESSION['25edit']==1){ ?>
         <!-- Modal Edit -->
         <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -229,6 +230,7 @@ $this->load->view('template/side');
                 </div>
             </div>
         </div>
+        <?php } ?>
 
     </section>
     <!-- /.content -->
@@ -312,6 +314,8 @@ $(document).ready(function(){
         todayBtn: "linked",
         todayHighlight: true
     });
+    
+    <?php if($_SESSION['25edit']==1){ ?>
     $('#datatable').on('click','.edit_data',function(){
         var id = $(this).data('id');
         var donatur =  $(this).data('donatur');
@@ -330,28 +334,31 @@ $(document).ready(function(){
             $('#formEdit').submit();
         });
     });
+<?php } ?>
 
-        $('#datatable').on('click', '.delete_data', function () {
-            var tanggal = $(this).data('tanggal');
-            var id = $(this).data('id');
-            console.log(tanggal);
-            // $item.find("input[id$='no']").val();
-            // alert("hai");
-            $.confirm({
-                theme: 'supervan',
-                title: 'Hapus Data Ini ?',
-                content: 'Hapus data zakat ' + tanggal,
-                autoClose: 'Cancel|5000',
-                buttons: {
-                    Cancel: function () {},
-                    delete: {
-                        text: 'Delete',
-                        action: function () {
-                            window.location = "Kas_ctrl/hapus/" + id
-                        }
+    <?php if($_SESSION['25delete']==1){ ?>
+    $('#datatable').on('click', '.delete_data', function () {
+        var tanggal = $(this).data('tanggal');
+        var id = $(this).data('id');
+        console.log(tanggal);
+        // $item.find("input[id$='no']").val();
+        // alert("hai");
+        $.confirm({
+            theme: 'supervan',
+            title: 'Hapus Data Ini ?',
+            content: 'Hapus data zakat ' + tanggal,
+            autoClose: 'Cancel|5000',
+            buttons: {
+                Cancel: function () {},
+                delete: {
+                    text: 'Delete',
+                    action: function () {
+                        window.location = "Kas_ctrl/hapus/" + id
                     }
                 }
-            });
+            }
         });
     });
+<?php } ?>
+});
 </script>

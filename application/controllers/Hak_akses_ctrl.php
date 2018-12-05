@@ -24,8 +24,8 @@ class Hak_akses_ctrl extends CI_Controller {
     public function aksi()
     {
         $action = $this->input->post('action');
-        $hakAkses = $this->input->post('hakAkses');
-        $keterangan = $this->input->post('keterangan');
+        $hakAkses = htmlspecialchars($this->input->post('hakAkses'));
+        $keterangan = htmlspecialchars($this->input->post('keterangan'));
         $status = $this->input->post('status');
         $kodeAkses = $this->input->post('kodeAkses');
         if ($action == "add") {

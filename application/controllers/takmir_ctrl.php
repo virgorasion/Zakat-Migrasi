@@ -32,10 +32,10 @@ class Takmir_ctrl extends CI_controller
     {
         $p = $this->input->post();
         $data = array(
-            'nama' => $p['AddNama'],
-            'alamat' => $p['AddAlamat'],
-            'no_hp' => $p['AddHP'],
-            'no_telp' => $p['AddTelp'],
+            'nama' => htmlspecialchars($p['AddNama']),
+            'alamat' => htmlspecialchars($p['AddAlamat']),
+            'no_hp' => htmlspecialchars($p['AddHP']),
+            'no_telp' => htmlspecialchars($p['AddTelp']),
             'jenis_kelamin' => $p['AddJK']
         );
         $query = $this->Takmir_model->InsertDataAnggota('list_anggota',$data);
@@ -100,10 +100,10 @@ class Takmir_ctrl extends CI_controller
     {
         $post = $this->input->post();
         $data = array(
-            'nama' => $post['EditNama'],
-            'alamat' => $post['EditAlamat'],
-            'no_hp' => $post['EditHP'],
-            'no_telp' => $post['EditTelp'],
+            'nama' => htmlspecialchars($post['EditNama']),
+            'alamat' => htmlspecialchars($post['EditAlamat']),
+            'no_hp' => htmlspecialchars($post['EditHP']),
+            'no_telp' => htmlspecialchars($post['EditTelp']),
             'jenis_kelamin' => $post['EditJK']
         );
         $id = $post['EditIDAnggota'];

@@ -198,7 +198,7 @@ $this->load->view('template/js');
       rightAlign: false
     });
 
-    <?php if($_SESSION['7insert'] == 1) ?>
+    <?php if($_SESSION['7insert'] == 1) { ?>
     // Fungsi Tambah
     $("#btnTambah").click(function () {
       $("#modalTambah").modal('show');
@@ -210,7 +210,7 @@ $this->load->view('template/js');
     });
   <?php } ?>
 
-    <?php if($_SESSION['7edit'] == 1) ?>
+    <?php if($_SESSION['7edit'] == 1) { ?>
     $("#tablePengeluaran").on("click", ".btnEdit", function () {
       var core = $(this).closest("tr");
       $("#addNama").val(core.find(".nama").text().trim());

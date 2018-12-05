@@ -26,8 +26,8 @@ class User_ctrl extends CI_Controller{
         $data = $this->input->post();
 
         $arr = array(
-            'nama' => $data['NamaBru'],
-            'username' => $data['UsernameBru'],
+            'nama' => htmlspecialchars($data['NamaBru']),
+            'username' => htmlspecialchars($data['UsernameBru']),
             'password' => md5($data['passBru']),
             'status_aktif' => 1,
             'kode_akses' => $data['aksesBru']
@@ -49,15 +49,15 @@ class User_ctrl extends CI_Controller{
         $post = $this->input->post();
         if ($post['passwordEdt'] == "") {
             $data = array(
-                'nama' => $post['namaEdt'],
-                'username' => $post['usernameEdt'],
+                'nama' => htmlspecialchars($post['namaEdt']),
+                'username' => htmlspecialchars($post['usernameEdt']),
                 'status_aktif' => $post['statusEdt'],
                 'kode_akses' => $post['aksesEdt']
             );
         }else{
             $data = array(
-                'nama' => $post['namaEdt'],
-                'username' => $post['usernameEdt'],
+                'nama' => htmlspecialchars($post['namaEdt']),
+                'username' => htmlspecialchars($post['usernameEdt']),
                 'status_aktif' => $post['statusEdt'],
                 'kode_akses' => $post['aksesEdt'],
                 'password' => md5($post['passwordEdt'])

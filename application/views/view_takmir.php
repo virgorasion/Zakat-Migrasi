@@ -41,10 +41,9 @@ $this->load->view('template/side');
                 <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bars"></i></button>
                 <ul class="dropdown-menu pull-right" role="menu">
+                <?php if($_SESSION['26insert']==1){ ?>
                   <li><a href="#" data-toggle="modal" data-target="#modalTambahAnggota">Tambah Anggota</a></li>
-                  <!-- <li><a href="#">Edit Anggota</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Hapus Anggota</a></li> -->
+                <?php } ?>
                 </ul>
               </div>
               <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -63,7 +62,9 @@ $this->load->view('template/side');
                     <th class="min-tablet">No Hp</th>
                     <th class="min-tablet">No Telp</th>
                     <th class="min-tablet">JK</th>
+                    <?php if($_SESSION['26edit']==1 || $_SESSION['26delete']==1){ ?>
                     <th class="min-desktop">Action</th>
+                    <?php } ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,7 +89,9 @@ $this->load->view('template/side');
                 <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bars"></i></button>
                 <ul class="dropdown-menu pull-right" role="menu">
+                <?php if($_SESSION['26insert']==1){ ?>
                   <li><a href="#" id="AddTakmir">Tambahkan Takmir</a></li>
+                <?php } ?>
                 </ul>
               </div>
               <button type="button" class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -103,7 +106,9 @@ $this->load->view('template/side');
                 <tr>
                   <th>Nama</th>
                   <th>Jabatan</th>
+                  <?php if ($_SESSION['26insert'] == 1 || $_SESSION['26edit'] == 1) { ?>
                   <th>Action</th>
+                  <?php } ?>
                 </tr>
               </thead>
               <tbody>
@@ -119,7 +124,7 @@ $this->load->view('template/side');
                   <input type="hidden" name="anggotaID" id="anggotaID" value="<?=$org->id_anggota?>">
                   <input type="hidden" name="jabatanID" id="jabatanID" value="<?=$org->jabatan_id?>">
                   <input type="hidden" name="takmirID" id="takmirID" value="<?=$org->id?>">
-                  <?php if ($this->session->userdata("17edit") == "1") { ?>
+                  <?php if ($this->session->userdata("26edit") == "1") { ?>
                   <a href='#'>
                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
                     <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
@@ -128,7 +133,7 @@ $this->load->view('template/side');
                   </a>
                   <?php 
                 } ?>
-                  <?php if ($this->session->userdata("17delete") == "1") { ?>
+                  <?php if ($this->session->userdata("26delete") == "1") { ?>
                   <span data-placement='top' data-toggle='tooltip' title='Delete'>
                     <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
                       <span class='glyphicon glyphicon-remove'></span>
@@ -150,6 +155,7 @@ $this->load->view('template/side');
     </div>
     <!-- /.row (main row) -->
 
+    <?php if($_SESSION['26edit']==1){ ?>
     <!-- Modal Edit Anggota -->
     <div class="modal fade" id="modalEditAnggota">
       <div class="modal-dialog">
@@ -197,7 +203,9 @@ $this->load->view('template/side');
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <?php } ?>
 
+    <?php if($_SESSION['26insert']==1){ ?>
     <!-- Modal Tambah Anggota -->
     <div class="modal fade" id="modalTambahAnggota">
       <div class="modal-dialog">
@@ -244,6 +252,7 @@ $this->load->view('template/side');
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <?php } ?>
 
     <!-- Modal Tambah Takmir -->
     <div class="modal fade" id="modalTambahTakmir">
@@ -366,6 +375,7 @@ $this->load->view('template/js');
     });
     // end setup datatables
 
+    <?php if($_SESSION['26insert']==1){ ?>
     $('#AddTakmir').click(function(){
       $('#modalTambahTakmir').modal('show');
       $('#ActType').val('add')
@@ -396,7 +406,9 @@ $this->load->view('template/js');
         }
       })
     })
+  <?php } ?>
 
+    <?php if($_SESSION['26edit']==1){ ?>
     $('#tableAnggota').on('click', '.edit_data', function () {
       var id = $(this).data('id');
       var nama = $(this).data('nama');
@@ -454,7 +466,9 @@ $this->load->view('template/js');
       $("#FormActionTakmir").find("#SecondID").val(idAnggota);
       $("#FormActionTakmir").find("#MainID").val(idTakmir);
     })
+  <?php } ?>
 
+    <?php if($_SESSION['26delete']==1){ ?>
     $('#tableAnggota').on('click', '.delete_data', function () {
       var nama = $(this).data('nama');
       var id = $(this).data('id');
@@ -496,5 +510,6 @@ $this->load->view('template/js');
         }
       });
     });
+  <?php } ?>
   })
 </script>

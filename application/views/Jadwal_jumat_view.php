@@ -46,8 +46,10 @@ $this->load->view('template/side');
         </div>
         <form method="post" action="<?php echo site_url("Jadwal_jumat_ctrl/index") ?>" id="formsearch">
           <div class="col-sm-12">
+          <?php if($_SESSION['11insert']==1){ ?>
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2" btn-lg btn-block">Tambah
               Jadwal</button>
+          <?php } ?>
             <div class="form-inline col-md-4">
               <div class="input-group input-daterange">
                 <input type="text" class="form-control" name="t1" id="t1" value="<?= $t1 ?>" autocomplete="off">
@@ -75,7 +77,9 @@ $this->load->view('template/side');
               <th>Imam</th>
               <th>Bilal</th>
               <th>Ceramah</th>
+              <?php if($_SESSION['11edit']==1 || $_SESSION['11delete']==1){ ?>
               <th>Action</th>
+              <?php } ?>
             </tr>
           </thead>
           <tbody>
@@ -111,7 +115,7 @@ $this->load->view('template/side');
               <td>
                 <input type="hidden" id="ID" value="<?= $data->id ?>">
                 <input type="hidden" id="kode" value="<?= $data->kode_jadwal ?>">
-                <?php if ($this->session->userdata("17edit") == "1") { ?>
+                <?php if ($this->session->userdata("11edit") == "1") { ?>
                 <a href='#'>
                   <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
                   <button id="btnEdit" class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
@@ -120,7 +124,7 @@ $this->load->view('template/side');
                 </a>
                 <?php 
             } ?>
-                <?php if ($this->session->userdata("17delete") == "1") { ?>
+                <?php if ($this->session->userdata("11delete") == "1") { ?>
                 <span data-placement='top' data-toggle='tooltip' title='Delete'>
                   <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
                     <span class='glyphicon glyphicon-remove'></span>
@@ -139,6 +143,7 @@ $this->load->view('template/side');
     </div>
     <!-- /.box -->
 
+    <?php if($_SESSION['11insert']==1){ ?>
     <!-- Modal Tambah Anggota -->
     <div class="modal fade" id="modalTambah">
       <div class="modal-dialog modal-lg">
@@ -178,7 +183,9 @@ $this->load->view('template/side');
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <?php } ?>
 
+    <?php if($_SESSION['11edit']==1){ ?>
     <!-- Modal Tambah Anggota -->
     <div class="modal fade" id="modalEdit">
       <div class="modal-dialog">
@@ -223,6 +230,7 @@ $this->load->view('template/side');
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <?php } ?>
 
   </section>
   <!-- /.content -->
@@ -282,12 +290,15 @@ $this->load->view('template/js');
     $(".alert").fadeTo(2000, 500).slideUp(500, function () {
       $(".alert").slideUp(500);
     });
-
+    
+    <?php if($_SESSION['11insert']==1){ ?>
     // Open Modal Tambah
     $('#btnTambah').click(function () {
       $('#modalTambah').modal('show');
     })
+  <?php } ?>
 
+    <?php if($_SESSION['11edit']==1){ ?>
     // Open Modal Edit
     $('#tableJadwal').on('click', '.btnEdit', function () {
       var item = $(this).closest('tr');
@@ -310,7 +321,9 @@ $this->load->view('template/js');
       $("#formEdit").find("#editID").val(id);
       $("#formEdit").find("#kodeJadwal").val(kode);
     })
+  <?php } ?>
 
+    <?php if($_SESSION['11insert']==1){ ?>
     // Function FormDinamis
     $('#tambahInput').click(function () {
       var idf = document.getElementById("idf").value;
@@ -351,6 +364,7 @@ $this->load->view('template/js');
       idf = (idf - 1) + 2;
       document.getElementById("idf").value = idf;
     })
+  <?php } ?>
 
     $('#btnPrint').click(function () {
       var tanggal1 = $("#t1").val();
@@ -363,6 +377,7 @@ $this->load->view('template/js');
       return false;
     });
 
+    <?php if($_SESSION['11delete']==1){ ?>
     // Function Delete Data
     $('#tableJadwal').on('click', '.btnDelete', function () {
       var $item = $(this).closest("tr");
@@ -384,6 +399,7 @@ $this->load->view('template/js');
         }
       });
     });
+  <?php } ?>
 
   });
 </script>

@@ -23,6 +23,7 @@ $this->load->view('template/side');
     <div class="box">
       <div class="box-header">
         <h3 class="box-title">
+        Pengaturan Menu Akses
         </h3>
         <?php if (isset($_SESSION['msg'])) {?>
         <div class="alert alert-success alert-dismissible">

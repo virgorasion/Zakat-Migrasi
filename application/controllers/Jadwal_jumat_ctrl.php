@@ -40,10 +40,10 @@ class Jadwal_Jumat_ctrl extends CI_controller
     {
         $p = $this->input->post("tanggal");
         foreach ($p as $key => $value) {
-            $imam = $this->input->post("imam[$key]");
-            $bilal = $this->input->post("bilal[$key]");
-            $ceramah = $this->input->post("ceramah[$key]");
-            $tanggal = $this->input->post("tanggal[$key]");
+            $imam = htmlspecialchars($this->input->post("imam[$key]"));
+            $bilal = htmlspecialchars($this->input->post("bilal[$key]"));
+            $ceramah = htmlspecialchars($this->input->post("ceramah[$key]"));
+            $tanggal = htmlspecialchars($this->input->post("tanggal[$key]"));
             $data = array(
                 'kode_jadwal' => 2,
                 'imam' => $imam,
@@ -63,9 +63,9 @@ class Jadwal_Jumat_ctrl extends CI_controller
         $a = date_create($p['edtTgl']);
         $tgl = date_format($a, "Y-m-d");
         $data = array(
-            'imam' => $p['edtImam'],
-            'bilal' => $p['edtBilal'],
-            'ceramah' => $p['edtCeramah'],
+            'imam' => htmlspecialchars($p['edtImam']),
+            'bilal' => htmlspecialchars($p['edtBilal']),
+            'ceramah' => htmlspecialchars($p['edtCeramah']),
             'tanggal' => $tgl
         );
         $id = $p['editID'];

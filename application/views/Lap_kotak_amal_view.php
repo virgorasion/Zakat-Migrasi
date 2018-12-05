@@ -63,10 +63,12 @@ $this->load->view('template/side');
                             <a href="forms-validation.html#demo-bsc-tab-1" data-toggle="tab">
                                 <i class="fa fa-history"></i> Informasi</a>
                         </li>
+                        <?php if($_SESSION['24insert']==1){ ?>
                         <li>
                             <a href="forms-validation.html#demo-bsc-tab-2" data-toggle="tab">
                                 <i class="fa fa-edit"></i> Tambah Data</a>
                         </li>
+                        <?php } ?>
                     </ul>
 
                     <!-- Tabs Content -->
@@ -83,7 +85,9 @@ $this->load->view('template/side');
                                             <th class="min-tablet">Jumlah</th>
                                             <th class="min-tablet">Tanggal</th>
                                             <th class="min-desktop">Keterangan</th>
+                                            <?php if($_SESSION['24edit']==1 || $_SESSION['24delete']==1){ ?>
                                             <th class="min-desktop">Action</th>
+                                            <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,7 +117,7 @@ $this->load->view('template/side');
                                             </td>
                                             <td>
                                                 <input type="hidden" name="id" id="id" value="<?php echo $item->id; ?>">
-                                                <!-- <?php if ($this->session->userdata("17view")=="1"){?>
+                                                <!-- <?php if ($this->session->userdata("24view")=="1"){?>
                                                 <a href="#">
                                                     <span data-placement='top' data-toggle='tooltip' title='Struk'></span>
                                                     <button class='btn btn-primary btn-xs btnPrint' data-title='Struk'
@@ -122,7 +126,7 @@ $this->load->view('template/side');
                                                     </button>
                                                 </a>
                                                 <?php } ?> -->
-                                                <?php if ($this->session->userdata("17edit")=="1"){?>
+                                                <?php if ($this->session->userdata("24edit")=="1"){?>
                                                 <a href='#'>
                                                     <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
                                                     <button id="btnEdit" class='btn btn-warning btn-xs btnEdit'
@@ -131,7 +135,7 @@ $this->load->view('template/side');
                                                     </button>
                                                 </a>
                                                 <?php } ?>
-                                                <?php if ($this->session->userdata("17delete")=="1"){?>
+                                                <?php if ($this->session->userdata("24delete")=="1"){?>
                                                 <span data-placement='top' data-toggle='tooltip' title='Delete'>
                                                     <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'
                                                         id="btnDelete">
@@ -151,7 +155,8 @@ $this->load->view('template/side');
                                     </tfoot>
                                 </table>
                             </div>
-
+                            
+                            <?php if($_SESSION['24insert']==1){ ?>
                             <!-- Start Second Tab -->
                             <div class="tab-pane fade" id="demo-bsc-tab-2">
                                 <h4 class="mar-btm text-thin">Tambah Data</h4>
@@ -204,6 +209,7 @@ $this->load->view('template/side');
                                     </div>
                                 </form>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -212,13 +218,10 @@ $this->load->view('template/side');
 
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-                Np: Keterangan Tidak Harus diisi.
-            </div>
-            <!-- /.box-footer-->
         </div>
         <!-- /.box -->
 
+        <?php if($_SESSION['24edit']==1){ ?>
         <!-- Modal Edit -->
         <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -287,6 +290,7 @@ $this->load->view('template/side');
                 </div>
             </div>
         </div>
+        <?php } ?>
 
     </section>
     <!-- /.content -->
@@ -328,6 +332,7 @@ $this->load->view('template/js');
             todayBtn: "linked"
         });
 
+        <?php if($_SESSION['24edit']==1){ ?>
         $('#datatable').on('click', '[id^=btnEdit]', function () {
             var $test = $(this).closest('tr');
             var $nama = $test.find('.nama').text().trim();
@@ -341,7 +346,9 @@ $this->load->view('template/js');
             $('#formEdit').find('#editKeterangan').val($ket);
             $('#formEdit').find('#idEdit').val($id);
         });
+    <?php } ?>
 
+        <?php if($_SESSION['24delete']==1){ ?>
         $('#datatable').on('click', '[id^=btnDelete]', function () {
             var $item = $(this).closest("tr");
             var $nama = $item.find(".tanggal").text();
@@ -365,5 +372,6 @@ $this->load->view('template/js');
                 }
             });
         });
+    <?php } ?>
     });
 </script>

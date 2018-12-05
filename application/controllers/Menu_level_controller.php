@@ -11,7 +11,6 @@ class Menu_level_controller extends CI_controller{
 	public function index()
 	{
         if ($_SESSION['username'] != null) {
-            # code...
             $data['data'] = $this->Menu_level_model->get_all_data()->result();
             $this->load->view('Menu_level_view',$data);
         }else{
