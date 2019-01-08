@@ -33,7 +33,9 @@ class Kas_ctrl extends CI_controller
         $kategori = $this->input->post('addTipe');
         $jml = explode('.', $this->input->post('addJumlah'));
         $jumlah = implode('', $jml);
-        $date = $this->input->post('addTanggal');
+        $d = $this->input->post('addTanggal');
+        $e = date_create($d);
+        $date = date_format($e,"Y-m-d");
         $keterangan = $this->input->post('addKeterangan');
 
         $data = array(

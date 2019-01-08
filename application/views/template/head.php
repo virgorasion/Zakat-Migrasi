@@ -20,8 +20,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<?php echo base_url('assets/jquery-confirm/jquery-confirm.min.css');?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.3.0/css/font-awesome.min.css'); ?>">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="<?=base_url('assets/AdminLTE-2.3.7/plugins/morris/morris.css')?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url('assets/ionicons-2.0.1/css/ionicons.min.css');?>">
   <!--Bootstrap Table [ OPTIONAL ]-->

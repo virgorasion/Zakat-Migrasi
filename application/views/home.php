@@ -23,7 +23,7 @@ $this->load->view('template/side');
         <div class="small-box bg-aqua">
           <div class="inner">
             <h3>150</h3>
-
+            
             <p>Total Kas</p>
           </div>
           <div class="icon">
@@ -79,23 +79,27 @@ $this->load->view('template/side');
       </div>
       <!-- ./col -->
 
-      <!-- Left col -->
-      <section class="col-lg-7 connectedSortable">
-        <!-- Custom tabs (Charts with tabs)-->
-        <div class="nav-tabs-custom">
-          <!-- Tabs within a box -->
-          <ul class="nav nav-tabs pull-right">
-            <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
-            <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
-          </ul>
-          <div class="tab-content no-padding">
-            <!-- Morris chart - Sales -->
-            <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
-            <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+    <!-- /.col (LEFT) -->
+    <div class="col-md-12">
+      <!-- LINE CHART -->
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Line Chart</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
           </div>
         </div>
-        <!-- /.nav-tabs-custom -->
-
+        <div class="box-body">
+          <div class="chart">
+            <canvas id="canvas" style="height:250px"></canvas>
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
     <!-- /.row -->
   </section>
@@ -107,38 +111,49 @@ $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
 <!-- Morris.js charts -->
-<script src="<?=base_url('assets/AdminLTE-2.3.7/plugins/raphael/raphael.min.js')?>"></script>
-<script src="<?=base_url('assets/AdminLTE-2.3.7/plugins/morris/morris.min.js')?>"></script>
+<script src="<?=base_url('assets/AdminLTE-2.3.7/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
 <script>
-  /* Morris.js Charts */
-  // Sales chart
-  var area = new Morris.Area({
-    element   : 'revenue-chart',
-    resize    : true,
-    data      : [
-      { y: '2011 Q1', item1: 2666, item2: 2666 },
-      { y: '2011 Q2', item1: 2778, item2: 2294 },
-      { y: '2011 Q3', item1: 4912, item2: 1969 },
-      { y: '2011 Q4', item1: 3767, item2: 3597 },
-      { y: '2012 Q1', item1: 6810, item2: 1914 },
-      { y: '2012 Q2', item1: 5670, item2: 4293 },
-      { y: '2012 Q3', item1: 4820, item2: 3795 },
-      { y: '2012 Q4', item1: 15073, item2: 5967 },
-      { y: '2013 Q1', item1: 10687, item2: 4460 },
-      { y: '2013 Q2', item1: 8432, item2: 5713 }
-    ],
-    xkey      : 'y',
-    ykeys     : ['item1', 'item2'],
-    labels    : ['Item 1', 'Item 2'],
-    lineColors: ['#a0d0e0', '#3c8dbc'],
-    hideHover : 'auto'
-  });
+    var timeFormat = 'MMM/DD/YYYY';
 
-  // Fix for charts under tabs
-  $('.box ul.nav a').on('shown.bs.tab', function () {
-    area.redraw();
-    donut.redraw();
-    line.redraw();
-  });
+		var color = Chart.helpers.color;
+		var config = {
+			type: 'line',
+			data: {
+				labels : [<?=$labels?>],
+			datasets : [
+				{
+					label: "Pemasukan",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : [<?=$chart?>]
+				}]
+			},
+			options: {
+				title: {
+					text: 'Grafik Pemasukan & Pengeluaran'
+				},
+				scales: {
+					xAxes: [{
+						type: 'time',
+						time: {
+							unit: 'day',
+              displayFormats: {
+                week: "ll"
+              }
+						}
+					}]
+				},
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+
+		};
 
 </script>

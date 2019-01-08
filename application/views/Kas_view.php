@@ -111,9 +111,9 @@ $this->load->view('template/side');
                                         <div class="col-lg-7">
                                             <select required class="form-control" name="addTipe" id="addTipe">
                                                     <option value="">- Pilih Tipe -</option>
-                                                    <option value="1">Donatur Tetap</option>
-                                                    <option value="2">Donatur Tidak Tetap</option>
-                                                    <option value="3">Infaq</option>
+                                                    <option value="6">Donatur Tetap</option>
+                                                    <option value="7">Donatur Tidak Tetap</option>
+                                                    <option value="8">Infaq</option>
                                             </select>
                                         </div>
                                     </div>
@@ -282,7 +282,7 @@ $(document).ready(function(){
                     {"data": "nama"},
                     {"data": "tipe"},
                     {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
-                    {"data": "tanggal"},
+                    {"data": "tgl"},
                     {"data": "keterangan"}
                     ,{"data": "action", "orderable": false, "searchable": false}
                 ],

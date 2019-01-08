@@ -10,11 +10,29 @@ defined("BASEPATH") or exit("Some Error");
 
 		public function index(){
 			if(isset($_SESSION['username'])){
-
 				date_default_timezone_set('Asia/Jakarta');
-				$tanggal = date("Y-m-d");
-				$data['data'] = $this->Lap_zakat_model->select_zakat($tanggal)->result();
-				$this->load->view('home',$data);
+				$query = $this->db->select("SUM(kas_masjid.jumlah) as jumlah, kas_masjid.tanggal")
+                            ->from("kas_masjid")
+                            // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
+							->order_by("kas_masjid.tanggal")
+                            ->group_by("kas_masjid.tanggal")
+                            ->get()->result();
+            $dataset = '';
+			$labels = '';
+            foreach ($query as $item){
+                $dataset .= "'".number_format((double)$item->jumlah,0,".",".")."', ";
+				$dc = date_create($item->tanggal);
+				$date = date_format($dc,"M d Y");
+				$labels .= "'".$date."', ";
+            }
+            $dataset = substr($dataset,0,-2);
+			$labels = substr($labels,0,-2);
+            $data['chart'] = $dataset;
+			$data['labels'] = $labels;
+            // var_dump($dataset);
+			// var_dump($labels);
+            // die();
+            $this->load->view("home",$data);
 			}else{
 				redirect('Auth/logout');
 			}
