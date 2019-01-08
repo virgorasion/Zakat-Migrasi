@@ -4,7 +4,7 @@
 	class Lap_kurban_model extends CI_model{
 
 		public function sel_date($t1,$t2){
-		return $this->db->query("SELECT h.id,h.id_admin,h.penyumbang,h.jenis,h.jumlah,date_format(h.tanggal,'%d/%m/%Y') as tanggal_transaksi, h.tanggal,h.alamat,h.log_time, m.id_admin,m.nama AS admin,m.username
+		return $this->db->query("SELECT h.id,h.id_admin,h.penyumbang,h.jenis,h.jumlah,date_format(h.tanggal,'%d-%M-%Y') as tanggal_transaksi, h.tanggal,h.alamat,h.log_time, m.id_admin,m.nama AS admin,m.username
           FROM hewan_kurban h, master_login m
           WHERE h.id_admin = m.id_admin
           AND date_format(h.tanggal,'%Y%m%d') >= '$t1'

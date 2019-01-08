@@ -5,34 +5,42 @@ defined("BASEPATH") or exit("Some Error");
 
 		public function __construct(){
 			parent::__construct();
-			$this->load->model('Lap_zakat_model');
+			$this->load->model('Home_model');
 		}
 
 		public function index(){
 			if(isset($_SESSION['username'])){
 				date_default_timezone_set('Asia/Jakarta');
-				$query = $this->db->select("SUM(kas_masjid.jumlah) as jumlah, kas_masjid.tanggal")
-                            ->from("kas_masjid")
-                            // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
-							->order_by("kas_masjid.tanggal")
-                            ->group_by("kas_masjid.tanggal")
-                            ->get()->result();
-            $dataset = '';
-			$labels = '';
-            foreach ($query as $item){
-                $dataset .= "'".number_format((double)$item->jumlah,0,".",".")."', ";
-				$dc = date_create($item->tanggal);
-				$date = date_format($dc,"M d Y");
-				$labels .= "'".$date."', ";
-            }
-            $dataset = substr($dataset,0,-2);
-			$labels = substr($labels,0,-2);
-            $data['chart'] = $dataset;
-			$data['labels'] = $labels;
-            // var_dump($dataset);
-			// var_dump($labels);
-            // die();
-            $this->load->view("home",$data);
+				$masuk = $this->Home_model->tot_masuk();
+				$keluar = $this->Home_model->tot_keluar();
+				$tot_kas = $this->Home_model->tot_kas();
+				$tot_pengeluaran = $this->Home_model->tot_pengeluaran();
+				$tot_zakat = $this->Home_model->tot_zakat();
+				$tot_kurban = $this->Home_model->tot_kurban();
+				$tot_masuk = '';
+				$labels_masuk = '';
+				foreach ($masuk as $item){
+					$tot_masuk .= $item->jumlah.", ";
+					$labels_masuk .= "'".$item->tanggal."', ";
+				}
+				$tot_keluar = '';
+				foreach ($keluar as $item) {
+					$tot_keluar .= "{ x: '".$item->tanggal."', y: '".$item->jumlah."'}, ";
+				}
+				$tot_masuk = substr($tot_masuk,0,-2);
+				$tot_keluar = substr($tot_keluar,0,-2);
+				$labels_masuk = substr($labels_masuk,0,-2);
+				$data['tot_masuk'] = $tot_masuk;
+				$data['labels_masuk'] = $labels_masuk;
+				$data['tot_keluar'] = $tot_keluar;
+				$data['tot_kas'] = $tot_kas[0]->jumlah - $tot_pengeluaran[0]->jumlah;
+				$data['tot_pengeluaran'] = $tot_pengeluaran[0]->jumlah;
+				$data['tot_zakat'] = $tot_zakat[0]->zakat;
+				$data['tot_kurban'] = $tot_kurban;
+				// var_dump($tot_zakat);
+				// var_dump($labels_masuk);
+				// die();
+				$this->load->view("home",$data);
 			}else{
 				redirect('Auth/logout');
 			}

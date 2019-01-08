@@ -95,8 +95,7 @@ $this->load->view('template/side');
                 <?php echo $no ?>
               </td>
               <td class="tanggal">
-                <?php $tgl=explode("-", $row->tanggal); $tanggal = $tgl[2]."-".$tgl[1]."-".$tgl[0];
-                        echo $tanggal; ?>
+                <?php echo $row->tanggal_transaksi ?>
               </td>
               <td class="admin">
                 <?php echo $row->admin; ?>

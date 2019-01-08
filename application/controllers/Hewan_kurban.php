@@ -64,10 +64,10 @@
             $data = array(
                 'id_admin' => $_SESSION['id_admin'],
                 'tanggal' => $tanggal,
-                'penyumbang' => htmlsspecialchars($penyumbang),
-                'alamat' => htmlsspecialchars($alamat),
+                'penyumbang' => htmlspecialchars($penyumbang),
+                'alamat' => htmlspecialchars($alamat),
                 'jenis' => $jenisHewan,
-                'jumlah' => htmlsspecialchars($jumlah),
+                'jumlah' => htmlspecialchars($jumlah),
                 'log_time' => $log_time
             );
 
@@ -76,10 +76,10 @@
         }else{
             $id = $nomor;
             $data = array(
-                'penyumbang' => htmlsspecialchars($penyumbang),
-                'alamat' => htmlsspecialchars($alamat),
+                'penyumbang' => htmlspecialchars($penyumbang),
+                'alamat' => htmlspecialchars($alamat),
                 'jenis' => $jenisHewan,
-                'jumlah' => htmlsspecialchars($jumlah)
+                'jumlah' => htmlspecialchars($jumlah)
             );
             $this->Lap_kurban_model->update_data('hewan_kurban',$data,$nomor);
             redirect(site_url('Hewan_kurban'));
