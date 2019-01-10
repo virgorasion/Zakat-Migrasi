@@ -65,7 +65,7 @@
 
         $this->Lap_zakat_model->input('list_zakat',$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal);
         $this->session->set_flashdata('msg', 'Berhasil Menambah Data');
-        redirect(site_url('Laporan/Zakat_fitrah'));
+        redirect(site_url('zakat_ctrl'));
     }
 
     public function edit($nomor)
@@ -78,7 +78,7 @@
     {
         $data = $this->Lap_zakat_model->hapus($nomor);
         $this->session->set_flashdata('msg','Data Berhasil di Hapus');
-        redirect(site_url('Laporan/Zakat_fitrah'));
+        redirect(site_url('zakat_ctrl'));
     }
 
     public function simpanEdit()
@@ -96,7 +96,7 @@
         $infaqEdt = $pecah2[0].$pecah2[1].$pecah2[2];
         $this->Lap_zakat_model->ganti($nomor,$namaEdt,$alamatEdt,$zakatFitrahEdt,$pembelianEdt,$zakatMalEdt,$infaqEdt);
         $this->session->set_flashdata('msg','Data Berhasil di Edit');
-        redirect(site_url('Laporan/Zakat_fitrah'));
+        redirect(site_url('zakat_ctrl'));
     }
 
     public function synchronize($t1,$t2)

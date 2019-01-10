@@ -160,7 +160,7 @@ $this->load->view('template/side');
                 </td>
                 <?php if ($_SESSION['1edit'] == "1" && $_SESSION['1delete'] == "1") { ?>
                 <td align="center">
-                  <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
+                <input type="hidden" name="nomor" id="id" value="<?php echo $row->nomor ?>">
                   <input type="hidden" name="data_nama" id="data_nama" value="<?php echo $row->nama ?>">
                   <!-- <?php if ($this->session->userdata("17view")=="1"){?>
                   <a href="#">
@@ -308,8 +308,9 @@ $this->load->view('template/js');
 ?>
 
 <script>
-  $('#btnEdit').click(function(){
-    var id = $('#id').val();
+  $("#datatable").on("click","#btnEdit", function(){
+    var item = $(this).closest('tr');
+    var id = item.find('#id').val();
     var url = "<?php echo site_url('zakat_ctrl/edit/'); ?>" + id ;
     // console.log(url);
     $.ajax({
@@ -412,7 +413,7 @@ $this->load->view('template/js');
       ',$t1); ?>';
       var tanggal2 = '<?php echo str_replace(' - ','.
       ',$t2); ?>';
-      var url = '<?php echo site_url("/zakat_ctrl/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
+      var url = '<?php echo site_url("zakat_ctrl/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
       console.log(url);
       newwindow = window.open(url, 'Print', 'height=500,width=1100');
       if (window.focus) {
@@ -437,7 +438,7 @@ $this->load->view('template/js');
           delete: {
             text: 'Delete',
             action: function () {
-              window.location = "../zakat_ctrl/hapus/" + $item.find("#id").val();
+              window.location = "<?=site_url('zakat_ctrl/hapus/')?>" + $item.find("#id").val();
             }
           }
         }
