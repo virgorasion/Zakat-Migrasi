@@ -69,14 +69,15 @@ class Kotak_amal_ctrl extends CI_controller
         $tipe = $this->input->post('editTipe');
         $jml = explode('.', $this->input->post('editJumlah'));
         $jumlah = implode('', $jml);
-        $tanggal = $this->input->post('editTanggal');
         $keterangan = htmlspecialchars($this->input->post('editKeterangan'));
         $id = $this->input->post('idEdit');
-
+        $d = $this->input->post('editTanggal');
+        $conv = date_create($d);
+        $date = date_format($conv, "Y-m-d");
         $data = array(
             'id_admin' => $_SESSION['id_admin'],
             'keterangan' => $keterangan,
-            'tanggal' => $tanggal,
+            'tanggal' => $date,
             'id_tipe' => $tipe,
             'jumlah' => $jumlah 
         );

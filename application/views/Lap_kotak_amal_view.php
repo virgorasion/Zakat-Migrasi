@@ -289,7 +289,7 @@ $this->load->view('template/side');
                                     <label class="col-sm-3 control-label">Tanggal</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control datepicker" id="editTanggal" name="editTanggal"
-                                            required>
+                                            required autocomplete="off">
                                     </div>
                                 </div>
 
@@ -385,7 +385,7 @@ $this->load->view('template/js');
                     delete: {
                         text: 'Delete',
                         action: function () {
-                            window.location = "../Kotak_amal_ctrl/hapus_data/" +
+                            window.location = "<?=site_url('Kotak_amal_ctrl/hapus_data/')?>" +
                                 $item.find("#id").val();
                         }
                     }
