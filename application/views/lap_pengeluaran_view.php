@@ -18,10 +18,29 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
+    <?php if (isset($_SESSION['succ'])) { ?>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+          <?php echo $_SESSION['succ']; ?>
+        </div>
+        <?php 
+      } ?>
+    <?php if (isset($_SESSION['fail'])) { ?>
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='fa fa-remove'></span> Info!</h5>
+          <?php echo $_SESSION['fail']; ?>
+        </div>
+        <?php 
+      } ?>
+
     <!-- Default box -->
     <div class="box">
       <div class="box-header">
-        <form method="post" action="<?php echo site_url(" Hewan_kurban/index") ?>" id="formsearch">
+        <form method="post" action="<?= site_url("Lap_pengeluaran/index") ?>" id="formsearch">
           <div class="col-sm-12">
             <?php if ($_SESSION['7insert'] == 1) { ?>
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2">Tambah</button>
@@ -173,6 +192,10 @@ $this->load->view('template/js');
       "ordering": true,
       "info": true,
       "autoWidth": false
+    });
+
+    $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+      $(".alert").slideUp(500);
     });
 
     // DateRange (Date Main)
