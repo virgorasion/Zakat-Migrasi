@@ -71,8 +71,14 @@
                 'log_time' => $log_time
             );
 
-            $this->Lap_kurban_model->insert_data('hewan_kurban',$data);
-            redirect(site_url('Hewan_kurban'));
+            $query = $this->Lap_kurban_model->insert_data('hewan_kurban',$data);
+            if ($query) {
+                $this->session->set_flashdata("succ", "Berhasil tambah data");
+                redirect(site_url('Hewan_kurban'));
+            }else{
+                $this->session->set_flashdata("fail", "Gagal tambah data, segera hubungi admin");
+                redirect(site_url('Hewan_kurban'));
+            }
         }else{
             $id = $nomor;
             $data = array(
@@ -81,15 +87,28 @@
                 'jenis' => $jenisHewan,
                 'jumlah' => htmlspecialchars($jumlah)
             );
-            $this->Lap_kurban_model->update_data('hewan_kurban',$data,$nomor);
-            redirect(site_url('Hewan_kurban'));
+            $query = $this->Lap_kurban_model->update_data('hewan_kurban',$data,$nomor);
+            
+            if ($query) {
+                $this->session->set_flashdata("succ", "Berhasil update data");
+                redirect(site_url('Hewan_kurban'));
+            }else{
+                $this->session->set_flashdata("fail", "Gagal update data, segera hubungi admin");
+                redirect(site_url('Hewan_kurban'));
+            }
         }
     }
     
     public function hapus($id)
     {
-        $this->Lap_kurban_model->delete_data('hewan_kurban',$id);
-        redirect(site_url('Hewan_kurban'));
+        $query = $this->Lap_kurban_model->delete_data('hewan_kurban',$id);
+        if ($query) {
+                $this->session->set_flashdata("succ", "Berhasil hapus data");
+                redirect(site_url('Hewan_kurban'));
+            }else{
+                $this->session->set_flashdata("fail", "Gagal hapus data, segera hubungi admin");
+                redirect(site_url('Hewan_kurban'));
+            }
     }
  }
 ?>

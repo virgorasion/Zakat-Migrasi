@@ -21,6 +21,25 @@ $this->load->view('template/side');
   <!-- Main content -->
   <section class="content">
 
+       <?php if (isset($_SESSION['succ'])) { ?>
+        <div class="alert alert-success alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+          <?php echo $_SESSION['succ']; ?>
+        </div>
+        <?php 
+      } ?>
+    <?php if (isset($_SESSION['fail'])) { ?>
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+          <h5>
+            <span class='fa fa-remove'></span> Info!</h5>
+          <?php echo $_SESSION['fail']; ?>
+        </div>
+        <?php 
+      } ?>
+
     <!-- Default box -->
     <div class="box">
       <div class="box-header">
@@ -220,9 +239,11 @@ $this->load->view('template/js');
       "info": true,
       "autoWidth": false
     });
-    $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
-      $(".alert-sucess").slideUp(500);
+    
+    $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+        $(".alert").slideUp(500);
     });
+
     $(".btnSave").click(function () {
       $('#form-horizontal').submit(function () {
         return false;
