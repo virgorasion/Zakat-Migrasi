@@ -29,11 +29,13 @@ class Kotak_amal_ctrl extends CI_controller
         $jumlah = implode('', $jml);
         $keterangan = htmlspecialchars($this->input->post('addKeterangan'));
         $admin = $_SESSION['id_admin'];
-        $tanggal = $this->input->post('addTanggal');
+        $d = $this->input->post('addTanggal');
+        $conv = date_create($d);
+        $date = date_format($conv, "Y-m-d");
         $data = array(
             'id_admin' => $admin,
             'keterangan' => $keterangan,
-            'tanggal' => $tanggal,
+            'tanggal' => $date,
             'id_tipe' => $tipe,
             'jumlah' => $jumlah,
             'kategori' => 1,
@@ -42,10 +44,10 @@ class Kotak_amal_ctrl extends CI_controller
 
         try{
             $query = $this->Lap_kotak_amal_model->inputAll('kas_masjid',$data);
-            $this->session->set_flashdata('msg', 'Berhasil Menambah Data');
+            $this->session->set_flashdata('succ', 'Berhasil Menambah Data');
             redirect('Kotak_amal_ctrl');
         }catch (Exception $e){
-            $this->session->set_flashdata('msg', 'Gagal Hapus Data, Segera Hubungi Operator');
+            $this->session->set_flashdata('fail', 'Gagal Hapus Data, Segera Hubungi Operator');
             redirect('Kotak_amal_ctrl');
         }
     }
@@ -54,10 +56,10 @@ class Kotak_amal_ctrl extends CI_controller
     {
         try{
             $this->Lap_kotak_amal_model->deleteData('kas_masjid',$id);
-            $this->session->set_flashdata('msg', 'Berhasil Hapus Data');
+            $this->session->set_flashdata('succ', 'Berhasil Hapus Data');
             redirect('Kotak_amal_ctrl');
         }catch (Exception $e){
-            $this->session->set_flashdata('msg', 'Gagal Hapus Data, Segera Hubungi Operator');
+            $this->session->set_flashdata('fail', 'Gagal Hapus Data, Segera Hubungi Operator');
             redirect('Kotak_amal_ctrl');
         }
     }
@@ -81,10 +83,10 @@ class Kotak_amal_ctrl extends CI_controller
 
         try {
             $this->Lap_kotak_amal_model->Update("kas_masjid", $data, $id);
-            $this->session->set_flashdata('msg', 'Berhasil Edit Data');
+            $this->session->set_flashdata('succ', 'Berhasil Edit Data');
             redirect('Kotak_amal_ctrl');
         } catch (Exception $e) {
-            $this->session->set_flashdata('msg', 'Gagal Edit Data, Segera Hubungi Operator');
+            $this->session->set_flashdata('fail', 'Gagal Edit Data, Segera Hubungi Operator');
             redirect('Kotak_amal_ctrl');
         }
     }
