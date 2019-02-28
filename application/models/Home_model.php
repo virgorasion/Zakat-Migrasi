@@ -5,13 +5,13 @@ class Home_model extends CI_model{
 
     public function tot_masuk()
     {
-        $date1 = date("01-01-Y");
-        $date2 = date("01-12-Y");
+        $date1 = date("Y-01-01");
+        $date2 = date("Y-12-31");
         return $this->db->select("SUM(kas_masjid.jumlah) as jumlah, date_format(kas_masjid.tanggal, '%b %d %Y') as tanggal")
                             ->from("kas_masjid")
                             // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
-                            ->where("date_format(kas_masjid.tanggal, '%d-%m-%Y') >= '".$date1."' ")
-                            ->where("date_format(kas_masjid.tanggal, '%d-%m-%Y') <= '".$date2."'")
+                            ->where("kas_masjid.tanggal >= '".$date1."' ")
+                            ->where("kas_masjid.tanggal <= '".$date2."'")
 							->order_by("kas_masjid.tanggal")
                             ->group_by("kas_masjid.tanggal")
                             ->get()->result();
@@ -19,13 +19,13 @@ class Home_model extends CI_model{
     
     function tot_keluar()
     {
-        $date1 = date("01-01-Y");
-        $date2 = date("31-12-Y");
+        $date1 = date("Y-01-01");
+        $date2 = date("Y-12-31");
         return $this->db->select("SUM(lap_pengeluaran.jumlah) as jumlah, date_format(lap_pengeluaran.tanggal, '%b %d %Y') as tanggal")
                             ->from("lap_pengeluaran")
                             // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
-                            ->where("date_format(lap_pengeluaran.tanggal, '%d-%m-%Y') >= '".$date1."' ")
-                            ->where("date_format(lap_pengeluaran.tanggal, '%d-%m-%Y') <= '".$date2."'")
+                            ->where("lap_pengeluaran.tanggal >= '".$date1."' ")
+                            ->where("lap_pengeluaran.tanggal <= '".$date2."'")
 							->order_by("lap_pengeluaran.tanggal")
                             ->group_by("lap_pengeluaran.tanggal")
                             ->get()->result();
