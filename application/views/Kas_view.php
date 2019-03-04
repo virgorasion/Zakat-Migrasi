@@ -282,7 +282,7 @@ $(document).ready(function(){
                     {"data": "nama"},
                     {"data": "tipe"},
                     {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
-                    {"data": "tgl"},
+                    {"data": "tanggal"},
                     {"data": "keterangan"}
                     ,{"data": "action", "orderable": false, "searchable": false}
                 ],
