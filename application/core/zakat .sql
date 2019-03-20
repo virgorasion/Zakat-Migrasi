@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Jan 2019 pada 03.56
+-- Waktu pembuatan: 13 Mar 2019 pada 17.37
 -- Versi server: 10.1.30-MariaDB
 -- Versi PHP: 7.2.2
 
@@ -39,6 +39,15 @@ CREATE TABLE `hewan_kurban` (
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data untuk tabel `hewan_kurban`
+--
+
+INSERT INTO `hewan_kurban` (`id`, `id_admin`, `tanggal`, `penyumbang`, `alamat`, `jenis`, `jumlah`, `log_time`) VALUES
+(1, 8, '2019-01-09', 'joo', 'kapas madya', 1, 5, '2019-01-09 10:16:49'),
+(2, 8, '2019-01-09', 'sam', 'kapas', 1, 2, '2019-01-09 10:17:00'),
+(3, 8, '2019-01-09', 'ku', 'kaps', 2, 2, '2019-01-09 10:17:07');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +60,15 @@ CREATE TABLE `jabatan` (
   `keterangan` varchar(80) NOT NULL,
   `status_aktif` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `jabatan`
+--
+
+INSERT INTO `jabatan` (`id`, `nama`, `keterangan`, `status_aktif`) VALUES
+(1, 'Ketua Remas', '-', 1),
+(4, 'Anggota Remas', '-', 1),
+(5, 'Seksi Humas', '-', 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +100,12 @@ INSERT INTO `jadwal` (`id`, `kode_jadwal`, `imam`, `bilal`, `ceramah`, `tanggal`
 (18, 2, 'test 1', 'test 1', 1, '2018-11-02'),
 (19, 2, 'test 2', 'test 2', 1, '2018-11-09'),
 (20, 2, 'test 3', 'test 3', 1, '2018-11-16'),
-(22, 3, '&lt;script&gt;alert(&quot;asda', 'hgc', 1, '2018-12-06');
+(22, 3, '&lt;script&gt;alert(&quot;asda', 'hgc', 1, '2018-12-06'),
+(23, 3, 'Mas Hamim', 'test 1', 1, '2019-01-01'),
+(24, 3, 'test 3', 'hgc', 0, '2019-01-02'),
+(25, 2, 'balmond', 'Qodir', 1, '2019-02-01'),
+(26, 2, 'ashdg', 'askdb', 0, '2019-02-08'),
+(27, 2, 'ajsdb', 'kasdb', 1, '2019-02-15');
 
 -- --------------------------------------------------------
 
@@ -97,7 +120,7 @@ CREATE TABLE `kas_masjid` (
   `nama_donatur` varchar(30) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `keterangan` varchar(100) NOT NULL DEFAULT '-',
-  `tanggal` varchar(25) NOT NULL,
+  `tanggal` date NOT NULL,
   `kategori` tinyint(1) UNSIGNED NOT NULL COMMENT 'kategori 1 untuk Kotak Amal',
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -107,9 +130,13 @@ CREATE TABLE `kas_masjid` (
 --
 
 INSERT INTO `kas_masjid` (`id`, `id_admin`, `id_tipe`, `nama_donatur`, `jumlah`, `keterangan`, `tanggal`, `kategori`, `log_time`) VALUES
-(22, NULL, 1, 'M Nur Fauzan W', 500000, '', '26-October-2018', 0, '2018-10-24 03:32:47'),
-(23, NULL, 1, 'terserah', 500000, '-', '08-November-2018', 0, '2018-11-08 00:58:41'),
-(24, NULL, 1, '-', 500000, '', '24-November-2018', 1, '2018-11-24 14:59:06');
+(29, 8, 6, 'Fauzan', 900000, '', '2019-01-07', 0, '2019-01-08 05:55:31'),
+(30, 8, 6, 'test', 2523423, '', '2019-01-06', 0, '2019-01-08 05:55:35'),
+(31, 8, 7, 'joo', 500000, '', '2019-01-01', 0, '2019-01-08 04:28:18'),
+(32, 8, 6, 'joo', 90000, '', '2019-02-01', 0, '2019-01-08 06:18:17'),
+(33, 8, 7, 'alhamdulillah', 1000000, '', '2019-03-01', 0, '2019-01-08 06:19:01'),
+(35, 8, 1, '-', 832500, '-', '2019-01-31', 1, '2019-01-10 16:10:23'),
+(36, 8, 6, 'avi', 2000000000, 'saya ikhlas lillahhitaalah', '2019-02-28', 0, '2019-02-27 07:42:49');
 
 -- --------------------------------------------------------
 
@@ -131,7 +158,17 @@ CREATE TABLE `lap_pengeluaran` (
 --
 
 INSERT INTO `lap_pengeluaran` (`id_pengeluaran`, `id_admin`, `tanggal`, `jumlah`, `log_time`, `keterangan`) VALUES
-(2, 8, '2018-12-05', 3515335, '2018-12-03 07:24:29', 'Initial Testa');
+(2, 8, '2018-12-05', 3515335, '2018-12-03 07:24:29', 'Initial Testa'),
+(3, 8, '2019-01-07', 500000, '2019-01-08 06:48:35', ''),
+(4, 8, '2019-01-23', 500000, '2019-01-09 16:39:51', ''),
+(5, 8, '2019-02-01', 250000, '2019-01-09 16:45:29', ''),
+(6, 8, '2019-02-02', 250000, '2019-01-09 16:45:56', ''),
+(7, 8, '2019-01-31', 250000, '2019-01-10 15:11:00', ''),
+(8, 8, '2019-02-01', 250000, '2019-01-10 15:11:20', ''),
+(9, 8, '2019-01-18', 250000, '2019-01-10 15:11:32', ''),
+(10, 8, '2019-02-01', 250000, '2019-01-10 15:11:42', ''),
+(11, 8, '2019-02-01', 250000, '2019-01-10 15:11:50', ''),
+(12, 8, '2019-02-01', 250000, '2019-01-10 15:15:29', '');
 
 -- --------------------------------------------------------
 
@@ -155,7 +192,8 @@ CREATE TABLE `list_anggota` (
 
 INSERT INTO `list_anggota` (`id_anggota`, `nama`, `alamat`, `no_hp`, `no_telp`, `jenis_kelamin`, `status`) VALUES
 (1, 'M Nur Fauzan W ', 'Kapas Madya 3i/4', '083849575737', '', 'L', 1),
-(2, 'Ikhya Mumuludin', 'Sembarang', '09123618', '', 'P', 0);
+(2, 'Ikhya Mumuludin', 'Sembarang', '09123618', '', 'P', 0),
+(3, 'test', 'kaps', '08127124', '', 'L', 1);
 
 -- --------------------------------------------------------
 
@@ -181,7 +219,6 @@ CREATE TABLE `list_zakat` (
 --
 
 INSERT INTO `list_zakat` (`nomor`, `id_admin`, `tanggal`, `nama`, `alamat`, `zakat_fitrah`, `beli`, `zakat_mall`, `infaq`, `log_time`) VALUES
-(18, NULL, '2018-10-24', 'M Nur Fauzan W', 'kapas madya 3i', '5', 0, '5', '', '0000-00-00 00:00:00'),
 (19, NULL, '2018-11-24', 'M Nur Fauzan W', 'kapas madya 3i', '5', 0, '', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -205,7 +242,8 @@ CREATE TABLE `master_login` (
 
 INSERT INTO `master_login` (`id_admin`, `kode_akses`, `nama`, `username`, `password`, `status_aktif`) VALUES
 (8, 1, 'M Nur Fauzan W', 'admin', '282134daedcb22b0318581561156a09a', 1),
-(9, 2, 'Tester', 'test', '21232f297a57a5a743894a0e4a801fc3', 1);
+(9, 2, 'Tester', 'test', '098f6bcd4621d373cade4e832627b4f6', 1),
+(10, 2, 'Thoriq', 'tq', '21232f297a57a5a743894a0e4a801fc3', 1);
 
 -- --------------------------------------------------------
 
@@ -272,7 +310,8 @@ CREATE TABLE `menu_hak_akses` (
 
 INSERT INTO `menu_hak_akses` (`kode_akses`, `hak_akses`, `keterangan`, `status_aktif`) VALUES
 (1, 'Virgorasion', '', 1),
-(2, 'Tester', 'untuk debugging', 1);
+(2, 'Tester', 'untuk debugging', 1),
+(3, 'Seksi Keuangan', '-', 1);
 
 -- --------------------------------------------------------
 
@@ -321,60 +360,20 @@ CREATE TABLE `menu_level` (
 --
 
 INSERT INTO `menu_level` (`kode_menu_level`, `kode_akses`, `kode_menu_child`, `akses_insert`, `akses_view`, `akses_edit`, `akses_delete`) VALUES
-(73, 4, 1, 0, 1, 0, 0),
-(74, 4, 6, 0, 1, 0, 0),
-(75, 4, 7, 0, 1, 0, 0),
-(76, 4, 10, 0, 1, 0, 0),
-(77, 4, 11, 0, 1, 0, 0),
-(78, 4, 12, 0, 1, 0, 0),
-(79, 4, 17, 0, 1, 0, 0),
-(80, 4, 18, 0, 1, 0, 0),
-(81, 4, 19, 0, 1, 0, 0),
-(82, 4, 20, 0, 1, 0, 0),
-(83, 4, 24, 0, 1, 0, 0),
-(84, 4, 25, 0, 1, 0, 0),
-(85, 4, 26, 0, 1, 0, 0),
-(86, 5, 1, 0, 1, 0, 0),
-(87, 5, 6, 0, 1, 0, 0),
-(88, 5, 7, 0, 1, 0, 0),
-(89, 5, 10, 0, 1, 0, 0),
-(90, 5, 11, 0, 1, 0, 0),
-(91, 5, 12, 0, 1, 0, 0),
-(92, 5, 17, 0, 1, 0, 0),
-(93, 5, 18, 0, 0, 0, 0),
-(94, 5, 19, 0, 0, 0, 0),
-(95, 5, 20, 0, 0, 0, 0),
-(96, 5, 24, 0, 1, 0, 0),
-(97, 5, 25, 0, 1, 0, 0),
-(98, 5, 26, 0, 1, 0, 0),
-(99, 1, 1, 1, 1, 1, 1),
-(100, 1, 6, 1, 1, 1, 1),
-(101, 1, 7, 1, 1, 1, 1),
-(102, 1, 10, 1, 1, 1, 1),
-(103, 1, 11, 1, 1, 1, 1),
-(104, 1, 12, 1, 1, 1, 1),
-(105, 1, 17, 1, 1, 1, 1),
-(106, 1, 18, 1, 1, 1, 1),
-(107, 1, 19, 1, 1, 1, 1),
-(108, 1, 20, 1, 1, 1, 1),
-(109, 1, 24, 1, 1, 1, 1),
-(110, 1, 25, 1, 1, 1, 1),
-(111, 1, 26, 1, 1, 1, 1),
-(112, 1, 27, 1, 1, 1, 1),
-(169, 2, 1, 0, 0, 0, 0),
-(170, 2, 6, 0, 1, 0, 0),
-(171, 2, 7, 0, 1, 0, 0),
-(172, 2, 10, 0, 1, 0, 0),
-(173, 2, 11, 0, 1, 0, 0),
-(174, 2, 12, 0, 1, 0, 0),
-(175, 2, 17, 0, 1, 0, 0),
-(176, 2, 18, 0, 0, 0, 0),
-(177, 2, 19, 0, 0, 0, 0),
-(178, 2, 20, 0, 0, 0, 0),
-(179, 2, 24, 0, 1, 0, 0),
-(180, 2, 25, 0, 1, 0, 0),
-(181, 2, 26, 0, 1, 0, 0),
-(182, 2, 27, 0, 1, 0, 0);
+(2, 1, 1, 1, 1, 1, 1),
+(3, 1, 6, 1, 1, 1, 1),
+(4, 1, 7, 1, 1, 1, 1),
+(5, 1, 10, 1, 1, 1, 1),
+(6, 1, 11, 1, 1, 1, 1),
+(7, 1, 12, 1, 1, 1, 1),
+(8, 1, 17, 1, 1, 1, 1),
+(9, 1, 18, 1, 1, 1, 1),
+(10, 1, 19, 1, 1, 1, 1),
+(11, 1, 20, 1, 1, 1, 1),
+(12, 1, 24, 1, 1, 1, 1),
+(13, 1, 25, 1, 1, 1, 1),
+(14, 1, 26, 1, 1, 1, 1),
+(15, 1, 27, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -393,7 +392,9 @@ CREATE TABLE `takmir` (
 --
 
 INSERT INTO `takmir` (`id`, `id_anggota`, `id_jabatan`) VALUES
-(11, 1, 1);
+(12, 1, 1),
+(13, 2, 4),
+(14, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -528,37 +529,37 @@ ALTER TABLE `tipe_donasi`
 -- AUTO_INCREMENT untuk tabel `hewan_kurban`
 --
 ALTER TABLE `hewan_kurban`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `kas_masjid`
 --
 ALTER TABLE `kas_masjid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `lap_pengeluaran`
 --
 ALTER TABLE `lap_pengeluaran`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `list_anggota`
 --
 ALTER TABLE `list_anggota`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `list_zakat`
@@ -570,7 +571,7 @@ ALTER TABLE `list_zakat`
 -- AUTO_INCREMENT untuk tabel `master_login`
 --
 ALTER TABLE `master_login`
-  MODIFY `id_admin` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_admin` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu_child`
@@ -582,7 +583,7 @@ ALTER TABLE `menu_child`
 -- AUTO_INCREMENT untuk tabel `menu_hak_akses`
 --
 ALTER TABLE `menu_hak_akses`
-  MODIFY `kode_akses` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `kode_akses` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu_header`
@@ -594,13 +595,13 @@ ALTER TABLE `menu_header`
 -- AUTO_INCREMENT untuk tabel `menu_level`
 --
 ALTER TABLE `menu_level`
-  MODIFY `kode_menu_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `kode_menu_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `takmir`
 --
 ALTER TABLE `takmir`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `tipe_donasi`
@@ -617,12 +618,6 @@ ALTER TABLE `tipe_donasi`
 --
 ALTER TABLE `hewan_kurban`
   ADD CONSTRAINT `hewan_kurban_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `master_login` (`id_admin`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `jabatan`
---
-ALTER TABLE `jabatan`
-  ADD CONSTRAINT `jabatan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `takmir` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `kas_masjid`
@@ -659,13 +654,15 @@ ALTER TABLE `menu_child`
 -- Ketidakleluasaan untuk tabel `menu_level`
 --
 ALTER TABLE `menu_level`
-  ADD CONSTRAINT `menu_level_ibfk_1` FOREIGN KEY (`kode_menu_child`) REFERENCES `menu_child` (`kode_menu_child`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `menu_level_ibfk_1` FOREIGN KEY (`kode_menu_child`) REFERENCES `menu_child` (`kode_menu_child`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `menu_level_ibfk_2` FOREIGN KEY (`kode_akses`) REFERENCES `menu_hak_akses` (`kode_akses`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `takmir`
 --
 ALTER TABLE `takmir`
-  ADD CONSTRAINT `takmir_ibfk_1` FOREIGN KEY (`id_anggota`) REFERENCES `list_anggota` (`id_anggota`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `takmir_ibfk_1` FOREIGN KEY (`id_anggota`) REFERENCES `list_anggota` (`id_anggota`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `takmir_ibfk_2` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

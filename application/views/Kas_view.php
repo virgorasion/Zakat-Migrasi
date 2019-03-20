@@ -26,8 +26,25 @@ $this->load->view('template/side');
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Daftar Pembukuan</h3>
-
+                <form method="post" action="<?php echo site_url("Kas_ctrl/index") ?>" id="formsearch">
+                <div class="col-sm-12">
+                    <div class="form-inline col-md-4">
+                    <div class="input-group input-daterange">
+                        <input type="text" class="form-control" name="t1" id="t1" value="<?= @$t1 ?>" autocomplete="off">
+                        <div class="input-group-addon">to</div>
+                        <input type="text" class="form-control" name="t2" id="t2" value="<?= @$t2 ?>" autocomplete="off">
+                    </div>
+                    </div>
+                    <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary" id="btnSearch">
+                        Tampilkan</button>
+                    </div>
+                    <h3 class="box-title col-sm-1">
+                    <button type="button" class="btn btn-default" id="btnPrint">
+                        <i class="fa fa-print"></i> Print</button>
+                    </h3>
+                </div>
+                </form>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
@@ -78,11 +95,6 @@ $this->load->view('template/side');
                                     <br>
                                     
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td>Total :</td>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
 
@@ -242,6 +254,8 @@ $this->load->view('template/js');
 ?>
 <script>
 $(document).ready(function(){
+    var url = "<?= site_url($data) ?>";
+
     // Setup datatables
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
     {
@@ -268,10 +282,9 @@ $(document).ready(function(){
             oLanguage: {
             sProcessing: 'Loading....'
         },
-
             processing: true,
             serverSide: true,
-            ajax: {"url": "<?php echo site_url('Kas_ctrl/ajaxTable') ?>", "type": "POST"},
+            ajax: {"url": url, "type": "POST"},
                 columns: [
                     {
                         "data": null,

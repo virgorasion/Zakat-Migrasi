@@ -14,17 +14,36 @@ class Kas_ctrl extends CI_controller
     public function index()
     {
         if (isset($_SESSION['username'])) {
-            $this->load->view('Kas_view');
+            if($this->input->post('t1')=="" && $this->input->post('t2')==""){
+                $data['t1'] = date("01-F-Y");
+                $data['t2'] = date("t-F-Y");
+                $date1 = date_create($data['t1']);
+                $date2 = date_create($data['t2']);
+                $t1 = date_format($date1, "Y-m-d");
+                $t2 = date_format($date2, "Y-m-d");
+                $data['data'] = "Kas_ctrl/ajaxTable/".$t1."/".$t2;
+                $this->load->view('Kas_view',$data);
+            }
+            else{
+                $data['t1'] = $this->input->post('t1');
+                $data['t2'] = $this->input->post('t2');
+                $date1 = date_create($data['t1']);
+                $date2 = date_create($data['t2']);
+                $t1 = date_format($date1, "Y-m-d");
+                $t2 = date_format($date2, "Y-m-d");
+                $data['data'] = "Kas_ctrl/ajaxTable/".$t1."/".$t2;
+                $this->load->view('Kas_view',$data);
+            }
         }else {
             $this->session->set_flashdata('msg','Anda Harus Login Terlebih Dahulu !');
             redirect(site_url('home'));
         }
     }
 
-    public function ajaxTable()
+    public function ajaxTable($t1,$t2)
     {
         header('Content-Type: application/json');
-        echo $this->Kas_model->get_kas_data();
+        echo $this->Kas_model->sel_date($t1,$t2);
     }
 
     public function tambah()
