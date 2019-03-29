@@ -24,6 +24,16 @@ class Takmir_model extends CI_model
         return $this->datatables->generate();
     }
 
+    public function Get_all()
+    {
+        return $this->db->select("jabatan.nama as jabatan,list_anggota.id_anggota,list_anggota.nama,list_anggota.alamat,list_anggota.no_hp,list_anggota.no_telp,list_anggota.jenis_kelamin")
+                ->from("list_anggota")
+                ->join("takmir", "takmir.id_anggota = list_anggota.id_anggota")
+                ->join("jabatan", "jabatan.id = takmir.id_jabatan")
+                ->where("status", 1)
+                ->get();
+    }
+
     public function getPetugas()
     {
         $query = $this->db->select('takmir.id,list_anggota.id_anggota,jabatan.id as jabatan_id,list_anggota.nama as nama_anggota, jabatan.nama as nama_jabatan')

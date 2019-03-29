@@ -158,5 +158,11 @@ class Takmir_ctrl extends CI_controller
         $query = $this->Takmir_model->getTakmirAjax('jabatan');
         echo json_encode($query);
     }
+
+    public function print()
+    {
+        $data['data'] = $this->Takmir_model->Get_all()->result();
+        $this->load->view("prints/Takmir_print",$data);
+    }
     
 }

@@ -42,7 +42,7 @@ $this->load->view('template/side');
             <i class="fa fa-times"></i>
           </button>
         </div>
-        <form method="post" action="<?php echo site_url(" Jadwal_tarawih_ctrl/index") ?>" id="formsearch">
+        <form method="post" action="<?php echo site_url("Jadwal_tarawih_ctrl/index") ?>" id="formsearch">
           <div class="col-sm-12">
             <?php if($_SESSION['10insert'] == 1){ ?>
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2" btn-lg btn-block">Tambah

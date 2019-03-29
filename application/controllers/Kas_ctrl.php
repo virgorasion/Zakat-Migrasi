@@ -105,4 +105,15 @@ class Kas_ctrl extends CI_controller
         redirect('kas_ctrl');
     }
 
+    public function print($t1,$t2)
+    {
+        $c1 = date_create($t1);
+        $c2 = date_create($t2);
+        $tgl1 = date_format($c1, "Y-m-d");
+        $tgl2 = date_format($c2, "Y-m-d");
+        $data['t1'] = $t1;
+        $data['t2'] = $t2;
+        $data['data'] = $this->Kas_model->get_kas_data_print($tgl1,$tgl2);
+        $this->load->view('prints/Kas_masjid_print',$data);
+    }
 }

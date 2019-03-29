@@ -255,6 +255,10 @@ $this->load->view('template/js');
 <script>
 $(document).ready(function(){
     var url = "<?= site_url($data) ?>";
+    // DateRange (Date Main)
+    $('.input-daterange').datepicker({
+      format: 'dd-MM-yyyy'
+    });
 
     // Setup datatables
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
@@ -347,7 +351,16 @@ $(document).ready(function(){
             $('#formEdit').submit();
         });
     });
-<?php } ?>
+    <?php } ?>
+
+    $("#btnPrint").click(function(){
+        var url = "<?=site_url("Kas_ctrl/print/").$t1."/".$t2?>";
+        newwindow = window.open(url, 'Print', 'height=500,width=1100');
+        if (window.focus) {
+            newwindow.focus()
+        }
+        return false;
+    });
 
     <?php if($_SESSION['25delete']==1){ ?>
     $('#datatable').on('click', '.delete_data', function () {

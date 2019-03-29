@@ -83,7 +83,9 @@ $this->load->view('template/side');
         <div class="box box-info">
           <div class="box-header with-border">
             <i class="fa fa-sitemap"></i>
-            <h3 class="box-title">Daftar Pengurus</h3>
+            <h3 class="box-title">Daftar Pengurus
+              <button type="button" class="btn btn-default" id="btnPrint"><i class="fa fa-print"></i> Print</button>
+            </h3>
             <div class="pull-right box-tools">
               <div class="btn-group">
                 <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -488,6 +490,16 @@ $this->load->view('template/js');
         }
       });
     });
+
+    $("#btnPrint").click(function(){
+      var url = "<?=site_url("Takmir_ctrl/print")?>";
+      newwindow = window.open(url, 'Print', 'height=500,width=1100');
+      if (window.focus) {
+          newwindow.focus()
+      }
+      return false;
+    })
+
     $('#tablePetugas').on('click', '.btnDelete', function () {
       var item = $(this).closest('tr');
       var nama = item.find('.rowAnggota').text().trim();

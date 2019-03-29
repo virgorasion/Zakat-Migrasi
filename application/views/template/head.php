@@ -87,7 +87,6 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           
-            
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -109,9 +108,6 @@ desired effect
               </li>              
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
                   <a href="<?php echo site_url('Auth/logout')?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
