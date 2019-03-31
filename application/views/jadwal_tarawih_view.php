@@ -350,7 +350,7 @@ $this->load->view('template/js');
         "<td>" +
         "<button type='button' class='btn btn-danger btn-sm' title='Hapus Rincian !' onclick='removeFormField(\"#srow" +
         idf + "\"); return false;'><i class='glyphicon glyphicon-remove'></i></button>" +
-        "</td>" +
+        "</td>" 
         "</tr>";
       $("#inputDinamis").append(stre);
       idf = (idf - 1) + 2;

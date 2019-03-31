@@ -29,7 +29,7 @@ $this->load->view('template/side');
       <!-- Left col -->
       <section class="col-lg-7 connectedSortable">
 
-        <!-- quick email widget -->
+        <!-- Daftar Anggota -->
         <div class="box box-success">
           <div class="box-header">
             <i class="fa fa-users"></i>
@@ -37,15 +37,15 @@ $this->load->view('template/side');
             <h3 class="box-title">Daftar Anggota</h3>
             <!-- tools box -->
             <div class="pull-right box-tools">
+              <?php if($_SESSION['26insert']==1){ ?>
               <div class="btn-group">
                 <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bars"></i></button>
                 <ul class="dropdown-menu pull-right" role="menu">
-                <?php if($_SESSION['26insert']==1){ ?>
                   <li><a href="#" data-toggle="modal" data-target="#modalTambahAnggota">Tambah Anggota</a></li>
-                <?php } ?>
                 </ul>
               </div>
+              <?php } ?>
               <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
               <button type="button" class="btn btn-success btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i
                   class="fa fa-times"></i></button>
@@ -77,7 +77,6 @@ $this->load->view('template/side');
 
       </section>
       <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
       <section class="col-lg-5 connectedSortable">
         <!-- Start Box Petugas -->
         <div class="box box-info">
@@ -87,15 +86,15 @@ $this->load->view('template/side');
               <button type="button" class="btn btn-default" id="btnPrint"><i class="fa fa-print"></i> Print</button>
             </h3>
             <div class="pull-right box-tools">
+              <?php if($_SESSION['26insert']==1){ ?>
               <div class="btn-group">
                 <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bars"></i></button>
                 <ul class="dropdown-menu pull-right" role="menu">
-                <?php if($_SESSION['26insert']==1){ ?>
                   <li><a href="#" id="AddTakmir">Tambahkan Takmir</a></li>
-                <?php } ?>
                 </ul>
               </div>
+              <?php } ?>
               <button type="button" class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
               <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i
                   class="fa fa-times"></i></button>
@@ -122,30 +121,27 @@ $this->load->view('template/side');
                   <td class="rowJabatan">
                     <?= $org->nama_jabatan ?>
                   </td>
-                  <td>
                   <input type="hidden" name="anggotaID" id="anggotaID" value="<?=$org->id_anggota?>">
                   <input type="hidden" name="jabatanID" id="jabatanID" value="<?=$org->jabatan_id?>">
                   <input type="hidden" name="takmirID" id="takmirID" value="<?=$org->id?>">
+
+                  <?php if ($_SESSION['26edit'] == 1 OR $_SESSION['26delete'] == 1){ ?>
+                  <td>
                   <?php if ($this->session->userdata("26edit") == "1") { ?>
-                  <a href='#'>
-                    <span data-placement='top' data-toggle='tooltip' title='Edit'></span>
-                    <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
-                      <span class='glyphicon glyphicon-pencil'></span>
-                    </button>
-                  </a>
-                  <?php 
-                } ?>
+                  <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
+                    <span class='glyphicon glyphicon-pencil'></span>
+                  </button>
+                  <?php } ?> <!-- End if(edit) -->
+
                   <?php if ($this->session->userdata("26delete") == "1") { ?>
-                  <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
-                      <span class='glyphicon glyphicon-remove'></span>
-                    </button>
-                  </span>
-                  <?php 
-                } ?>
+                  <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
+                    <span class='glyphicon glyphicon-remove'></span>
+                  </button>
+                  <?php } ?> <!-- End if(delete) -->
                   </td>
+                  <?php } ?> <!-- End if(delete OR edit) -->
                 </tr>
-                <?php } ?>
+                <?php } ?> <!-- End foreach -->
               </tbody>
             </table>
           </div>
@@ -254,7 +250,6 @@ $this->load->view('template/side');
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-    <?php } ?>
 
     <!-- Modal Tambah Takmir -->
     <div class="modal fade" id="modalTambahTakmir">
@@ -294,6 +289,7 @@ $this->load->view('template/side');
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+    <?php } ?>
 
   </section>
   <!-- /.content -->
@@ -319,11 +315,7 @@ $this->load->view('template/js');
       };
     };
 
-    $("#tablePetugas").dataTable({
-      searching: true,
-      ordering: false,
-      paging: true
-    })
+    $("#tablePetugas").dataTable({});
 
     var table = $("#tableAnggota").dataTable({
       initComplete: function () {
@@ -358,12 +350,14 @@ $this->load->view('template/js');
         },
         {
           "data": "jenis_kelamin"
-        },
-        {
+        }
+        <?php if($_SESSION['26edit'] == 1 || $_SESSION['26delete'] == 1){ ?>
+        ,{
           "data": "action",
           "orderable": false,
           "searchable": false
         }
+        <?php } ?>
       ],
       order: [
         [1, 'asc']
@@ -376,6 +370,15 @@ $this->load->view('template/js');
 
     });
     // end setup datatables
+
+    $("#btnPrint").click(function(){
+      var url = "<?=site_url("Takmir_ctrl/print")?>";
+      newwindow = window.open(url, 'Print', 'height=500,width=1100');
+      if (window.focus) {
+          newwindow.focus()
+      }
+      return false;
+    });
 
     <?php if($_SESSION['26insert']==1){ ?>
     $('#AddTakmir').click(function(){
@@ -408,7 +411,7 @@ $this->load->view('template/js');
         }
       })
     })
-  <?php } ?>
+    <?php } ?>
 
     <?php if($_SESSION['26edit']==1){ ?>
     $('#tableAnggota').on('click', '.edit_data', function () {
@@ -468,7 +471,7 @@ $this->load->view('template/js');
       $("#FormActionTakmir").find("#SecondID").val(idAnggota);
       $("#FormActionTakmir").find("#MainID").val(idTakmir);
     })
-  <?php } ?>
+    <?php } ?>
 
     <?php if($_SESSION['26delete']==1){ ?>
     $('#tableAnggota').on('click', '.delete_data', function () {
@@ -490,15 +493,6 @@ $this->load->view('template/js');
         }
       });
     });
-
-    $("#btnPrint").click(function(){
-      var url = "<?=site_url("Takmir_ctrl/print")?>";
-      newwindow = window.open(url, 'Print', 'height=500,width=1100');
-      if (window.focus) {
-          newwindow.focus()
-      }
-      return false;
-    })
 
     $('#tablePetugas').on('click', '.btnDelete', function () {
       var item = $(this).closest('tr');
@@ -522,6 +516,6 @@ $this->load->view('template/js');
         }
       });
     });
-  <?php } ?>
+    <?php } ?>
   })
 </script>

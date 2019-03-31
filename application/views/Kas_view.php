@@ -88,7 +88,9 @@ $this->load->view('template/side');
                                             <th class="min-tablet">Jumlah</th>
                                             <th class="min-desktop">Tanggal</th>
                                             <th class="min-desktop">Keterangan</th>
+                                            <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
                                             <th class="min-desktop">Action</th>
+                                            <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -301,7 +303,9 @@ $(document).ready(function(){
                     {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
                     {"data": "tanggal"},
                     {"data": "keterangan"}
+                    <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
                     ,{"data": "action", "orderable": false, "searchable": false}
+                    <?php } ?>
                 ],
         order: [[1, 'asc']],
         rowCallback: function(row, data, iDisplayIndex) {
