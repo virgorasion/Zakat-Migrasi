@@ -39,7 +39,7 @@
       <table id="datatable" class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>No.</th>
+          <th>No.</th>
             <th>Nama</th>
             <th>Jabatan</th>
             <th>Alamat</th>

@@ -13,8 +13,6 @@ class User_ctrl extends CI_Controller{
         if ($_SESSION['username'] != null) {
             $data['data'] = $this->User_model->get_user()->result();
             $data['getHakAkses'] = $this->User_model->get_hakAkses()->result();
-            // echo json_encode($data['data']);
-            // die();
             $this->load->view('view_user',$data);
         }else{
             redirect('home');

@@ -29,7 +29,7 @@
         return $this->db->query("SELECT master_login.*, menu_hak_akses.hak_akses 
                         FROM master_login, menu_hak_akses 
                         WHERE master_login.status_aktif = 1 
-                        AND menu_hak_akses.status_aktif = 1 
+                        AND menu_hak_akses.kode_akses = master_login.kode_akses 
                         GROUP BY id_admin");
     }
 
