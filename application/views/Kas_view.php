@@ -383,7 +383,7 @@ $(document).ready(function(){
                 delete: {
                     text: 'Delete',
                     action: function () {
-                        window.location = "Kas_ctrl/hapus/" + id
+                        window.location = "<?=site_url('kas_ctrl/hapus/')?>" + id
                     }
                 }
             }
