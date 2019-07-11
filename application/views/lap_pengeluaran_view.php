@@ -126,7 +126,7 @@ $this->load->view('template/side');
       </div>
     </div><!-- /.box -->
 
-    <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1) { ?>
+    <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1) { ?>
     <!-- Modal -->
     <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">

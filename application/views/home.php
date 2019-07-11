@@ -128,6 +128,16 @@ $this->load->view('template/js');
 <!-- Morris.js charts -->
 <script src="<?=base_url('assets/AdminLTE-2.3.7/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
 <script>
+
+  $.confirm({
+      theme: 'supervan',
+      title: 'PERHATIAN !',
+      content: 'Program ini  digunakan sebagai percontohan<br>untuk versi aslinya silahkan hubungi:<br>Email: fauzan.widyanto1@gmail.com<br>WA: 083849575737',
+      buttons: {
+          OK: function () {},
+      }
+  });
+
 window.chartColors = {
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
@@ -164,7 +174,7 @@ window.chartColors = {
         xAxes: [{
           type: 'time',
           time: {
-            unit: 'day',
+            unit: 'week',
             displayFormats: {
               week: "ll"
             }
@@ -181,6 +191,11 @@ window.chartColors = {
           }
         }]
       },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      }
     }
   };
 

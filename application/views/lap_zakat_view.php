@@ -106,7 +106,7 @@ $this->load->view('template/side');
         <table id="datatable" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>No.</th>
+              <th>Admin</th>
               <th>Nama</th>
               <th class="min-tablet">Alamat</th>
               <th class="min-tablet">Zakat Fitrah</th>
@@ -135,7 +135,7 @@ $this->load->view('template/side');
 
               <tr>
                 <td class="no">
-                  <?php echo $no; ?>
+                  <?php echo $row->admin; ?>
                 </td>
                 <td class="nama">
                   <?php echo $row->nama; ?>

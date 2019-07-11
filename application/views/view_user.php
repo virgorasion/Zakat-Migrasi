@@ -72,6 +72,8 @@ $this->load->view('template/side');
                 <input type="hidden" name="status" id="status" value="<?php echo $item->status_aktif ?>">
               </td>
               <td>
+                <a href="<?=base_url("History/index/").$item->id_admin?>"><button id="btnView" class="btnView btn btn-primary btn-xs"><i
+                    class="fa fa-eye"></i></button></a>
                 <button id="btnEdit" data-toggle="modal" data-target="#modalEdit" class="btn btn-warning btn-xs"><i
                     class="fa fa-gear"></i></button>
                 <button id="btnDelete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
