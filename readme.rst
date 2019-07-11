@@ -1,70 +1,44 @@
-###################
-What is CodeIgniter
-###################
-
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
-
 *******************
-Release Information
+Demo Aplikasi : https://virgorasion.000webhostapp.com/zakat_migrasi/
 *******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
-
-**************************
-Changelog and New Features
-**************************
-
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
-
 *******************
-Server Requirements
+Apa Itu Zakat-Migrasi
 *******************
 
-PHP version 5.6 or newer is recommended.
+Zakat-Migrasi adalah aplikasi manajemen masjid berbasis web yang didesain utuk melakukan pencatatan berupa kotak amal masjid, zakat fitrah,
+zakat mall, marbot masjid, jadwal sholat jumat, jadwal sholat tarawih, dan memiliki fitur multi user yang dapat dikelola admin.
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+************************
+Teknologi yang digunakan
+************************
+ - MySQL
+ - PHP 7
+ - Apache / Nginx
+ - CodeIgniter 3
+ - Bootstrap
+ - JQuery
+ - Admin LTE
 
-************
-Installation
-************
+************************
+Spesifikasi
+************************
+ - MySQL 6/7
+ - PHP 7
+ - Apache / Nginx
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+*******************
+Cara Install
+*******************
+ - Pastikan komputer anda sudah terinstall MySQL 6/7, Apache, PHP 5.6 / 7. untuk alternatif gunakan : XAMPP / WAMPP (Windows), LAMPP (Linux), dan MAMPP (Mac OS).
+ - Setelah terinstall jalankan MySQL dan Web Server Apache.
+ - Buka PhpMyAdmin di browser dengan alamat url http://localhost/phpmyadmin. setelah itu buat sebuah database.
+ - Download aplikasi pada https://codeload.github.com/virgorasion/Zakat-Migrasi/zip/master
+ - Kemudian extract pada direktori web server C:/xampp/htdocs/ atau /var/www/
+ - Setelah di extract,  import file .sql ke database yang sudah dibuat di phpmyadmin, letak file .sql ada pada folder Zakat-Migrasi/application/config/core
+ - Terakhir silahkan di browser dengan alamat url http://localhost/Zakat-Migrasi. silahkan login menggunakan username : test, password: test
 
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+*******************
+Konsultasi
+*******************
+WA : 0838 4957  5737
