@@ -56,6 +56,25 @@ $this->load->view('template/side');
             </div>
             <div class="box-body">
 
+            <!-- Alert -->
+            <?php if(@$_SESSION['msg']){?>
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+              <h5>
+                <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+              <?php echo @$_SESSION['msg']; ?>
+            </div>
+            <?php } ?>
+            <?php if(@$_SESSION['err']){?>
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+              <h5>
+                <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+              <?php echo @$_SESSION['err']; ?>
+            </div>
+            <?php } ?>
+            <!-- END Alert -->
+
                 <!-- FORM VALIDATION ON TABS -->
                 <!--===================================================-->
                 <div class="tab-base">
@@ -179,7 +198,7 @@ $this->load->view('template/side');
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Data Amal</h4>
+                            <h4 class="modal-title" id="myModalLabel">Edit Data Kas</h4>
                         </div>
                         <div class="modal-body">
                             <div class="box-body">
@@ -260,6 +279,10 @@ $(document).ready(function(){
     // DateRange (Date Main)
     $('.input-daterange').datepicker({
       format: 'dd-MM-yyyy'
+    });
+
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
+      $(".alert-success").slideUp(500);
     });
 
     // Setup datatables
