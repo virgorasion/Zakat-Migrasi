@@ -97,7 +97,7 @@ $this->load->view('template/side');
                     <div id="demo-bv-bsc-tabs" class="form-horizontal">
                         <div class="tab-content">
                             <div class="tab-pane pad-btm fade in active" id="demo-bsc-tab-1">
-                                <table id="datatable" class="table table-bordered table-striped">
+                                <table id="datatable" class="table table-bordered table-striped" width="100%">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -313,6 +313,7 @@ $(document).ready(function(){
         },
             processing: true,
             serverSide: true,
+            responsive: true,
             ajax: {"url": url, "type": "POST"},
                 columns: [
                     {
@@ -340,7 +341,7 @@ $(document).ready(function(){
         }
 
     });
-        // end setup datatables
+    // end setup datatables
 
     $('.inputMask').inputmask('decimal',{
         digits: 2,

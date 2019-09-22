@@ -23,7 +23,7 @@ $this->load->view('template/side');
         <div class="small-box bg-aqua">
           <div class="inner">
             <h4><b><?= number_format((double)$tot_kas,0,",",".") ?></b></h4>
-
+            <br>
             <p>Total Kas</p>
           </div>
           <div class="icon">
@@ -38,7 +38,7 @@ $this->load->view('template/side');
         <div class="small-box bg-yellow">
           <div class="inner">
             <h4><b><?= number_format((double)$tot_pengeluaran,0,",",".") ?></b></h4>
-
+            <br>
             <p>Total Pengeluaran</p>
           </div>
           <div class="icon">
@@ -52,10 +52,10 @@ $this->load->view('template/side');
         <!-- small box -->
         <div class="small-box bg-green">
           <div class="inner">
-            <h3>
+            <h4>
               <?= ($tot_zakat) ? $tot_zakat." KG" : "0" ; ?>
-            </h3>
-
+            </h4>
+            <br>
             <p>Total Zakat</p>
           </div>
           <div class="icon">

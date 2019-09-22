@@ -13,9 +13,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css'); ?>">
   <!-- Bootstrap Validator -->
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-validator/bootstrapValidator.min.css') ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css'); ?>">
   <!-- Jquery Confirm -->
   <link rel="stylesheet" href="<?php echo base_url('assets/jquery-confirm/jquery-confirm.min.css');?>">
   <!-- Font Awesome -->
