@@ -14,6 +14,7 @@ $this->load->view('template/side');
 
   </section>
   <!-- Main content -->
+  <!-- Ignore this "nathan" -->
   <section class="content">
     <?php if(@$_SESSION['succ'] != null){ ?>
     <!-- Page Alert -->
