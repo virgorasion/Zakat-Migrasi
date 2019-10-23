@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Jul 2019 pada 03.47
--- Versi server: 10.1.30-MariaDB
--- Versi PHP: 7.2.2
+-- Generation Time: Oct 23, 2019 at 03:04 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `hewan_kurban`
+-- Table structure for table `hewan_kurban`
 --
 
 CREATE TABLE `hewan_kurban` (
@@ -40,7 +40,7 @@ CREATE TABLE `hewan_kurban` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `hewan_kurban`
+-- Dumping data for table `hewan_kurban`
 --
 
 INSERT INTO `hewan_kurban` (`id`, `id_admin`, `tanggal`, `penyumbang`, `alamat`, `jenis`, `jumlah`, `log_time`) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `hewan_kurban` (`id`, `id_admin`, `tanggal`, `penyumbang`, `alamat`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jabatan`
+-- Table structure for table `jabatan`
 --
 
 CREATE TABLE `jabatan` (
@@ -62,7 +62,7 @@ CREATE TABLE `jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `jabatan`
+-- Dumping data for table `jabatan`
 --
 
 INSERT INTO `jabatan` (`id`, `nama`, `keterangan`, `status_aktif`) VALUES
@@ -73,7 +73,7 @@ INSERT INTO `jabatan` (`id`, `nama`, `keterangan`, `status_aktif`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal`
+-- Table structure for table `jadwal`
 --
 
 CREATE TABLE `jadwal` (
@@ -86,7 +86,7 @@ CREATE TABLE `jadwal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `jadwal`
+-- Dumping data for table `jadwal`
 --
 
 INSERT INTO `jadwal` (`id`, `kode_jadwal`, `imam`, `bilal`, `ceramah`, `tanggal`) VALUES
@@ -110,7 +110,7 @@ INSERT INTO `jadwal` (`id`, `kode_jadwal`, `imam`, `bilal`, `ceramah`, `tanggal`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kas_masjid`
+-- Table structure for table `kas_masjid`
 --
 
 CREATE TABLE `kas_masjid` (
@@ -126,7 +126,7 @@ CREATE TABLE `kas_masjid` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `kas_masjid`
+-- Dumping data for table `kas_masjid`
 --
 
 INSERT INTO `kas_masjid` (`id`, `id_admin`, `id_tipe`, `nama_donatur`, `jumlah`, `keterangan`, `tanggal`, `kategori`, `log_time`) VALUES
@@ -136,12 +136,13 @@ INSERT INTO `kas_masjid` (`id`, `id_admin`, `id_tipe`, `nama_donatur`, `jumlah`,
 (32, 8, 6, 'joo', 90000, '', '2019-02-01', 0, '2019-01-08 06:18:17'),
 (33, 8, 7, 'alhamdulillah', 1000000, '', '2019-03-01', 0, '2019-01-08 06:19:01'),
 (35, 8, 1, '-', 832500, '-', '2019-01-31', 1, '2019-01-10 16:10:23'),
-(36, 8, 6, 'avi', 2000000000, 'saya ikhlas lillahhitaalah', '2019-02-28', 0, '2019-02-27 07:42:49');
+(36, 11, 6, 'avi', 2000000, 'saya ikhlas lillahhitaalah', '2019-02-28', 0, '2019-09-17 06:16:37'),
+(37, 11, 6, 'test', 20000, '', '2019-09-20', 0, '2019-09-20 01:07:43');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lap_pengeluaran`
+-- Table structure for table `lap_pengeluaran`
 --
 
 CREATE TABLE `lap_pengeluaran` (
@@ -154,7 +155,7 @@ CREATE TABLE `lap_pengeluaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `lap_pengeluaran`
+-- Dumping data for table `lap_pengeluaran`
 --
 
 INSERT INTO `lap_pengeluaran` (`id_pengeluaran`, `id_admin`, `tanggal`, `jumlah`, `log_time`, `keterangan`) VALUES
@@ -173,7 +174,7 @@ INSERT INTO `lap_pengeluaran` (`id_pengeluaran`, `id_admin`, `tanggal`, `jumlah`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `list_anggota`
+-- Table structure for table `list_anggota`
 --
 
 CREATE TABLE `list_anggota` (
@@ -187,7 +188,7 @@ CREATE TABLE `list_anggota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `list_anggota`
+-- Dumping data for table `list_anggota`
 --
 
 INSERT INTO `list_anggota` (`id_anggota`, `nama`, `alamat`, `no_hp`, `no_telp`, `jenis_kelamin`, `status`) VALUES
@@ -198,7 +199,7 @@ INSERT INTO `list_anggota` (`id_anggota`, `nama`, `alamat`, `no_hp`, `no_telp`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `list_zakat`
+-- Table structure for table `list_zakat`
 --
 
 CREATE TABLE `list_zakat` (
@@ -215,7 +216,7 @@ CREATE TABLE `list_zakat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `list_zakat`
+-- Dumping data for table `list_zakat`
 --
 
 INSERT INTO `list_zakat` (`nomor`, `id_admin`, `tanggal`, `nama`, `alamat`, `zakat_fitrah`, `beli`, `zakat_mall`, `infaq`, `log_time`) VALUES
@@ -224,7 +225,7 @@ INSERT INTO `list_zakat` (`nomor`, `id_admin`, `tanggal`, `nama`, `alamat`, `zak
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `master_login`
+-- Table structure for table `master_login`
 --
 
 CREATE TABLE `master_login` (
@@ -237,30 +238,31 @@ CREATE TABLE `master_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `master_login`
+-- Dumping data for table `master_login`
 --
 
 INSERT INTO `master_login` (`id_admin`, `kode_akses`, `nama`, `username`, `password`, `status_aktif`) VALUES
 (8, 1, 'M Nur Fauzan W', 'admin', '282134daedcb22b0318581561156a09a', 1),
 (9, 2, 'Tester', 'test', '098f6bcd4621d373cade4e832627b4f6', 1),
-(10, 2, 'Thoriq', 'tq', '21232f297a57a5a743894a0e4a801fc3', 1);
+(10, 2, 'Thoriq', 'tq', '21232f297a57a5a743894a0e4a801fc3', 1),
+(11, 1, 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu_child`
+-- Table structure for table `menu_child`
 --
 
 CREATE TABLE `menu_child` (
   `kode_menu_child` int(11) NOT NULL,
   `kode_menu_header` int(11) NOT NULL,
   `menu_name` varchar(100) NOT NULL,
-  `file_php` varchar(20) NOT NULL,
+  `file_php` varchar(35) NOT NULL,
   `status_aktif` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `menu_child`
+-- Dumping data for table `menu_child`
 --
 
 INSERT INTO `menu_child` (`kode_menu_child`, `kode_menu_header`, `menu_name`, `file_php`, `status_aktif`) VALUES
@@ -289,12 +291,13 @@ INSERT INTO `menu_child` (`kode_menu_child`, `kode_menu_header`, `menu_name`, `f
 (24, 3, 'Laporan Kotak Amal', 'Kotak_amal_ctrl', 'YES'),
 (25, 1, 'Kas Masjid', '-', 'YES'),
 (26, 2, 'Takmir', '-', 'YES'),
-(27, 5, 'Setting Jabatan', 'Jabatan_ctrl', 'YES');
+(27, 5, 'Setting Jabatan', 'Jabatan_ctrl', 'YES'),
+(28, 3, 'Laporan Perlengkapan', 'Perlengkapan', 'YES');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu_hak_akses`
+-- Table structure for table `menu_hak_akses`
 --
 
 CREATE TABLE `menu_hak_akses` (
@@ -305,18 +308,19 @@ CREATE TABLE `menu_hak_akses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `menu_hak_akses`
+-- Dumping data for table `menu_hak_akses`
 --
 
 INSERT INTO `menu_hak_akses` (`kode_akses`, `hak_akses`, `keterangan`, `status_aktif`) VALUES
 (1, 'Virgorasion', '', 1),
 (2, 'Tester', 'untuk debugging', 1),
-(3, 'Seksi Keuangan', '-', 1);
+(3, 'Seksi Keuangan', '-', 1),
+(4, 'admin', 'Bukan Super Admin', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu_header`
+-- Table structure for table `menu_header`
 --
 
 CREATE TABLE `menu_header` (
@@ -329,7 +333,7 @@ CREATE TABLE `menu_header` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `menu_header`
+-- Dumping data for table `menu_header`
 --
 
 INSERT INTO `menu_header` (`kode_menu_header`, `link`, `icon`, `menu_header`, `menu_child`, `status_aktif`) VALUES
@@ -342,7 +346,7 @@ INSERT INTO `menu_header` (`kode_menu_header`, `link`, `icon`, `menu_header`, `m
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu_level`
+-- Table structure for table `menu_level`
 --
 
 CREATE TABLE `menu_level` (
@@ -356,29 +360,101 @@ CREATE TABLE `menu_level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `menu_level`
+-- Dumping data for table `menu_level`
 --
 
 INSERT INTO `menu_level` (`kode_menu_level`, `kode_akses`, `kode_menu_child`, `akses_insert`, `akses_view`, `akses_edit`, `akses_delete`) VALUES
-(2, 1, 1, 1, 1, 1, 1),
-(3, 1, 6, 1, 1, 1, 1),
-(4, 1, 7, 1, 1, 1, 1),
-(5, 1, 10, 1, 1, 1, 1),
-(6, 1, 11, 1, 1, 1, 1),
-(7, 1, 12, 1, 1, 1, 1),
-(8, 1, 17, 1, 1, 1, 1),
-(9, 1, 18, 1, 1, 1, 1),
-(10, 1, 19, 1, 1, 1, 1),
-(11, 1, 20, 1, 1, 1, 1),
-(12, 1, 24, 1, 1, 1, 1),
-(13, 1, 25, 1, 1, 1, 1),
-(14, 1, 26, 1, 1, 1, 1),
-(15, 1, 27, 1, 1, 1, 1);
+(16, 4, 1, 1, 1, 1, 1),
+(17, 4, 6, 1, 1, 1, 1),
+(18, 4, 7, 1, 1, 1, 1),
+(19, 4, 10, 1, 1, 1, 1),
+(20, 4, 11, 1, 1, 1, 1),
+(21, 4, 12, 1, 1, 1, 1),
+(22, 4, 17, 1, 1, 1, 1),
+(23, 4, 18, 0, 1, 0, 0),
+(24, 4, 19, 0, 1, 0, 0),
+(25, 4, 20, 1, 1, 1, 1),
+(26, 4, 24, 1, 1, 1, 1),
+(27, 4, 25, 1, 1, 1, 1),
+(28, 4, 26, 1, 1, 1, 1),
+(29, 4, 27, 1, 1, 1, 1),
+(30, 1, 1, 1, 1, 1, 1),
+(31, 1, 6, 1, 1, 1, 1),
+(32, 1, 7, 1, 1, 1, 1),
+(33, 1, 10, 1, 1, 1, 1),
+(34, 1, 11, 1, 1, 1, 1),
+(35, 1, 12, 1, 1, 1, 1),
+(36, 1, 17, 1, 1, 1, 1),
+(37, 1, 18, 1, 1, 1, 1),
+(38, 1, 19, 1, 1, 1, 1),
+(39, 1, 20, 1, 1, 1, 1),
+(40, 1, 24, 1, 1, 1, 1),
+(41, 1, 25, 1, 1, 1, 1),
+(42, 1, 26, 1, 1, 1, 1),
+(43, 1, 27, 1, 1, 1, 1),
+(44, 1, 28, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `takmir`
+-- Table structure for table `perlengkapan`
+--
+
+CREATE TABLE `perlengkapan` (
+  `id` int(4) NOT NULL,
+  `id_ruang` int(4) NOT NULL,
+  `nama_barang` varchar(25) NOT NULL,
+  `kondisi` varchar(15) NOT NULL,
+  `jumlah` int(2) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `perlengkapan`
+--
+
+INSERT INTO `perlengkapan` (`id`, `id_ruang`, `nama_barang`, `kondisi`, `jumlah`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Sapu', 'Bagus', 2, '2019-10-21 00:00:00', '2019-10-21 00:00:00'),
+(2, 2, 'AC', 'Buruk', 3, '2019-10-21 00:00:00', '2019-10-21 00:00:00'),
+(3, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(4, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(5, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(6, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(7, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(8, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(9, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(10, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(11, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(12, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00'),
+(13, 2, 'sekop', 'bagus', 1, '2019-10-22 00:00:00', '2019-10-22 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ruangan_masjid`
+--
+
+CREATE TABLE `ruangan_masjid` (
+  `id` int(11) NOT NULL,
+  `nama_ruang` varchar(20) NOT NULL,
+  `keterangan` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ruangan_masjid`
+--
+
+INSERT INTO `ruangan_masjid` (`id`, `nama_ruang`, `keterangan`, `created_at`, `updated_at`) VALUES
+(2, 'Lantai 1', '-', '2019-10-17 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Lantai 2', '-', '2019-10-17 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `takmir`
 --
 
 CREATE TABLE `takmir` (
@@ -388,7 +464,7 @@ CREATE TABLE `takmir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `takmir`
+-- Dumping data for table `takmir`
 --
 
 INSERT INTO `takmir` (`id`, `id_anggota`, `id_jabatan`) VALUES
@@ -399,7 +475,7 @@ INSERT INTO `takmir` (`id`, `id_anggota`, `id_jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tipe_donasi`
+-- Table structure for table `tipe_donasi`
 --
 
 CREATE TABLE `tipe_donasi` (
@@ -408,7 +484,7 @@ CREATE TABLE `tipe_donasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `tipe_donasi`
+-- Dumping data for table `tipe_donasi`
 --
 
 INSERT INTO `tipe_donasi` (`id_tipe`, `tipe`) VALUES
@@ -427,26 +503,26 @@ INSERT INTO `tipe_donasi` (`id_tipe`, `tipe`) VALUES
 --
 
 --
--- Indeks untuk tabel `hewan_kurban`
+-- Indexes for table `hewan_kurban`
 --
 ALTER TABLE `hewan_kurban`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_admin` (`id_admin`);
 
 --
--- Indeks untuk tabel `jabatan`
+-- Indexes for table `jabatan`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jadwal`
+-- Indexes for table `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kas_masjid`
+-- Indexes for table `kas_masjid`
 --
 ALTER TABLE `kas_masjid`
   ADD PRIMARY KEY (`id`),
@@ -454,53 +530,53 @@ ALTER TABLE `kas_masjid`
   ADD KEY `id_tipe` (`id_tipe`);
 
 --
--- Indeks untuk tabel `lap_pengeluaran`
+-- Indexes for table `lap_pengeluaran`
 --
 ALTER TABLE `lap_pengeluaran`
   ADD PRIMARY KEY (`id_pengeluaran`),
   ADD KEY `id_admin` (`id_admin`);
 
 --
--- Indeks untuk tabel `list_anggota`
+-- Indexes for table `list_anggota`
 --
 ALTER TABLE `list_anggota`
   ADD PRIMARY KEY (`id_anggota`);
 
 --
--- Indeks untuk tabel `list_zakat`
+-- Indexes for table `list_zakat`
 --
 ALTER TABLE `list_zakat`
   ADD PRIMARY KEY (`nomor`),
   ADD KEY `id_admin` (`id_admin`);
 
 --
--- Indeks untuk tabel `master_login`
+-- Indexes for table `master_login`
 --
 ALTER TABLE `master_login`
   ADD PRIMARY KEY (`id_admin`),
   ADD KEY `kode_akses` (`kode_akses`);
 
 --
--- Indeks untuk tabel `menu_child`
+-- Indexes for table `menu_child`
 --
 ALTER TABLE `menu_child`
   ADD PRIMARY KEY (`kode_menu_child`),
   ADD KEY `kode_menu_header` (`kode_menu_header`);
 
 --
--- Indeks untuk tabel `menu_hak_akses`
+-- Indexes for table `menu_hak_akses`
 --
 ALTER TABLE `menu_hak_akses`
   ADD PRIMARY KEY (`kode_akses`);
 
 --
--- Indeks untuk tabel `menu_header`
+-- Indexes for table `menu_header`
 --
 ALTER TABLE `menu_header`
   ADD PRIMARY KEY (`kode_menu_header`);
 
 --
--- Indeks untuk tabel `menu_level`
+-- Indexes for table `menu_level`
 --
 ALTER TABLE `menu_level`
   ADD PRIMARY KEY (`kode_menu_level`),
@@ -508,7 +584,20 @@ ALTER TABLE `menu_level`
   ADD KEY `kode_menu_child` (`kode_menu_child`);
 
 --
--- Indeks untuk tabel `takmir`
+-- Indexes for table `perlengkapan`
+--
+ALTER TABLE `perlengkapan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_ruang` (`id_ruang`) USING BTREE;
+
+--
+-- Indexes for table `ruangan_masjid`
+--
+ALTER TABLE `ruangan_masjid`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `takmir`
 --
 ALTER TABLE `takmir`
   ADD PRIMARY KEY (`id`),
@@ -516,149 +605,161 @@ ALTER TABLE `takmir`
   ADD KEY `id_jabatan` (`id_jabatan`);
 
 --
--- Indeks untuk tabel `tipe_donasi`
+-- Indexes for table `tipe_donasi`
 --
 ALTER TABLE `tipe_donasi`
   ADD PRIMARY KEY (`id_tipe`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `hewan_kurban`
+-- AUTO_INCREMENT for table `hewan_kurban`
 --
 ALTER TABLE `hewan_kurban`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `jabatan`
+-- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal`
+-- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT untuk tabel `kas_masjid`
+-- AUTO_INCREMENT for table `kas_masjid`
 --
 ALTER TABLE `kas_masjid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT untuk tabel `lap_pengeluaran`
+-- AUTO_INCREMENT for table `lap_pengeluaran`
 --
 ALTER TABLE `lap_pengeluaran`
   MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `list_anggota`
+-- AUTO_INCREMENT for table `list_anggota`
 --
 ALTER TABLE `list_anggota`
   MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `list_zakat`
+-- AUTO_INCREMENT for table `list_zakat`
 --
 ALTER TABLE `list_zakat`
   MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT untuk tabel `master_login`
+-- AUTO_INCREMENT for table `master_login`
 --
 ALTER TABLE `master_login`
-  MODIFY `id_admin` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_admin` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `menu_child`
+-- AUTO_INCREMENT for table `menu_child`
 --
 ALTER TABLE `menu_child`
-  MODIFY `kode_menu_child` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `kode_menu_child` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT untuk tabel `menu_hak_akses`
+-- AUTO_INCREMENT for table `menu_hak_akses`
 --
 ALTER TABLE `menu_hak_akses`
-  MODIFY `kode_akses` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_akses` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `menu_header`
+-- AUTO_INCREMENT for table `menu_header`
 --
 ALTER TABLE `menu_header`
   MODIFY `kode_menu_header` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `menu_level`
+-- AUTO_INCREMENT for table `menu_level`
 --
 ALTER TABLE `menu_level`
-  MODIFY `kode_menu_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `kode_menu_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT untuk tabel `takmir`
+-- AUTO_INCREMENT for table `perlengkapan`
+--
+ALTER TABLE `perlengkapan`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `ruangan_masjid`
+--
+ALTER TABLE `ruangan_masjid`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `takmir`
 --
 ALTER TABLE `takmir`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `tipe_donasi`
+-- AUTO_INCREMENT for table `tipe_donasi`
 --
 ALTER TABLE `tipe_donasi`
   MODIFY `id_tipe` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `hewan_kurban`
+-- Constraints for table `hewan_kurban`
 --
 ALTER TABLE `hewan_kurban`
   ADD CONSTRAINT `hewan_kurban_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `master_login` (`id_admin`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `kas_masjid`
+-- Constraints for table `kas_masjid`
 --
 ALTER TABLE `kas_masjid`
   ADD CONSTRAINT `kas_masjid_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `master_login` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `kas_masjid_ibfk_2` FOREIGN KEY (`id_tipe`) REFERENCES `tipe_donasi` (`id_tipe`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `lap_pengeluaran`
+-- Constraints for table `lap_pengeluaran`
 --
 ALTER TABLE `lap_pengeluaran`
   ADD CONSTRAINT `lap_pengeluaran_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `master_login` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `list_zakat`
+-- Constraints for table `list_zakat`
 --
 ALTER TABLE `list_zakat`
   ADD CONSTRAINT `list_zakat_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `master_login` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `master_login`
+-- Constraints for table `master_login`
 --
 ALTER TABLE `master_login`
   ADD CONSTRAINT `master_login_ibfk_1` FOREIGN KEY (`kode_akses`) REFERENCES `menu_hak_akses` (`kode_akses`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `menu_child`
+-- Constraints for table `menu_child`
 --
 ALTER TABLE `menu_child`
   ADD CONSTRAINT `menu_child_ibfk_1` FOREIGN KEY (`kode_menu_header`) REFERENCES `menu_header` (`kode_menu_header`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `menu_level`
+-- Constraints for table `menu_level`
 --
 ALTER TABLE `menu_level`
   ADD CONSTRAINT `menu_level_ibfk_1` FOREIGN KEY (`kode_menu_child`) REFERENCES `menu_child` (`kode_menu_child`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `menu_level_ibfk_2` FOREIGN KEY (`kode_akses`) REFERENCES `menu_hak_akses` (`kode_akses`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `takmir`
+-- Constraints for table `takmir`
 --
 ALTER TABLE `takmir`
   ADD CONSTRAINT `takmir_ibfk_1` FOREIGN KEY (`id_anggota`) REFERENCES `list_anggota` (`id_anggota`) ON DELETE CASCADE ON UPDATE CASCADE,
