@@ -349,7 +349,8 @@ $this->load->view('template/js');
         $(".datepicker").datepicker({
             format: "dd-MM-yyyy",
             autoclose: true,
-            todayBtn: "linked"
+            todayBtn: "linked",
+            todayHighlight: true
         });
 
         <?php if($_SESSION['24edit']==1){ ?>

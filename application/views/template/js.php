@@ -11,7 +11,7 @@
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js'); ?>"></script>
 
 <!-- bootstrap datepicker -->
-<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/datepicker/bootstrap-datepicker.js')?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/dist/js/app.min.js')?>"></script>
 <!-- JQuery Mask -->
