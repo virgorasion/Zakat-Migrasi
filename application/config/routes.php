@@ -54,6 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['Menu_level'] = 'Menu_level_controller';
-$route['Perlengkapan/(:any)'] = 'Perlengkapan_ctrl/index/$i';
+$route['Perlengkapan/(:num)'] = 'Perlengkapan_ctrl/index/$i';
 $route['Perlengkapan'] = 'Perlengkapan_ctrl';
 $route['Menu_level/Menu_setting/(:num)'] = 'Menu_level_controller/Menu_setting/$1';

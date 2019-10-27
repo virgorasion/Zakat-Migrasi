@@ -252,8 +252,8 @@
     {
       if(strtolower($output) == 'json')
         $this->get_paging();
-      $this->get_ordering();
-      $this->get_filtering();
+        $this->get_ordering();
+        $this->get_filtering();
       return $this->produce_output(strtolower($output), strtolower($charset));
     }
     /**

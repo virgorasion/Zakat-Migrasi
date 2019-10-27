@@ -31,7 +31,7 @@
                     <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                     <div class="form-group has-feedback">
                         <input required autocomplete="off" type="text" name="username" class="form-control" placeholder="Username"/>
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
                         <input required  type="password" name="password" class="form-control" placeholder="Password" autofokus/>
