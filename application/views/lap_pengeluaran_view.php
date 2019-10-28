@@ -19,108 +19,65 @@ $this->load->view('template/side');
   <section class="content">
 
     <?php if (isset($_SESSION['succ'])) { ?>
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-          <?php echo $_SESSION['succ']; ?>
-        </div>
-        <?php 
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+      <h5>
+        <span class='glyphicon glyphicon-ok'></span> Info!</h5>
+      <?php echo $_SESSION['succ']; ?>
+    </div>
+    <?php 
       } ?>
     <?php if (isset($_SESSION['fail'])) { ?>
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='fa fa-remove'></span> Info!</h5>
-          <?php echo $_SESSION['fail']; ?>
-        </div>
-        <?php 
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+      <h5>
+        <span class='fa fa-remove'></span> Info!</h5>
+      <?php echo $_SESSION['fail']; ?>
+    </div>
+    <?php 
       } ?>
 
     <!-- Default box -->
     <div class="box">
       <div class="box-header">
-        <form method="post" action="<?= site_url("Lap_pengeluaran/index") ?>" id="formsearch">
+        <form method="post" action="<?php echo site_url("Lap_pengeluaran/index") ?>" id="formsearch">            
           <div class="col-sm-12">
-            <?php if ($_SESSION['7insert'] == 1) { ?>
+          <?php if ($_SESSION['7insert'] == 1) { ?>
             <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2">Tambah</button>
-            <?php 
-        } ?>
-            <div class="form-inline col-md-4">
+          <?php } ?>
+              <div class="form-inline col-md-4">
               <div class="input-group input-daterange">
-                <input type="text" class="form-control" name="t1" id="t1" value="<?= $t1 ?>" autocomplete="off">
-                <div class="input-group-addon">to</div>
-                <input type="text" class="form-control" name="t2" id="t2" value="<?= $t2 ?>" autocomplete="off">
+                  <input type="text" class="form-control" name="t1" id="t1" value="<?= @$t1 ?>" autocomplete="off">
+                  <div class="input-group-addon">to</div>
+                  <input type="text" class="form-control" name="t2" id="t2" value="<?= @$t2 ?>" autocomplete="off">
               </div>
-            </div>
-            <div class="col-sm-1">
+              </div>
+              <div class="col-sm-1">
               <button type="submit" class="btn btn-primary" id="btnSearch">
-                Search</button>
-            </div>
-            <h3 class="box-title col-sm-1">
+                  Tampilkan</button>
+              </div>
+              <h3 class="box-title col-sm-1">
               <button type="button" class="btn btn-default" id="btnPrint">
-                <i class="fa fa-print"></i> Print</button>
-            </h3>
+                  <i class="fa fa-print"></i> Print</button>
+              </h3>
           </div>
         </form>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="tablePengeluaran" class="table table-bordered table-hover">
+        <table id="tablePengeluaran" class="table table-bordered table-hover" width="100%">
           <thead>
             <tr>
               <th>No.</th>
               <th>Nama</th>
-              <th>Tanggal</th>
-              <th>Jumlah</th>
-              <th>Keterangan</th>
-              <th>Action</th>
+              <th class="min-tablet">Tanggal</th>
+              <th class="min-tablet">Jumlah</th>
+              <th class="min-tablet">Keterangan</th>
+              <th class="min-tablet">Action</th>
             </tr>
           </thead>
           <tbody>
-            <?php $no = 1;
-            foreach ($data as $row): ?>
-            <tr>
-              <input type="hidden" class="idPengeluaran" value="<?php echo $row->id_pengeluaran; ?>">
-              <td class="no">
-                <?php echo $no; ?>
-              </td>
-              <td class="nama">
-                <?php echo $row->admin; ?>
-              </td>
-              <td class="tanggal">
-                <?php echo $row->tanggal;?>
-              </td>
-              <td class="jumlah">
-                <?php echo number_format((double)$row->jumlah,0,"," , ".");?>
-              </td>
-              <td class="keterangan">
-                <?php echo $row->keterangan;?>
-              </td>
-              <td>
-                <?php if ($this->session->userdata("7edit") == "1") { ?>
-                <a href='#'>
-                  <span data-placement='top' data-toggle='tooltip' title='Edit'>
-                    <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
-                      <span class='glyphicon glyphicon-pencil'></span>
-                    </button>
-                </a>
-                <?php 
-              } ?>
-                <?php if ($this->session->userdata("7delete") == "1") { ?>
-                <a class="buttonDelete" href='#'>
-                  <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
-                      <span class='glyphicon glyphicon-remove'></span>
-                    </button>
-                </a>
-                <?php 
-              } ?>
-              </td>
-            </tr>
-            <?php $no++;
-        endforeach
-        ?>
+            <!-- Content With Ajax DataTables -->
           </tbody>
         </table>
       </div>
@@ -149,8 +106,8 @@ $this->load->view('template/side');
                 </div>
                 <div class="form-group">
                   <label class="control-label">Tanggal</label>
-                  <input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal" placeholder="31-Agustus-2000"
-                    required autocomplete="off">
+                  <input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal"
+                    placeholder="31-Agustus-2000" required autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label class="control-label">Jumlah</label>
@@ -180,19 +137,79 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
 <script>
   $(function () {
-    $('#tablePengeluaran').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+    var table_pengeluaran = "";
+
+    // Setup datatables
+    // $.fn.dataTable.ext.errMode = 'none';
+    $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
+      return {
+        "iStart": oSettings._iDisplayStart,
+        "iEnd": oSettings.fnDisplayEnd(),
+        "iLength": oSettings._iDisplayLength,
+        "iTotal": oSettings.fnRecordsTotal(),
+        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+      };
+    };
+
+    let url = "<?= site_url($data) ?>";
+    table_pengeluaran = $("#tablePengeluaran").DataTable({
+      initComplete: function () {
+        var api = this.api();
+        $('#mytable_filter input')
+          .off('.DT')
+          .on('input.DT', function () {
+            api.search(this.value).draw();
+          });
+      },
+      oLanguage: {
+        sProcessing: 'Loading....'
+      },
+      processing: true,
+      serverSide: true,
+      responsive: true,
+      ajax: {
+        "url": url,
+        "type": "POST"
+      },
+      columns: [{
+          "data": null,
+          "orderable": false,
+          "searchable": false
+        },
+        {
+          "data": "admin"
+        },
+        {
+          "data": "tanggal"
+        },
+        {
+          "data": "jumlah", "render": $.fn.DataTable.render.number(".", ",", "")
+        },
+        {
+          "data": "keterangan"
+        },
+        {
+          "data": "aksi"
+        }
+      ],
+      order: [
+        [1, 'asc']
+      ],
+      rowCallback: function (row, data, iDisplayIndex) {
+        var info = this.fnPagingInfo();
+        var page = info.iPage;
+        var length = info.iLength;
+        var index = page * length + (iDisplayIndex + 1);
+        $('td:eq(0)', row).html(index);
+      }
     });
+    // End Datatables
 
     $(".alert").fadeTo(2000, 500).slideUp(500, function () {
       $(".alert").slideUp(500);
@@ -221,36 +238,42 @@ $this->load->view('template/js');
       rightAlign: false
     });
 
-    <?php if($_SESSION['7insert'] == 1) { ?>
-    // Fungsi Tambah
-    $("#btnTambah").click(function () {
-      $("#modalTambah").modal('show');
-      $("#action").val("add");
-      $("#addNama").val();
-      $("#addTanggal").val();
-      $("#addJumlah").val();
-      $("#addKeterangan").val();
-    });
-  <?php } ?>
+    <?php
+    if ($_SESSION['7insert'] == 1) {
+    ?>
+      // Fungsi Tambah
+      $("#btnTambah").click(function () {
+        $("#modalTambah").modal('show');
+        $("#action").val("add");
+        $("#addNama").val();
+        $("#addTanggal").val();
+        $("#addJumlah").val();
+        $("#addKeterangan").val();
+      }); 
+      <?php } ?>
 
-    <?php if($_SESSION['7edit'] == 1) { ?>
-    $("#tablePengeluaran").on("click", ".btnEdit", function () {
-      var core = $(this).closest("tr");
-      $("#addNama").val(core.find(".nama").text().trim());
-      $("#addTanggal").val(core.find(".tanggal").text().trim());
-      $("#addJumlah").val(core.find(".jumlah").text().trim());
-      $("#addKeterangan").val(core.find(".keterangan").text().trim());
-      $("#idPengeluaran").val(core.find(".idPengeluaran").val());
-      $("#action").val("edit");
-      $("#modalTambah").modal("show");
-    })
-  <?php } ?>
+    <?php
+    if ($_SESSION['7edit'] == 1) {
+    ?>
+      $("#tablePengeluaran").on("click", ".btnEdit", function () {
+          let nama = $(this).data("admin");
+          let tanggal = $(this).data("tanggal");
+          let jumlah = $(this).data("jumlah");
+          let keterangan = $(this).data("keterangan");
+          let id_pengeluaran = $(this).data("id_pengeluaran");
+          $("#addNama").val(nama);
+          $("#addTanggal").val(tanggal);
+          $("#addJumlah").val(jumlah);
+          $("#addKeterangan").val(keterangan);
+          $("#idPengeluaran").val(id_pengeluaran);
+          $("#action").val("edit");
+          $("#modalTambah").modal("show");
+        }) 
+    <?php } ?>
 
     $('#btnPrint').click(function () {
-      var tanggal1 = '<?php echo str_replace(' - ','.
-      ',$t1); ?>';
-      var tanggal2 = '<?php echo str_replace(' - ','.
-      ',$t2); ?>';
+      var tanggal1 = $("#t1").val();
+      var tanggal2 = $("#t2").val();
       var url = '<?php echo site_url("/Lap_pengeluaran/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
       newwindow = window.open(url, 'Print', 'height=500,width=1100');
       if (window.focus) {
@@ -259,29 +282,28 @@ $this->load->view('template/js');
       return false;
     });
 
-    <?php if($_SESSION['7delete'] == 1){ ?>
-    $('#tablePengeluaran').on('click', '.btnDelete', function () {
-            var core = $(this).closest("tr");
-            var tanggal = core.find(".tanggal").text().trim();
-            var id = core.find(".idPengeluaran").val();
-            // $item.find("input[id$='no']").val();
-            // alert("hai");
-            $.confirm({
-                theme: 'supervan',
-                title: 'Peringatan !',
-                content: 'Hapus Pengeluaran Tanggal ' + tanggal,
-                autoClose: 'Cancel|5000',
-                buttons: {
-                    Cancel: function () {},
-                    delete: {
-                        text: 'Delete',
-                        action: function () {
-                            window.location = "Lap_pengeluaran/HapusData/" + id
-                        }
-                    }
-                }
-            });
+    <?php
+    if ($_SESSION['7delete'] == 1) {
+    ?>
+      $('#tablePengeluaran').on('click', '.btnDelete', function () {
+        var tanggal = $(this).data("tanggal");
+        var id = $(this).data("id_pengeluaran");
+        $.confirm({
+          theme: 'supervan',
+          title: 'Peringatan !',
+          content: 'Hapus Pengeluaran Tanggal ' + tanggal,
+          autoClose: 'Cancel|5000',
+          buttons: {
+            Cancel: function(){},
+            delete: {
+              text: 'Delete',
+              action: function () {
+                window.location = "Lap_pengeluaran/HapusData/" + id
+              }
+            }
+          }
         });
+      }); 
       <?php } ?>
   });
 </script>

@@ -58,8 +58,8 @@ $this->load->view('template/side');
                 <thead>
                   <tr>
                     <th>Nama</th>
-                    <th class="min-tablet">Alamat</th>
-                    <th class="min-tablet">No Hp</th>
+                    <th>Alamat</th>
+                    <th>No Hp</th>
                     <th class="min-tablet">No Telp</th>
                     <th class="min-tablet">JK</th>
                     <?php if($_SESSION['26edit']==1 || $_SESSION['26delete']==1){ ?>
@@ -331,6 +331,7 @@ $this->load->view('template/js');
       },
 
       processing: true,
+      responsive: true,
       serverSide: true,
       ajax: {
         "url": "<?php echo site_url('Takmir_ctrl/AjaxTableAnggota') ?>",

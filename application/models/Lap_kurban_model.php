@@ -11,6 +11,40 @@
           AND date_format(h.tanggal,'%Y%m%d') <= '$t2'
           ORDER BY tanggal");
         }
+
+        public function getDataKurban($tanggalAwal, $tanggalAkhir)
+        {
+            $this->datatables->select("hewan_kurban.id, hewan_kurban.penyumbang, hewan_kurban.jenis, hewan_kurban.jumlah, date_format(hewan_kurban.tanggal, '%d-%M-%Y') as tanggal_transaksi, hewan_kurban.tanggal, hewan_kurban.alamat, hewan_kurban.log_time, master_login.id_admin, master_login.nama as admin, master_login.username");
+            $this->datatables->from("hewan_kurban");
+            $this->datatables->join("master_login", "master_login.id_admin = hewan_kurban.id_admin");
+            $this->datatables->where("date_format(hewan_kurban.tanggal, '%Y%m%d') >=", $tanggalAwal);
+            $this->datatables->where("date_format(hewan_kurban.tanggal, '%Y%m%d') <=", $tanggalAkhir);
+            function callback_jenis($jenis){
+                $hewan = "";
+                if ($jenis == 1) {
+                    $hewan = "Kambing";
+                }else if($jenis == 2){
+                    $hewan = "Sapi";
+                }else{
+                    $hewan = "Undefined";
+                }
+                return $hewan;
+            }
+            $this->datatables->add_column("aksi", 
+            "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id='$1' data-penyumbang='$2' data-tanggal='$3' data-jumlah='$4' data-keterangan='$5' data-log_time='$6' data-admin='$7' data-username='$8'><i class='fa fa-pencil'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id_pengeluaran='$1' data-tanggal='$3' data-ruang='$6'><i class='fa fa-remove'></i></a>",
+            "id,
+            penyumbang,
+            callback_jenis(jenis),
+            jumlah,
+            tanggal_transaksi,
+            tanggal,
+            alamat,
+            log_time,
+            id_admin,
+            admin,
+            username");
+            $this->datatables->generate();
+        }
         
         public function insert_data($table,$data)
         {

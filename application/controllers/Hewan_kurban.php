@@ -4,8 +4,8 @@
 	class Hewan_kurban extends CI_controller{
 		public function __construct(){
 			parent::__construct();
-			$this->load->model('Lap_kurban_model');
-
+			$this->load->model("Lap_kurban_model");
+            $this->load->model("datatables");
 		}
 		public function index(){
 			if(isset($_SESSION['username'])){
