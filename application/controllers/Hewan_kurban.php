@@ -5,7 +5,7 @@
 		public function __construct(){
 			parent::__construct();
 			$this->load->model("Lap_kurban_model");
-            $this->load->model("datatables");
+            $this->load->library("datatables");
 		}
 		public function index(){
 			if(isset($_SESSION['username'])){
@@ -14,9 +14,9 @@
                 $data['t2'] = date("t-F-Y");
                 $date1 = date_create($data['t1']);
                 $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Ymd");
-                $t2 = date_format($date2, "Ymd");
-                $data['data'] = $this->Lap_kurban_model->sel_date($t1,$t2)->result();
+                $tanggalAwal = date_format($date1, "Ymd");
+                $tanggalAkhir = date_format($date2, "Ymd");
+                $data['data'] = "Hewan_kurban/dataTableKurban/".$tanggalAwal."/".$tanggalAkhir;
                 $this->load->view('lap_hewan_kurban_view',$data);
             }
             else{
@@ -24,9 +24,9 @@
                 $data['t2'] = $this->input->post('t2');
                 $date1 = date_create($data['t1']);
                 $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Ymd");
-                $t2 = date_format($date2, "Ymd");
-                $data['data'] = $this->Lap_kurban_model->sel_date($t1,$t2)->result();
+                $tanggalAwal = date_format($date1, "Ymd");
+                $tanggalAkhir = date_format($date2, "Ymd");
+                $data['data'] = "Hewan_kurban/dataTableKurban/".$tanggalAwal."/".$tanggalAkhir;
                 $this->load->view('lap_hewan_kurban_view',$data);
             }
    
@@ -35,7 +35,13 @@
             redirect(site_url().'/Auth/logout');
         }
     }
-     
+
+    public function dataTableKurban($tanggalAwal, $tanggalAkhir)
+    {
+        header("Content-type: application/json");
+        echo $this->Lap_kurban_model->getDataKurban($tanggalAwal,$tanggalAkhir);
+    }
+
     public function laporan_print($t1,$t2)
     {
         $c1 = date_create($t1);
