@@ -174,13 +174,13 @@ $this->load->view('template/js');
         content: 'Hapus data hak akses ' + $hakAkses,
         autoClose: 'Tutup|5000',
         buttons: {
+          Tutup: function () {},
           delete: {
             text: 'Hapus',
             action: function () {
               window.location = 'Hak_akses_ctrl/delete/' + $item.find('#kode_akses').val();
             }
           },
-          Tutup: function () {}
         }
       });
     });
