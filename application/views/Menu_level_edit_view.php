@@ -37,45 +37,47 @@ $this->load->view('template/side');
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="datatable" class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th class="">Menu Name</th>
-                <th class="text-center">View</th>
-                <th class="min-tablet text-center">Insert</th>
-                <th class="min-tablet text-center">Update</th>
-                <th class="min-tablet text-center">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php 
-                $no = 1;
-                foreach ($data as $row):
-              ?>
-              <tr>
-                <td>
-                  <?php echo $row->menu_name;?>
-                </td>
-                <td class="text-center">
-                  <input type="checkbox" class="flat-green" value="1" name="view_<?php echo $row->kode_menu_child;?>"
-                    <?php echo ($row->akses_view=="1")?"checked":"";?>>
-                </td>
-                <td class="text-center"><input type="checkbox" class="flat-green" value="1" name="insert_<?php echo $row->kode_menu_child;?>"
-                    <?php echo ($row->akses_insert=="1")?"checked":"";?>>
-                </td>
-                <td class="text-center"><input type="checkbox" class="flat-orange" value="1" name="edit_<?php echo $row->kode_menu_child;?>"
-                    <?php echo ($row->akses_edit=="1")?"checked":"";?>>
-                </td>
-                <td class="text-center"><input type="checkbox" class="flat-red" value="1" name="delete_<?php echo $row->kode_menu_child;?>"
-                    <?php echo ($row->akses_delete=="1")?"checked":"";?>>
-                </td>
-              </tr>
-              <?php 
-              $no++;
-                endforeach;
-              ?>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table id="datatable" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th class="">Menu Name</th>
+                  <th class="text-center">View</th>
+                  <th class="text-center">Insert</th>
+                  <th class="text-center">Update</th>
+                  <th class="text-center">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                  $no = 1;
+                  foreach ($data as $row):
+                ?>
+                <tr>
+                  <td>
+                    <?php echo $row->menu_name;?>
+                  </td>
+                  <td class="text-center">
+                    <input type="checkbox" class="flat-green" value="1" name="view_<?php echo $row->kode_menu_child;?>"
+                      <?php echo ($row->akses_view=="1")?"checked":"";?>>
+                  </td>
+                  <td class="text-center"><input type="checkbox" class="flat-green" value="1" name="insert_<?php echo $row->kode_menu_child;?>"
+                      <?php echo ($row->akses_insert=="1")?"checked":"";?>>
+                  </td>
+                  <td class="text-center"><input type="checkbox" class="flat-orange" value="1" name="edit_<?php echo $row->kode_menu_child;?>"
+                      <?php echo ($row->akses_edit=="1")?"checked":"";?>>
+                  </td>
+                  <td class="text-center"><input type="checkbox" class="flat-red" value="1" name="delete_<?php echo $row->kode_menu_child;?>"
+                      <?php echo ($row->akses_delete=="1")?"checked":"";?>>
+                  </td>
+                </tr>
+                <?php 
+                $no++;
+                  endforeach;
+                ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </form>
     </div><!-- /.box -->
@@ -99,7 +101,6 @@ $this->load->view('template/js');
       //   width: 600,
       //   targets: 0
       // }],
-      "responsive": true,
       "lengthChange": true,
       "searching": false,
       "ordering": false,

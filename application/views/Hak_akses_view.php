@@ -42,47 +42,49 @@ $this->load->view('template/side');
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="datatable" class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Hak Akses</th>
-              <th>Keterangan</th>
-              <th>Status Aktif</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no=1; foreach($utama as $item): 
-              $status = ($item->status_aktif == 1)?"Aktif":"Non Aktif";
-            ?>
-            <tr>
-              <input type="hidden" id="kode_akses" name="kode_akses" value="<?php echo $item->kode_akses ?>">
-              <input type="hidden" id="dtaStatus" name="dtaStatus" value="<?php echo $item->status_aktif ?>">
-              <td>
-                <?php echo $no; ?>
-              </td>
-              <td id="dtaHakAkses">
-                <?php echo $item->hak_akses; ?>
-              </td>
-              <td id="dtaKeterangan">
-                <?php echo $item->keterangan; ?>
-              </td>
-              <td>
-                <?php echo $status; ?>
-              </td>
-              <td>
-                <button class="btn btn-warning btn-xs" id="btnEdit" data-toggle="modal" data-target="#modalBaru">
-                  <i class="fa fa-gear"></i>
-                </button>
-                <button class="btn btn-danger btn-xs" id="btnDelete" data-title="delete">
-                  <i class="fa fa-remove"></i>
-                </button>
-              </td>
-            </tr>
-            <?php $no++; endforeach ?>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table id="datatable" class="table table-bordered table-hover" width="100%">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Hak Akses</th>
+                <th>Keterangan</th>
+                <th>Status Aktif</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no=1; foreach($utama as $item): 
+                $status = ($item->status_aktif == 1)?"Aktif":"Non Aktif";
+              ?>
+              <tr>
+                <input type="hidden" id="kode_akses" name="kode_akses" value="<?php echo $item->kode_akses ?>">
+                <input type="hidden" id="dtaStatus" name="dtaStatus" value="<?php echo $item->status_aktif ?>">
+                <td>
+                  <?php echo $no; ?>
+                </td>
+                <td id="dtaHakAkses">
+                  <?php echo $item->hak_akses; ?>
+                </td>
+                <td id="dtaKeterangan">
+                  <?php echo $item->keterangan; ?>
+                </td>
+                <td>
+                  <?php echo $status; ?>
+                </td>
+                <td>
+                  <button class="btn btn-warning btn-xs" id="btnEdit" data-toggle="modal" data-target="#modalBaru">
+                    <i class="fa fa-gear"></i>
+                  </button>
+                  <button class="btn btn-danger btn-xs" id="btnDelete" data-title="delete">
+                    <i class="fa fa-remove"></i>
+                  </button>
+                </td>
+              </tr>
+              <?php $no++; endforeach ?>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <!-- /.box -->
