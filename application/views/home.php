@@ -165,7 +165,7 @@ window.chartColors = {
         xAxes: [{
           type: 'time',
           time: {
-            unit: 'week',
+            unit: 'month',
             displayFormats: {
               week: "ll"
             }
