@@ -142,7 +142,7 @@ window.chartColors = {
   var config = {
     type: 'line',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: [<?=$labels_masuk?>],
       datasets: [{
         label: "Pemasukan",
         fill: false,

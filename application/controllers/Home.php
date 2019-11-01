@@ -17,11 +17,14 @@ defined("BASEPATH") or exit("Some Error");
 				$tot_pengeluaran = $this->Home_model->tot_pengeluaran();
 				$tot_zakat = $this->Home_model->tot_zakat();
 				$tot_kurban = $this->Home_model->tot_kurban();
-				$tot_masuk = '';
+				$tanggal_chart = $this->Home_model->getTanggalChart();
 				$labels_masuk = '';
-				foreach ($masuk as $item){
-					$tot_masuk .= $item->jumlah.", ";
+				foreach ($tanggal_chart as $item) {
 					$labels_masuk .= "'".$item->tanggal."', ";
+				}
+				$tot_masuk = '';
+				foreach ($masuk as $item){
+					$tot_masuk .=  "{ x: '".$item->tanggal."', y: '".$item->jumlah."'}, ";
 				}
 				$tot_keluar = '';
 				foreach ($keluar as $item) {
