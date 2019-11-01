@@ -139,39 +139,22 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var config = {
     type: 'line',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: [<?=$labels_masuk?>],
       datasets: [{
-        label: 'My First dataset',
-        backgroundColor: window.chartColors.red,
-        borderColor: window.chartColors.red,
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor()
-        ],
-        fill: false,
-      }, {
-        label: 'My Second dataset',
+        label: "Pemasukan",
         fill: false,
         backgroundColor: window.chartColors.blue,
         borderColor: window.chartColors.blue,
-        data: [
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor(),
-          randomScalingFactor()
-        ],
+        data: [<?=$tot_masuk?>]
+      }, {
+        label: 'Pengeluaran',
+        fill: false,
+        backgroundColor: window.chartColors.red,
+        borderColor: window.chartColors.red,
+        data: [<?=$tot_keluar?>]
       }]
     },
     options: {
