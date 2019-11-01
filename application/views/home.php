@@ -161,13 +161,22 @@ window.chartColors = {
       title: {
         text: 'Grafik Pemasukan & Pengeluaran'
       },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
       scales: {
-        xAxes: [{
+        xAxes: [{ 
           type: 'time',
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: "Kronologis"
+          },
           time: {
-            unit: 'week',
+            unit: 'day',
             displayFormats: {
-              week: "ll"
+              day: "D MMM"
             }
           }
         }],
@@ -179,6 +188,10 @@ window.chartColors = {
               value = value.join(',');
               return value;
             },
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Range"
           }
         }]
       },
