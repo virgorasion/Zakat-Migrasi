@@ -139,53 +139,70 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
+var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var config = {
     type: 'line',
     data: {
-      labels: [<?=$labels_masuk?>],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [{
-        label: "Pemasukan",
+        label: 'My First dataset',
+        backgroundColor: window.chartColors.red,
+        borderColor: window.chartColors.red,
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
+        fill: false,
+      }, {
+        label: 'My Second dataset',
         fill: false,
         backgroundColor: window.chartColors.blue,
         borderColor: window.chartColors.blue,
-        data: [<?=$tot_masuk?>]
-      }, {
-        label: 'Pengeluaran',
-        fill: false,
-        backgroundColor: window.chartColors.red,
-        borderColor: window.chartColors.red,
-        data: [<?=$tot_keluar?>]
+        data: [
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor(),
+          randomScalingFactor()
+        ],
       }]
     },
     options: {
+      responsive: true,
       title: {
-        text: 'Grafik Pemasukan & Pengeluaran'
+        display: true,
+        text: 'Chart.js Line Chart'
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
       },
       scales: {
         xAxes: [{
-          type: 'time',
-          time: {
-            unit: 'month',
-            displayFormats: {
-              week: "ll"
-            }
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Month'
           }
         }],
         yAxes: [{
-          ticks: {
-            userCallback: function (value, index, values) {
-              value = value.toString();
-              value = value.split(/(?=(?:...)*$)/);
-              value = value.join(',');
-              return value;
-            },
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
           }
         }]
-      },
-      plugins: {
-        filler: {
-          propagate: true
-        }
       }
     }
   };
