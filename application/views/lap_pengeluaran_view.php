@@ -142,7 +142,6 @@ $this->load->view('template/js');
 <script>
   $(function () {
     var table_pengeluaran = "";
-
     // Setup datatables
     // $.fn.dataTable.ext.errMode = 'none';
     $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {

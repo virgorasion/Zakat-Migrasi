@@ -7,7 +7,7 @@ class Home_model extends CI_model{
     {
         $date1 = date("Y-01-01");
         $date2 = date("Y-12-31");
-        return $this->db->select("SUM(kas_masjid.jumlah) as jumlah, date_format(kas_masjid.tanggal, '%b %d %Y') as tanggal")
+        return $this->db->select("SUM(kas_masjid.jumlah) as jumlah, date_format(kas_masjid.tanggal, '%d-%M-%Y') as tanggal")
                             ->from("kas_masjid")
                             // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
                             ->where("kas_masjid.tanggal >= '".$date1."' ")
@@ -16,12 +16,22 @@ class Home_model extends CI_model{
                             ->group_by("kas_masjid.tanggal")
                             ->get()->result();
     }
+
+    public function getTanggalChart()
+    {
+        $date1 = date("Y-01-01");
+        $date2 = date("Y-12-31");
+        return $this->db->query("SELECT date_format(kas_masjid.tanggal, '%d-%M-%Y') AS tanggal, kas_masjid.tanggal AS urut FROM kas_masjid WHERE kas_masjid.tanggal BETWEEN '".$date1."' AND '".$date2."'
+                                UNION
+                                SELECT date_format(lap_pengeluaran.tanggal, '%d-%M-%Y') AS tanggal, lap_pengeluaran.tanggal AS urut FROM lap_pengeluaran WHERE lap_pengeluaran.tanggal BETWEEN '".$date1."' AND '".$date2."'
+                                ORDER BY urut")->result();
+    }
     
     function tot_keluar()
     {
         $date1 = date("Y-01-01");
         $date2 = date("Y-12-31");
-        return $this->db->select("SUM(lap_pengeluaran.jumlah) as jumlah, date_format(lap_pengeluaran.tanggal, '%b %d %Y') as tanggal")
+        return $this->db->select("SUM(lap_pengeluaran.jumlah) as jumlah, date_format(lap_pengeluaran.tanggal, '%d-%M-%Y') as tanggal")
                             ->from("lap_pengeluaran")
                             // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
                             ->where("lap_pengeluaran.tanggal >= '".$date1."' ")
@@ -30,6 +40,7 @@ class Home_model extends CI_model{
                             ->group_by("lap_pengeluaran.tanggal")
                             ->get()->result();
     }
+
 
     function tot_kas()
     {

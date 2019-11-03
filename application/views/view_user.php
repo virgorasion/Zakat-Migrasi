@@ -28,60 +28,62 @@ $this->load->view('template/side');
             data-target="#modalBaru">Buat Akun</button></h3>
       </div>
       <div class="box-body">
-        <table id="datatable" class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Nama</th>
-              <th>Username</th>
-              <th>Hak Akses</th>
-              <th>Status Aktif</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no=1; foreach($data as $item): 
-                  if ($item->status_aktif == 1) {
-                    $status = 'Aktif';
-                  }else {
-                    $status = 'Non_Aktif';
-                  }
-                  if ($item->kode_akses == null){
-                    $hak_akses = "Null";
-                  }else {
-                    $hak_akses = $item->hak_akses;
-                  }
-                  ?>
-            <tr>
-              <input type="hidden" name="id" id="id_admin" value="<?php echo $item->id_admin ?>">
-              <input type="hidden" name="kode_akses" id="kode_akses" value="<?php echo $item->kode_akses ?>">
-              <td>
-                <?php echo $no; ?>
-              </td>
-              <td class="nama">
-                <?php echo $item->nama; ?>
-              </td>
-              <td class="username">
-                <?php echo $item->username; ?>
-              </td>
-              <td class="hak_akses">
-                <?php echo $hak_akses; ?>
-              </td>
-              <td class="status">
-                <?php echo $status; ?>
-                <input type="hidden" name="status" id="status" value="<?php echo $item->status_aktif ?>">
-              </td>
-              <td>
-                <a href="<?=base_url("History/index/").$item->id_admin?>"><button id="btnView" class="btnView btn btn-primary btn-xs"><i
-                    class="fa fa-eye"></i></button></a>
-                <button id="btnEdit" data-toggle="modal" data-target="#modalEdit" class="btn btn-warning btn-xs"><i
-                    class="fa fa-gear"></i></button>
-                <button id="btnDelete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
-              </td>
-            </tr>
-            <?php $no++; endforeach ?>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table id="datatable" class="table table-bordered table-hover" width="100%">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Nama</th>
+                <th>Username</th>
+                <th class="min-tablet">Hak Akses</th>
+                <th class="min-tablet">Status Aktif</th>
+                <th class="min-desktop">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no=1; foreach($data as $item): 
+                    if ($item->status_aktif == 1) {
+                      $status = 'Aktif';
+                    }else {
+                      $status = 'Non_Aktif';
+                    }
+                    if ($item->kode_akses == null){
+                      $hak_akses = "Null";
+                    }else {
+                      $hak_akses = $item->hak_akses;
+                    }
+                    ?>
+              <tr>
+                <input type="hidden" name="id" id="id_admin" value="<?php echo $item->id_admin ?>">
+                <input type="hidden" name="kode_akses" id="kode_akses" value="<?php echo $item->kode_akses ?>">
+                <td>
+                  <?php echo $no; ?>
+                </td>
+                <td class="nama">
+                  <?php echo $item->nama; ?>
+                </td>
+                <td class="username">
+                  <?php echo $item->username; ?>
+                </td>
+                <td class="hak_akses">
+                  <?php echo $hak_akses; ?>
+                </td>
+                <td class="status">
+                  <?php echo $status; ?>
+                  <input type="hidden" name="status" id="status" value="<?php echo $item->status_aktif ?>">
+                </td>
+                <td>
+                  <a href="<?=base_url("History/index/").$item->id_admin?>"><button id="btnView" class="btnView btn btn-primary btn-xs"><i
+                      class="fa fa-eye"></i></button></a>
+                  <button id="btnEdit" data-toggle="modal" data-target="#modalEdit" class="btn btn-warning btn-xs"><i
+                      class="fa fa-gear"></i></button>
+                  <button id="btnDelete" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              <?php $no++; endforeach ?>
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- /.box-body -->
       <div class="box-footer">
@@ -215,6 +217,14 @@ $this->load->view('template/js');
 <script src="<?= base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-validator/bootstrapValidator.min.js') ?>"></script>
 <script>
   $(document).ready(function () {
+    $("#datatable").DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    })
     $('#datatable').on('click', '[id^=btnEdit]', function () {
       var $item = $(this).closest('tr');
       var nama = $.trim($item.find('.nama').text());
@@ -302,13 +312,13 @@ $this->load->view('template/js');
         content: 'Hapus ' + $.trim($item.find('.nama').text()),
         autoClose: 'Cancel|5000',
         buttons: {
-          deleteUser: {
+          Cancel: function () {},
+            deleteUser: {
             text: 'Delete',
             action: function () {
               window.location = "user_ctrl/hapus/" + $id;
             }
-          },
-          Cancel: function () {}
+          }
         }
       });
     });

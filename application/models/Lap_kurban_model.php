@@ -30,11 +30,12 @@
                 }
                 return $hewan;
             }
+            $this->datatables->add_column("jenis_hewan","$1","callback_jenis(jenis)");
             $this->datatables->add_column("aksi", 
-            "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id='$1' data-penyumbang='$2' data-tanggal='$3' data-jumlah='$4' data-keterangan='$5' data-log_time='$6' data-admin='$7' data-username='$8'><i class='fa fa-pencil'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id_pengeluaran='$1' data-tanggal='$3' data-ruang='$6'><i class='fa fa-remove'></i></a>",
+            "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id='$1' data-penyumbang='$2' data-alamat='$7' data-jumlah='$4' data-hewan='$3'><i class='fa fa-pencil'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id='$1' data-tanggal='$5' data-penyumbang='$2' data-hewan='$12'><i class='fa fa-remove'></i></a>",
             "id,
             penyumbang,
-            callback_jenis(jenis),
+            jenis,
             jumlah,
             tanggal_transaksi,
             tanggal,
@@ -42,8 +43,9 @@
             log_time,
             id_admin,
             admin,
-            username");
-            $this->datatables->generate();
+            username,
+            callback_jenis(jenis)");
+            return $this->datatables->generate();
         }
         
         public function insert_data($table,$data)

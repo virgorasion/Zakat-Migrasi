@@ -77,90 +77,23 @@ $this->load->view('template/side');
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="tableKurban" class="table table-bordered table-hover">
+        <table id="tableKurban" class="table table-bordered table-hover" width="100%">
           <thead>
             <tr>
               <th>No.</th>
-              <th>Tanggal</th>
-              <th>Admin</th>
+              <th class="min-tablet">Tanggal</th>
+              <th class="min-tablet">Admin</th>
               <th>Penyumbang</th>
-              <th>Alamat</th>
+              <th class="min-tablet">Alamat</th>
               <th>Jenis Hewan</th>
-              <th>jumlah</th>
+              <th class="min-tablet">jumlah</th>
               <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1) { ?>
-              <th>Action</th>
+              <th class="min-desktop">Action</th>
               <?php } ?>  
             </tr>
           </thead>
           <tbody>
-            <?php 
-            $no = 1;
-        foreach ($data as $row){ 
-        switch ($row->jenis) {
-          case '1':
-            $jenis = "Kambing";
-            break;
-          case '2':
-            $jenis = "Sapi";
-            break;
-          default:
-            $jenis = "Undefined";
-            break;
-        }
-        ?>
-            <tr>
-              <input type="hidden" name="id" class="id" value="<?php echo $row->id; ?>">
-              <td class="no">
-                <?php echo $no ?>
-              </td>
-              <td class="tanggal">
-                <?php echo $row->tanggal_transaksi ?>
-              </td>
-              <td class="admin">
-                <?php echo $row->admin; ?>
-              </td>
-              <td class="penyumbang">
-                <?php echo $row->penyumbang;?>
-              </td>
-              <td class="alamat">
-                <?php echo $row->alamat;?>
-              </td>
-              <td class="jenisHewan">
-                <?php echo $jenis;?>
-              </td>
-              <td class="jumlah">
-                <?php echo $row->jumlah ;?>
-              </td>
-              <td>
-                <!-- <?php if ($this->session->userdata("6view")=="1"){?>
-                <a href="#">
-                  <span data-placement='top' data-toggle='tooltip' title='Struk'>
-                    <button class='btn btn-primary btn-xs btnPrint' data-title='Struk' id="btnStruk">
-                      <span class='glyphicon glyphicon-print'></span>
-                    </button>
-                </a>
-                <?php } ?> -->
-                <?php if ($this->session->userdata("6edit")=="1"){?>
-                <a href='#'>
-                  <span data-placement='top' data-toggle='tooltip' title='Edit'>
-                    <button class='btn btn-warning btn-xs btnEdit' data-title='Edit'>
-                      <span class='glyphicon glyphicon-pencil'></span>
-                    </button>
-                </a>
-                <?php } ?>
-                <?php if ($this->session->userdata("6delete")=="1"){?>
-                <a class="buttonDelete" href='#'>
-                  <span data-placement='top' data-toggle='tooltip' title='Delete'>
-                    <button class='btn btn-danger btn-xs btnDelete' data-title='Delete'>
-                      <span class='glyphicon glyphicon-remove'></span>
-                    </button>
-                </a>
-                <?php } ?>
-              </td>
-            </tr>
-            <?php $no++;
-        }
-        ?>
+              <!-- Content Diisi Ajax Datatables -->
           </tbody>
         </table>
       </div>
@@ -179,7 +112,7 @@ $this->load->view('template/side');
                 <span aria-hidden="true">&times;</span>
                 <span class="sr-only">Close</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel">Tambah Data Kurban</h4>
+              <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
               <div class="box-body">
@@ -231,16 +164,82 @@ $this->load->view('template/js');
 ?>
 <script>
   $(function () {
-    $('#tableKurban').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+    var table_kurban = "";
+    // Setup datatables
+    // $.fn.dataTable.ext.errMode = 'none';
+    $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
+      return {
+        "iStart": oSettings._iDisplayStart,
+        "iEnd": oSettings.fnDisplayEnd(),
+        "iLength": oSettings._iDisplayLength,
+        "iTotal": oSettings.fnRecordsTotal(),
+        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+      };
+    };
+
+    let url = "<?= site_url($data) ?>";
+    table_kurban = $("#tableKurban").DataTable({
+      initComplete: function () {
+        var api = this.api();
+        $('#mytable_filter input')
+          .off('.DT')
+          .on('input.DT', function () {
+            api.search(this.value).draw();
+          });
+      },
+      oLanguage: {
+        sProcessing: 'Loading....'
+      },
+      processing: true,
+      serverSide: true,
+      responsive: true,
+      ajax: {
+        "url": url,
+        "type": "POST"
+      },
+      columns: [{
+          "data": null,
+          "orderable": false,
+          "searchable": false
+        },
+        {
+          "data": "tanggal_transaksi"
+        },
+        {
+          "data": "admin"
+        },
+        {
+          "data": "penyumbang"
+        },
+        {
+          "data": "alamat"
+        },
+        {
+          "data": "jenis_hewan", "orderable": false, "searchable": false
+        },
+        {
+          "data": "jumlah"
+        },
+        {
+          "data": "aksi", "orderable": false
+        }
+      ],
+      order: [
+        [1, 'asc']
+      ],
+      rowCallback: function (row, data, iDisplayIndex) {
+        var info = this.fnPagingInfo();
+        var page = info.iPage;
+        var length = info.iLength;
+        var index = page * length + (iDisplayIndex + 1);
+        $('td:eq(0)', row).html(index);
+      }
     });
+    // End Datatables
     
-    $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+    $(".alert").fadeTo(3500, 500).slideUp(500, function () {
         $(".alert").slideUp(500);
     });
 
@@ -255,18 +254,6 @@ $this->load->view('template/js');
       format: 'dd-MM-yyyy'
     });
 
-    // $('#tableKurban').on('click', '[id^=btnStruk]', function () {
-    //   var $item = $(this).closest("tr");
-    //   console.log($item.find("input[id$='no']").val());
-    //   var url = '<?php echo site_url("/ahad_dhuha/printstruk/")?>' + $item.find("input[id$='no']").val();
-    //   console.log(url);
-    //   newwindow = window.open(url, 'Print Nota', 'height=500,width=1100');
-    //   if (window.focus) {
-    //     newwindow.focus()
-    //   }
-    //   return false;
-    // });
-
     // Fungsi Tambah
     $("#btnTambah").click(function () {
       $("#modalTambah").modal('show');
@@ -276,49 +263,43 @@ $this->load->view('template/js');
       $("#alamat").val();
       $("#jenisHewan").val();
       $("#jumlah").val();
+      $("#myModalLabel").html("Tambah Hewan Kurban");
     });
 
     $('#tableKurban').on('click', '.btnEdit', function () {
-      var $item = $(this).closest("tr");
-      var jenisHewan = $item.find(".jenisHewan").text().trim();
-      switch (jenisHewan) {
-        case 'Kambing':
-          var jenis = "1";
-          break;
-        case 'Sapi':
-          var jenis = "2";
-          break;
-        default:
-          var jenis = "";
-          break;
-      }
-      console.log(jenis);
+      let id = $(this).data("id");
+      let penyumbang = $(this).data("penyumbang");
+      let alamat = $(this).data("alamat");
+      let hewan = $(this).data("hewan");
+      let jumlah = $(this).data("jumlah");
       $("#id_admin").val("<?php echo $_SESSION['id_admin']; ?>");
-      $("#idKurban").val($.trim($item.find(".id").val()));
-      $("#penyumbang").val($.trim($item.find(".penyumbang").text()));
-      $("#alamat").val($.trim($item.find(".alamat").text()));
-      $("#jenisHewan").val(jenis);
-      $("#jumlah").val($.trim($item.find(".jumlah").text()));
+      $("#idKurban").val(id);
+      $("#penyumbang").val(penyumbang);
+      $("#alamat").val(alamat);
+      $("#jenisHewan").val(hewan);
+      $("#jumlah").val(jumlah);
       $("#modalTambah").modal('show');
       $("#action").val("edit");
+      $("#myModalLabel").html("Edit Hewan Kurban");
     });
 
     $('#tableKurban').on('click', '.btnDelete', function () {
-      $item = $(this).closest('tr');
-      $nomor = $.trim($item.find('.id').val());
-      $penyumbang = $.trim($item.find('.penyumbang').text());
+      let id = $(this).data("id");
+      let penyumbang = $(this).data("penyumbang");
+      let tanggal = $(this).data("tanggal");
+      let hewan = $(this).data("hewan");
 
       $.confirm({
         theme: 'supervan',
         title: 'Hapus Data Kurban',
-        content: 'Hapus Data ' + $penyumbang,
-        autoClose: 'Batal|5000',
+        content: 'Hapus Data:<br> Penyumbang: '+penyumbang+"<br>Tanggal: "+tanggal+"<br>Hewan: "+hewan,
+        autoClose: 'Batal|10000',
         buttons: {
           Batal: function () {},
           Hapus: {
             title: 'Hapus',
             action: function () {
-              window.location = "<?= site_url('Hewan_kurban/hapus/')?>" + $nomor;
+              window.location = "<?= site_url('Hewan_kurban/hapus/')?>" + id;
             }
           }
         }
