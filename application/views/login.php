@@ -42,6 +42,10 @@
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h4><i class="icon fa fa-ban"></i> Information!</h4>
                         <?php echo $msg;?>
+                        <hr>
+                        Login For Guest:<br>
+                        Username: guest<br>
+                        Password: guest
                     </div>
                     <?php } ?>
                     <div class="row">
