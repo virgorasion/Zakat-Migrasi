@@ -74,7 +74,7 @@
                     increaseArea: '20%' // optional
                 });
                 
-                $(".alert-danger").fadeTo(2000, 500).slideUp(500, function(){
+                $(".alert-danger").fadeTo(4000, 500).slideUp(500, function(){
                     $(".alert-danger").slideUp(500);
                 });
             });
