@@ -14,10 +14,8 @@
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
 
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/dist/js/app.min.js')?>"></script>
-<!-- JQuery Mask -->
-<script src="<?php echo base_url('assets/jquery-mask/jquery.mask.js')?>"></script>
 <!-- JQuery Input Mask -->
-<script src="<?php echo base_url('assets/jquery-inputmask/jquery.inputmask.bundle.js')?>"></script>
+<script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/inputmask/dist/jquery.inputmask.min.js')?>"></script>
 <!-- Knockout -->
 <script src="<?php echo base_url('assets/knockout/knockout-3.4.1.js')?>"></script>
 
