@@ -171,7 +171,7 @@ window.chartColors = {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "Kronologis"
+            labelString: ""
           },
           time: {
             unit: 'day',
@@ -191,7 +191,7 @@ window.chartColors = {
           },
           scaleLabel: {
             display: true,
-            labelString: "Range"
+            labelString: ""
           }
         }]
       },
