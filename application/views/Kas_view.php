@@ -331,7 +331,7 @@ $(document).ready(function(){
                     ,{"data": "action", "orderable": false, "searchable": false}
                     <?php } ?>
                 ],
-        order: [[1, 'asc']],
+        order: [[5, 'desc']],
         rowCallback: function(row, data, iDisplayIndex) {
             var info = this.fnPagingInfo();
             var page = info.iPage;

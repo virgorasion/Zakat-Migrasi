@@ -174,9 +174,9 @@ window.chartColors = {
             labelString: ""
           },
           time: {
-            unit: 'day',
+            unit: 'month',
             displayFormats: {
-              day: "D MMM"
+              day: "MMM YYYY"
             }
           }
         }],

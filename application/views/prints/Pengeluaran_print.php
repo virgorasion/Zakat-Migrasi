@@ -76,6 +76,12 @@
             <?php $no++;
         } ?>
           </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">Total Pengeluaran:</td>
+              <td><?= number_format((double)$total[0]->total,0,",",".") ?></td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div><!-- /.box -->

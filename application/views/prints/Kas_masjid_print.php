@@ -51,7 +51,7 @@
         foreach ($data as $row): ?>
                     <tr>                              
                         <td class="no"><?= $no ?></td>
-                        <td class="nama"><?php echo $row->nama; ?></td>
+                        <td class="nama"><?php echo $row->nama_donatur; ?></td>
                         <td class="tipe"><?php echo $row->tipe;?></td>
                         <td class="jumlah"><?php echo number_format((double)$row->jumlah,0,"," , ".");?></td>
                         <td class="tanggal"><?php echo $row->tanggal;?></td>
@@ -62,6 +62,12 @@
         endforeach
         ?>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">Total Kas Masuk:</td>
+                <td><?= number_format((double)$total[0]->total,0,",",".") ?></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
     </div><!-- /.box -->
