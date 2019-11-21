@@ -47,8 +47,6 @@ $this->load->view('template/side');
               </div>
               <?php } ?>
               <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-success btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i
-                  class="fa fa-times"></i></button>
             </div>
             <!-- /. tools -->
           </div>
@@ -96,8 +94,6 @@ $this->load->view('template/side');
               </div>
               <?php } ?>
               <button type="button" class="btn btn-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i
-                  class="fa fa-times"></i></button>
             </div>
           </div>
           <!-- /.box-header -->
