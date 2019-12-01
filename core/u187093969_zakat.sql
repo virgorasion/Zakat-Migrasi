@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 23, 2019 at 03:04 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.2
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 01, 2019 at 12:52 PM
+-- Server version: 10.2.27-MariaDB
+-- PHP Version: 7.2.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,8 +19,37 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `zakat`
+-- Database: `u187093969_zakat`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bulan`
+--
+
+CREATE TABLE `bulan` (
+  `id` int(11) NOT NULL,
+  `bulan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bulan`
+--
+
+INSERT INTO `bulan` (`id`, `bulan`) VALUES
+(1, 'January'),
+(2, 'February'),
+(3, 'Maret'),
+(4, 'April'),
+(5, 'May'),
+(6, 'June'),
+(7, 'July'),
+(8, 'Agust'),
+(9, 'September'),
+(10, 'October'),
+(11, 'November'),
+(12, 'December');
 
 -- --------------------------------------------------------
 
@@ -36,7 +65,7 @@ CREATE TABLE `hewan_kurban` (
   `alamat` varchar(30) NOT NULL,
   `jenis` tinyint(1) NOT NULL,
   `jumlah` smallint(4) NOT NULL,
-  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `log_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -46,7 +75,8 @@ CREATE TABLE `hewan_kurban` (
 INSERT INTO `hewan_kurban` (`id`, `id_admin`, `tanggal`, `penyumbang`, `alamat`, `jenis`, `jumlah`, `log_time`) VALUES
 (1, 8, '2019-01-09', 'joo', 'kapas madya', 1, 5, '2019-01-09 10:16:49'),
 (2, 8, '2019-01-09', 'sam', 'kapas', 1, 2, '2019-01-09 10:17:00'),
-(3, 8, '2019-01-09', 'ku', 'kaps', 2, 2, '2019-01-09 10:17:07');
+(3, 8, '2019-01-09', 'ku', 'kaps', 2, 2, '2019-01-09 10:17:07'),
+(4, 11, '2019-11-21', 'Fauzan', 'Kapas Madya', 2, 5, '2019-11-21 01:04:22');
 
 -- --------------------------------------------------------
 
@@ -121,8 +151,8 @@ CREATE TABLE `kas_masjid` (
   `jumlah` int(11) NOT NULL,
   `keterangan` varchar(100) NOT NULL DEFAULT '-',
   `tanggal` date NOT NULL,
-  `kategori` tinyint(1) UNSIGNED NOT NULL COMMENT 'kategori 1 untuk Kotak Amal',
-  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `kategori` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'kategori 1 untuk Kotak Amal',
+  `log_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -134,10 +164,14 @@ INSERT INTO `kas_masjid` (`id`, `id_admin`, `id_tipe`, `nama_donatur`, `jumlah`,
 (30, 8, 6, 'test', 2523423, '', '2019-01-06', 0, '2019-01-08 05:55:35'),
 (31, 8, 7, 'joo', 500000, '', '2019-01-01', 0, '2019-01-08 04:28:18'),
 (32, 8, 6, 'joo', 90000, '', '2019-02-01', 0, '2019-01-08 06:18:17'),
-(33, 8, 7, 'alhamdulillah', 1000000, '', '2019-03-01', 0, '2019-01-08 06:19:01'),
+(33, 11, 7, 'Fatin Zahidah Mas\'ud', 1000000, '', '2019-11-01', 0, '2019-11-20 19:28:46'),
 (35, 8, 1, '-', 832500, '-', '2019-01-31', 1, '2019-01-10 16:10:23'),
 (36, 11, 6, 'avi', 2000000, 'saya ikhlas lillahhitaalah', '2019-02-28', 0, '2019-09-17 06:16:37'),
-(37, 11, 6, 'test', 20000, '', '2019-09-20', 0, '2019-09-20 01:07:43');
+(38, 11, 6, 'Amira Hanifa', 1500000, '', '2019-11-21', 0, '2019-11-20 19:30:12'),
+(39, 11, 8, 'Virgorasion', 5000000, '', '2019-11-21', 0, '2019-11-20 19:30:42'),
+(40, 11, 1, '-', 1500200, '', '2019-11-22', 1, '2019-11-21 01:02:26'),
+(41, 11, 8, 'BE', 500000, '', '2019-11-21', 0, '2019-11-21 03:08:33'),
+(43, 8, 8, 'robby', 500000, '', '2019-11-21', 0, '2019-11-21 03:52:32');
 
 -- --------------------------------------------------------
 
@@ -150,7 +184,7 @@ CREATE TABLE `lap_pengeluaran` (
   `id_admin` int(10) DEFAULT NULL,
   `tanggal` date NOT NULL,
   `jumlah` int(10) NOT NULL,
-  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `log_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -169,7 +203,9 @@ INSERT INTO `lap_pengeluaran` (`id_pengeluaran`, `id_admin`, `tanggal`, `jumlah`
 (9, 8, '2019-01-18', 250000, '2019-01-10 15:11:32', ''),
 (10, 8, '2019-02-01', 250000, '2019-01-10 15:11:42', ''),
 (11, 8, '2019-02-01', 250000, '2019-01-10 15:11:50', ''),
-(12, 8, '2019-02-01', 250000, '2019-01-10 15:15:29', '');
+(12, 8, '2019-02-01', 250000, '2019-01-10 15:15:29', ''),
+(13, 11, '2019-11-20', 55555, '2019-11-20 19:11:32', ''),
+(14, 8, '2019-11-21', 1500000, '2019-11-20 19:43:38', 'bayar listrik');
 
 -- --------------------------------------------------------
 
@@ -192,9 +228,8 @@ CREATE TABLE `list_anggota` (
 --
 
 INSERT INTO `list_anggota` (`id_anggota`, `nama`, `alamat`, `no_hp`, `no_telp`, `jenis_kelamin`, `status`) VALUES
-(1, 'M Nur Fauzan W ', 'Kapas Madya 3i/4', '083849575737', '', 'L', 1),
-(2, 'Ikhya Mumuludin', 'Sembarang', '09123618', '', 'P', 0),
-(3, 'test', 'kaps', '08127124', '', 'L', 1);
+(1, 'M Nur Fauzan W ', 'Kapas Madya 3i/4', '083849575737', '', 'L', 0),
+(2, 'Ikhya Mumuludin', 'Sembarang', '09123618', '', 'P', 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +247,7 @@ CREATE TABLE `list_zakat` (
   `beli` int(1) DEFAULT NULL,
   `zakat_mall` varchar(20) NOT NULL,
   `infaq` varchar(20) NOT NULL,
-  `log_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `log_time` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -220,7 +255,8 @@ CREATE TABLE `list_zakat` (
 --
 
 INSERT INTO `list_zakat` (`nomor`, `id_admin`, `tanggal`, `nama`, `alamat`, `zakat_fitrah`, `beli`, `zakat_mall`, `infaq`, `log_time`) VALUES
-(19, NULL, '2018-11-24', 'M Nur Fauzan W', 'kapas madya 3i', '5', 0, '', '', '0000-00-00 00:00:00');
+(19, NULL, '2018-11-24', 'M Nur Fauzan W', 'kapas madya 3i', '5', 0, '', '', '0000-00-00 00:00:00'),
+(22, 11, '2019-11-21', 'Fahrii Ilmy', 'Kapas Madya', '3', 0, '', '', '2019-11-21 03:33:47');
 
 -- --------------------------------------------------------
 
@@ -242,10 +278,10 @@ CREATE TABLE `master_login` (
 --
 
 INSERT INTO `master_login` (`id_admin`, `kode_akses`, `nama`, `username`, `password`, `status_aktif`) VALUES
-(8, 1, 'M Nur Fauzan W', 'admin', '282134daedcb22b0318581561156a09a', 1),
-(9, 2, 'Tester', 'test', '098f6bcd4621d373cade4e832627b4f6', 1),
-(10, 2, 'Thoriq', 'tq', '21232f297a57a5a743894a0e4a801fc3', 1),
-(11, 1, 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1);
+(8, 1, 'M Nur Fauzan W', 'virgorasion', '21232f297a57a5a743894a0e4a801fc3', 1),
+(11, 1, 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1),
+(12, 1, 'Dewan Juri', 'juri', '2f40bde8529e99bf8648a0a5718d0650', 1),
+(13, 2, 'tester', 'test', '098f6bcd4621d373cade4e832627b4f6', 1);
 
 -- --------------------------------------------------------
 
@@ -292,7 +328,7 @@ INSERT INTO `menu_child` (`kode_menu_child`, `kode_menu_header`, `menu_name`, `f
 (25, 1, 'Kas Masjid', '-', 'YES'),
 (26, 2, 'Takmir', '-', 'YES'),
 (27, 5, 'Setting Jabatan', 'Jabatan_ctrl', 'YES'),
-(28, 3, 'Laporan Perlengkapan', 'Perlengkapan', 'YES');
+(28, 3, 'Laporan Perlengkapan', 'Perlengkapan', 'NO');
 
 -- --------------------------------------------------------
 
@@ -392,7 +428,22 @@ INSERT INTO `menu_level` (`kode_menu_level`, `kode_akses`, `kode_menu_child`, `a
 (41, 1, 25, 1, 1, 1, 1),
 (42, 1, 26, 1, 1, 1, 1),
 (43, 1, 27, 1, 1, 1, 1),
-(44, 1, 28, 1, 1, 1, 1);
+(44, 1, 28, 1, 1, 1, 1),
+(45, 2, 1, 0, 1, 0, 0),
+(46, 2, 6, 0, 1, 0, 0),
+(47, 2, 7, 0, 1, 0, 0),
+(48, 2, 10, 0, 1, 0, 0),
+(49, 2, 11, 0, 1, 0, 0),
+(50, 2, 12, 0, 1, 0, 0),
+(51, 2, 17, 0, 1, 0, 0),
+(52, 2, 18, 0, 0, 0, 0),
+(53, 2, 19, 0, 0, 0, 0),
+(54, 2, 20, 0, 0, 0, 0),
+(55, 2, 24, 0, 0, 0, 0),
+(56, 2, 25, 0, 1, 0, 0),
+(57, 2, 26, 0, 1, 0, 0),
+(58, 2, 27, 0, 0, 0, 0),
+(59, 2, 28, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -463,15 +514,6 @@ CREATE TABLE `takmir` (
   `id_jabatan` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `takmir`
---
-
-INSERT INTO `takmir` (`id`, `id_anggota`, `id_jabatan`) VALUES
-(12, 1, 1),
-(13, 2, 4),
-(14, 3, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -501,6 +543,12 @@ INSERT INTO `tipe_donasi` (`id_tipe`, `tipe`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bulan`
+--
+ALTER TABLE `bulan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `hewan_kurban`
@@ -615,10 +663,16 @@ ALTER TABLE `tipe_donasi`
 --
 
 --
+-- AUTO_INCREMENT for table `bulan`
+--
+ALTER TABLE `bulan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `hewan_kurban`
 --
 ALTER TABLE `hewan_kurban`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -630,19 +684,19 @@ ALTER TABLE `jabatan`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `kas_masjid`
 --
 ALTER TABLE `kas_masjid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `lap_pengeluaran`
 --
 ALTER TABLE `lap_pengeluaran`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `list_anggota`
@@ -654,13 +708,13 @@ ALTER TABLE `list_anggota`
 -- AUTO_INCREMENT for table `list_zakat`
 --
 ALTER TABLE `list_zakat`
-  MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `nomor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `master_login`
 --
 ALTER TABLE `master_login`
-  MODIFY `id_admin` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_admin` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `menu_child`
@@ -684,7 +738,7 @@ ALTER TABLE `menu_header`
 -- AUTO_INCREMENT for table `menu_level`
 --
 ALTER TABLE `menu_level`
-  MODIFY `kode_menu_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `kode_menu_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `perlengkapan`
