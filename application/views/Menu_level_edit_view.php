@@ -57,8 +57,10 @@ $this->load->view('template/side');
                   <?php echo $row->menu_name;?>
                 </td>
                 <td class="text-center">
+                <?php if ($row->kode_menu_child != 25 && $row->kode_menu_child != 26) {?>
                   <input type="checkbox" class="flat-green" value="1" name="view_<?php echo $row->kode_menu_child;?>"
                     <?php echo ($row->akses_view=="1")?"checked":"";?>>
+                <?php } ?>
                 </td>
                 <td class="text-center"><input type="checkbox" class="flat-green" value="1" name="insert_<?php echo $row->kode_menu_child;?>"
                     <?php echo ($row->akses_insert=="1")?"checked":"";?>>

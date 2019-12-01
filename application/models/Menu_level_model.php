@@ -17,7 +17,7 @@ class Menu_level_model extends CI_model{
     {
         $sql = "SELECT c.kode_menu_child, c.menu_name,
                 (select l.akses_insert from menu_level l where l.kode_menu_child = c.kode_menu_child and l.kode_akses = '".$kode_akses."')akses_insert,
-                (select l.akses_view from menu_level l where l.kode_menu_child = c.kode_menu_child and l.kode_akses = '".$kode_akses."')akses_view,
+                (select l.akses_view from menu_level l where not l.kode_menu_child = 25 and l.kode_menu_child = c.kode_menu_child and l.kode_akses = '".$kode_akses."')akses_view,
                 (select l.akses_edit from menu_level l where l.kode_menu_child = c.kode_menu_child and l.kode_akses = '".$kode_akses."')akses_edit,
                 (select l.akses_delete from menu_level l where l.kode_menu_child = c.kode_menu_child and l.kode_akses = '".$kode_akses."')akses_delete
                 FROM `menu_child` c
