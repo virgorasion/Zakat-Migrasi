@@ -103,6 +103,7 @@ class Lap_pengeluaran extends CI_Controller {
         $data['t1'] = $t1;
         $data['t2'] = $t2;
         $data['data'] = $this->Lap_pengeluaran_model->sel_date($tgl1, $tgl2)->result();
+        $data['total'] = $this->Lap_pengeluaran_model->get_total_pengeluaran_print($tgl1, $tgl2)->result();
         $this->load->view('prints/Pengeluaran_print', $data);
     }
 }

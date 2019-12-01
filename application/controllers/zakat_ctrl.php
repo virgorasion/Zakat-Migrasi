@@ -57,10 +57,10 @@
         $pembelian = htmlspecialchars($this->input->post('pembelian'));
         $Mal = $this->input->post('zakatMal');
         $pecah1 = explode('.',$Mal);
-        $zakatMal = $pecah1[0].$pecah1[1].$pecah1[2];
+        $zakatMal = implode("",$pecah1);
         $faq = $this->input->post('infaq');
         $pecah2 = explode('.',$faq);
-        $infaq = $pecah2[0].$pecah2[1].$pecah2[2];
+        $infaq = implode("", $pecah2);
         $tanggal = date('Y-m-d');
 
         $this->Lap_zakat_model->input('list_zakat',$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal);
@@ -90,10 +90,10 @@
         $pembelianEdt = $this->input->post('pembelianEdt');
         $Mal = $this->input->post('zakatMalEdt');
         $pecah1 = explode('.',$Mal);
-        $zakatMalEdt = $pecah1[0].$pecah1[1].$pecah1[2];
+        $zakatMalEdt = implode("",$pecah1);
         $faq = $this->input->post('infaqEdt');
         $pecah2 = explode('.',$faq);
-        $infaqEdt = $pecah2[0].$pecah2[1].$pecah2[2];
+        $infaqEdt = implode("",$pecah2);
         $this->Lap_zakat_model->ganti($nomor,$namaEdt,$alamatEdt,$zakatFitrahEdt,$pembelianEdt,$zakatMalEdt,$infaqEdt);
         $this->session->set_flashdata('msg','Data Berhasil di Edit');
         redirect(site_url('zakat_ctrl'));

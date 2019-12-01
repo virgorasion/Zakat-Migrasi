@@ -59,6 +59,8 @@ $this->load->view('template/side');
                         </select>
                         <br>
                     </div>
+                    <button class="btn btn-primary btn-flat" id="addRuangan">Tambah Ruangan</button>
+                    <button class="btn btn-primary btn-flat" id="addPerlengkapan">Tambah Perlengkapan</button>
                 </div>
                 <table id="table_perlengkapan" class="table table-bordered table-striped table-responsive table-hover"
                     width="100%">
@@ -90,6 +92,96 @@ $this->load->view('template/side');
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title">Edit Perlengkapan</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?php echo site_url('Perlengkapan_ctrl/updateDataPerlengkapan');?>" method="POST">
+                            <div class="form-group">
+                                <label for="namaEdt">Nama Barang :</label>
+                                <input type="text" name="nama_barang" id="nama_barang" class="form-control"
+                                    placeholder="Contoh: Sapu, Kipas Angin, AC">
+                            </div>
+                            <div class="form-group">
+                                <label for="pembelianEdt">Kondisi :</label>
+                                <select class="form-control" name="kondisi_barang" id="kondisi_barang">
+                                    <option >Pilih</option>
+                                    <option value="Baik">Baik</option>
+                                    <option value="Sedikit Rusak">Sedikit Rusak</option>
+                                    <option value="Rusak">Rusak</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zakatFitrahEdt">Jumlah :</label>
+                                <input type="text" name="jumlah" id="jumlah" class="form-control"
+                                    placeholder="Contoh: 2">
+                            </div>
+                        <input type="hidden" name="id_perlengkapan" id="id_perlengkapan" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- Start Modal Tambah -->
+        <div class="modal fade" id="modalTambahPerlengkapan">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Tambah Perlengkapan</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="<?php echo site_url('Perlengkapan_ctrl/tambahDataPerlengkapan');?>" method="POST">
+                            <div class="form-group">
+                                <label for="namaEdt">Nama Barang :</label>
+                                <input type="text" name="nama_barang" id="nama_barang" class="form-control"
+                                    placeholder="Contoh: Sapu, Kipas Angin, AC">
+                            </div>
+                            <div class="form-group">
+                                <label for="pembelianEdt">Kondisi :</label>
+                                <select class="form-control" name="kondisi_barang" id="kondisi_barang">
+                                    <option >Pilih</option>
+                                    <option value="Baik">Baik</option>
+                                    <option value="Sedikit Rusak">Sedikit Rusak</option>
+                                    <option value="Rusak">Rusak</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zakatFitrahEdt">Jumlah :</label>
+                                <input type="text" name="jumlah" id="jumlah" class="form-control"
+                                    placeholder="Contoh: 2">
+                            </div>
+                            <input type="hidden" name="id_perlengkapan" id="id_perlengkapan" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- Start Modal Tambah -->
+        <div class="modal fade" id="modalTambahRuangan">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Tambah Perlengkapan</h4>
                     </div>
                     <div class="modal-body">
                         <form action="<?php echo site_url('Perlengkapan_ctrl/updateDataPerlengkapan');?>" method="POST">
@@ -288,6 +380,14 @@ $this->load->view('template/js');
         $(".alert").fadeTo(2000, 500).slideUp(500, function () {
             $(".alert").slideUp(500);
         });
+
+        $("#addPerlengkapan").on("click", function(){
+            $("#modalTambahPerlengkapan").modal("show");
+        })
+
+        $("#addRuangan").on("click", function(){
+            $("#modalTambahRuangan").modal("show");
+        })
 
         $("#table_perlengkapan").on("click", ".edit_data", function(){
             let id_perlengkapan = $(this).data("id");

@@ -119,6 +119,7 @@ class Kas_ctrl extends CI_controller
         $data['t1'] = $t1;
         $data['t2'] = $t2;
         $data['data'] = $this->Kas_model->get_kas_data_print($tgl1,$tgl2);
+        $data['total'] = $this->Kas_model->get_total_kas_print($tgl1,$tgl2);
         $this->load->view('prints/Kas_masjid_print',$data);
     }
 

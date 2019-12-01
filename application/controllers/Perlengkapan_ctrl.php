@@ -28,6 +28,15 @@ class Perlengkapan_ctrl extends CI_controller
         echo $this->Perlengkapan_model->dataPerlengkapanTiapRuangan($kode_ruang);
     }
 
+    public function tambahDataPerlengkapan()
+    {
+        $get = $this->input->post();
+        $id = $get['id'];
+        $data = [
+            
+        ];
+    }
+
     public function hapusDataPerlengkapan($id)
     {
         $where = ["id" => $id];

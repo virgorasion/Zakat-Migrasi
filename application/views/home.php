@@ -171,12 +171,12 @@ window.chartColors = {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: "Kronologis"
+            labelString: ""
           },
           time: {
-            unit: 'day',
+            unit: 'month',
             displayFormats: {
-              day: "D MMM"
+              day: "MMM YYYY"
             }
           }
         }],
@@ -191,7 +191,7 @@ window.chartColors = {
           },
           scaleLabel: {
             display: true,
-            labelString: "Range"
+            labelString: ""
           }
         }]
       },

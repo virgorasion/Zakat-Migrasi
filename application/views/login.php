@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Miftahul Jannah | Log in</title>
+        <title>Masjid'Q | Log in</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- Bootstrap 3.3.2 -->
         <link href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet" type="text/css" />
@@ -23,7 +23,7 @@
     <body class="login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="#"><b><img src="<?php echo base_url('assets/download.png')?>" class="img-circle" alt="User Image" style="width: 40%"></b><br>Miftahul Jannah</a>
+                <a href="#"><b><img src="<?php echo base_url('assets/download.png')?>" class="img-circle" alt="User Image" style="width: 40%"></b><br>Masjid'Q</a>
             </div><!-- /.login-logo -->
             <div class="login-box-body">
                 <p class="login-box-msg">Sign in to start your session</p>
@@ -42,10 +42,6 @@
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h4><i class="icon fa fa-ban"></i> Information!</h4>
                         <?php echo $msg;?>
-                        <hr>
-                        Login For Guest:<br>
-                        Username: guest<br>
-                        Password: guest
                     </div>
                     <?php } ?>
                     <div class="row">
