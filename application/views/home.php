@@ -70,10 +70,10 @@ $this->load->view('template/side');
         <div class="small-box bg-red">
           <div class="inner">
             <h4>
-              <?= "Kambing : ".$tot_kurban[0]->jumlah; ?>
+              Kambing : <?= (@$tot_kurban[0]->jumlah == Null) ? "0" : $tot_kurban[0]->jumlah; ?>
             </h4>
             <h4>
-              <?= "Sapi : ".$tot_kurban[1]->jumlah ?>
+              Sapi : <?= (@$tot_kurban[1]->jumlah == Null) ? "0" : $tot_kurban[1]->jumlah; ?>
             </h4>
 
             <p>Total Kurban
@@ -126,7 +126,7 @@ $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
 <!-- Morris.js charts -->
-<script src="<?=base_url('assets/AdminLTE-2.3.7/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
+<script src="<?=base_url('assets/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
 <script>
 
 window.chartColors = {

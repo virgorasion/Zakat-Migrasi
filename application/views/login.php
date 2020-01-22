@@ -7,7 +7,7 @@
         <!-- Bootstrap 3.3.2 -->
         <link href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet" type="text/css" />
         <!-- Font Awesome Icons -->
-        <link href="<?php echo base_url('assets/font-awesome-4.3.0/css/font-awesome.min.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url('assets/fontawesome-5.12/css/font-awesome.min.css') ?>" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/AdminLTE.min.css') ?>" rel="stylesheet" type="text/css" />
         <!-- iCheck -->
@@ -23,7 +23,7 @@
     <body class="login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="#"><b><img src="<?php echo base_url('assets/download.png')?>" class="img-circle" alt="User Image" style="width: 40%"></b><br>Masjid'Q</a>
+                <a href="#"><b><img src="<?php echo base_url('assets/images/logo.png')?>" class="img-circle" alt="User Image" style="width: 40%"></b><br>Masjid'Q</a>
             </div><!-- /.login-logo -->
             <div class="login-box-body">
                 <p class="login-box-msg">Sign in to start your session</p>
