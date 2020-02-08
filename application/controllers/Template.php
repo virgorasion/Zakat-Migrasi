@@ -8,6 +8,10 @@ class Template extends CI_Controller
 
     public function index(){
         $this->load->view("template/test");
+    }
 
+    public function test()
+    {
+        $this->load->view("test");
     }
 }
