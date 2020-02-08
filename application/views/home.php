@@ -18,72 +18,67 @@ $this->load->view('template/side');
   <section class="content">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-      <div class="col-lg-3 col-xs-6">
+      <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-aqua">
+        <div class="small-box bg-info">
           <div class="inner">
-            <h4><b><?= number_format((double)$tot_kas,0,",",".") ?></b></h4>
-            <br>
+            <h3><?= number_format((double)$tot_kas,0,",",".") ?></h3>
+
             <p>Total Kas</p>
           </div>
           <div class="icon">
-            <i class="fa fa-credit-card"></i>
+            <i class="ion ion-bag"></i>
           </div>
-          <a href="<?=site_url('kas_ctrl')?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="<?=site_url('kas_ctrl')?>" class="small-box-footer">More info <i
+              class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-3 col-xs-6">
+      <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-yellow">
+        <div class="small-box bg-success">
           <div class="inner">
-            <h4><b><?= number_format((double)$tot_pengeluaran,0,",",".") ?></b></h4>
-            <br>
+            <h3><?= number_format((double)$tot_pengeluaran,0,",",".") ?></sup></h3>
+
             <p>Total Pengeluaran</p>
           </div>
           <div class="icon">
-            <i class="fa fa-shopping-cart"></i>
+            <i class="ion ion-stats-bars"></i>
           </div>
-          <a href="<?=site_url('Lap_pengeluaran')?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="<?=site_url('Lap_pengeluaran')?>" class="small-box-footer">More info <i
+              class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-3 col-xs-6">
+      <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-green">
+        <div class="small-box bg-warning">
           <div class="inner">
-            <h4>
-              <?= ($tot_zakat) ? $tot_zakat." KG" : "0" ; ?>
-            </h4>
-            <br>
+            <h3><?= ($tot_zakat) ? $tot_zakat." KG" : "0" ; ?></h3>
+
             <p>Total Zakat</p>
           </div>
           <div class="icon">
-            <i class="fa fa-money"></i>
+            <i class="ion ion-person-add"></i>
           </div>
-          <a href="<?=site_url('zakat_ctrl')?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="<?=site_url('zakat_ctrl')?>" class="small-box-footer">More info <i
+              class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-3 col-xs-6">
+      <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-red">
+        <div class="small-box bg-danger">
           <div class="inner">
-            <h4>
-              Kambing : <?= (@$tot_kurban[0]->jumlah == Null) ? "0" : $tot_kurban[0]->jumlah; ?>
-            </h4>
-            <h4>
-              Sapi : <?= (@$tot_kurban[1]->jumlah == Null) ? "0" : $tot_kurban[1]->jumlah; ?>
-            </h4>
+            <h3>Jumlah : <?= (@$tot_kurban == Null) ? "0" : $tot_kurban; ?></h3>
 
-            <p>Total Kurban
-              <?= date("Y") ?>
-            </p>
+            <p>Total Kurban <?=date("Y")?></p>
           </div>
           <div class="icon">
-            <i class="fa fa-bug"></i>
+            <i class="ion ion-pie-graph"></i>
           </div>
-          <a href="<?=site_url(" Hewan_kurban ")?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          <a href="<?= site_url('Hewan_kurban')?>" class="small-box-footer">More info <i
+              class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -92,27 +87,26 @@ $this->load->view('template/side');
 
     <!-- Main row -->
     <div class="row">
-      <!-- /.col (LEFT) -->
       <div class="col-md-12">
         <!-- LINE CHART -->
-        <div class="box box-info">
-          <div class="box-header with-border">
-            <h3 class="box-title">Grafik Keuangan Masjid</h3>
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Grafik Pengeluaran Kas</h3>
 
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body">
+          <div class="card-body">
             <div class="chart">
-              <canvas id="canvas" style="height:250px"></canvas>
+              <canvas id="canvas" style="=height: 250px; max-width: 100%;"></canvas>
             </div>
           </div>
-          <!-- /.box-body -->
+          <!-- /.card-body -->
         </div>
-        <!-- /.box -->
+        <!-- /.card -->
       </div>
     </div>
     <!-- /.Main Row -->
@@ -128,40 +122,39 @@ $this->load->view('template/js');
 <!-- Morris.js charts -->
 <script src="<?=base_url('assets/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
 <script>
-
-window.chartColors = {
-	red: 'rgb(255, 99, 132)',
-	orange: 'rgb(255, 159, 64)',
-	yellow: 'rgb(255, 205, 86)',
-	green: 'rgb(75, 192, 192)',
-	blue: 'rgb(54, 162, 235)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)'
-};
+  window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+  };
 
   var config = {
     type: 'line',
     data: {
-      labels: [<?=$labels_masuk?>],
+      labels: [ <?= $labels_masuk ?> ],
       datasets: [{
         label: "Pemasukan",
         fill: false,
         backgroundColor: window.chartColors.blue,
         borderColor: window.chartColors.blue,
-        data: [<?=$tot_masuk?>]
+        data: [ <?=$tot_masuk?> ]
       }, {
         label: 'Pengeluaran',
         fill: false,
         backgroundColor: window.chartColors.red,
         borderColor: window.chartColors.red,
-        data: [<?=$tot_keluar?>]
+        data: [ <?=$tot_keluar?> ]
       }]
     },
     options: {
       responsive: true,
       title: {
-        display: true,
-        text: 'Chart.js Line Chart'
+        display: true
+        // text: 'Chart.js Line Chart'
       },
       tooltips: {
         mode: 'index',
@@ -176,7 +169,7 @@ window.chartColors = {
         intersect: true
       },
       scales: {
-        xAxes: [{ 
+        xAxes: [{
           type: 'time',
           display: true,
           scaleLabel: {
@@ -212,5 +205,4 @@ window.chartColors = {
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
   };
-
 </script>

@@ -13,10 +13,11 @@ defined("BASEPATH") or exit("Some Error");
 				date_default_timezone_set('Asia/Jakarta');
 				$masuk = $this->Home_model->tot_masuk();
 				$keluar = $this->Home_model->tot_keluar();
+				$kurban = $this->Home_model->tot_kurban();
+				$tot_kurban = @$kurban[0]->jumlah + @$kurban[1]->jumlah;
 				$tot_kas = $this->Home_model->tot_kas();
 				$tot_pengeluaran = $this->Home_model->tot_pengeluaran();
 				$tot_zakat = $this->Home_model->tot_zakat();
-				$tot_kurban = $this->Home_model->tot_kurban();
 				$tanggal_chart = $this->Home_model->getTanggalChart();
 				$labels_masuk = '';
 				foreach ($tanggal_chart as $item) {

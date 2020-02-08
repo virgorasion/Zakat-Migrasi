@@ -68,10 +68,9 @@ class Auth extends CI_Controller {
                     <a href="'.site_url($row->link).'" class="nav-link">
                         <i class="nav-icon '.$row->icon.'"></i> <p>'.$row->menu_header;
         if ($key == 1){
-        $html .= '      <i class="right fas fa-angle-left"></i>
-                        </p>';
+        $html .= '      <i class="right fas fa-angle-left"></i>';
         }
-        $html .='       </a>';
+        $html .='       </p> </a>';
         if ($key == 1) {
             $html .= '<ul class="nav nav-treeview">';
                 foreach($select_child as $child){
