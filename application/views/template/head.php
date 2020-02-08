@@ -1,121 +1,73 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="icon" type="image/png" href="<?php echo base_url('assets/download.png');?>">
-  <title>Miftahul Jannah</title>
+  <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png');?>">
+  <title>Masjid'Q</title>
   <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/bootstrap/css/bootstrap.min.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css'); ?>">
   <!-- Bootstrap Validator -->
-  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/bootstrap-validator/bootstrapValidator.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap-validator/bootstrapValidator.min.css') ?>">
   <!-- Jquery Confirm -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/jquery-confirm/jquery-confirm.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jquery-confirm/jquery-confirm.min.css');?>">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/font-awesome-4.3.0/css/font-awesome.min.css'); ?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/ionicons-2.0.1/css/ionicons.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-5.12/css/all.min.css'); ?>">
   <!--Bootstrap Table [ OPTIONAL ]-->
-  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css') ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE-2.3.7/plugins/datatables/media/css/dataTables.bootstrap.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/media/css/dataTables.bootstrap.css') ?>">
   <!-- iCheck -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/iCheck/all.css');?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/AdminLTE.min.css');?>">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect.
-  -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/AdminLTE-2.3.7/dist/css/skins/_all-skins.min.css');?>">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/iCheck/all.css');?>">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= base_url('assets/')?>plugins/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="<?= base_url('assets/')?>dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
-<body class="hold-transition skin-blue-light sidebar-mini">
-<div class="wrapper" id="container">
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <!-- <li class="nav-item d-none d-sm-inline-block">
+        <a href="../../index3.html" class="nav-link">Home</a>
+      </li> -->
+    </ul>
 
-  <!-- Main Header -->
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="<?php echo site_url('home');?>" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>M</b>J</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Miftahul</b> Jannah</span>
-    </a>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown user-menu">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <img src="<?=base_url('assets/')?>images/logo.png"" class="user-image img-circle elevation-2" alt="User Image">
+          <span class="d-none d-md-inline">Alexander Pierce</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <!-- User image -->
+          <li class="user-header bg-primary">
+            <img src="<?=base_url('assets/')?>images/logo.png"" class="img-circle elevation-2" alt="User Image">
 
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-  
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          
-          <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="<?php echo base_url('assets/download.png')?>" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs"><?php echo $_SESSION['nama'];?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="<?php echo base_url('assets/download.png')?>" class="img-circle" alt="User Image">
-
-                <p>
-                  <?php echo $_SESSION['username'];?> - <?php echo $_SESSION['nama'];?>
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>              
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-right">
-                  <a href="<?php echo site_url('Auth/logout')?>" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
+            <p>
+              Alexander Pierce - Web Developer
+              <small>Member since Nov. 2012</small>
+            </p>
           </li>
-          
+
+          <!-- Menu Footer-->
+          <li class="user-footer">
+            <a href="#" class="btn btn-default btn-flat">Profile</a>
+            <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+          </li>
         </ul>
-      </div>
-    </nav>
-  </header>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->

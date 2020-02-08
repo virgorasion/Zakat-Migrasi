@@ -60,24 +60,23 @@ class Auth extends CI_Controller {
         // die(print_r($select_child));
         $key = $row->menu_child;
         if($key == 1) {
-            $treeView = ' class="treeview"';
+            $treeView = 'has-treeview';
         }else {
             $treeView = '';
         }
-        $html .=' <li'.$treeView.'>
-                    <a href="'.site_url($row->link).'">
-                        <i class="'.$row->icon.'"></i> <span>'.$row->menu_header.'</span>';
+        $html .=' <li class="nav-item '.$treeView.'">
+                    <a href="'.site_url($row->link).'" class="nav-link">
+                        <i class="nav-icon '.$row->icon.'"></i> <p>'.$row->menu_header;
         if ($key == 1){
-        $html .= '      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                        </span>';
+        $html .= '      <i class="right fas fa-angle-left"></i>
+                        </p>';
         }
         $html .='       </a>';
         if ($key == 1) {
-            $html .= '<ul class="treeview-menu">';
+            $html .= '<ul class="nav nav-treeview">';
                 foreach($select_child as $child){
-                    $class = ($this->session->userdata($child->kode_menu_child."view") == "1") ? ' class="active"' : '' ;
-                $html .= '<li'.$class.'><a href="'.site_url($child->file_php).'"><i class="fa fa-circle-o"></i>'.$child->menu_name.'</a></li>';
+                    $class = ($this->session->userdata($child->kode_menu_child."view") == "1") ? 'active' : '' ;
+                $html .= '<li class="nav-item '.$class.'"><a href="'.site_url($child->file_php).'"><i class="far fa-circle nav-icon"></i>'.$child->menu_name.'</a></li>';
             }
             $html .= '</ul>';
         }

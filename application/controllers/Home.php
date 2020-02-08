@@ -33,10 +33,7 @@ defined("BASEPATH") or exit("Some Error");
 				$tot_masuk = substr($tot_masuk,0,-2);
 				$tot_keluar = substr($tot_keluar,0,-2);
 				$labels_masuk = substr($labels_masuk,0,-2);
-				// echo $tot_masuk."<br>";
-				// echo $tot_keluar."<br>";
-				// echo $labels_masuk."<br>";
-				// die();
+				
 				$data['tot_masuk'] = $tot_masuk;
 				$data['labels_masuk'] = $labels_masuk;
 				$data['tot_keluar'] = $tot_keluar;

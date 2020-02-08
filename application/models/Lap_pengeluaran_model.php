@@ -12,6 +12,16 @@
          ORDER BY tanggal");
       }
 
+      public function get_total_pengeluaran_print($t1,$t2)
+      {
+         return $this->db->query("SELECT sum(l.jumlah) as total
+         FROM lap_pengeluaran l, master_login m
+         WHERE l.id_admin = m.id_admin
+         AND date_format(l.tanggal,'%Y%m%d') >= '$t1'
+         AND date_format(l.tanggal,'%Y%m%d') <= '$t2'
+         ORDER BY tanggal");
+      }
+
       public function getDataPengeluaran($tanggalAwal, $tanggalAkhir)
       {
          $this->datatables->select("lap_pengeluaran.id_pengeluaran, lap_pengeluaran.id_admin, date_format(lap_pengeluaran.tanggal, '%d-%M-%Y') as tanggal, lap_pengeluaran.jumlah, lap_pengeluaran.keterangan, lap_pengeluaran.log_time, master_login.nama as admin, master_login.username");

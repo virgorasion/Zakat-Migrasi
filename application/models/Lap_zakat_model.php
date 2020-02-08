@@ -34,7 +34,6 @@
        public function input($table,$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal)
        {
            $data = array(
-            'nomor' => '',
             'id_admin' => $_SESSION['id_admin'],
             'tanggal' => $tanggal,
             'nama' => $nama,
@@ -42,8 +41,7 @@
             'zakat_fitrah' => $zakatFitrah,
             'beli' => $pembelian,
             'zakat_mall' => $zakatMal,
-            'infaq' => $infaq,
-            'log_time' => ''
+            'infaq' => $infaq
            );
            $this->db->insert($table,$data);
        }

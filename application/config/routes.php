@@ -53,6 +53,7 @@ $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['template'] = "Template";
 $route['Menu_level'] = 'Menu_level_controller';
 $route['Perlengkapan/(:num)'] = 'Perlengkapan_ctrl/index/$i';
 $route['Perlengkapan'] = 'Perlengkapan_ctrl';

@@ -73,7 +73,11 @@ $this->load->view('template/side');
               <th class="min-tablet">Tanggal</th>
               <th class="min-tablet">Jumlah</th>
               <th class="min-tablet">Keterangan</th>
+              <?php
+              if ($_SESSION['7edit'] == 1) {
+              ?>
               <th class="min-tablet">Action</th>
+              <?php } ?>
             </tr>
           </thead>
           <tbody>
@@ -192,10 +196,14 @@ $this->load->view('template/js');
         },
         {
           "data": "keterangan"
-        },
-        {
+        }
+        <?php
+        if ($_SESSION['7edit'] == 1) {
+        ?>
+        ,{
           "data": "aksi"
         }
+      <?php } ?>
       ],
       order: [
         [1, 'asc']

@@ -49,9 +49,6 @@ $this->load->view('template/side');
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fa fa-times"></i>
-                    </button>
                 </div>
             </div>
             <div class="box-body">
@@ -153,8 +150,13 @@ $this->load->view('template/side');
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Tanggal :</label>
                                         <div class="col-lg-7">
-                                            <input required type="text" class="form-control datepicker" name="addTanggal" placeholder="31-Agustus-2000" autocomplete="off">
+                                            <input required type="text" class="form-control " name="addTanggal" placeholder="31-Agustus-2000" autocomplete="off">
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <label class="control-label">Tanggal</label>
+                                    <input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal"
+                                        placeholder="31-Agustus-2000" required autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Jumlah :</label>
@@ -331,7 +333,7 @@ $(document).ready(function(){
                     ,{"data": "action", "orderable": false, "searchable": false}
                     <?php } ?>
                 ],
-        order: [[1, 'asc']],
+        order: [[5, 'desc']],
         rowCallback: function(row, data, iDisplayIndex) {
             var info = this.fnPagingInfo();
             var page = info.iPage;
