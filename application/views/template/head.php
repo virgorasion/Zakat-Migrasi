@@ -8,7 +8,9 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Jquery Confirm -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jquery-confirm/jquery-confirm.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jquery-confirm-v3.3.4/dist/jquery-confirm.min.css');?>">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css');?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-5.12/css/all.min.css'); ?>">
   <!-- overlayScrollbars -->

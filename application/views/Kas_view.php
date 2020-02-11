@@ -1,271 +1,164 @@
 <?php 
 $this->load->view('template/head');
+?>
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<?php
 $this->load->view('template/side');
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>
-            Kas Masjid
-            <small>Miftahul Jannah</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li>
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> Home</a>
-            </li>
-
-            <li class="active">Kas Masjid</li>
-        </ol>
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Kas Masjid</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+                        <li class="breadcrumb-item active">Kas Masjid</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-        <!-- Default box -->
-        <div class="box">
-            <div class="box-header with-border">
-                <form method="post" action="<?php echo site_url("Kas_ctrl/index") ?>" id="formsearch">
-                <div class="col-sm-12">
-                    <div class="form-inline col-md-4">
-                    <div class="input-group input-daterange">
-                        <input type="text" class="form-control" name="t1" id="t1" value="<?= @$t1 ?>" autocomplete="off">
-                        <div class="input-group-addon">to</div>
-                        <input type="text" class="form-control" name="t2" id="t2" value="<?= @$t2 ?>" autocomplete="off">
-                    </div>
-                    </div>
-                    <div class="col-sm-1">
-                    <button type="submit" class="btn btn-primary" id="btnSearch">
-                        Tampilkan</button>
-                    </div>
-                    <h3 class="box-title col-sm-1">
-                    <button type="button" class="btn btn-default" id="btnPrint">
-                        <i class="fa fa-print"></i> Print</button>
-                    </h3>
-                </div>
-                </form>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-edit"></i>
+                    Tabel Kas Masjid
+                </h3>
             </div>
-            <div class="box-body">
-
-            <!-- Alert -->
-            <?php if(@$_SESSION['msg']){?>
-            <div class="alert alert-success alert-dismissible">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-              <h5>
-                <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-              <?php echo @$_SESSION['msg']; ?>
-            </div>
-            <?php } ?>
-            <?php if(@$_SESSION['err']){?>
-            <div class="alert alert-danger alert-dismissible">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-              <h5>
-                <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-              <?php echo @$_SESSION['err']; ?>
-            </div>
-            <?php } ?>
-            <!-- END Alert -->
-
-                <!-- FORM VALIDATION ON TABS -->
-                <!--===================================================-->
-                <div class="tab-base">
-
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="forms-validation.html#demo-bsc-tab-1" data-toggle="tab">
-                                <i class="fa fa-history"></i> Informasi</a>
-                        </li>
-                        <?php if($_SESSION['25insert']==1){ ?>
-                        <li>
-                            <a href="forms-validation.html#demo-bsc-tab-2" data-toggle="tab">
-                                <i class="fa fa-edit"></i> Tambah Data</a>
-                        </li>
-                        <?php } ?>
-                    </ul>
-
-                    <!-- Tabs Content -->
-                    <div id="demo-bv-bsc-tabs" class="form-horizontal">
-                        <div class="tab-content">
-                            <div class="tab-pane pad-btm fade in active" id="demo-bsc-tab-1">
-                                <table id="datatable" class="table table-bordered table-striped" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Nama</th>
-                                            <th class="min-tablet">Admin</th>
-                                            <th class="min-tablet">Tipe</th>
-                                            <th class="min-tablet">Jumlah</th>
-                                            <th class="min-desktop">Tanggal</th>
-                                            <th class="min-desktop">Keterangan</th>
-                                            <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
-                                            <th class="min-desktop">Action</th>
-                                            <?php } ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <br>
-                                    
-                                    </tbody>
-                                </table>
+            <div class="card-body">
+                <!-- <h4>Custom Content Below</h4> -->
+                <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill"
+                            href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home"
+                            aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill"
+                            href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile"
+                            aria-selected="false">Profile</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="custom-content-below-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
+                        aria-labelledby="custom-content-below-home-tab">
+                        <br>
+                        <!-- Date range -->
+                        <form action="<?=site_url('Kas_ctrl')?>" method="post" class="form-group">
+                            <div class="col-sm-12 row">
+                                <div class="input-group col-sm-5">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" name="searchByDate" id="searchByDate">
+                                </div>
+                                <button type="submit" class="btn btn-primary"
+                                    style="margin-right:5px">Tampilkan</button>
+                                <button class="btn btn-default" id="btnPrint">Print</button>
                             </div>
+                        </form>
+                        <!-- /.form group -->
 
-                            <?php if($_SESSION['25insert']==1){ ?>
-                            <!-- Start Second Tab -->
-                            <div class="tab-pane fade" id="demo-bsc-tab-2">
-                                <h4 class="mar-btm text-thin">Tambah Data</h4>
-                                <hr>
-                                <form action="<?php echo site_url('kas_ctrl/tambah'); ?>" method="POST">
-                                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Nama Admin :</label>
-                                        <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="addAdmin" value="<?php echo $_SESSION['nama']; ?>"
-                                                readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Nama :</label>
-                                        <div class="col-lg-7">
-                                            <input required type="text" class="form-control" name="addNama" placeholder="Nama">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Tipe :</label>
-                                        <div class="col-lg-7">
-                                            <select required class="form-control" name="addTipe" id="addTipe">
-                                                    <option value="">- Pilih Tipe -</option>
-                                                    <option value="6">Donatur Tetap</option>
-                                                    <option value="7">Donatur Tidak Tetap</option>
-                                                    <option value="8">Infaq</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Tanggal :</label>
-                                        <div class="col-lg-7">
-                                            <input required type="text" class="form-control " name="addTanggal" placeholder="31-Agustus-2000" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                    <label class="control-label">Tanggal</label>
-                                    <input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal"
-                                        placeholder="31-Agustus-2000" required autocomplete="off">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Jumlah :</label>
-                                        <div class="col-lg-7">
-                                            <input required type="text" class="form-control inputMask" name="addJumlah" placeholder="Jumlah">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Keterangan :</label>
-                                        <div class="col-lg-7">
-                                            <textarea class="form-control" rows="3" placeholder="Keterangan" name="addKeterangan"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7 col-lg-offset-3">
-                                        <input type="submit" value="Submit" class="btn btn-flat btn-primary">
-                                    </div>
-                                </form>
-                            </div>
-                            <?php } ?>
-                        </div>
+                        <table id="datatable" class="table table-bordered table-striped" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama</th>
+                                    <th class="min-tablet">Admin</th>
+                                    <th class="min-tablet">Tipe</th>
+                                    <th class="min-tablet">Jumlah</th>
+                                    <th class="min-desktop">Tanggal</th>
+                                    <th class="min-desktop">Keterangan</th>
+                                    <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
+                                    <th class="min-desktop">Action</th>
+                                    <?php } ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <!--===================================================-->
-                <!-- END FORM VALIDATION ON TABS -->
-
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-
-        <?php if($_SESSION['25edit']==1){ ?>
-        <!-- Modal Edit -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!-- form start -->
-                    <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Kas_ctrl/edit') ?>"
-                        method="post">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Data Kas</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="box-body">
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Nama Admin</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="editPetugas" name="editPetugas"
-                                            value="<?php echo $_SESSION['nama'] ?>" readonly>
+                    <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel"
+                        aria-labelledby="custom-content-below-profile-tab">
+                        <form action="<?php echo site_url('kas_ctrl/tambah'); ?>" method="POST">
+                            <div class="row">
+                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
+                                    value="<?php echo $this->security->get_csrf_hash(); ?>">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <p class="col-md-2"><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
+                                        <input type="hidden" class="form-control" name="addAdmin"
+                                            value="<?php echo $_SESSION['nama']; ?>">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Nama Donatur</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="editDonatur" name="editDonatur">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Nama :</label>
+                                        <input required type="text" class="form-control col-md-10" name="addNama"
+                                            placeholder="Nama">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Tipe</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="editTipe" id="editTipe">
-                                            <option value="1">Amal Jumatan</option>
-                                            <option value="2">Amal Ahad Dhuha</option>
-                                            <option value="3">Amal Tarawih</option>
-                                            <option value="4">Amal Idul Fitri</option>
-                                            <option value="5">Amal Idul Adha</option>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Tipe :</label>
+                                        <select required class="form-control col-md-7" name="addTipe" id="addTipe">
+                                            <option value="">- Pilih Tipe -</option>
                                             <option value="6">Donatur Tetap</option>
                                             <option value="7">Donatur Tidak Tetap</option>
                                             <option value="8">Infaq</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Jumlah</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control inputMask" id="editJumlah" name="editJumlah"
-                                            required>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Tanggal :</label>
+                                        <input required type="text" class="form-control col-md-10 datePicker" name="addTanggal"
+                                            placeholder="31-Agustus-2000" autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Tanggal</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control datepicker" id="editTanggal" name="editTanggal"
-                                            required>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Jumlah :</label>
+                                        <input required type="text" class="form-control inputMask col-md-7" name="addJumlah"
+                                            placeholder="Jumlah">
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Keterangan</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="editKeterangan" id="editKeterangan" rows="3"></textarea>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Keterangan :</label>
+                                        <textarea class="form-control" rows="3" placeholder="Keterangan"
+                                            name="addKeterangan"></textarea>
                                     </div>
                                 </div>
-                                <input type="hidden" name="idEdit" id="idEdit" value="">
+                                <div class="col-lg-7 col-lg-offset-3">
+                                    <input type="submit" value="Submit" class="btn btn-flat btn-primary">
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary btnSave">Save changes</button>
-                        </div>
-                    </form>
+                            <!-- End Row -->
+                        </form>
+                    </div>
                 </div>
+                <!-- <div class="tab-custom-content">
+                    <p class="lead mb-0">Custom Content goes here</p>
+                </div> -->
             </div>
+            <!-- /.card -->
         </div>
-        <?php } ?>
+        <!-- /.card -->
 
     </section>
     <!-- /.content -->
@@ -275,14 +168,37 @@ $this->load->view('template/side');
 $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
+<!-- DateRangePicker -->
+<script src="<?= base_url()?>assets/plugins/daterangepicker/moment.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- DataTables -->
+<script src="<?= base_url()?>assets/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?= base_url()?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- InputMask -->
+<script src="<?= base_url()?>assets/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <script>
 $(document).ready(function(){
-    var url = "<?= site_url($data) ?>";
-    // DateRange (Date Main)
-    $('.input-daterange').datepicker({
-      format: 'dd-MM-yyyy'
+    $("#searchByDate").daterangepicker({
+        startDate: moment().startOf('month'),
+        endDate: moment().endOf('month')
+    });
+    $('.datePicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 2000
     });
 
+    <?php if(@$_SESSION['msg']):?>
+    toastr.success("<?=@$_SESSION['msg']?>");
+    <?php endif ?>
+    <?php if(@$_SESSION['err']):?>
+    toastr.error("<?=@$_SESSION['err']?>");
+    <?php endif ?>
+
+    var url = "<?= site_url($data) ?>";
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
       $(".alert-success").slideUp(500);
     });
@@ -355,13 +271,6 @@ $(document).ready(function(){
         rightAlign: false
     });
 
-    $(".datepicker").datepicker({
-        format: "dd-MM-yyyy",
-        autoclose: true,
-        todayBtn: "linked",
-        todayHighlight: true
-    });
-    
     <?php if($_SESSION['25edit']==1){ ?>
     $('#datatable').on('click','.edit_data',function(){
         var id = $(this).data('id');
@@ -395,15 +304,17 @@ $(document).ready(function(){
     <?php if($_SESSION['25delete']==1){ ?>
     $('#datatable').on('click', '.delete_data', function () {
         var tanggal = $(this).data('tanggal');
+        var nama = $(this).data('donatur');
         var id = $(this).data('id');
-        console.log(tanggal);
         // $item.find("input[id$='no']").val();
         // alert("hai");
         $.confirm({
             theme: 'supervan',
+            icon: 'fas fa-exclamation-triangle',
             title: 'Hapus Data Ini ?',
-            content: 'Hapus data zakat ' + tanggal,
-            autoClose: 'Cancel|5000',
+            type: 'red',
+            content: 'Hapus Data Zakat<br> Nama: ' + nama +'<br>Tanggal: '+ tanggal,
+            autoClose: 'Cancel|10000',
             buttons: {
                 Cancel: function () {},
                 delete: {

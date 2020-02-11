@@ -14,23 +14,23 @@ class Kas_ctrl extends CI_controller
     public function index()
     {
         if (isset($_SESSION['username'])) {
-            if($this->input->post('t1')=="" && $this->input->post('t2')==""){
-                $data['t1'] = date("01-F-Y");
-                $data['t2'] = date("t-F-Y");
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Y-m-d");
-                $t2 = date_format($date2, "Y-m-d");
+            if($this->input->post('searchByDate')==""){
+                $t1 = date("Y-m-01");
+                $t2 = date("Y-m-t");
+                $data['t1'] = $t1;
+                $data['t2'] = $t2;
                 $data['data'] = "Kas_ctrl/ajaxTable/".$t1."/".$t2;
                 $this->load->view('Kas_view',$data);
             }
             else{
-                $data['t1'] = $this->input->post('t1');
-                $data['t2'] = $this->input->post('t2');
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
+                $getDate = $this->input->post('searchByDate');
+                $split = explode(" - ", $getDate);
+                $date1 = date_create($split[0]);
+                $date2 = date_create($split[1]);
                 $t1 = date_format($date1, "Y-m-d");
                 $t2 = date_format($date2, "Y-m-d");
+                $data['t1'] = $t1;
+                $data['t2'] = $t2;
                 $data['data'] = "Kas_ctrl/ajaxTable/".$t1."/".$t2;
                 $this->load->view('Kas_view',$data);
             }

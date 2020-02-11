@@ -30,6 +30,7 @@ class Auth extends CI_Controller {
                 $this->session->set_userdata("nama",$row->nama);
                 $this->session->set_userdata("id_admin",$row->id_admin);
                 $this->session->set_userdata("kode_akses",$row->kode_akses);
+                $this->session->set_userdata("hak_akses",$row->hak_akses);
                 $this->session->set_userdata("menu",$this->generatemenu());
                 $this->set_hak_akses();
                 redirect(site_url('home'));

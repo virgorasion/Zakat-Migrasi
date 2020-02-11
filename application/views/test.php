@@ -1,5 +1,8 @@
 <?php 
 $this->load->view('template/head');
+?>
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/daterangepicker/daterangepicker.css">
+<?php
 $this->load->view('template/side');
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -9,12 +12,12 @@ $this->load->view('template/side');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Legacy User Menu</h1>
+                    <h1>Kas Masjid</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Legacy User Menu</li>
+                        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+                        <li class="breadcrumb-item active">Kas Masjid</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +31,7 @@ $this->load->view('template/side');
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-edit"></i>
-                    Tabs Custom Content Examples
+                    Tabel Kas Masjid
                 </h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
@@ -40,7 +43,7 @@ $this->load->view('template/side');
                 </div>
             </div>
             <div class="card-body">
-                <h4>Custom Content Below</h4>
+                <!-- <h4>Custom Content Below</h4> -->
                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill"
@@ -52,64 +55,112 @@ $this->load->view('template/side');
                             href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile"
                             aria-selected="false">Profile</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill"
-                            href="#custom-content-below-messages" role="tab"
-                            aria-controls="custom-content-below-messages" aria-selected="false">Messages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill"
-                            href="#custom-content-below-settings" role="tab"
-                            aria-controls="custom-content-below-settings" aria-selected="false">Settings</a>
-                    </li>
                 </ul>
                 <div class="tab-content" id="custom-content-below-tabContent">
                     <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
                         aria-labelledby="custom-content-below-home-tab">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus
-                        ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna
-                        feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula.
-                        Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque
-                        habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin
-                        id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim
-                        sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor
-                        porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non
-                        consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus.
-                        Cras lacinia erat eget sapien porta consectetur.
+                        <br>
+                        <!-- Date range -->
+                        <form action="#" method="post" class="form-group">
+                            <div class="col-sm-12 row">
+                                <div class="input-group col-sm-5">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="searchByDate">
+                                </div>
+                                <button type="submit" class="btn btn-primary"
+                                    style="margin-right:5px">Tampilkan</button>
+                                <button class="btn btn-default">Print</button>
+                            </div>
+                        </form>
+                        <!-- /.form group -->
+
+                        <table id="datatable" class="table table-bordered table-striped" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama</th>
+                                    <th class="min-tablet">Admin</th>
+                                    <th class="min-tablet">Tipe</th>
+                                    <th class="min-tablet">Jumlah</th>
+                                    <th class="min-desktop">Tanggal</th>
+                                    <th class="min-desktop">Keterangan</th>
+                                    <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
+                                    <th class="min-desktop">Action</th>
+                                    <?php } ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                     <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel"
                         aria-labelledby="custom-content-below-profile-tab">
-                        Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus
-                        ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                        posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula
-                        placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet
-                        ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
-                    </div>
-                    <div class="tab-pane fade" id="custom-content-below-messages" role="tabpanel"
-                        aria-labelledby="custom-content-below-messages-tab">
-                        Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus
-                        volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce
-                        nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue
-                        ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur
-                        eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur,
-                        ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex
-                        vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus.
-                        Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
-                    </div>
-                    <div class="tab-pane fade" id="custom-content-below-settings" role="tabpanel"
-                        aria-labelledby="custom-content-below-settings-tab">
-                        Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus
-                        turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis
-                        vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum
-                        pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget
-                        aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac
-                        habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+                        <form action="<?php echo site_url('kas_ctrl/tambah'); ?>" method="POST">
+                            <div class="row">
+                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
+                                    value="<?php echo $this->security->get_csrf_hash(); ?>">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <p class="col-md-2"><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
+                                        <input type="hidden" class="form-control" name="addAdmin"
+                                            value="<?php echo $_SESSION['nama']; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Nama :</label>
+                                        <input required type="text" class="form-control col-md-10" name="addNama"
+                                            placeholder="Nama">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Tipe :</label>
+                                        <select required class="form-control col-md-7" name="addTipe" id="addTipe">
+                                            <option value="">- Pilih Tipe -</option>
+                                            <option value="6">Donatur Tetap</option>
+                                            <option value="7">Donatur Tidak Tetap</option>
+                                            <option value="8">Infaq</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Tanggal :</label>
+                                        <input required type="text" class="form-control col-md-10" name="addTanggal"
+                                            placeholder="31-Agustus-2000" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Jumlah :</label>
+                                        <input required type="text" class="form-control inputMask col-md-7" name="addJumlah"
+                                            placeholder="Jumlah">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Keterangan :</label>
+                                        <textarea class="form-control" rows="3" placeholder="Keterangan"
+                                            name="addKeterangan"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-lg-offset-3">
+                                    <input type="submit" value="Submit" class="btn btn-flat btn-primary">
+                                </div>
+                            </div>
+                            <!-- End Row -->
+                        </form>
                     </div>
                 </div>
-                <div class="tab-custom-content">
+                <!-- <div class="tab-custom-content">
                     <p class="lead mb-0">Custom Content goes here</p>
-                </div>
+                </div> -->
             </div>
             <!-- /.card -->
         </div>
@@ -121,6 +172,12 @@ $this->load->view('template/side');
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
-$this->load->view('template/controlside');
 $this->load->view('template/js');
 ?>
+<script src="<?= base_url()?>assets/plugins/daterangepicker/moment.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+    $(function () {
+        $("#searchByDate").daterangepicker();
+    });
+</script>
