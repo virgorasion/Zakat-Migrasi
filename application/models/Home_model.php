@@ -9,10 +9,9 @@ class Home_model extends CI_model{
         $date2 = date("Y-12-31");
         return $this->db->select("SUM(kas_masjid.jumlah) as jumlah, date_format(kas_masjid.tanggal, '%M-%Y') as tanggal")
                             ->from("kas_masjid")
-                            // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
                             ->join("bulan", "bulan.id = date_format(kas_masjid.tanggal,'%m')")
-                            ->where("date_format(kas_masjid.tanggal,'%m') >=",1)
-                            ->where("date_format(kas_masjid.tanggal,'%m') <=",11)
+                            ->where("kas_masjid.tanggal >='".$date1."' ")
+                            ->where("kas_masjid.tanggal <='".$date2."' ")
                             ->group_by("bulan.id")
                             ->get()->result();
     }
@@ -33,7 +32,6 @@ class Home_model extends CI_model{
         $date2 = date("Y-12-31");
         return $this->db->select("SUM(lap_pengeluaran.jumlah) as jumlah, date_format(lap_pengeluaran.tanggal, '%M-%Y') as tanggal")
                             ->from("lap_pengeluaran")
-                            // ->join("tipe_donasi", "tipe_donasi.id_tipe = kas_masjid.id_tipe")
                             ->join("bulan", "bulan.id = date_format(lap_pengeluaran.tanggal,'%m')")
                             ->where("lap_pengeluaran.tanggal >= '".$date1."' ")
                             ->where("lap_pengeluaran.tanggal <= '".$date2."'")
