@@ -8,18 +8,24 @@ class Kotak_amal_ctrl extends CI_controller
     {
         parent::__construct();
         $this->load->model("Lap_kotak_amal_model");
+        $this->load->library("datatables");
     }
 
     public function index()
     {
         if (isset($_SESSION['username'])) {
-            $data['data'] = $this->Lap_kotak_amal_model->SelectAll()->result();
-            $data['tanggal'] = date('d-F-Y');
+            $data['url'] = "Kotak_amal_ctrl/dataTableKotakAmal";
             $this->load->view('Lap_kotak_amal_view',$data);
         }else {
             $this->session->set_flashdata('msg','Anda Harus Login Terlebih Dahulu !');
             redirect(site_url('home'));
         }
+    }
+
+    public function dataTableKotakAmal()
+    {
+        header('Content-Type: application/json');
+        echo $this->Lap_kotak_amal_model->getDataTableKotakAmal();
     }
 
     public function input_data()

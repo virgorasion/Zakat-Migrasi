@@ -1,8 +1,5 @@
 <?php 
 $this->load->view('template/head');
-?>
-<link rel="stylesheet" href="<?=base_url()?>assets/plugins/daterangepicker/daterangepicker.css">
-<?php
 $this->load->view('template/side');
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -12,12 +9,12 @@ $this->load->view('template/side');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Kas Masjid</h1>
+                    <h1>Daftar Pengurus Masjid</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-                        <li class="breadcrumb-item active">Kas Masjid</li>
+                        <li class="breadcrumb-item active">Daftar Pengurus Masjid</li>
                     </ol>
                 </div>
             </div>
@@ -26,148 +23,255 @@ $this->load->view('template/side');
 
     <!-- Main content -->
     <section class="content">
-
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <i class="fas fa-edit"></i>
-                    Tabel Kas Masjid
-                </h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                        title="Collapse">
-                        <i class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                        <i class="fas fa-times"></i></button>
-                </div>
-            </div>
-            <div class="card-body">
-                <!-- <h4>Custom Content Below</h4> -->
-                <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill"
-                            href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home"
-                            aria-selected="true">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill"
-                            href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile"
-                            aria-selected="false">Profile</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="custom-content-below-tabContent">
-                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
-                        aria-labelledby="custom-content-below-home-tab">
-                        <br>
-                        <!-- Date range -->
-                        <form action="#" method="post" class="form-group">
-                            <div class="col-sm-12 row">
-                                <div class="input-group col-sm-5">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control float-right" id="searchByDate">
-                                </div>
-                                <button type="submit" class="btn btn-primary"
-                                    style="margin-right:5px">Tampilkan</button>
-                                <button class="btn btn-default">Print</button>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-users"></i>
+                            Daftar Anggota
+                        </h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                    <i class="fas fa-minus"></i></button>
                             </div>
-                        </form>
-                        <!-- /.form group -->
-
-                        <table id="datatable" class="table table-bordered table-striped" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Nama</th>
-                                    <th class="min-tablet">Admin</th>
-                                    <th class="min-tablet">Tipe</th>
-                                    <th class="min-tablet">Jumlah</th>
-                                    <th class="min-desktop">Tanggal</th>
-                                    <th class="min-desktop">Keterangan</th>
-                                    <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
-                                    <th class="min-desktop">Action</th>
-                                    <?php } ?>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
                     </div>
-                    <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel"
-                        aria-labelledby="custom-content-below-profile-tab">
-                        <form action="<?php echo site_url('kas_ctrl/tambah'); ?>" method="POST">
-                            <div class="row">
-                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
-                                    value="<?php echo $this->security->get_csrf_hash(); ?>">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <p class="col-md-2"><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
-                                        <input type="hidden" class="form-control" name="addAdmin"
-                                            value="<?php echo $_SESSION['nama']; ?>">
+                    <div class="card-body">
+                        <!-- <h4>Custom Content Below</h4> -->
+                        <div class="tab-content" id="custom-content-below-tabContent">
+                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
+                                aria-labelledby="custom-content-below-home-tab">
+                                <!-- Date range -->
+                                <?php if($_SESSION['26insert']==1){ ?>
+                                <div class="form-group">
+                                    <div class="col-sm-12 row">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahAnggota">Tambah Anggota</button>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Nama :</label>
-                                        <input required type="text" class="form-control col-md-10" name="addNama"
-                                            placeholder="Nama">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Tipe :</label>
-                                        <select required class="form-control col-md-7" name="addTipe" id="addTipe">
-                                            <option value="">- Pilih Tipe -</option>
-                                            <option value="6">Donatur Tetap</option>
-                                            <option value="7">Donatur Tidak Tetap</option>
-                                            <option value="8">Infaq</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Tanggal :</label>
-                                        <input required type="text" class="form-control col-md-10" name="addTanggal"
-                                            placeholder="31-Agustus-2000" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Jumlah :</label>
-                                        <input required type="text" class="form-control inputMask col-md-7" name="addJumlah"
-                                            placeholder="Jumlah">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Keterangan :</label>
-                                        <textarea class="form-control" rows="3" placeholder="Keterangan"
-                                            name="addKeterangan"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 col-lg-offset-3">
-                                    <input type="submit" value="Submit" class="btn btn-flat btn-primary">
-                                </div>
+                                <?php } ?>
+                                <table id="tableAnggota" class="table table-bordered table-striped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>No Hp</th>
+                                            <th class="min-tablet">No Telp</th>
+                                            <?php if($_SESSION['26edit']==1 || $_SESSION['26delete']==1){ ?>
+                                            <th class="min-desktop">Action</th>
+                                            <?php } ?>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Diisi oleh ajax -->
+                                    </tbody>
+                                </table>
                             </div>
-                            <!-- End Row -->
-                        </form>
+                        </div>
+                        <!-- <div class="tab-custom-content">
+                            <p class="lead mb-0">Custom Content goes here</p>
+                        </div> -->
                     </div>
+                    <!-- /.card -->
                 </div>
-                <!-- <div class="tab-custom-content">
-                    <p class="lead mb-0">Custom Content goes here</p>
-                </div> -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
+            <div class="col-md-5">
+                <div class="card card-success card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-sitemap"></i>
+                            Daftar Pengurus
+                        </h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                    <i class="fas fa-minus"></i></button>
+                            </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- <h4>Custom Content Below</h4> -->
+                        <div class="tab-content" id="custom-content-below-tabContent">
+                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
+                                aria-labelledby="custom-content-below-home-tab">
+                                <!-- Date range -->
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <?php if($_SESSION['26insert']==1){ ?>
+                                        <button class="btn btn-success col-sm-4" id="addTakmir">Tambah Pengurus</button>
+                                        <?php } ?>
+                                        <button type="button" class="btn btn-default col-sm-3" id="btnPrint"><i class="fa fa-print"></i> Print</button>
+                                    </div>
+                                <table id="tableAnggota" class="table table-bordered table-striped" style="width:100%">
+                                </div>
+                                    <thead>
+                                        <tr>
+                                        <th>Nama</th>
+                                        <th>Jabatan</th>
+                                        <?php if ($_SESSION['26insert'] == 1 || $_SESSION['26edit'] == 1) { ?>
+                                        <th>Action</th>
+                                        <?php } ?>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Diisi oleh ajax -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- <div class="tab-custom-content">
+                            <p class="lead mb-0">Custom Content goes here</p>
+                        </div> -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.card -->
+            </div>
         </div>
-        <!-- /.card -->
-
     </section>
     <!-- /.content -->
+
+    <?php if($_SESSION['26edit']==1){ ?>
+    <!-- Modal Edit Anggota -->
+    <div class="modal fade" id="modalEditAnggota">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Default Modal</h4>
+          </div>
+          <form action="<?=site_url('Takmir_ctrl/EditAnggota')?>" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="EditNama">Nama</label>
+                <input type="text" class="form-control" name="EditNama" id="EditNama" placeholder="M Nur Fauzan W">
+              </div>
+              <div class="form-group">
+                <label for="EditAlamat">Alamat</label>
+                <input type="text" class="form-control" name="EditAlamat" id="EditAlamat" placeholder="Kapas Madya 3i/4">
+              </div>
+              <div class="form-group">
+                <label for="EditHP">No HP</label>
+                <input type="text" class="form-control" name="EditHP" id="EditHP" placeholder="083849575737">
+              </div>
+              <div class="form-group">
+                <label for="EditTelp">No Telp</label>
+                <input type="text" class="form-control" name="EditTelp" id="EditTelp" placeholder="-">
+              </div>
+              <div class="form-group">
+                <label for="EditJK">Jenis Kelamin</label>
+                <select class="form-control" name="EditJK" id="EditJK">
+                  <option value="L">L</option>
+                  <option value="P">P</option>
+                </select>
+              </div>
+              <input type="hidden" name="EditIDAnggota" id="EditIDAnggota" class="form-control">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <?php } ?>
+
+    <?php if($_SESSION['26insert']==1){ ?>
+    <!-- Modal Tambah Anggota -->
+    <div class="modal fade" id="modalTambahAnggota">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Anggota</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <form action="<?= site_url('Takmir_ctrl/TambahAnggota') ?>" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="AddNama">Nama</label>
+                                <input type="text" class="form-control" name="AddNama" id="AddNama"
+                                    placeholder="M Nur Fauzan W">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="AddAlamat">Alamat</label>
+                                <input type="text" class="form-control" name="AddAlamat" id="AddAlamat"
+                                    placeholder="Kapas Madya 3i/4">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="AddHP">No HP</label>
+                                <input type="text" class="form-control" name="AddHP" id="AddHP" placeholder="083849575737">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="AddTelp">No Telp</label>
+                                <input type="text" class="form-control" name="AddTelp" id="AddTelp" placeholder="-">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="AddJK">Jenis Kelamin</label>
+                                <select class="form-control" name="AddJK" id="AddJK">
+                                    <option value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Modal Tambah Takmir -->
+    <div class="modal fade" id="modalTambahTakmir">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Takmir</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <form id="FormActionTakmir" action="<?= site_url('Takmir_ctrl/TambahTakmir') ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="addAnggotaTakmir">Nama</label>
+                            <select class="form-control" name="addAnggotaTakmir" id="addAnggotaTakmir">
+                                <!-- Diisi Ajax -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addJabatan">Jabatan</label>
+                            <select class="form-control" name="addJabatan" id="addJabatan">
+                                <!-- Diisi Ajax -->
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" name="MainID" id="MainID">
+                    <input type="hidden" name="SecondID" id="SecondID"> <!-- ID anggota sebelum berubah -->
+                    <input type="hidden" name="ActType" id="ActType">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <?php } ?>
 </div>
 <!-- /.content-wrapper -->
 <?php
@@ -178,6 +282,9 @@ $this->load->view('template/js');
 <script src="<?= base_url()?>assets/plugins/daterangepicker/daterangepicker.js"></script>
 <script>
     $(function () {
-        $("#searchByDate").daterangepicker();
+        $('body').addClass('sidebar-collapse');
+        $("#addTakmir").click(function(){
+            $("#modalTambahTakmir").modal("show");
+        })
     });
 </script>
