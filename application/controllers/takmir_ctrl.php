@@ -28,6 +28,12 @@ class Takmir_ctrl extends CI_controller
 
     }
 
+    public function AjaxTablePetugas()
+    {
+        header('Content-Type: application/json');
+        echo $this->Takmir_model->get_data_Petugas();
+    }
+
     public function TambahAnggota()
     {
         $p = $this->input->post();

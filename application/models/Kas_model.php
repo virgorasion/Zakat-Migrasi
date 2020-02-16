@@ -38,7 +38,7 @@ class Kas_model extends CI_model
             return $format;
         }
         $this->datatables->add_column("tanggal","$1","callback_tanggal(tanggal)");
-        $this->datatables->add_column('action', '<a href="javascript:void(0)" class="edit_data btn btn-warning btn-xs" data-donatur="$1" data-tipe="$2" data-jumlah="$3" data-keterangan="$8" data-tanggal="$4" data-kategori="$6" data-id=$7><i class="far fa-edit"></i></a> <a href="javascript:void(0)" class="delete_data btn btn-danger btn-xs" data-donatur="$1" data-tipe="$2" data-tanggal="$4" data-id="$7"><i class="fas fa-trash-alt"></i></a>', 
+        $this->datatables->add_column('action', '<a href="javascript:void(0)" class="edit_data btn btn-warning btn-xs" data-donatur="$1" data-tipe="$2" data-jumlah="$3" data-keterangan="$8" data-tanggal="$4" data-kategori="$6" data-id="$7"><i class="far fa-edit"></i></a> <a href="javascript:void(0)" class="delete_data btn btn-danger btn-xs" data-donatur="$1" data-tipe="$2" data-tanggal="$4" data-id="$7"><i class="fas fa-trash-alt"></i></a>', 
         'nama_donatur,
         id_tipe,
         jumlah,
