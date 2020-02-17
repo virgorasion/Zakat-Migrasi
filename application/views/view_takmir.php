@@ -293,11 +293,19 @@ $this->load->view('template/js');
   $(document).ready(function () {
     $('body').addClass('sidebar-collapse');
 
-	<?php if(@$_SESSION['msg']):?>
+	  <?php if(@$_SESSION['msg']):?>
     toastr.success("<?=@$_SESSION['msg']?>");
     <?php endif ?>
     <?php if(@$_SESSION['err']):?>
     toastr.error("<?=@$_SESSION['err']?>");
+    <?php endif ?>
+    <?php if(@$_SESSION['form_error']):?>
+    $(document).Toasts('create', {
+      class: 'bg-danger', 
+      title: 'Form Error',
+      subtitle: '',
+      body: `<?=validation_errors("<li>","</li>")?>`
+    });
     <?php endif ?>
 	
     // Setup datatables

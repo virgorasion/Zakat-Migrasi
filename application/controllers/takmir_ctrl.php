@@ -36,21 +36,34 @@ class Takmir_ctrl extends CI_controller
 
     public function TambahAnggota()
     {
+        $this->form_validation->set_rules('AddNama', 'Nama', 'required|max_length[30]|min_length[3]',['max_length'=>'{field} tidak boleh lebih dari {param} karakter']);
+        $this->form_validation->set_rules('AddAlamat', 'Alamat', 'required|max_length[30]|min_length[4]',['max_length'=>'{field} tidak boleh lebih dari {param} karakter']);
+        $this->form_validation->set_rules('AddHP', 'No HP', 'required|max_length[13]',['max_length'=>'{field} tidak boleh lebih dari {param} karakter']);
+        $this->form_validation->set_rules('AddTelp', 'No Telpon', 'required|max_length[13]',['max_length'=>'{field} tidak boleh lebih dari {param} karakter']);
+        $this->form_validation->set_rules('AddJK', 'Jenis Kelamin', 'required');
+
         $p = $this->input->post();
-        $data = array(
+        $data_input = array(
             'nama' => htmlspecialchars($p['AddNama']),
             'alamat' => htmlspecialchars($p['AddAlamat']),
             'no_hp' => htmlspecialchars($p['AddHP']),
             'no_telp' => htmlspecialchars($p['AddTelp']),
             'jenis_kelamin' => $p['AddJK']
         );
-        $query = $this->Takmir_model->InsertDataAnggota('list_anggota',$data);
-        if ($query != null) {
-            $this->session->set_flashdata('msg', 'Berhasil Tambah Data Anggota');
-            redirect('Takmir_ctrl');
-        } else {
-            $this->session->set_flashdata('err', 'Gagal Tambah Anggota, Segera Hubungi Admin');
-            redirect('Takmir_ctrl');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['users'] = $this->Takmir_model->getUsers()->result();
+            $data['petugas'] = $this->Takmir_model->getPetugas()->result();
+            $this->session->set_flashdata("form_error",);
+            $this->load->view("view_takmir",$data);
+        }else {
+            if ($query = $this->Takmir_model->InsertDataAnggota('list_anggota',$data_input)) {
+                $this->session->set_flashdata('msg', 'Berhasil Tambah Data Anggota');
+                redirect('Takmir_ctrl');
+            } else {
+                $this->session->set_flashdata('err', 'Gagal Tambah Anggota, Segera Hubungi Admin');
+                redirect('Takmir_ctrl');
+            }
         }
     }
 
