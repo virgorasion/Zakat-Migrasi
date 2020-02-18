@@ -225,7 +225,7 @@ $this->load->view('template/side');
                                 <input type="hidden" name="idEdit" id="idEdit" value="">
                             </div>
                         </div>
-                        <div class="modal-footer justify-content-between">
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
@@ -277,11 +277,6 @@ $(document).ready(function(){
     toastr.error("<?=@$_SESSION['err']?>");
     <?php endif ?>
 
-    var url = "<?= site_url($data) ?>";
-    $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
-      $(".alert-success").slideUp(500);
-    });
-
     // Setup datatables
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
     {
@@ -295,6 +290,8 @@ $(document).ready(function(){
             "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
         };
     };
+
+    var url = "<?=site_url($data)?>";
 
     var table = $("#datatable").dataTable({
         initComplete: function() {
