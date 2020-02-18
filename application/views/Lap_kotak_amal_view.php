@@ -50,12 +50,12 @@ $this->load->view('template/side');
                     <li class="nav-item">
                         <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill"
                             href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home"
-                            aria-selected="true">Home</a>
+                            aria-selected="true">Informasi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill"
                             href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile"
-                            aria-selected="false">Profile</a>
+                            aria-selected="false">Tambah Data</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="custom-content-below-tabContent">
@@ -66,10 +66,10 @@ $this->load->view('template/side');
                         <table id="datatable" class="table table-bordered table-striped" width="100%">
 							<thead>
 								<tr>
-									<th>Nama Admin</th>
-									<th class="min-tablet">Tipe</th>
-									<th class="min-tablet">Jumlah</th>
-									<th class="min-tablet">Tanggal</th>
+									<th>Tipe</th>
+									<th>Jumlah</th>
+									<th>Tanggal</th>
+									<th class="min-tablet">Nama Admin</th>
 									<th class="min-desktop">Keterangan</th>
 									<?php if($_SESSION['24edit']==1 || $_SESSION['24delete']==1){ ?>
 									<th class="min-desktop">Action</th>
@@ -150,32 +150,32 @@ $this->load->view('template/side');
 		<?php if($_SESSION['24edit']==1){ ?>
         <!-- Modal Edit -->
         <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <!-- form start -->
                     <form id="formEdit" class="form-horizontal" action="<?php echo site_url('Kotak_amal_ctrl/edit_data')?>"
                         method="post">
                         <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Edit Data Amal</h4>
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Data Amal</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="box-body">
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Nama Admin</label>
+                            <div class="row">
+                                <div class="col-md-12"> 
+                                    <p class="col-md-12"><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="editPetugas" name="editPetugas"
+                                        <input type="hidden" class="form-control" id="editPetugas" name="editPetugas"
                                             value="<?php echo $_SESSION['nama'] ?>" readonly>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-12">
                                     <label class="col-sm-3 control-label">Tipe</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-11">
                                         <select class="form-control" name="editTipe" id="editTipe">
+                                            <option value="">- Pilih Tipe -</option>
                                             <option value="1">Amal Jumatan</option>
                                             <option value="2">Amal Ahad Dhuha</option>
                                             <option value="3">Amal Tarawih</option>
@@ -184,25 +184,25 @@ $this->load->view('template/side');
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group col-md-7">
+                                    <label class="col-sm-4 control-label">Tanggal</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control datePicker" id="editTanggal" name="editTanggal"
+                                        required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5">
                                     <label class="col-sm-3 control-label">Jumlah</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-8">
                                         <input type="text" class="form-control inputMask" id="editJumlah" name="editJumlah"
                                             required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Tanggal</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control datePicker" id="editTanggal" name="editTanggal"
-                                            required autocomplete="off">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
+                                <div class="form-group col-md-11">
                                     <label class="col-sm-3 control-label">Keterangan</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control" name="editKeterangan" id="editKeterangan" rows="3"></textarea>
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control" name="editKeterangan" id="editKeterangan"
+                                            rows="3"></textarea>
                                     </div>
                                 </div>
                                 <input type="hidden" name="idEdit" id="idEdit" value="">
@@ -239,6 +239,22 @@ $this->load->view('template/js');
 <script src="<?= base_url()?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <script>
     $(document).ready(function () {
+        <?php if(@$_SESSION['succ']):?>
+        toastr.success("<?=@$_SESSION['succ']?>");
+        <?php endif ?>
+        <?php if(@$_SESSION['fail']):?>
+        toastr.error("<?=@$_SESSION['fail']?>");
+        <?php endif ?>
+        <?php if(@$_SESSION['form_error']):?>
+        $(document).Toasts('create', {
+        class: 'bg-danger', 
+        title: '<?=$_SESSION['form_error']?>',
+        subtitle: '',
+        body: `<?=validation_errors("<li>","</li>")?>`
+        });
+        <?php endif ?>
+
+
         // Setup datatables
         $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
         {
@@ -272,10 +288,10 @@ $this->load->view('template/js');
                 responsive: true,
                 ajax: {"url": url, "type": "POST"},
                     columns: [
-                        {"data": "nama"},
                         {"data": "tipe"},
                         {"data": "jumlah", render: $.fn.dataTable.render.number(',', '.', '')},
                         {"data": "tanggal"},
+                        {"data": "nama"},
                         {"data": "keterangan"}
                         <?php if($_SESSION['25edit'] == 1 || $_SESSION['25delete'] == 1){ ?>
                         ,{"data": "action", "orderable": false, "searchable": false}
@@ -309,14 +325,14 @@ $this->load->view('template/js');
         });
 
         <?php if($_SESSION['24edit']==1){ ?>
-        $('#datatable').on('click', '[id^=btnEdit]', function () {
-            var $test = $(this).closest('tr');
-            var $nama = $test.find('.nama').text().trim();
-            var $jumlah = $test.find('.jumlah').text().trim();
-            var $id = $test.find('#id').val().trim();
-            var $tgl = $test.find('.tanggal').text().trim();
-            var $ket = $test.find('.keterangan').text().trim();
-            $('#formEdit').find('#editPetugas').val($nama);
+        $('#datatable').on('click', '.edit_data', function () {
+            $("#modalEdit").modal("show");
+            let $jumlah = $(this).data("jumlah");
+            let $id = $(this).data("id");
+            let $tgl = $(this).data("tanggal");
+            let $ket = $(this).data("keterangan");
+            let $tipe = $(this).data("tipe");
+            $('#formEdit').find('#editTipe').val($tipe);
             $('#formEdit').find('#editJumlah').val($jumlah);
             $('#formEdit').find('#editTanggal').val($tgl);
             $('#formEdit').find('#editKeterangan').val($ket);
@@ -325,24 +341,22 @@ $this->load->view('template/js');
         <?php } ?>
 
         <?php if($_SESSION['24delete']==1){ ?>
-        $('#datatable').on('click', '[id^=btnDelete]', function () {
-            var $item = $(this).closest("tr");
-            var $nama = $item.find(".tanggal").text();
-            console.log($nama);
-            // $item.find("input[id$='no']").val();
-            // alert("hai");
+        $('#datatable').on('click', '.delete_data', function () {
+            let id = $(this).data("id");
+            let tipe = $(this).data("tipe");
+            let tanggal = $(this).data("tanggal");
+            let jumlah = $(this).data("jumlah");
             $.confirm({
                 theme: 'supervan',
                 title: 'Peringatan !',
-                content: 'Hapus data zakat ' + $nama,
-                autoClose: 'Cancel|5000',
+                content: 'Hapus Data '+tipe+'<br> Tanggal: '+tanggal+'<br> Jumlah: '+jumlah,
+                autoClose: 'Cancel|10000',
                 buttons: {
                     Cancel: function () {},
                     delete: {
                         text: 'Delete',
                         action: function () {
-                            window.location = "<?=site_url('Kotak_amal_ctrl/hapus_data/')?>" +
-                                $item.find("#id").val();
+                            window.location = "<?=site_url('Kotak_amal_ctrl/hapus_data/')?>"+id;
                         }
                     }
                 }

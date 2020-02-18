@@ -30,6 +30,11 @@ class Kotak_amal_ctrl extends CI_controller
 
     public function input_data()
     {
+        $this->form_validation->set_rules('addTipe', 'Tipe', 'required');
+        $this->form_validation->set_rules('addTanggal', 'Tanggal', 'required');
+        $this->form_validation->set_rules('addJumlah', 'Jumlah', 'required');
+        $this->form_validation->set_rules('addKeterangan', 'Keterangan', 'max_length[100]',['max_length'=>'{field} tidak boleh lebih dari {param} karakter']);
+
         $tipe = $this->input->post('addTipe');
         $jml = explode('.', $this->input->post('addJumlah'));
         $jumlah = implode('', $jml);
@@ -38,7 +43,7 @@ class Kotak_amal_ctrl extends CI_controller
         $d = $this->input->post('addTanggal');
         $conv = date_create($d);
         $date = date_format($conv, "Y-m-d");
-        $data = array(
+        $data_input = array(
             'id_admin' => $admin,
             'keterangan' => $keterangan,
             'tanggal' => $date,
@@ -48,13 +53,18 @@ class Kotak_amal_ctrl extends CI_controller
             'nama_donatur' => '-'
         );
 
-        try{
-            $query = $this->Lap_kotak_amal_model->inputAll('kas_masjid',$data);
-            $this->session->set_flashdata('succ', 'Berhasil Menambah Data');
-            redirect('Kotak_amal_ctrl');
-        }catch (Exception $e){
-            $this->session->set_flashdata('fail', 'Gagal Hapus Data, Segera Hubungi Operator');
-            redirect('Kotak_amal_ctrl');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata("form_error","Form Error");
+            $data['url'] = "Kotak_amal_ctrl/dataTableKotakAmal";
+            $this->load->view('Lap_kotak_amal_view',$data);
+        }else {
+            if ($this->Lap_kotak_amal_model->inputAll('kas_masjid', $data_input)) {
+                $this->session->set_flashdata('succ', 'Berhasil Menambah Data');
+                redirect('Kotak_amal_ctrl');
+            }else {
+                $this->session->set_flashdata('fail', 'Gagal Hapus Data, Segera Hubungi Operator');
+                redirect('Kotak_amal_ctrl');
+            }
         }
     }
 
@@ -72,6 +82,11 @@ class Kotak_amal_ctrl extends CI_controller
 
     public function edit_data()
     {
+        $this->form_validation->set_rules('editTipe', 'Tipe', 'required');
+        $this->form_validation->set_rules('editTanggal', 'Tanggal', 'required');
+        $this->form_validation->set_rules('editJumlah', 'Jumlah', 'required');
+        $this->form_validation->set_rules('editKeterangan', 'Keterangan', 'max_length[100]',['max_length'=>'{field} tidak boleh lebih dari {param} karakter']);
+
         $tipe = $this->input->post('editTipe');
         $jml = explode('.', $this->input->post('editJumlah'));
         $jumlah = implode('', $jml);
@@ -88,13 +103,18 @@ class Kotak_amal_ctrl extends CI_controller
             'jumlah' => $jumlah 
         );
 
-        try {
-            $this->Lap_kotak_amal_model->Update("kas_masjid", $data, $id);
-            $this->session->set_flashdata('succ', 'Berhasil Edit Data');
-            redirect('Kotak_amal_ctrl');
-        } catch (Exception $e) {
-            $this->session->set_flashdata('fail', 'Gagal Edit Data, Segera Hubungi Operator');
-            redirect('Kotak_amal_ctrl');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata("form_error","Form Error");
+            $data['url'] = "Kotak_amal_ctrl/dataTableKotakAmal";
+            $this->load->view('Lap_kotak_amal_view',$data);
+        }else {
+            if ($this->Lap_kotak_amal_model->Update("kas_masjid", $data, $id)) {
+                $this->session->set_flashdata('succ', 'Berhasil Edit Data');
+                redirect('Kotak_amal_ctrl');
+            }else {
+                $this->session->set_flashdata("fail","Gagal Edit Data, Segera Hubungi Operator");
+                redirect("Kotak_amal_ctrl");
+            }
         }
     }
 }
