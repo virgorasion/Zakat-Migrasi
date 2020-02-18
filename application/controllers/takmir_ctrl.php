@@ -54,10 +54,11 @@ class Takmir_ctrl extends CI_controller
         if ($this->form_validation->run() == FALSE) {
             $data['users'] = $this->Takmir_model->getUsers()->result();
             $data['petugas'] = $this->Takmir_model->getPetugas()->result();
-            $this->session->set_flashdata("form_error",);
+            $this->session->set_flashdata("form_error", "error");
             $this->load->view("view_takmir",$data);
         }else {
-            if ($query = $this->Takmir_model->InsertDataAnggota('list_anggota',$data_input)) {
+            die($data_input);
+            if ($this->Takmir_model->InsertDataAnggota('list_anggota',$data_input)) {
                 $this->session->set_flashdata('msg', 'Berhasil Tambah Data Anggota');
                 redirect('Takmir_ctrl');
             } else {
