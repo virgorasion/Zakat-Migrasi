@@ -326,7 +326,6 @@ $this->load->view('template/js');
 
         <?php if($_SESSION['24edit']==1){ ?>
         $('#datatable').on('click', '.edit_data', function () {
-            $("#modalEdit").modal("show");
             let $jumlah = $(this).data("jumlah");
             let $id = $(this).data("id");
             let $tgl = $(this).data("tanggal");
@@ -337,6 +336,7 @@ $this->load->view('template/js');
             $('#formEdit').find('#editTanggal').val($tgl);
             $('#formEdit').find('#editKeterangan').val($ket);
             $('#formEdit').find('#idEdit').val($id);
+            $("#modalEdit").modal("show");
         });
         <?php } ?>
 

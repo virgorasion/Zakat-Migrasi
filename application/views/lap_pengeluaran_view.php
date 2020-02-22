@@ -44,6 +44,9 @@ $this->load->view('template/side');
                         <!-- Date range -->
                         <form action="<?=site_url('Lap_pengeluaran/index')?>" method="post" class="form-group">
                             <div class="col-sm-12 row">
+								<?php if ($_SESSION['7insert'] == 1): ?>
+								<button type="button" name="btnTambah" id="btnTambah" class="btn btn-primary col-md-2">Tambah Data</button>
+								<?php endif; ?>
                                 <div class="input-group col-sm-5">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -67,11 +70,9 @@ $this->load->view('template/side');
                                     <th class="min-tablet">Tanggal</th>
                                     <th class="min-tablet">Jumlah</th>
                                     <th class="min-tablet">Keterangan</th>
-                                    <?php
-                                    if ($_SESSION['7edit'] == 1) {
-                                    ?>
+                                    <?php if ($_SESSION['7edit'] == 1):?>
                                     <th class="min-tablet">Action</th>
-                                    <?php } ?>
+									<?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,50 +91,51 @@ $this->load->view('template/side');
 
         <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1): ?>
         <!-- Modal -->
-        <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <!-- form start -->
-                <form class="form-horizontal" action="<?php echo site_url('Lap_pengeluaran/Action') ?>" method="post">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Buat Data Pengeluaran</h4>
-                    </div>
-                    <div class="modal-body">
-                    <div class="box-body">
-                        <div class="form-group">
-                        <label class="control-label">Nama</label>
-                        <input type="text" class="form-control" id="addNama" name="addNama" placeholder="M Nur Fauzan W"
-                            require value="<?=$_SESSION['nama']?>" readonly>
-                        </div>
-                        <div class="form-group">
-                        <label class="control-label">Tanggal</label>
-                        <input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal"
-                            placeholder="31-Agustus-2000" required autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                        <label class="control-label">Jumlah</label>
-                        <input type="text" class="form-control inputMask" id="addJumlah" name="addJumlah" required>
-                        </div>
-                        <div class="form-group">
-                        <label for="addKeterangan">Keterangan</label>
-                        <textarea class="form-control" name="addKeterangan" id="addKeterangan" rows="3"></textarea>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                    <input type="hidden" class="form-control" id="idPengeluaran" name="idPengeluaran">
-                    <input type="hidden" name="action" id="action" value="add">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary btnSave">Simpan</button>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
+		<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- form start -->
+					<form class="form-horizontal" action="<?php echo site_url('Lap_pengeluaran/Action') ?>" method="post">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Tambah Data Pengeluaran</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">Close</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="box-body">
+								<div class="row col-md-12">
+									<div class="form-group col-md-12">
+										<p><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
+										<input type="hidden" id="addNama" name="addNama" value="<?php echo $_SESSION['nama'] ?>">
+									</div>
+									<div class="form-group">
+										<label class="control-label">Tanggal</label>
+										<input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal"
+											placeholder="31-Agustus-2000" required autocomplete="off">
+									</div>
+									<div class="form-group">
+										<label class="control-label">Jumlah</label>
+										<input type="text" class="form-control inputMask" id="addJumlah" name="addJumlah" required>
+									</div>
+									<div class="form-group">
+										<label for="addKeterangan">Keterangan</label>
+										<textarea class="form-control" name="addKeterangan" id="addKeterangan" rows="3"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" class="form-control" id="idPengeluaran" name="idPengeluaran">
+							<input type="hidden" name="action" id="action" value="add">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary btnSave">Simpan</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
         <?php endif; ?>
 
 
@@ -210,13 +212,11 @@ $this->load->view('template/js');
         {
           "data": "keterangan"
         }
-        <?php
-        if ($_SESSION['7edit'] == 1) {
-        ?>
+        <?php if ($_SESSION['7edit'] == 1):?>
         ,{
           "data": "aksi"
         }
-      <?php } ?>
+		<?php endif; ?>
       ],
       order: [
         [1, 'asc']
@@ -231,20 +231,14 @@ $this->load->view('template/js');
     });
     // End Datatables
 
-    $(".alert").fadeTo(2000, 500).slideUp(500, function () {
-      $(".alert").slideUp(500);
+    $("#searchByDate").daterangepicker({
+        startDate: moment().startOf('month'),
+        endDate: moment().endOf('month')
     });
-
-    // DateRange (Date Main)
-    $('.input-daterange').datepicker({
-      format: 'dd-MM-yyyy'
-    });
-    //DatePicker Modal
-    $(".datePicker").datepicker({
-      format: "dd-MM-yyyy",
-      autoclose: true,
-      todayBtn: "linked",
-      todayHighlight: true
+    $('.datePicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 2000
     });
 
     //Inputmask global
@@ -258,10 +252,8 @@ $this->load->view('template/js');
       rightAlign: false
     });
 
-    <?php
-    if ($_SESSION['7insert'] == 1) {
-    ?>
-      // Fungsi Tambah
+    <?php if ($_SESSION['7insert'] == 1):?>
+		// Fungsi Tambah
       $("#btnTambah").click(function () {
         $("#modalTambah").modal('show');
         $("#action").val("add");
@@ -270,11 +262,9 @@ $this->load->view('template/js');
         $("#addJumlah").val();
         $("#addKeterangan").val();
       }); 
-      <?php } ?>
+	<?php endif; ?>
 
-    <?php
-    if ($_SESSION['7edit'] == 1) {
-    ?>
+    <?php if ($_SESSION['7edit'] == 1):?>
       $("#tablePengeluaran").on("click", ".btnEdit", function () {
           let nama = $(this).data("admin");
           let tanggal = $(this).data("tanggal");
@@ -289,7 +279,7 @@ $this->load->view('template/js');
           $("#action").val("edit");
           $("#modalTambah").modal("show");
         }) 
-    <?php } ?>
+    <?php endif; ?>
 
     $('#btnPrint').click(function () {
       var tanggal1 = $("#t1").val();
@@ -303,8 +293,7 @@ $this->load->view('template/js');
     });
 
     <?php
-    if ($_SESSION['7delete'] == 1) {
-    ?>
+    if ($_SESSION['7delete'] == 1):?>
       $('#tablePengeluaran').on('click', '.btnDelete', function () {
         var tanggal = $(this).data("tanggal");
         var id = $(this).data("id_pengeluaran");
@@ -324,7 +313,7 @@ $this->load->view('template/js');
           }
         });
       }); 
-      <?php } ?>
+	<?php endif; ?>
   });
 </script>
 <?php
