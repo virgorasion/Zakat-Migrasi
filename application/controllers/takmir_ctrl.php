@@ -57,7 +57,6 @@ class Takmir_ctrl extends CI_controller
             $this->session->set_flashdata("form_error", "error");
             $this->load->view("view_takmir",$data);
         }else {
-            die($data_input);
             if ($this->Takmir_model->InsertDataAnggota('list_anggota',$data_input)) {
                 $this->session->set_flashdata('msg', 'Berhasil Tambah Data Anggota');
                 redirect('Takmir_ctrl');
@@ -93,10 +92,10 @@ class Takmir_ctrl extends CI_controller
             if ($p['SecondID'] == $p['addAnggotaTakmir']) { //Cek jika anggotanya tidak diganti
                 $query = $this->Takmir_model->UpdateDataTakmir('takmir', $data, $mainID);
                 if ($query != null) {
-                    $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
+                    $this->session->set_flashdata('msg', 'Berhasil Edit Data Takmir');
                     redirect('Takmir_ctrl');
                 } else {
-                    $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
+                    $this->session->set_flashdata('err', 'Gagal Edit Takmir, Segera Hubungi Admin');
                     redirect('Takmir_ctrl');
                 }
             }else{
@@ -106,10 +105,10 @@ class Takmir_ctrl extends CI_controller
                 $this->Takmir_model->UpdateDataAnggota('list_anggota', $setUpdateAnggotaLama, $p['SecondID']);
                 $query = $this->Takmir_model->UpdateDataTakmir('takmir', $data, $mainID);
                 if ($query != null) {
-                    $this->session->set_flashdata('msg', 'Berhasil Tambah Data Takmir');
+                    $this->session->set_flashdata('msg', 'Berhasil Edit Data Takmir');
                     redirect('Takmir_ctrl');
                 } else {
-                    $this->session->set_flashdata('err', 'Gagal Tambah Takmir, Segera Hubungi Admin');
+                    $this->session->set_flashdata('err', 'Gagal Edit Takmir, Segera Hubungi Admin');
                     redirect('Takmir_ctrl');
                 }
             }

@@ -244,7 +244,7 @@ $this->load->view('template/side');
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Tambah Takmir</h4>
+                    <h4 class="modal-title" id="FormActionTakmirTitle">Tambah Takmir</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                 </div>
@@ -479,29 +479,25 @@ $this->load->view('template/js');
     })
 
     $('#tablePetugas').on('click', '.edit_data', function(){
-      var item = $(this).closest('tr');
-      var idAnggota = item.find('#anggotaID').val();
-      var idJabatan = item.find('#jabatanID').val();
-      console.log(idJabatan);
-      var idTakmir = item.find('#takmirID').val();
-      var urlAnggota = "<?= site_url('Takmir_ctrl/getAjaxAnggota') ?>";
-      var urlTakmir = "<?= site_url('Takmir_ctrl/getAjaxTakmir') ?>";
+      let idAnggota = $(this).data("id_anggota");
+      let idJabatan = $(this).data("id_jabatan");
+      let idTakmir = $(this).data("id");
+      let urlTakmir = "<?= site_url('Takmir_ctrl/getAnggotaAjaxKhusus') ?>";
+      let urlJabatan = "<?= site_url('Takmir_ctrl/getAjaxTakmir') ?>";
       $.ajax({
-        url: urlAnggota,
+        url: urlTakmir,
         type: 'POST',
         success:function(result){
           var data = JSON.parse(result);
-          var html = '';
+          var html = '<option value="0" selected>- Pilih Anggota -</option>';
           $.each(data, function(i){
             html += '<option value="'+data[i].id_anggota+'">'+data[i].nama+'</option>';
             $('#addAnggotaTakmir').html(html);
           })
         }
-      }).done(function(data){
-        $("#FormActionTakmir").find("#addAnggotaTakmir").val(idAnggota);
       })
       $.ajax({
-        url: urlTakmir,
+        url: urlJabatan,
         type: 'POST',
         success:function(result){
           var data = JSON.parse(result);
@@ -518,6 +514,7 @@ $this->load->view('template/js');
       $("#FormActionTakmir").find("#ActType").val('edit');
       $("#FormActionTakmir").find("#SecondID").val(idAnggota);
       $("#FormActionTakmir").find("#MainID").val(idTakmir);
+      $("#FormActionTakmirTitle").html("Edit Takmir");
     })
     <?php } ?>
 

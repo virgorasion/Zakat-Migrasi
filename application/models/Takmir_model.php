@@ -26,17 +26,18 @@ class Takmir_model extends CI_model
     
     public function get_data_Petugas()
     {
-        $this->datatables->select('takmir.id, takmir.id_anggota, list_anggota.nama, jabatan.nama AS jabatan');
+        $this->datatables->select('takmir.id, takmir.id_anggota, list_anggota.nama, jabatan.nama AS jabatan, takmir.id_jabatan');
         $this->datatables->from('takmir');
         $this->datatables->join("list_anggota","takmir.id_anggota = list_anggota.id_anggota");
         $this->datatables->join("jabatan","takmir.id_jabatan = jabatan.id");
         $this->datatables->add_column(
             'action',
-            '<a href="javascript:void(0)" class="edit_data btn btn-warning btn-xs" data-id="$1" data-anggota="$2" data-nama="$3" data-jabatan="$4"><i class="fas fa-edit"></i></a> <a href="javascript:void(0)" class="delete_data btn btn-danger btn-xs" data-nama="$3" data-id="$1" data-jabatan="$4" data-anggota="$2"><i class="fas fa-trash-alt"></i></a>',
+            '<a href="javascript:void(0)" class="edit_data btn btn-warning btn-xs" data-id="$1" data-id_anggota="$2" data-nama="$3" data-jabatan="$4" data-id_jabatan="$5"><i class="fas fa-edit"></i></a> <a href="javascript:void(0)" class="delete_data btn btn-danger btn-xs" data-nama="$3" data-id="$1" data-jabatan="$4" data-anggota="$2"><i class="fas fa-trash-alt"></i></a>',
         'id,
         id_anggota,
         nama,
-        jabatan'
+        jabatan,
+        id_jabatan'
         );
         return $this->datatables->generate();
     }
