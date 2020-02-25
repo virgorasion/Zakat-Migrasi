@@ -58,12 +58,18 @@ class Auth extends CI_Controller {
 
 		foreach ($select_header as $row) {
         $select_child = $this->Menu_model->select_child($row->kode_menu_header)->result();
-        // die(print_r($select_child));
+        // var_dump($select_child);
         $key = $row->menu_child;
         if($key == 1) {
             $treeView = 'has-treeview';
         }else {
             $treeView = '';
+        }
+        if ($row->kode_menu_header == 6) {
+            $html .= '<li class="nav-header">Content Manajemen</li>';
+        }
+        if ($row->kode_menu_header == 10) {
+            $html .= '<li class="nav-header">Pengaturan</li>';
         }
         $html .=' <li class="nav-item '.$treeView.'">
                     <a href="'.site_url($row->link).'" class="nav-link">
