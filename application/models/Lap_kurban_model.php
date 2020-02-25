@@ -32,7 +32,7 @@
             }
             $this->datatables->add_column("jenis_hewan","$1","callback_jenis(jenis)");
             $this->datatables->add_column("aksi", 
-            "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id='$1' data-penyumbang='$2' data-alamat='$7' data-jumlah='$4' data-hewan='$3'><i class='fa fa-pencil'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id='$1' data-tanggal='$5' data-penyumbang='$2' data-hewan='$12'><i class='fa fa-remove'></i></a>",
+            "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id='$1' data-penyumbang='$2' data-alamat='$7' data-jumlah='$4' data-hewan='$3'><i class='fa fa-edit'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id='$1' data-tanggal='$5' data-penyumbang='$2' data-hewan='$12'><i class='fa fa-trash-alt'></i></a>",
             "id,
             penyumbang,
             jenis,

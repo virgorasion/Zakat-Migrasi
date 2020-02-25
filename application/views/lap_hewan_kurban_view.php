@@ -1,167 +1,173 @@
 <?php 
 $this->load->view('template/head');
+?>
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<?php
 $this->load->view('template/side');
 ?>
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Laporan Hewan Kurban
-    </h1>
-    <ol class="breadcrumb">
-      <li>
-        <a href="#">
-          <i class="fa fa-gear"></i> Laporan</a>
-      </li>
-      <li class="active">Hewan Kurban</li>
-    </ol>
-  </section>
-  <!-- Main content -->
-  <section class="content">
-
-       <?php if (isset($_SESSION['succ'])) { ?>
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-          <?php echo $_SESSION['succ']; ?>
-        </div>
-        <?php 
-      } ?>
-    <?php if (isset($_SESSION['fail'])) { ?>
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='fa fa-remove'></span> Info!</h5>
-          <?php echo $_SESSION['fail']; ?>
-        </div>
-        <?php 
-      } ?>
-
-    <!-- Default box -->
-    <div class="box">
-      <div class="box-header">
-
-        <?php if (isset($_SESSION['msg'])) {?>
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-          <h5>
-            <span class='glyphicon glyphicon-ok'></span> Info!</h5>
-          <?php echo $_SESSION['msg'];?>
-        </div>
-        <?php } ?>
-        <form method="post" action="<?php echo site_url("Hewan_kurban/index") ?>" id="formsearch">
-          <div class="col-sm-12">
-          <?php if ($_SESSION['6insert'] == 1) { ?>
-            <button type="button" name="btnTambah" id="btnTambah" class="btn btn-info col-md-2">Tambah</button>
-          <?php } ?>
-            <div class="form-inline col-md-4">
-              <div class="input-group input-daterange">
-                <input type="text" class="form-control" name="t1" id="t1" value="<?= $t1 ?>" autocomplete="off">
-                <div class="input-group-addon">to</div>
-                <input type="text" class="form-control" name="t2" id="t2" value="<?= $t2 ?>" autocomplete="off">
-              </div>
-            </div>
-            <div class="col-sm-1">
-              <button type="submit" class="btn btn-primary" id="btnSearch">
-                Search</button>
-            </div>
-            <h3 class="box-title col-sm-1">
-              <button type="button" class="btn btn-default" id="btnPrint">
-                <i class="fa fa-print"></i> Print</button>
-            </h3>
-          </div>
-        </form>
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <table id="tableKurban" class="table table-bordered table-hover" width="100%">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th class="min-tablet">Tanggal</th>
-              <th class="min-tablet">Admin</th>
-              <th>Penyumbang</th>
-              <th class="min-tablet">Alamat</th>
-              <th>Jenis Hewan</th>
-              <th class="min-tablet">jumlah</th>
-              <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1) { ?>
-              <th class="min-desktop">Action</th>
-              <?php } ?>  
-            </tr>
-          </thead>
-          <tbody>
-              <!-- Content Diisi Ajax Datatables -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <!-- /.box -->
-
-    <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1){ ?>
-    <!-- Modal -->
-    <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- form start -->
-          <form class="form-horizontal" action="<?php echo site_url('Hewan_kurban/aksi') ?>" method="post">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel"></h4>
-            </div>
-            <div class="modal-body">
-              <div class="box-body">
-                <div class="form-group">
-                  <label class="control-label">Penyumbang</label>
-                  <input type="text" class="form-control" id="penyumbang" name="penyumbang" placeholder="M Nur Fauzan W"
-                    require>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Laporan Hewan Kurban</h1>
                 </div>
-                <div class="form-group">
-                  <label class="control-label">Alamat</label>
-                  <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Kapas Madya" required
-                    autofocus="on">
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Beranda</a></li>
+                        <li class="breadcrumb-item active">Hewan Kurban</li>
+                    </ol>
                 </div>
-                <div class="form-group">
-                  <label for="jenisHewan">Jenis Hewan</label>
-                  <select class="form-control" name="jenisHewan" id="jenisHewan">
-                    <option selected>-=Pilih=-</option>
-                    <option value="1">Kambing</option>
-                    <option value="2">Sapi</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Jumlah</label>
-                  <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="2" require>
-                </div>
-              </div>
             </div>
-            <div class="modal-footer">
-              <input type="hidden" class="form-control" id="idKurban" name="idKurban">
-              <input type="hidden" name="action" id="action" value="add">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btnSave">Save changes</button>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-edit"></i>
+                    Daftar Kurban
+                </h3>
             </div>
-          </form>
+            <div class="card-body">
+                <div class="tab-content" id="custom-content-below-tabContent">
+                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
+                        aria-labelledby="custom-content-below-home-tab">
+                        <!-- Date range -->
+                        <form action="<?=site_url('Hewan_kurban/index')?>" method="post" class="form-group">
+                            <div class="col-sm-12 row">
+								<?php if ($_SESSION['6insert'] == 1): ?>
+								<button type="button" name="btnTambah" id="btnTambah" class="btn btn-primary col-md-2">Tambah Data</button>
+								<?php endif; ?>
+                                <div class="input-group col-sm-5">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" value="<?=$date?>" name="searchByDate" id="searchByDate">
+                                </div>
+                                <button type="submit" class="btn btn-primary"
+                                    style="margin-right:5px">Tampilkan</button>
+                                <button class="btn btn-default" id="btnPrint">Print</button>
+                            </div>
+                        </form>
+                        <!-- /.form group -->
+
+                        <table id="tableKurban" class="table table-bordered table-striped" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th class="min-tablet">Tanggal</th>
+                                    <th class="min-tablet">Admin</th>
+                                    <th>Penyumbang</th>
+                                    <th class="min-tablet">Alamat</th>
+                                    <th>Jenis Hewan</th>
+                                    <th class="min-tablet">jumlah</th>
+                                    <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1) { ?>
+                                    <th class="min-desktop">Action</th>
+                                    <?php } ?>  
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- <div class="tab-custom-content">
+                    <p class="lead mb-0">Custom Content goes here</p>
+                </div> -->
+            </div>
+            <!-- /.card -->
         </div>
-      </div>
-    </div>
-    <?php } ?>
-    
-  </section>
-  <!-- /.content -->
+        <!-- /.card -->
+
+        <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1): ?>
+        <!-- Modal -->
+		<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<!-- form start -->
+					<form class="form-horizontal" action="<?php echo site_url('Lap_pengeluaran/Action') ?>" method="post">
+						<div class="modal-header">
+							<h4 class="modal-title" id="modelTitle">Tambah Data Pengeluaran</h4>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">Close</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="box-body">
+								<div class="row col-md-12">
+									<div class="form-group col-md-12">
+										<p><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
+										<input type="hidden" id="addNama" name="addNama" value="<?php echo $_SESSION['nama'] ?>">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Penyumbang</label>
+                                        <input type="text" class="form-control" id="penyumbang" name="penyumbang" placeholder="M Nur Fauzan W"
+                                            require>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Alamat</label>
+                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Kapas Madya" required
+                                            autofocus="on">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="jenisHewan">Jenis Hewan</label>
+                                        <select class="form-control" name="jenisHewan" id="jenisHewan">
+                                            <option selected>-=Pilih=-</option>
+                                            <option value="1">Kambing</option>
+                                            <option value="2">Sapi</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Jumlah</label>
+                                        <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="2" require>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+                            <input type="hidden" class="form-control" id="idKurban" name="idKurban">
+                            <input type="hidden" name="action" id="action" value="add">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btnSave">Save changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+        <?php endif; ?>
 
 
+    </section>
+    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 <?php
 $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
+<!-- DateRangePicker -->
+<script src="<?= base_url()?>assets/plugins/daterangepicker/moment.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- DataTables -->
+<script src="<?= base_url()?>assets/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?= base_url()?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- InputMask -->
+<script src="<?= base_url()?>assets/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url()?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <script>
   $(function () {
     var table_kurban = "";
@@ -239,20 +245,28 @@ $this->load->view('template/js');
     });
     // End Datatables
     
-    $(".alert").fadeTo(3500, 500).slideUp(500, function () {
-        $(".alert").slideUp(500);
-    });
-
     $(".btnSave").click(function () {
       $('#form-horizontal').submit(function () {
         return false;
       });
     });
 
-    // DateRange (Date Main)
-    $('.input-daterange').datepicker({
-      format: 'dd-MM-yyyy'
+    $("#searchByDate").daterangepicker({
+        // startDate: moment().startOf('month'),
+        // endDate: moment().endOf('month')
     });
+    $('.datePicker').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 2000
+    });
+
+    <?php if(@$_SESSION['succ']):?>
+    toastr.success("<?=@$_SESSION['succ']?>");
+    <?php endif ?>
+    <?php if(@$_SESSION['fail']):?>
+    toastr.error("<?=@$_SESSION['fail']?>");
+    <?php endif ?>
 
     // Fungsi Tambah
     $("#btnTambah").click(function () {
@@ -280,7 +294,7 @@ $this->load->view('template/js');
       $("#jumlah").val(jumlah);
       $("#modalTambah").modal('show');
       $("#action").val("edit");
-      $("#myModalLabel").html("Edit Hewan Kurban");
+      $("#modelTitle").html("Edit Hewan Kurban");
     });
 
     $('#tableKurban').on('click', '.btnDelete', function () {
@@ -307,14 +321,11 @@ $this->load->view('template/js');
     })
 
     $('#btnPrint').click(function () {
-      var tanggal1 = $("#t1").val();
-      var tanggal2 = $("#t2").val();
-      var url = '<?php echo site_url("/Hewan_kurban/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
-      newwindow = window.open(url, 'Print', 'height=500,width=1100');
-      if (window.focus) {
-        newwindow.focus()
-      }
-      return false;
+		let tgl = $("#searchByDate").val();
+	  	tgl = tgl.split("/");
+		let tanggal = tgl.join("-");
+		var url = '<?php echo site_url("/Hewan_kurban/laporan_print/");?>' + tanggal;
+		newwindow = window.open(url, 'Print', 'height=500,width=1100');
     });
 
   });

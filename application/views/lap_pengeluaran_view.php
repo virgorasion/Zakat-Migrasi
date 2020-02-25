@@ -88,7 +88,7 @@ $this->load->view('template/side');
         </div>
         <!-- /.card -->
 
-        <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1): ?>
+        <?php if ($_SESSION['7edit'] == 1 || $_SESSION['7delete'] == 1 || $_SESSION['7insert'] == 1): ?>
         <!-- Modal -->
 		<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-md">
@@ -213,9 +213,9 @@ $this->load->view('template/js');
         }
         <?php if ($_SESSION['7edit'] == 1):?>
         ,{
-          "data": "aksi"
+          "data": "aksi", "orderable": false, "searchable":false 
         }
-		<?php endif; ?>
+		    <?php endif; ?>
       ],
       order: [
         [1, 'asc']

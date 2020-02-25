@@ -1,55 +1,57 @@
 <?php
-	defined('BASEPATH') or exit('ERROR');
+defined('BASEPATH') or exit('ERROR');
 
-	class Hewan_kurban extends CI_controller{
-		public function __construct(){
-			parent::__construct();
-			$this->load->model("Lap_kurban_model");
-            $this->load->library("datatables");
-		}
-		public function index(){
-			if(isset($_SESSION['username'])){
-            if($this->input->post('t1')=="" && $this->input->post('t2')==""){
-                $data['t1'] = date("01-F-Y");
-                $data['t2'] = date("t-F-Y");
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $tanggalAwal = date_format($date1, "Ymd");
-                $tanggalAkhir = date_format($date2, "Ymd");
-                $data['data'] = "Hewan_kurban/dataTableKurban/".$tanggalAwal."/".$tanggalAkhir;
+class Hewan_kurban extends CI_controller{
+    public function __construct(){
+        parent::__construct();
+        $this->load->model("Lap_kurban_model");
+        $this->load->library("datatables");
+    }
+    public function index(){
+        if(isset($_SESSION['username'])){
+            if($this->input->post('searchByDate')==""){
+                $t1 = date("Y-m-01");
+                $t2 = date("Y-m-t");
+                $data['date'] = date("m-01-Y - m-t-Y");
+                $data['data'] = "Hewan_kurban/dataTableKurban/".$t1."/".$t2;
                 $this->load->view('lap_hewan_kurban_view',$data);
             }
             else{
-                $data['t1'] = $this->input->post('t1');
-                $data['t2'] = $this->input->post('t2');
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $tanggalAwal = date_format($date1, "Ymd");
-                $tanggalAkhir = date_format($date2, "Ymd");
-                $data['data'] = "Hewan_kurban/dataTableKurban/".$tanggalAwal."/".$tanggalAkhir;
+                $getDate = $this->input->post('searchByDate');
+                $split = explode(" - ", $getDate);
+                $date1 = date_create($split[0]);
+                $date2 = date_create($split[1]);
+                $t1 = date_format($date1, "Y-m-d");
+                $t2 = date_format($date2, "Y-m-d");
+                $data['date'] = $getDate;
+                $data['data'] = "Hewan_kurban/dataTableKurban/".$t1."/".$t2;
                 $this->load->view('lap_hewan_kurban_view',$data);
             }
-   
+
         }
         else{
             redirect(site_url().'/Auth/logout');
         }
     }
 
-    public function dataTableKurban($tanggalAwal, $tanggalAkhir)
+    public function dataTableKurban($t1, $t2)
     {
         header("Content-type: application/json");
-        echo $this->Lap_kurban_model->getDataKurban($tanggalAwal,$tanggalAkhir);
+        echo $this->Lap_kurban_model->getDataKurban($t1,$t2);
     }
 
-    public function laporan_print($t1,$t2)
+    public function laporan_print($tanggal)
     {
-        $c1 = date_create($t1);
-        $c2 = date_create($t2);
-        $tgl1 = date_format($c1, "Ymd");
-        $tgl2 = date_format($c2, "Ymd");
-        $data['t1'] = $t1;
-        $data['t2'] = $t2;
+        $pisah = explode("%20-%20", $tanggal);
+        $ganti[0] = explode("-", $pisah[0]);
+        $ganti[1] = explode("-", $pisah[1]);
+        $ganti[0] = implode("-", [$ganti[0][2],$ganti[0][0],$ganti[0][1]]);
+        $ganti[1] = implode("-", [$ganti[1][2],$ganti[1][0],$ganti[1][1]]);
+        $ganti[0] = date_create($ganti[0]);
+        $ganti[1] = date_create($ganti[1]);
+        $tgl1 = date_format($ganti[0], "Y-m-d");
+        $tgl2 = date_format($ganti[1], "Y-m-d");
+        $data['date'] = implode(" - ",$pisah);
         $data['data'] = $this->Lap_kurban_model->sel_date($tgl1,$tgl2)->result();
         $this->load->view('prints/hewan_print',$data);
     }
