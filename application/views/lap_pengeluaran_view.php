@@ -40,7 +40,6 @@ $this->load->view('template/side');
                 <div class="tab-content" id="custom-content-below-tabContent">
                     <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel"
                         aria-labelledby="custom-content-below-home-tab">
-                        <br>
                         <!-- Date range -->
                         <form action="<?=site_url('Lap_pengeluaran/index')?>" method="post" class="form-group">
                             <div class="col-sm-12 row">
@@ -53,7 +52,7 @@ $this->load->view('template/side');
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control float-right" name="searchByDate" id="searchByDate">
+                                    <input type="text" class="form-control float-right" value="<?=$date?>" name="searchByDate" id="searchByDate">
                                 </div>
                                 <button type="submit" class="btn btn-primary"
                                     style="margin-right:5px">Tampilkan</button>
@@ -62,7 +61,7 @@ $this->load->view('template/side');
                         </form>
                         <!-- /.form group -->
 
-                        <table id="datatable" class="table table-bordered table-striped" width="100%">
+                        <table id="tablePengeluaran" class="table table-bordered table-striped" width="100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -92,12 +91,12 @@ $this->load->view('template/side');
         <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1): ?>
         <!-- Modal -->
 		<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog modal-md">
 				<div class="modal-content">
 					<!-- form start -->
 					<form class="form-horizontal" action="<?php echo site_url('Lap_pengeluaran/Action') ?>" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Tambah Data Pengeluaran</h4>
+							<h4 class="modal-title" id="modelTitle">Tambah Data Pengeluaran</h4>
 							<button type="button" class="close" data-dismiss="modal">
 								<span aria-hidden="true">&times;</span>
 								<span class="sr-only">Close</span>
@@ -110,16 +109,16 @@ $this->load->view('template/side');
 										<p><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
 										<input type="hidden" id="addNama" name="addNama" value="<?php echo $_SESSION['nama'] ?>">
 									</div>
-									<div class="form-group">
+									<div class="form-group col-md-12">
 										<label class="control-label">Tanggal</label>
 										<input type="text" class="form-control datePicker" id="addTanggal" name="addTanggal"
 											placeholder="31-Agustus-2000" required autocomplete="off">
 									</div>
-									<div class="form-group">
+									<div class="form-group col-md-12">
 										<label class="control-label">Jumlah</label>
 										<input type="text" class="form-control inputMask" id="addJumlah" name="addJumlah" required>
 									</div>
-									<div class="form-group">
+									<div class="form-group col-md-12">
 										<label for="addKeterangan">Keterangan</label>
 										<textarea class="form-control" name="addKeterangan" id="addKeterangan" rows="3"></textarea>
 									</div>
@@ -176,7 +175,7 @@ $this->load->view('template/js');
     };
 
     let url = "<?= site_url($data) ?>";
-    table_pengeluaran = $("#datatable").DataTable({
+    table_pengeluaran = $("#tablePengeluaran").DataTable({
       initComplete: function () {
         var api = this.api();
         $('#mytable_filter input')
@@ -232,14 +231,21 @@ $this->load->view('template/js');
     // End Datatables
 
     $("#searchByDate").daterangepicker({
-        startDate: moment().startOf('month'),
-        endDate: moment().endOf('month')
+        // startDate: moment().startOf('month'),
+        // endDate: moment().endOf('month')
     });
     $('.datePicker').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         minYear: 2000
     });
+
+	<?php if(@$_SESSION['succ']):?>
+    toastr.success("<?=@$_SESSION['succ']?>");
+    <?php endif ?>
+    <?php if(@$_SESSION['fail']):?>
+    toastr.error("<?=@$_SESSION['fail']?>");
+    <?php endif ?>
 
     //Inputmask global
     $('.inputMask').inputmask('decimal', {
@@ -277,19 +283,17 @@ $this->load->view('template/js');
           $("#addKeterangan").val(keterangan);
           $("#idPengeluaran").val(id_pengeluaran);
           $("#action").val("edit");
+		  $("#modalTitle").html("Edit Data Pengeluaran");
           $("#modalTambah").modal("show");
         }) 
     <?php endif; ?>
 
     $('#btnPrint').click(function () {
-      var tanggal1 = $("#t1").val();
-      var tanggal2 = $("#t2").val();
-      var url = '<?php echo site_url("/Lap_pengeluaran/laporan_print/");?>' + tanggal1 + '/' + tanggal2;
+      let tgl = $("#searchByDate").val();
+	  tgl = tgl.split("/");
+	  let tanggal = tgl.join("-");
+      let url = '<?php echo site_url("/Lap_pengeluaran/laporan_print/");?>' + tanggal;
       newwindow = window.open(url, 'Print', 'height=500,width=1100');
-      if (window.focus) {
-        newwindow.focus()
-      }
-      return false;
     });
 
     <?php
@@ -307,7 +311,7 @@ $this->load->view('template/js');
             delete: {
               text: 'Delete',
               action: function () {
-                window.location = "Lap_pengeluaran/HapusData/" + id
+                window.location = "<?=site_url('Lap_pengeluaran/HapusData/')?>" + id
               }
             }
           }

@@ -9,23 +9,21 @@ class Lap_pengeluaran extends CI_Controller {
 
     public function index() {
         if(isset($_SESSION['username'])) {
-            if($this->input->post('t1')=="" && $this->input->post('t2')==""){
-                $data['t1'] = date("01-F-Y");
-                $data['t2'] = date("t-F-Y");
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Y-m-d");
-                $t2 = date_format($date2, "Y-m-d");
+            if($this->input->post('searchByDate')==""){
+                $t1 = date("Y-m-01");
+                $t2 = date("Y-m-t");
+                $data['date'] = date("m-01-Y - m-t-Y");
                 $data['data'] = "Lap_pengeluaran/dataTablePengeluaran/".$t1."/".$t2;
                 $this->load->view('lap_pengeluaran_view',$data);
             }
             else{
-                $data['t1'] = $this->input->post('t1');
-                $data['t2'] = $this->input->post('t2');
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
+                $getDate = $this->input->post('searchByDate');
+                $split = explode(" - ", $getDate);
+                $date1 = date_create($split[0]);
+                $date2 = date_create($split[1]);
                 $t1 = date_format($date1, "Y-m-d");
                 $t2 = date_format($date2, "Y-m-d");
+                $data['date'] = $getDate;
                 $data['data'] = "Lap_pengeluaran/dataTablePengeluaran/".$t1."/".$t2;
                 $this->load->view('lap_pengeluaran_view',$data);
             }
@@ -45,7 +43,7 @@ class Lap_pengeluaran extends CI_Controller {
     public function Action() {
         $p=$this->input->post();
         $tgl=date_create($p['addTanggal']);
-        $date=date_format($tgl, "Ymd");
+        $date=date_format($tgl, "Y-m-d");
         $jumlah=str_replace(".", "", $p['addJumlah']);
         if ($p['action']=="add") {
             $data=array('id_admin'=> $_SESSION['id_admin'],
@@ -87,7 +85,6 @@ class Lap_pengeluaran extends CI_Controller {
             $this->session->set_flashdata('succ', 'Berhasil tambah data <i><b>pengeluaran</b></i>');
             redirect('Lap_pengeluaran');
         }
-
         else {
             $this->session->set_flashdata('fail', 'Gagal tambah data pengeluaran, segera hubungi admin');
             redirect('Lap_pengeluaran');
@@ -95,13 +92,17 @@ class Lap_pengeluaran extends CI_Controller {
     }
 
 
-    Public function laporan_print($t1,$t2) {
-        $c1 = date_create($t1);
-        $c2 = date_create($t2);
-        $tgl1 = date_format($c1, "Ymd");
-        $tgl2 = date_format($c2, "Ymd");
-        $data['t1'] = $t1;
-        $data['t2'] = $t2;
+    Public function laporan_print($tanggal) {
+        $pisah = explode("%20-%20", $tanggal);
+        $ganti[0] = explode("-", $pisah[0]);
+        $ganti[1] = explode("-", $pisah[1]);
+        $ganti[0] = implode("-", [$ganti[0][2],$ganti[0][0],$ganti[0][1]]);
+        $ganti[1] = implode("-", [$ganti[1][2],$ganti[1][0],$ganti[1][1]]);
+        $ganti[0] = date_create($ganti[0]);
+        $ganti[1] = date_create($ganti[1]);
+        $tgl1 = date_format($ganti[0], "Y-m-d");
+        $tgl2 = date_format($ganti[1], "Y-m-d");
+        $data['date'] = implode(" - ",$pisah);
         $data['data'] = $this->Lap_pengeluaran_model->sel_date($tgl1, $tgl2)->result();
         $data['total'] = $this->Lap_pengeluaran_model->get_total_pengeluaran_print($tgl1, $tgl2)->result();
         $this->load->view('prints/Pengeluaran_print', $data);

@@ -30,7 +30,7 @@
          $this->datatables->where("lap_pengeluaran.tanggal >=", $tanggalAwal);
          $this->datatables->where("lap_pengeluaran.tanggal <=", $tanggalAkhir);
          $this->datatables->add_column("aksi", 
-         "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id_pengeluaran='$1' data-id_admin='$2' data-tanggal='$3' data-jumlah='$4' data-keterangan='$5' data-log_time='$6' data-admin='$7' data-username='$8'><i class='fa fa-pencil'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id_pengeluaran='$1' data-tanggal='$3' data-ruang='$6'><i class='fa fa-remove'></i></a>",
+         "<a href='javascript:void(0)' class='btnEdit btn btn-warning btn-xs' title='Edit' data-id_pengeluaran='$1' data-id_admin='$2' data-tanggal='$3' data-jumlah='$4' data-keterangan='$5' data-log_time='$6' data-admin='$7' data-username='$8'><i class='fa fa-edit'></i></a> <a href='javascript:void(0)' class='btnDelete btn btn-danger btn-xs' data-id_pengeluaran='$1' data-tanggal='$3' data-ruang='$6'><i class='fa fa-trash-alt'></i></a>",
          'id_pengeluaran,
          id_admin,
          tanggal,
