@@ -14,12 +14,12 @@ $this->load->view('template/side');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Kas Masjid</h1>
+                    <h1>Laporan Zakat & Infaq</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-                        <li class="breadcrumb-item active">Kas Masjid</li>
+                        <li class="breadcrumb-item active">Zakat & Infaq</li>
                     </ol>
                 </div>
             </div>
@@ -28,6 +28,51 @@ $this->load->view('template/side');
 
     <!-- Main content -->
     <section class="content">
+
+        <?php if ($_SESSION['1insert'] == 1): ?>
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-edit"></i>
+                    Tabel Kas Masjid
+                </h3>
+            </div>
+            <div class="card-body">
+                <form id="form" action="<?php echo site_url('zakat_ctrl/tambahData')?>" method="POST">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input placeholder="Nama" type="text" name="nama" id="nama" class="form-control" autofocus
+                                required>
+                        </div>
+                        <div class="col-md-2">
+                            <input placeholder="Alamat" type="text" name="alamat" id="alamat" class="form-control"
+                                required>
+                        </div>
+                        <div class="col-md-2">
+                            <input placeholder="Zakat Fitrah" class="inputMask form-control" type="number"
+                                name="zakatFitrah" id="zakatFitrah" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" name="pembelian" id="pembelian">
+                                <option value="">- Pilih Tipe -</option>
+                                <option value="0">Beli</option>
+                                <option value="1">Tidak</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input placeholder="Zakat Mall" type="text" name="zakatMal" id="zakatMal"
+                                class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <input placeholder="Infaq" type="text" name="infaq" id="infaq" class="form-control">
+                        </div>
+                    </div>
+                </form>
+                <small class="text-muted">Np: Tekan 'ENTER' pada bagian infaq untuk submit</small>
+            </div>
+            <!-- /.card -->
+        </div>
+        <?php endif ?>
 
         <div class="card card-primary card-outline">
             <div class="card-header">
@@ -43,16 +88,18 @@ $this->load->view('template/side');
                         <!-- Date range -->
                         <form action="<?=site_url('Hewan_kurban/index')?>" method="post" class="form-group">
                             <div class="col-sm-12 row">
-								<?php if ($_SESSION['6insert'] == 1): ?>
-								<button type="button" name="btnTambah" id="btnTambah" class="btn btn-primary col-md-2">Tambah Data</button>
-								<?php endif; ?>
+                                <?php if ($_SESSION['6insert'] == 1): ?>
+                                <button type="button" name="btnTambah" id="btnTambah"
+                                    class="btn btn-primary col-md-2">Tambah Data</button>
+                                <?php endif ?>
                                 <div class="input-group col-sm-5">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control float-right" value="<?=$date?>" name="searchByDate" id="searchByDate">
+                                    <input type="text" class="form-control float-right" value="<?=@$date?>"
+                                        name="searchByDate" id="searchByDate">
                                 </div>
                                 <button type="submit" class="btn btn-primary"
                                     style="margin-right:5px">Tampilkan</button>
@@ -64,16 +111,17 @@ $this->load->view('template/side');
                         <table id="tablePengeluaran" class="table table-bordered table-striped" width="100%">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th class="min-tablet">Tanggal</th>
-                                    <th class="min-tablet">Admin</th>
-                                    <th>Penyumbang</th>
+                                    <th>Admin</th>
+                                    <th>Nama</th>
                                     <th class="min-tablet">Alamat</th>
-                                    <th>Jenis Hewan</th>
-                                    <th class="min-tablet">jumlah</th>
-                                    <?php if($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1) { ?>
+                                    <th class="min-tablet">Zakat Fitrah</th>
+                                    <th class="min-tablet">Pembelian</th>
+                                    <th class="min-desktop">Zakat Mall</th>
+                                    <th class="min-desktop">Infaq</th>
+                                    <th class="min-desktop">Tanggal</th>
+                                    <?php if ($_SESSION['1edit'] == "1" && $_SESSION['1delete'] == "1"): ?>
                                     <th class="min-desktop">Action</th>
-                                    <?php } ?>  
+                                    <?php endif ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,60 +140,65 @@ $this->load->view('template/side');
 
         <?php if ($_SESSION['6edit'] == 1 || $_SESSION['6delete'] == 1 || $_SESSION['6insert'] == 1): ?>
         <!-- Modal -->
-		<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-md">
-				<div class="modal-content">
-					<!-- form start -->
-					<form class="form-horizontal" action="<?php echo site_url('Lap_pengeluaran/Action') ?>" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title" id="modelTitle">Tambah Data Pengeluaran</h4>
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">&times;</span>
-								<span class="sr-only">Close</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="box-body">
-								<div class="row col-md-12">
-									<div class="form-group col-md-12">
-										<p><b>Nama Admin:</b> <?php echo $_SESSION['nama']; ?></p>
-										<input type="hidden" id="addNama" name="addNama" value="<?php echo $_SESSION['nama'] ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Penyumbang</label>
-                                        <input type="text" class="form-control" id="penyumbang" name="penyumbang" placeholder="M Nur Fauzan W"
-                                            require>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Kapas Madya" required
-                                            autofocus="on">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="jenisHewan">Jenis Hewan</label>
-                                        <select class="form-control" name="jenisHewan" id="jenisHewan">
-                                            <option selected>-=Pilih=-</option>
-                                            <option value="1">Kambing</option>
-                                            <option value="2">Sapi</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Jumlah</label>
-                                        <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="2" require>
-                                    </div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
+        <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <!-- form start -->
+                    <form class="form-horizontal" action="<?php echo site_url('zakat_ctrl/simpanEdit') ?>"
+                        method="post">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modelTitle">Tambah Data Pengeluaran</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="namaEdt">Nama :</label>
+                                <input type="text" name="namaEdt" id="namaEdt" class="form-control"
+                                    placeholder="ex : Virgorasion">
+                            </div>
+                            <div class="form-group">
+                                <label for="alamatEdt">Alamat :</label>
+                                <input type="text" name="alamatEdt" id="alamatEdt" class="form-control"
+                                    placeholder="ex : Kapas madya">
+                            </div>
+                            <div class="form-group">
+                                <label for="zakatFitrahEdt">Zakat Fitrah :</label>
+                                <input type="text" name="zakatFitrahEdt" id="zakatFitrahEdt" class="form-control"
+                                    placeholder="ex : 5">
+                            </div>
+                            <div class="form-group">
+                                <label for="pembelianEdt">Pembelian :</label>
+                                <select class="form-control" name="pembelianEdt" id="pembelianEdt">
+                                    <option value="0">Beli</option>
+                                    <option value="1">Tidak</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zakatMalEdt">Zakat Mall :</label>
+                                <input type="text" name="zakatMalEdt" id="zakatMalEdt" class="form-control"
+                                    placeholder="ex : 50.000">
+                            </div>
+                            <div class="form-group">
+                                <label for="infaqEdt">Infaq :</label>
+                                <input type="text" name="infaqEdt" id="infaqEdt" class="form-control"
+                                    placeholder="ex : 100.000">
+                            </div>
+                            <input type="hidden" name="nomor" id="nomor" value="">
+                            <input type="hidden" name="id_admin" value="<?php echo $_SESSION['id_admin']; ?>">
+                        </div>
+                        <div class="modal-footer">
                             <input type="hidden" class="form-control" id="idKurban" name="idKurban">
                             <input type="hidden" name="action" id="action" value="add">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary btnSave">Save changes</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <?php endif; ?>
 
 

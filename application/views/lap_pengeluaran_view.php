@@ -283,7 +283,7 @@ $this->load->view('template/js');
           $("#addKeterangan").val(keterangan);
           $("#idPengeluaran").val(id_pengeluaran);
           $("#action").val("edit");
-		  $("#modalTitle").html("Edit Data Pengeluaran");
+          $("#modalTitle").html("Edit Data Pengeluaran");
           $("#modalTambah").modal("show");
         }) 
     <?php endif; ?>

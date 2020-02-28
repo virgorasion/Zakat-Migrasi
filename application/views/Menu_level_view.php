@@ -101,9 +101,6 @@ $this->load->view('template/js');
       "info": true,
       "autoWidth": false
     });
-    $(".alert-success").fadeTo(2000, 500).slideUp(500, function () {
-      $(".alert-sucess").slideUp(500);
-    });
     $(".btnSave").click(function () {
       $('#form-horizontal').submit(function () {
         return false;

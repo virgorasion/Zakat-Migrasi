@@ -6,28 +6,31 @@
         public function __construct(){
             parent::__construct();
             $this->load->model('Lap_zakat_model');
+            $this->load->library("datatables");
         }
 
         public function index(){
            if(isset($_SESSION['username'])){
-            if($this->input->post('t1')=="" && $this->input->post('t2')==""){
-                $data['t1'] = date("01-F-Y");
-                $data['t2'] = date("t-F-Y");
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Ymd");
-                $t2 = date_format($date2, "Ymd");
-                $data['data'] = $this->Lap_zakat_model->sel_date($t1,$t2)->result();
+            if($this->input->post('searchByDate')==""){
+                $t1 = date("Y-m-01");
+                $t2 = date("Y-m-t");
+                $data['t1'] = $t1;
+                $data['t2'] = $t2;
+                $data['date'] = date("m-01-Y - m-t-Y");
+                $data['data'] = "zakat_ctrl/getDatatable/".$t1."/".$t2;
                 $this->load->view('lap_zakat_view',$data);
             }
             else{
-                $data['t1'] = $this->input->post('t1');
-                $data['t2'] = $this->input->post('t2');
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Ymd");
-                $t2 = date_format($date2, "Ymd");
-                $data['data'] = $this->Lap_zakat_model->sel_date($t1,$t2)->result();
+                $getDate = $this->input->post('searchByDate');
+                $split = explode(" - ", $getDate);
+                $date1 = date_create($split[0]);
+                $date2 = date_create($split[1]);
+                $t1 = date_format($date1, "Y-m-d");
+                $t2 = date_format($date2, "Y-m-d");
+                $data['t1'] = $t1;
+                $data['t2'] = $t2;
+                $data['date'] = $getDate;
+                $data['data'] = "zakat_ctrl/getDatatable/".$t1."/".$t2;
                 $this->load->view('lap_zakat_view', $data);
             }
         }
@@ -35,68 +38,92 @@
             redirect('home');
         }
     }
-     
-    public function laporan_print($t1,$t2)
+
+    public function getDatatable($t1, $t2)
     {
-        $c1 = date_create($t1);
-        $c2 = date_create($t2);
-        $tgl1 = date_format($c1, "Ymd");
-        $tgl2 = date_format($c2, "Ymd");
-        $data['t1'] = $t1;
-        $data['t2'] = $t2;
+        header("Content-Type: application/json");
+        echo $this->Lap_zakat_model->setDatatable($t1,$t2);
+    }
+     
+    public function laporan_print($tanggal)
+    {
+        $pisah = explode("%20-%20", $tanggal);
+        $ganti[0] = explode("-", $pisah[0]);
+        $ganti[1] = explode("-", $pisah[1]);
+        $ganti[0] = implode("-", [$ganti[0][2],$ganti[0][0],$ganti[0][1]]);
+        $ganti[1] = implode("-", [$ganti[1][2],$ganti[1][0],$ganti[1][1]]);
+        $ganti[0] = date_create($ganti[0]);
+        $ganti[1] = date_create($ganti[1]);
+        $tgl1 = date_format($ganti[0], "Y-m-d");
+        $tgl2 = date_format($ganti[1], "Y-m-d");
+        $data['date'] = implode(" - ",$pisah);
         $data['selBeli'] = $this->Lap_zakat_model->sel_beli($tgl1,$tgl2)->result();
         $data['data'] = $this->Lap_zakat_model->sel_date($tgl1,$tgl2)->result();
         $this->load->view('prints/zakat_print',$data);
     }
 
-    public function tambahData()
+    public function action()
     {
-        $nama = htmlspecialchars($this->input->post('nama'));
-        $alamat = htmlspecialchars($this->input->post('alamat'));
-        $zakatFitrah = htmlspecialchars($this->input->post('zakatFitrah'));
-        $pembelian = htmlspecialchars($this->input->post('pembelian'));
-        $Mal = $this->input->post('zakatMal');
-        $pecah1 = explode('.',$Mal);
-        $zakatMal = implode("",$pecah1);
-        $faq = $this->input->post('infaq');
-        $pecah2 = explode('.',$faq);
-        $infaq = implode("", $pecah2);
-        $tanggal = date('Y-m-d');
-
-        $this->Lap_zakat_model->input('list_zakat',$nama,$alamat,$zakatFitrah,$pembelian,$zakatMal,$infaq,$tanggal);
-        $this->session->set_flashdata('msg', 'Berhasil Menambah Data');
-        redirect(site_url('zakat_ctrl'));
-    }
-
-    public function edit($nomor)
-    {
-        $data = $this->Lap_zakat_model->select_zakat($nomor)->result();
-        echo json_encode($data);
+        $post = $this->input->post();
+        $zakatMall = str_replace(".", "", $post['actionMall']);
+        $infaq = str_replace(".", "", $post['actionInfaq']);
+        $tanggal = date("Y-m-d");
+        if ($post['action'] == "add") {
+            $data = [
+                'nama' => htmlspecialchars($post['actionNama']),
+                'alamat' => htmlspecialchars($post['actionAlamat']),
+                'zakat_fitrah' => $post['actionFitrah'],
+                'beli' => $post['actionBeli'],
+                'zakat_mall' => $zakatMall,
+                'infaq' => $infaq,
+                'tanggal' => $tanggal,
+                'id_admin' => $_SESSION['id_admin']
+            ];
+            $query = $this->Lap_zakat_model->add_data('list_zakat',$data);
+            if ($query) {
+                $this->session->set_flashdata('succ', 'Berhasil Tambah Data <i><b>Zakat</b></i>');
+                redirect('zakat_ctrl');
+            }else {
+                $this->session->set_flashdata('fail', 'Gagal Tamabah Data Zakat, segera hubungi admin');
+                var_dump($query);
+                die();
+                redirect('zakat_ctrl');
+            }
+        } elseif ($post['action'] == "edit") {
+            $data = [
+                'nama' => htmlspecialchars($post['actionNama']),
+                'alamat' => htmlspecialchars($post['actionAlamat']),
+                'zakat_fitrah' => $post['actionFitrah'],
+                'beli' => $post['actionBeli'],
+                'zakat_mall' => $zakatMall,
+                'infaq' => $infaq,
+                'id_admin' => $_SESSION['id_admin']
+            ];
+            $id = $post['idZakat'];
+            $query = $this->Lap_zakat_model->update_data('list_zakat',$data,$id);
+            if ($query) {
+                $this->session->set_flashdata('succ', 'Berhasil Edit Data <i><b>Zakat</b></i>');
+                redirect('zakat_ctrl');
+            }else {
+                $this->session->set_flashdata('fail', 'Gagal Edit Data Zakat, segera hubungi admin');
+                redirect('zakat_ctrl');
+            }
+        } else {
+            $this->session->set_flashdata('fail', 'Terjadi Kesalahan, Silahkan Refresh Halaman Anda Saat Ini');
+            redirect('zakat_ctrl');
+        }
     }
 
     public function hapus($nomor)
     {
-        $data = $this->Lap_zakat_model->hapus($nomor);
-        $this->session->set_flashdata('msg','Data Berhasil di Hapus');
-        redirect(site_url('zakat_ctrl'));
-    }
-
-    public function simpanEdit()
-    {
-        $nomor = $this->input->post('nomor');
-        $namaEdt = $this->input->post('namaEdt');
-        $alamatEdt = $this->input->post('alamatEdt');
-        $zakatFitrahEdt = $this->input->post('zakatFitrahEdt');
-        $pembelianEdt = $this->input->post('pembelianEdt');
-        $Mal = $this->input->post('zakatMalEdt');
-        $pecah1 = explode('.',$Mal);
-        $zakatMalEdt = implode("",$pecah1);
-        $faq = $this->input->post('infaqEdt');
-        $pecah2 = explode('.',$faq);
-        $infaqEdt = implode("",$pecah2);
-        $this->Lap_zakat_model->ganti($nomor,$namaEdt,$alamatEdt,$zakatFitrahEdt,$pembelianEdt,$zakatMalEdt,$infaqEdt);
-        $this->session->set_flashdata('msg','Data Berhasil di Edit');
-        redirect(site_url('zakat_ctrl'));
+        $query = $this->Lap_zakat_model->hapus($nomor);
+        if ($query) {
+            $this->session->set_flashdata('succ', 'Berhasil Hapus Data <i><b>Zakat</b></i>');
+            redirect('zakat_ctrl');
+        }else {
+            $this->session->set_flashdata('fail', 'Gagal Hapus Data Zakat, segera hubungi admin');
+            redirect('zakat_ctrl');
+        }
     }
 
     public function synchronize($t1,$t2)

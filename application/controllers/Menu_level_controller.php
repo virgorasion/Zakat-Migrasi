@@ -48,8 +48,8 @@ class Menu_level_controller extends CI_controller{
                 'akses_edit' => ($edit=="1")?"1":"0",
                 'akses_delete' => ($delete=="1")?"1":"0",
                 );
-                $this->Menu_level_model->input_data($data, 'menu_level');   
-                // print_r($data);
+                $query = $this->Menu_level_model->input_data($data, 'menu_level');   
+                var_dump($query);
             endforeach;            
             // die();
             $this->session->set_flashdata('msg', 'Berhasil Simpan');  
