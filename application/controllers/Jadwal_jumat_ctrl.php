@@ -7,28 +7,27 @@ class Jadwal_Jumat_ctrl extends CI_controller
     {
         parent::__construct();
         $this->load->model('Jadwal_jumat_model');
+        $this->load->library("datatables");
     }
 
     public function index()
     {
         if (isset($_SESSION['username'])) {
-            if ($this->input->post('t1') == "" && $this->input->post('t2') == "") {
-                $data['t1'] = date("01-F-Y");
-                $data['t2'] = date("t-F-Y");
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Ymd");
-                $t2 = date_format($date2, "Ymd");
-                $data['datas'] = $this->Jadwal_jumat_model->sel_date($t1, $t2);
+            if($this->input->post('searchByDate')==""){
+                $t1 = date("Y-m-01");
+                $t2 = date("Y-m-t");
+                $data['date'] = date("m-01-Y - m-t-Y");
+                $data['data'] = "Jadwal_jumat_ctrl/getDatatables/".$t1."/".$t2;
                 $this->load->view('Jadwal_jumat_view', $data);
             } else {
-                $data['t1'] = $this->input->post('t1');
-                $data['t2'] = $this->input->post('t2');
-                $date1 = date_create($data['t1']);
-                $date2 = date_create($data['t2']);
-                $t1 = date_format($date1, "Ymd");
-                $t2 = date_format($date2, "Ymd");
-                $data['datas'] = $this->Jadwal_jumat_model->sel_date($t1, $t2);
+                $getDate = $this->input->post('searchByDate');
+                $split = explode(" - ", $getDate);
+                $date1 = date_create($split[0]);
+                $date2 = date_create($split[1]);
+                $t1 = date_format($date1, "Y-m-d");
+                $t2 = date_format($date2, "Y-m-d");
+                $data['date'] = $getDate;
+                $data['data'] = "Jadwal_jumat_ctrl/getDatatables/".$t1."/".$t2;
                 $this->load->view('Jadwal_jumat_view', $data);
             }
         } else {
@@ -53,8 +52,14 @@ class Jadwal_Jumat_ctrl extends CI_controller
             );
             $this->Jadwal_jumat_model->InsertJadwal('jadwal', $data);
         }
-        $this->session->set_flashdata('msg', "Berhasil tambah jadwal");
+        $this->session->set_flashdata('succ', "Berhasil tambah jadwal");
         redirect('Jadwal_jumat_ctrl');
+    }
+
+    public function getDatatables($t1,$t2)
+    {
+        header("Content-Type: application/json");
+        echo $this->Jadwal_jumat_model->setDatatables($t1,$t2);
     }
 
     public function EditJadwal()
@@ -72,7 +77,7 @@ class Jadwal_Jumat_ctrl extends CI_controller
         $kode = $p['kodeJadwal'];
         $query = $this->Jadwal_jumat_model->UpdateJadwal('jadwal', $data, $id, $kode);
         if ($query == 1) {
-            $this->session->set_flashdata('msg', 'Berhasil ubah data');
+            $this->session->set_flashdata('succ', 'Berhasil ubah data');
             redirect('Jadwal_jumat_ctrl');
         } else {
             $this->session->set_flashdata('err', 'Gagal ubah data, segera hubungi admin !');
@@ -80,11 +85,11 @@ class Jadwal_Jumat_ctrl extends CI_controller
         }
     }
 
-    public function HapusData($id, $kode)
+    public function HapusData($id)
     {
-        $query = $this->Jadwal_jumat_model->DeleteData('jadwal', $id, $kode);
+        $query = $this->Jadwal_jumat_model->DeleteData('jadwal', $id);
         if ($query == 1) {
-            $this->session->set_flashdata('msg', 'Berhasil hapus data');
+            $this->session->set_flashdata('succ', 'Berhasil hapus data');
             redirect('Jadwal_jumat_ctrl');
         } else {
             $this->session->set_flashdata('err', 'Gagal hapus data, segera hubungi admin !');
