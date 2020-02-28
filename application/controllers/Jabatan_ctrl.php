@@ -30,11 +30,11 @@ class Jabatan_ctrl extends CI_controller
                 'status_aktif' => 1
             );
             $query = $this->Jabatan_model->InsertDataJabatan('jabatan', $data);
-            if ($query == true) {
-                $this->session->set_flashdata('msg', 'Berhasil Tambah Jabatan');
+            if ($query) {
+                $this->session->set_flashdata('succ', 'Berhasil Tambah Jabatan');
                 redirect('Jabatan_ctrl');
             } else {
-                $this->session->set_flashdata('msg', 'Gagal Tambah Jabatan, Segera Hubungi Admin');
+                $this->session->set_flashdata('fail', 'Gagal Tambah Jabatan, Segera Hubungi Admin');
                 redirect('Jabatan_ctrl');
             }
         }else{
@@ -44,11 +44,11 @@ class Jabatan_ctrl extends CI_controller
             );
             $id = $p['ID'];
             $query = $this->Jabatan_model->UpdateDataJabatan('jabatan',$data,$id);
-            if ($query == true) {
-                $this->session->set_flashdata('msg', 'Berhasil Edit Jabatan');
+            if ($query) {
+                $this->session->set_flashdata('succ', 'Berhasil Edit Jabatan');
                 redirect('Jabatan_ctrl');
             } else {
-                $this->session->set_flashdata('msg', 'Gagal Edit Jabatan, Segera Hubungi Admin');
+                $this->session->set_flashdata('fail', 'Gagal Edit Jabatan, Segera Hubungi Admin');
                 redirect('Jabatan_ctrl');
             }
         }
@@ -57,11 +57,11 @@ class Jabatan_ctrl extends CI_controller
     public function HapusJabatan($id)
     {
         $query = $this->Jabatan_model->DeleteDataJabatan('jabatan',$id);
-        if ($query == true) {
-            $this->session->set_flashdata('msg', 'Berhasil Delete Jabatan');
+        if ($query) {
+            $this->session->set_flashdata('succ', 'Berhasil Delete Jabatan');
             redirect('Jabatan_ctrl');
         } else {
-            $this->session->set_flashdata('msg', 'Gagal Delete Jabatan, Segera Hubungi Admin');
+            $this->session->set_flashdata('fail', 'Gagal Delete Jabatan, Segera Hubungi Admin');
             redirect('Jabatan_ctrl');
         }
     }

@@ -19,7 +19,7 @@ class Jabatan_model extends CI_model
     
     public function DeleteDataJabatan($table, $id)
     {
-        $this->db->delete($table, array('id' => $id));
+        return $this->db->delete($table, array('id' => $id));
     }
     
 }
