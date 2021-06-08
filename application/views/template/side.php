@@ -2,7 +2,7 @@
   <aside class="main-sidebar">
 
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section class="sidebar" style="overflow: hidden; width: auto; height: 600px;">
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
