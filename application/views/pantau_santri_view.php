@@ -50,7 +50,7 @@
             <!-- User Account Menu -->
             <li class="user user-menu">
               <!-- Menu Toggle Button -->
-              <a href="#">
+              <a href="<?=site_url("Login")?>">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">Login </span>
               </a>
