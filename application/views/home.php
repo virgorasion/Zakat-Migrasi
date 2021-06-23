@@ -70,10 +70,10 @@ $this->load->view('template/side');
         <div class="small-box bg-red">
           <div class="inner">
             <h4>
-              Kambing : <?= (@$tot_kurban[0]->jumlah == Null) ? "0" : $tot_kurban[0]->jumlah; ?>
+              Kambing: <?=(empty($tot_kurban[0]->jumlah))? "0" : $tot_kurban[0]->jumlah ?>
             </h4>
             <h4>
-              Sapi : <?= (@$tot_kurban[1]->jumlah == Null) ? "0" : $tot_kurban[1]->jumlah; ?>
+              Sapi: <?=(empty($tot_kurban[1]->jumlah))? "0" : $tot_kurban[1]->jumlah ?>
             </h4>
 
             <p>Total Kurban
