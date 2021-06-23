@@ -49,11 +49,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Auth';
+$route['default_controller'] = 'Lihat_santri';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['Menu_level'] = 'Menu_level_controller';
+$route['Login'] = 'Auth';
 $route['Santri'] = "santri_ctrl";
 $route['Tambah_santri'] = "Santri_ctrl/tambah_santri";
 $route['Raport/(:num)'] = "Santri_ctrl/raport/$1";
@@ -61,6 +62,7 @@ $route['Kelas'] = 'Santri_ctrl/kelas';
 $route['Mapel'] = 'Santri_ctrl/mapel';
 $route['Absensi'] = 'Santri_ctrl/absensi';
 $route['Ustadz'] = 'Santri_ctrl/ustadz';
+$route['pantau_santri'] = 'Lihat_santri';
 $route['riwayat_absensi'] = 'Santri_ctrl/riwayat_absensi';
 $route['Perlengkapan/(:num)'] = 'Perlengkapan_ctrl/index/$1';
 $route['Perlengkapan'] = 'Perlengkapan_ctrl';

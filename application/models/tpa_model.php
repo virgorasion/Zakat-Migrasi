@@ -37,6 +37,24 @@ class Tpa_model extends CI_model
         return $res;
     }
 
+    public function getRaportSantriForOrtu($lahir,$pin)
+    {
+        return $this->db->select("tpq_raport.*,tpq_santri.nama,tpq_santri.id,tpq_guru.nama as nama_guru,tpq_guru.id,tpq_matapelajaran.id,tpq_matapelajaran.nama as mapel,tpq_kelas.nama_kelas")
+                    ->from("tpq_raport")
+                    ->join("tpq_santri","tpq_raport.id_santri = tpq_santri.id","right")
+                    ->join("tpq_kelas","tpq_kelas.id = tpq_santri.id_kelas","right")
+                    ->join("tpq_guru","tpq_raport.id_guru = tpq_guru.id","left")
+                    ->join("tpq_matapelajaran","tpq_matapelajaran.id = tpq_raport.id_mapel","left")
+                    ->where("tpq_santri.tgl_lahir = '$lahir'")
+                    ->where("tpq_santri.kode_akses = $pin")
+                    ->get();
+    }
+
+    public function getAbsensiSantriForOrtu($lahir,$pin)
+    {
+        return $this->db->select("a.absen,a.tanggal")->from("tpq_absen a")->join("tpq_santri s","s.id = a.id_santri","right")->where("s.tgl_lahir = '$lahir'")->where("s.kode_akses = $pin")->get();
+    }
+
     public function getKelasBySantri($id_santri)
     {
         return $this->db->select("k.*")->from("tpq_kelas k")->join("tpq_santri s","s.id_kelas = k.id")->where("s.id = $id_santri")->get()->result();

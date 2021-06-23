@@ -1,0 +1,29 @@
+.jumlah{
+	text-align: center;
+}
+
+body{
+	width:300px;
+}
+.pad{
+	padding-top:30px;
+}
+.corn td{
+	vertical-align:top;
+	padding-top:10px;
+	padding-left:20px;
+}
+.ats{
+	padding-bottom: 20px;
+}
+.show-border td {
+	border-top: thin solid; 
+    border-bottom: thin solid;
+}
+
+.show-border td:first-child {
+	border-left: thin solid;
+}
+.pad td {
+	padding-top: 40px;
+}
