@@ -16,6 +16,8 @@
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/dist/js/app.min.js')?>"></script>
 <!-- JQuery Input Mask -->
 <script src="<?php echo base_url('assets/AdminLTE-2.3.7/plugins/inputmask/dist/jquery.inputmask.min.js')?>"></script>
+<!-- iCheck 1.0.1 -->
+<script src="<?= base_url("assets/AdminLTE-2.3.7/plugins/iCheck/icheck.min.js")?>"></script>
 <!-- Knockout -->
 <script src="<?php echo base_url('assets/knockout/knockout-3.4.1.js')?>"></script>
 

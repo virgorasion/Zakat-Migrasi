@@ -7,13 +7,9 @@ $this->load->view('template/side');
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Blank page
-            <small>it all starts here</small>
+            Tambah Santri
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Blank page</li>
         </ol>
     </section>
 
@@ -33,19 +29,27 @@ $this->load->view('template/side');
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="addNama">Nama Santri</label>
-                                <input type="text" class="form-control" name="addNama" id="addNama" placeholder="Nama Santri">
+                                <input type="text" class="form-control" name="addNama" id="addNama" placeholder="Nama Santri" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="addJk">Jenis Kelamin</label>
+                              <select required class="form-control" name="addJk" id="addJk">
+                                <option disabled selected value>-Pilih-</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                              </select>
                             </div>
                             <div class="form-group">
                                 <label for="addAlamat">Alamat</label>
-                                <input type="text" class="form-control" name="addAlamat" id="addAlamat" placeholder="Alamat">
+                                <input type="text" class="form-control" name="addAlamat" id="addAlamat" placeholder="Alamat" required>
                             </div>
                             <div class="form-group">
                                 <label for="addLahir">Tanggal Lahir</label>
-                                <input type="date" class="form-control" name="addLahir" id="addLahir" placeholder="Tanggal Lahir">
+                                <input type="date" class="form-control" name="addLahir" id="addLahir" placeholder="Tanggal Lahir" required>
                             </div>
                             <div class="form-group">
                                 <label for="addWali">Wali Santri</label>
-                                <input type="text" class="form-control" name="addWali" id="addWali" placeholder="Nama Wali Santri">
+                                <input type="text" class="form-control" name="addWali" id="addWali" placeholder="Nama Wali Santri" required>
                             </div>
                             <div class="form-group">
                                 <label for="AddNomor">Nomor HP</label>
