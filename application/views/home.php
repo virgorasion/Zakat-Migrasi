@@ -126,7 +126,7 @@ $this->load->view('template/foot');
 $this->load->view('template/js');
 ?>
 <!-- Morris.js charts -->
-<script src="<?=base_url('assets/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
+<script src="<?=base_url('assets/AdminLTE-2.3.7/plugins/Chart.js/dist/Chart.bundle.min.js')?>"></script>
 <script>
 
 window.chartColors = {
