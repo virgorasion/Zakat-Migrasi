@@ -7,13 +7,13 @@ $this->load->view('template/side');
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Daftar Santri & Penilaian
-            <small>it all starts here</small>
+            Manajemen Mata Pelajaran
+            <!-- <small>it all starts here</small> -->
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <!-- <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Examples</a></li>
-            <li class="active">Blank page</li>
+            <li class="active">Blank page</li> -->
         </ol>
     </section>
 
@@ -154,15 +154,15 @@ $this->load->view('template/js');
         var id = $(this).data('id');
         $.confirm({
             theme: 'supervan',
-            title: 'Hapus Kelas',
-            content: 'Apakah Anda Yakin Ingin Menghapus Kelas Ini ? ',
+            title: 'Hapus Matapelajaran',
+            content: 'Apakah Anda Yakin Ingin Menghapus Mapel Ini ? ',
             autoClose: 'Cancel|10000',
             buttons: {
                 Cancel: function () {},
                 delete: {
                     text: 'Delete',
                     action: function () {
-                        window.location = "<?=site_url('Santri_ctrl/delete_kelas/')?>" + id
+                        window.location = "<?=site_url('Santri_ctrl/delete_mapel/')?>" + id
                     }
                 }
             }
