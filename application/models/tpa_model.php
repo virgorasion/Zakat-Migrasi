@@ -134,23 +134,43 @@ class Tpa_model extends CI_model
                         ->get()->result();
     }
 
-    public function getSantriCowo()
+    public function getJumlahSantriCowo()
     {
         return $this->db->select("count(tpq_santri.id) as cowo, tpq_santri.tgl_lahir,tpq_kelas.nama_kelas")->from("tpq_santri")->join("tpq_kelas","tpq_kelas.id = tpq_santri.id_kelas","left")->where("jk","L")->get()->result();
     }
 
-    public function getSantriCewe()
+    public function getJumlahSantriCewe()
     {
         return $this->db->select("count(id) as cewe")->from("tpq_santri")->where("jk","P")->get()->result();
     }
 
-    public function getJumlahSantri()
+    public function getJumlahSantriTotal()
     {
         return $this->db->select("count(id) as total")->from("tpq_santri")->get()->result();
     }
 
-    public function getSantriLulus()
+    public function getJumlahSantriLulus()
     {
-        return $this->db->select("count(id) as jumlah_lulus")->from("tpq_santri")->where("tanggal_keluar NOT NULL")->get()->result();
+        return $this->db->select("count(id) as jumlah_lulus")->from("tpq_santri")->where("tanggal_keluar != 'NULL'")->get()->result();
+    }
+
+    public function getSantriCowo()
+    {
+        return $this->db->select("tpq_santri.nama,tpq_santri.tanggal_masuk,tpq_santri.tgl_lahir,tpq_kelas.nama_kelas,tpq_santri.alamat")->from("tpq_santri")->join("tpq_kelas","tpq_kelas.id = tpq_santri.id_kelas","left")->where("jk","L")->limit(5)->get()->result();
+    }
+
+    public function getSantriCewe()
+    {
+        return $this->db->select("tpq_santri.nama,tpq_santri.tanggal_masuk,tpq_santri.tgl_lahir,tpq_kelas.nama_kelas,tpq_santri.alamat")->from("tpq_santri")->join("tpq_kelas","tpq_kelas.id = tpq_santri.id_kelas","left")->where("jk","P")->limit(5)->get()->result();
+    }
+
+    public function getKelasLimit($limit)
+    {
+        return $this->db->select("tpq_kelas.*,tpq_guru.nama")->from("tpq_kelas")->join("tpq_guru","tpq_guru.id = tpq_kelas.id_guru","left")->limit($limit)->get()->result();
+    }
+
+    public function getGuruLimit($limit)
+    {
+        return $this->db->select("*")->from("tpq_guru")->limit($limit)->get()->result();
     }
 }

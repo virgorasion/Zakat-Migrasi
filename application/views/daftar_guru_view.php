@@ -76,17 +76,17 @@ $this->load->view('template/side');
                             <div class="form-group">
                                 <label for="addNama">Nama</label>
                                 <input required type="text" name="addNama" id="addNama" class="form-control"
-                                    placeholder="Nama Santri" aria-describedby="addNama">
+                                    placeholder="Nama Ustadz/Ustadzah" aria-describedby="addNama">
                             </div>
                             <div class="form-group">
                                 <label for="addAlamat">Alamat</label>
                                 <input required type="text" name="addAlamat" id="addAlamat" class="form-control"
-                                    placeholder="Nama Santri" aria-describedby="addAlamat">
+                                    placeholder="Alamat Ustadz/Ustadzah" aria-describedby="addAlamat">
                             </div>
                             <div class="form-group">
                                 <label for="addNope">No HP</label>
                                 <input required type="text" name="addNope" id="addNope" class="form-control"
-                                    placeholder="Nama Santri" aria-describedby="addNope">
+                                    placeholder="No Ustadz/Ustadzah" aria-describedby="addNope">
                             </div>
                             <div class="form-group">
                               <label for="addSyahadah">Kepemilikan Syahadah</label>

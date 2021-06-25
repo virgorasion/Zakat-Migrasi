@@ -23,7 +23,7 @@ $this->load->view('template/side');
 
                     <div class="info-box-content">
                         <span class="info-box-text">Murid Laki-laki</span>
-                        <span class="info-box-number">21</span>
+                        <span class="info-box-number"><?=$dataJumlahSantriCowo[0]->cowo?></span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -36,7 +36,7 @@ $this->load->view('template/side');
 
                     <div class="info-box-content">
                         <span class="info-box-text">Murid Perempuan</span>
-                        <span class="info-box-number">40</span>
+                        <span class="info-box-number"><?=$dataJumlahSantriCewe[0]->cewe?></span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -53,7 +53,7 @@ $this->load->view('template/side');
 
                     <div class="info-box-content">
                         <span class="info-box-text">total murid</span>
-                        <span class="info-box-number">61</span>
+                        <span class="info-box-number"><?=$dataJumlahSantriTotal[0]->total?></span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -66,7 +66,7 @@ $this->load->view('template/side');
 
                     <div class="info-box-content">
                         <span class="info-box-text">total alumni</span>
-                        <span class="info-box-number">25</span>
+                        <span class="info-box-number"><?=$dataJumlahSantriLulus[0]->jumlah_lulus?></span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -96,30 +96,20 @@ $this->load->view('template/side');
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Umur</th>
+                                    <th>Alamat</th>
                                     <th>Kelas</th>
-                                    <th>Pengaturan</th>
+                                    <th>Tanggal Masuk</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($dataSantriCowo as $d): ?>
                                 <tr>
-                                    <td>Oki Ferdiansyah</td>
-                                    <td>21</td>
-                                    <td>Kitab</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
+                                    <td><?=$d->nama?></td>
+                                    <td><?=$d->alamat?></td>
+                                    <td><?=$d->nama_kelas?></td>
+                                    <td><?=$d->tanggal_masuk?></td>
                                 </tr>
-                                <tr>
-                                    <td>Sahrul Ramadhan</td>
-                                    <td>18</td>
-                                    <td>Kitab</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
-                                <tr>
-                                    <td>Ikmal Amrillah</td>
-                                    <td>18</td>
-                                    <td>Kitab</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
@@ -145,30 +135,20 @@ $this->load->view('template/side');
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Umur</th>
+                                    <th>Alamat</th>
                                     <th>Kelas</th>
-                                    <th>Pengaturan</th>
+                                    <th>Tanggal Masuk</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($dataSantriCewe as $d): ?>
                                 <tr>
-                                    <td>Nur Aini</td>
-                                    <td>20</td>
-                                    <td>Al-quran</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
+                                    <td><?=$d->nama?></td>
+                                    <td><?=$d->alamat?></td>
+                                    <td><?=$d->nama_kelas?></td>
+                                    <td><?=$d->tanggal_masuk?></td>
                                 </tr>
-                                <tr>
-                                    <td>Fatin Zahidah Mas'ud</td>
-                                    <td>20</td>
-                                    <td>Qiroah</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
-                                <tr>
-                                    <td>Vinka Rusdiana</td>
-                                    <td>21</td>
-                                    <td>Al-quran</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
@@ -198,30 +178,20 @@ $this->load->view('template/side');
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Kelas</th>
+                                    <th>Alamat</th>
                                     <th>Telp</th>
-                                    <th>Pengaturan</th>
+                                    <th>Syahadah</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($dataGuruLimit as $d): ?>
                                 <tr>
-                                    <td>Misbachul Chamim</td>
-                                    <td>Kitab</td>
-                                    <td>08517284157</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
+                                    <td><?=$d->nama?></td>
+                                    <td><?=$d->alamat?></td>
+                                    <td><?=$d->no_telp?></td>
+                                    <td><?=$d->syahadah?></td>
                                 </tr>
-                                <tr>
-                                    <td>Choirul Anam</td>
-                                    <td>Iqro'</td>
-                                    <td>0851536346</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
-                                <tr>
-                                    <td>M Nur Fauzan W</td>
-                                    <td>Kitab</td>
-                                    <td>08517284157</td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
@@ -246,31 +216,21 @@ $this->load->view('template/side');
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Kelas</th>
-                                    <th>Jumlah</th>
-                                    <th>Status</th>
-                                    <th>Pengaturan</th>
+                                    <th>Nama Kelas</th>
+                                    <th>Metode</th>
+                                    <th>Tingkatan</th>
+                                    <th>Ustadz/Ustadzah</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php foreach($dataKelasLimit as $d): ?>
                                 <tr>
-                                    <td>Al-quran</td>
-                                    <td>25</td>
-                                    <td><span class="label label-success">Tersedia</span></td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
+                                    <td><?=$d->nama_kelas?></td>
+                                    <td><?=$d->metode?></td>
+                                    <td><?=$d->tingkatan?></td>
+                                    <td><?=$d->nama?></td>
                                 </tr>
-                                <tr>
-                                    <td>Iqro</td>
-                                    <td>50</td>
-                                    <td><span class="label label-warning">Penuh</span></td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
-                                <tr>
-                                    <td>Kitab</td>
-                                    <td>10</td>
-                                    <td><span class="label label-success">Tersedia</span></td>
-                                    <td><a href="#"><button class="btn btn-sm btn-success"><i class="fa fa-eye"></i></button></a></td>
-                                </tr>
+                            <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>

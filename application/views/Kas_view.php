@@ -8,7 +8,7 @@ $this->load->view('template/side');
     <section class="content-header">
         <h1>
             Kas Masjid
-            <small>Miftahul Jannah</small>
+            <!-- <small>Miftahul Jannah</small> -->
         </h1>
         <ol class="breadcrumb">
             <li>

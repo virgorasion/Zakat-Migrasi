@@ -2,8 +2,8 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      simplify your administration
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2017 M Nur Fauzan W.</strong> All rights reserved.
+					<b>Tugas</b> Wawasan Teknologi & Komunikasi
+				</div>
+				<strong>Copyright &copy; 2021 </strong> M Nur Fauzan W & Maughfirotul Jannah
+				reserved.
   </footer>

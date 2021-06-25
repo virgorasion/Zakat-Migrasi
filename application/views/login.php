@@ -23,7 +23,7 @@
     <body class="login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="#"><b><img src="<?php echo base_url('assets/images/logo.png')?>" class="img-circle" alt="User Image" style="width: 40%"></b><br>Masjid'Q</a>
+                <a href="#"><b><img src="<?php echo base_url('assets/download.png')?>" class="img-circle" alt="User Image" style="width: 40%"></b><br>Masjid'Q</a>
             </div><!-- /.login-logo -->
             <div class="login-box-body">
                 <p class="login-box-msg">Sign in to start your session</p>
